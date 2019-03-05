@@ -127,3 +127,6 @@ venv.bak/
 
 # Sphinx documentation
 docs/_build/
+
+# vim temp files
+*.sw[poe]
