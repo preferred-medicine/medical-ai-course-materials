@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. ニューラルネットワークの基礎 &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  <title>3. Basics of neural network &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4. Introduction to Deep Learning Framework" href="Introduction_to_Chainer.html" />
-    <link rel="prev" title="2. 機械学習ライブラリの基礎" href="Introduction_to_ML_libs.html" /> 
+    <link rel="prev" title="2. 2. Basics of machine learning" href="Introduction_to_ML_libs.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,47 +98,55 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. 機械学習に必要な数学の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 機械学習ライブラリの基礎</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. ニューラルネットワークの基礎</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ニューラルネットワークの構造">3.1. ニューラルネットワークの構造</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#線形変換">3.1.1. 線形変換</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#非線形変換">3.1.2. 非線形変換</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#数値を見ながら計算の流れを確認">3.1.3. 数値を見ながら計算の流れを確認</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. 1. basis of the mathematics required to machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 2. Basics of machine learning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Basics of neural network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#3.1.-Structure-of-neural-network">3.1. 3.1. Structure of neural network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#3.1.1.-Linear-transformation">3.1.1. 3.1.1. Linear transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.1.2.-Nonlinear-transformation/Conversion">3.1.2. 3.1.2. Nonlinear transformation/Conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.1.3.-Check-the-flow-of-calculation-while-watching-the-numerical">3.1.3. 3.1.3. Check the flow of calculation while watching the numerical</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#目的関数">3.2. 目的関数</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#平均二乗誤差">3.2.1. 平均二乗誤差</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#交差エントロピー">3.2.2. 交差エントロピー</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#補足：交差エントロピーについて">3.2.2.1. 補足：交差エントロピーについて</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ニューラルネットワークの最適化">3.3. ニューラルネットワークの最適化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#パラメータ更新量の算出">3.3.1. パラメータ更新量の算出</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#パラメータ-{\bf-w}_2-の更新量">3.3.1.1. パラメータ <span class="math notranslate nohighlight">\({\bf w}_2\)</span> の更新量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#学習率（learning-rate）について">3.3.1.2. 学習率（learning rate）について</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#パラメータ-{\bf-w}_1-の更新量">3.3.1.3. パラメータ <span class="math notranslate nohighlight">\({\bf w}_1\)</span> の更新量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.2.-The-objective-function">3.2. 3.2. The objective function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#3.2.1.-Mean-squared">3.2.1. 3.2.1. Mean squared</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.2.2.-Cross-entropy">3.2.2. 3.2.2. Cross entropy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#3.2.2.1-Note:-for-cross-entropy">3.2.2.1. 3.2.2.1 Note: for cross-entropy</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#誤差逆伝播法（バックプロパゲーション）">3.4. 誤差逆伝播法（バックプロパゲーション）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#勾配消失">3.5. 勾配消失</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#「レイヤ」が指すもの">3.6. 「レイヤ」が指すもの</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#様々なレイヤタイプ">3.7. 様々なレイヤタイプ</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#畳み込み層（convolution-layer）">3.7.1. 畳み込み層（convolution layer）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#プーリング層（pooling-layer）">3.7.2. プーリング層（pooling layer）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.3.-Optimization-of-neural">3.3. 3.3. Optimization of neural</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#3.3.1.-Calculation-of-parameter-update">3.3.1. 3.3.1. Calculation of parameter update</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#3.3.1.1.-Parameters-𝐰2-Of-the-update-amount">3.3.1.1. 3.3.1.1. Parameters 𝐰2 Of the update amount</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.3.1.2.-Learning-rate-for-the-(Learning-Rate)">3.3.1.2. 3.3.1.2. Learning rate for the (Learning Rate)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.3.1.3.-Parameters-{\bf-w}_1-Of-the-update-amount">3.3.1.3. 3.3.1.3. Parameters <span class="math notranslate nohighlight">\({\bf w}_1\)</span> Of the update amount</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#3.4.-Back-propagation-method-(back-propagation)">3.4. 3.4. Back propagation method (back propagation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.5.-Slope">3.5. 3.5. Slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.6.-What-“layer”-points">3.6. 3.6. What “layer” points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.7.-Various-layer">3.7. 3.7. Various layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#3.7.1.-Convolution-layer">3.7.1. 3.7.1. Convolution layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.7.2.-Pooling-layer">3.7.2. 3.7.2. Pooling layer</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 実践編: MRI画像のセグメンテーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 実践編: 血液の顕微鏡画像からの細胞検出</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. 実践編: ディープラーニングを使った配列解析</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. 実践編: ディープラーニングを使ったモニタリングデータの時系列解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 5. Practice: Segmentation of MRI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. 7. practical part: sequence analysis using deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.2.-Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. 8.2. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.3.-Data-sets">10. 8.3. Data sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.4.-Data-pre-processing">11. 8.4. Data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.-Series-data-analysis-when-using-the-deep-learning">12. 8.5. Series data analysis when using the deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.2.-Evaluation">13. 8.5.2. Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.6.-Towards-the-accuracy">14. 8.6. Towards the accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.7.-Conclusion">15. 8.7. Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.8.-References">16. 8.8. References</a></li>
 </ul>
 
             
@@ -190,7 +198,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>3. ニューラルネットワークの基礎</li>
+      <li>3. Basics of neural network</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -431,40 +439,40 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<p><a class="reference external" href="https://colab.research.google.com/github/japan-medical-ai/medical-ai-course-materials/blob/master/notebooks/Introduction_to_Neural_Network.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<div class="section" id="ニューラルネットワークの基礎">
-<h1>3. ニューラルネットワークの基礎<a class="headerlink" href="#ニューラルネットワークの基礎" title="Permalink to this headline">¶</a></h1>
-<p>ここでは，ニューラルネットワーク (Neural Network) についてその概要を紹介していきます．画像認識などに用いられる Convolutional Neural Network (CNN) や，自然言語処理などに用いられる Recurrent Neural Network (RNN) といった手法は，ニューラルネットワークの一種です．</p>
-<p>ここではまず，最もシンプルな全結合型と呼ばれるニューラルネットワークの構造について説明を行ったあと，複数の入力データと望ましい出力の組からなる学習用データセットを準備したとき，どうやってニューラルネットワークを学習させればよいのか（教師あり学習の仕組み）について解説を行います．</p>
-<p>ニューラルネットワークによって表現される複雑な関数を，現実的な時間で学習するための誤差逆伝播法（バックプロパゲーション）と呼ばれるアルゴリズムについても紹介します．</p>
-<p>まずはニューラルネットワークをブラックボックスとして扱ってしまうのではなく，一つ一つ内部で行われる計算を丁寧に調べます．そして，パラメータで特徴づけられた関数で表される線形変換とそれに続く非線形変換を組み合わせて，全体として微分可能な一つの関数を表していることを理解していきます．</p>
-<div class="section" id="ニューラルネットワークの構造">
-<h2>3.1. ニューラルネットワークの構造<a class="headerlink" href="#ニューラルネットワークの構造" title="Permalink to this headline">¶</a></h2>
-<p>まずはニューラルネットワークの構造を図式化して見てみましょう．入力変数が{年数，アルコール度数，色合い，匂い}の4変数，出力変数が{白ワイン，赤ワイン}の2変数の場合を示します．</p>
-<p><img alt="ニューラルネットワークの基本構造" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/01.png" /></p>
-<p>この図のひとつひとつの丸い部分のことを<strong>ノード</strong>もしくは<strong>ユニット</strong>と呼び，その縦方向の集まりを<strong>層</strong>と呼びます．そして，一番初めの層を<strong>入力層（input layer）</strong>，最後の層を<strong>出力層（output layer）</strong>，そしてその間を<strong>中間層（intermediate layer）</strong>もしくは<strong>隠れ層（hidden
-layer）</strong>と呼びます．このモデルは入力層，中間層，出力層の３層の構造となっていますが，中間層の数を増やすことでさらに多層のニューラルネットワークを定義することもできます．この例では各層間の全てのノードが互いに結合されているため，<strong>全結合型のニューラルネットワーク</strong>とも呼び，ニューラルネットワークの最も基礎的な構造です．</p>
-<p>入力変数は前章までと同様ですが，出力変数の扱い方がこれまでと異なります．例えば，上図では出力層の各ノードがそれぞれ白ワインと赤ワインに対応しており，カテゴリの数だけ出力の変数があるということになります．なぜこのような構造となっているのでしょうか．</p>
-<p><img alt="ニューラルネットワークの出力値" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/02.png" /></p>
-<p>まず，最終層にどのような値が入るのか，具体例を見てみましょう．例えば，年数が3年物でアルコール度数が14度，色合いが0.2，匂いが0.8で表されるワインがあるとします．内部の計算は後述するとして，このようなデータをニューラルネットワークに与えたときに結果として得られる値に着目してみましょう．上図では，白ワイン <span class="math notranslate nohighlight">\(y_{1} = 0.15\)</span>, 赤ワイン <span class="math notranslate nohighlight">\(y_{2}= 0.85\)</span>
-となっています．このとき，出力値の中で最も大きな値となっている変数に対応するクラス，すなわち今回の例では「赤ワイン」をこの分類問題におけるこのニューラルネットワークの<strong>予測結果</strong>とすることができます．</p>
-<p>ここで出力層のすべての値を合計してみると，1になっていることに気づきます．これは偶然ではなく，そうなるように出力層の値を計算しているためです* ．つまり，出力層のそれぞれのノードが持つ数値は，入力がそれぞれのクラスに属している確率を表していたのでした．そのため，カテゴリ数と同じ数だけ出力層にはノードが必要となります．</p>
-<p>それでは，ここからニューラルネットワークの内部で行われる計算を詳しく見ていきましょう．ニューラルネットワークの各層は，前の層の値に線形変換と非線形変換を順番に施すことで計算されています．まずは，ここで言う線形変換とは何を表すのか，から見ていきましょう．</p>
-<p>* 具体的には，Softmax関数という活性化関数（これも後述します）をニューラルネットワークの出力ベクトルに適用することで，出力層における全ノードの値の合計が1になるようにします．</p>
-<div class="section" id="線形変換">
-<h3>3.1.1. 線形変換<a class="headerlink" href="#線形変換" title="Permalink to this headline">¶</a></h3>
-<p>ここでは，ニューラルネットワークの各層で行われる線形変換について説明します．</p>
-<p><img alt="ニューラルネットワークの線形変換" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/linear_transformation.png" /></p>
-<p>ここで言う線形変換* とは，重み行列 (<span class="math notranslate nohighlight">\(w\)</span>) <span class="math notranslate nohighlight">\(\times\)</span> 入力ベクトル (<span class="math notranslate nohighlight">\(h\)</span>) <span class="math notranslate nohighlight">\(+\)</span> バイアスベクトル (<span class="math notranslate nohighlight">\(b\)</span>) のような計算のことを指しています．このとき，この変換の入力が<span class="math notranslate nohighlight">\(h\)</span>，パラメータが<span class="math notranslate nohighlight">\(w\)</span>と<span class="math notranslate nohighlight">\(b\)</span>となります．ここでの掛け算（<span class="math notranslate nohighlight">\(\times\)</span>）は行列の掛け算であることに注意してください．また，これからは，<span class="math notranslate nohighlight">\(h\)</span> が文字としてよく登場しますが，これは隠れ層 (hidden layer) の頭文字である <span class="math notranslate nohighlight">\(h\)</span>
-から来ています．ただし，表記を簡潔にするため以下では入力層（上図における <span class="math notranslate nohighlight">\(x_1, x_2, x_3, x_4\)</span>）を<strong>0層目の隠れ層と考える</strong>ことにして， <span class="math notranslate nohighlight">\(h_{01}, h_{02}, h_{03}, h_{04}\)</span> と表記します．では上図で表される計算を数式で記述してみましょう．</p>
-<p>（* 通常数学では線形変換とは <span class="math notranslate nohighlight">\({\bf w} \times {\bf h}\)</span> のことを指し，この変換は厳密には「アファイン変換（もしくは アフィン変換）」と呼ばれるものです．しかし，深層学習の文脈ではこの変換も線形変換と呼ぶことも多いです．）</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Introduction_to_Neural_Network.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="section" id="Basics-of-neural-network">
+<h1>3. Basics of neural network<a class="headerlink" href="#Basics-of-neural-network" title="Permalink to this headline">¶</a></h1>
+<p>Here, we will introduce the outline of the neural network (Neural Network). Methods such as Convolutional Neural Network (CNN), which is used for image recognition, and Recurrent Neural Network (RNN), which is used for natural language processing, are types of neural networks.</p>
+<p>Here, first of all, after explaining the structure of the neural network called the simplest all-connection type, when preparing a training data set consisting of a combination of a plurality of input data and a desired output, how to train the neural network We will explain about what to do (a supervised learning system).</p>
+<p>We also introduce an algorithm called error backpropagation to learn in real time the complex functions represented by neural networks.</p>
+<p>First, instead of treating the neural network as a black box, we carefully examine the calculations performed internally. And we will understand that the linear transformation represented by the function characterized by parameters and the subsequent nonlinear transformation are combined to represent one function that can be differentiated as a whole.</p>
+<div class="section" id="3.1.-Structure-of-neural-network">
+<h2>3.1. 3.1. Structure of neural network<a class="headerlink" href="#3.1.-Structure-of-neural-network" title="Permalink to this headline">¶</a></h2>
+<p>First, let’s look at the structure of the neural network graphically. The input variables are 4 variables of {years, alcohol content, color, smell}, and the output variables are 2 variables of {white wine, red wine}.</p>
+<p><img alt="ニューラルネットワークの基本構造" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/01.png" /></p>
+<p>Each round part of this figure is called a <strong>node</strong> or <strong>unit</strong>, and its vertical collection is called a <strong>layer</strong> . The first layer is called the <strong>input layer</strong> , the last layer is the <strong>output layer</strong> , and the <strong>middle layer</strong> is called the <strong>intermediate layer</strong> or <strong>hidden layer</strong> . This model has a three-layer structure with an input layer, an intermediate layer, and an output layer, but it is possible to define a multi-layered neural network by increasing the number of intermediate
+layers. In this example, all nodes between each layer are connected to each other, so it is also called a <strong>fully connected</strong> neural network, which is the most basic structure of neural networks.</p>
+<p>Input variables are the same as in the previous chapters, but the handling of output variables is different. For example, in the figure above, each node in the output layer corresponds to white wine and red wine, and there are as many output variables as there are categories. Why is this structure?</p>
+<p><img alt="ニューラルネットワークの出力値" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/02.png" /></p>
+<p>First, let’s look at a concrete example of what kind of value is in the final layer. For example, let’s say you have a wine whose age is three years and whose alcohol content is 14 degrees, color is 0.2, and smell is 0.8. The internal calculation will be described later, so let’s focus on the values obtained when such data are given to the neural network. Above, white wine <span class="math notranslate nohighlight">\(y_{1} = 0.15\)</span>,, Red wine <span class="math notranslate nohighlight">\(y_{2}= 0.85\)</span> It is At this time, the class corresponding to the variable with the
+largest value among the output values, that is, “red wine” in this example can be used as the <strong>prediction result</strong> of this neural network in this classification problem .</p>
+<p>Here, when we add up all the values of the output layer, we notice that it is 1. This is not a coincidence, because it calculates the value of the output layer to be so*. In other words, the numerical values possessed by each node of the output layer represent the probability that the input belongs to each class. Therefore, the output layer needs nodes as many as the number of categories.</p>
+<p>Now let’s take a closer look at the calculations performed inside the neural network. Each layer of the neural network is calculated by sequentially applying linear and nonlinear transformations to the values of the previous layer. First, let’s look at what the linear transformation here means.</p>
+<p>* Specifically, apply the softmax activation function (also described later) to the output vector of the neural network so that the sum of all node values in the output layer is 1.</p>
+<div class="section" id="3.1.1.-Linear-transformation">
+<h3>3.1.1. 3.1.1. Linear transformation<a class="headerlink" href="#3.1.1.-Linear-transformation" title="Permalink to this headline">¶</a></h3>
+<p>Here we describe the linear transformations that occur in each layer of the neural network.</p>
+<p><img alt="ニューラルネットワークの線形変換" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/linear_transformation.png" /></p>
+<p>Linear transformation * said here is weight matrix (<span class="math notranslate nohighlight">\(w\)</span>) <span class="math notranslate nohighlight">\(\times\)</span> Input vector (<span class="math notranslate nohighlight">\(h\)</span>) <span class="math notranslate nohighlight">\(+\)</span> Bias vector (<span class="math notranslate nohighlight">\(b\)</span>) It refers to the calculation like). At this time, the input of this conversion is <span class="math notranslate nohighlight">\(h\)</span>, Parameter is <span class="math notranslate nohighlight">\(w\)</span> When <span class="math notranslate nohighlight">\(b\)</span>. Multiplication here (<span class="math notranslate nohighlight">\(\times\)</span> Note that) is matrix multiplication. Also from now on, <span class="math notranslate nohighlight">\(h\)</span> Often appear as letters, but this is the first letter of the hidden layer<span class="math notranslate nohighlight">\(h\)</span> I’m from. However, in order to simplify the
+notation, in the following, the input layer𝑥 <span class="math notranslate nohighlight">\(x_1, x_2, x_3, x_4\)</span> Think of ) as the 0 hidden layer , <span class="math notranslate nohighlight">\(h_{01}, h_{02}, h_{03}, h_{04}\)</span> It is written as Now let’s describe the calculation shown in the above figure with a formula.</p>
+<p>(* In linear mathematics, in linear mathematics <span class="math notranslate nohighlight">\({\bf w} \times {\bf h}\)</span> This transformation is strictly called “affine transformation (or affine transformation)”. However, in the context of deep learning, this transformation is also often referred to as a linear transformation.)</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 u_{11}&amp;=w_{11}h_{01}+w_{12}h_{02}+w_{13}h_{03}+w_{14}h_{04}+b_{1} \\
 u_{12}&amp;=w_{21}h_{01}+w_{22}h_{02}+w_{23}h_{03}+w_{24}h_{04}+b_{2} \\
 u_{13}&amp;=w_{31}h_{01}+w_{32}h_{02}+w_{33}h_{03}+w_{34}h_{04}+b_{3}
 \end{aligned}\end{split}\]</div>
-<p>バイアス（<span class="math notranslate nohighlight">\(b_1, b_2, b_3\)</span>）は上図では省略されていることに注意してください．さて，以上の4つの式は，ベクトルと行列の計算として以下のように書き直すことができます．</p>
+<p>bias (<span class="math notranslate nohighlight">\(b_1, b_2, b_3\)</span>) Note that is omitted in the above figure. Now, the above four expressions can be rewritten as vector and matrix calculations as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \begin{bmatrix}
@@ -487,111 +495,113 @@ b_{3}
 \end{bmatrix}\\
 {\bf u}_{1}&amp;={\bf W}{\bf h}_{0}+{\bf b}
 \end{aligned}\end{split}\]</div>
-<p>本来は <span class="math notranslate nohighlight">\({\bf W}\)</span> や <span class="math notranslate nohighlight">\({\bf b}\)</span> にも，どの層とどの層の間の計算に用いられるものなのかを表す添え字をつけるべきですが，ここでは簡単のため省略しています．</p>
+<p>Initially <span class="math notranslate nohighlight">\({\bf W}\)</span> and <span class="math notranslate nohighlight">\({\bf b}\)</span> You should add a suffix to indicate which layer and which layer to use for the calculation, but this is omitted here for simplicity.</p>
 </div>
-<div class="section" id="非線形変換">
-<h3>3.1.2. 非線形変換<a class="headerlink" href="#非線形変換" title="Permalink to this headline">¶</a></h3>
-<p>次に，非線形変換について説明します．線形変換のみでは，下図右のように入力と出力の間が非線形な関係である場合，両者の間の関係を適切に表現することができません．</p>
-<p><img alt="入力と出力の関係" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/04.png" /></p>
-<p>そこで，ニューラルネットワークでは各層で線形変換に引き続いて非線形変換を施すことで，全体の関数が非線形性を持つようにしています．この非線形変換を行う関数を，ニューラルネットワークの文脈においては <strong>活性化関数</strong> と呼びます．</p>
-<p>上図の線形変換の結果 <span class="math notranslate nohighlight">\(u_{11}, u_{12}, u_{13}\)</span> に活性化関数を使って非線形変換を行った結果を <span class="math notranslate nohighlight">\(h_{11}, h_{12}, h_{13}\)</span> と書き，これらを活性値（activation）と呼びます（下図参照）．これが次の層への入力となります．</p>
-<p><img alt="活性値" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/activation.png" /></p>
-<p>活性化関数の具体例としては，下図に示す <strong>ロジスティックシグモイド関数</strong>（以下シグモイド関数）</p>
-<p><img alt="シグモイド関数" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/05.png" /></p>
-<p>が従来，よく用いられてきました．しかし近年，層数が多いニューラルネットワークではシグモイド関数は活性化関数としてほとんど用いられていません．その理由の一つは，シグモイド関数を活性化関数に採用することで <strong>勾配消失</strong> という現象が起きやすくなり，学習が進行しなくなる問題が発生することがあったためです．これは後で詳述します．これを回避するために，<strong>Rectified Linear Unit (ReLU)</strong> という関数がよく用いられます．これは，以下のような形をした関数です．</p>
-<p><img alt="ReLU関数" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/06.png" /></p>
-<p>ここで， <span class="math notranslate nohighlight">\({\rm max}(0, u)\)</span> は，<span class="math notranslate nohighlight">\(0\)</span>と<span class="math notranslate nohighlight">\(u\)</span>を比べて大きな方を返す関数です．すなわち，ReLUは入力が負の値の場合には出力は0で一定であり，正の値の場合は入力をそのまま出力するという関数です．シグモイド関数では，入力が小さな，もしくは大きな値をとった際に，勾配がどんどん小さくなってしまうだろうことがプロットからも見て取れます．それに対し，ReLU関数は入力の値がいくら大きくなっても，一定の勾配が発生します．これがのちほど紹介する勾配消失という問題に有効に働きます．</p>
+<div class="section" id="3.1.2.-Nonlinear-transformation/Conversion">
+<h3>3.1.2. 3.1.2. Nonlinear transformation/Conversion<a class="headerlink" href="#3.1.2.-Nonlinear-transformation/Conversion" title="Permalink to this headline">¶</a></h3>
+<p>Next, I will explain nonlinear conversion. Linear transformations alone can not properly represent the relationship between inputs and outputs if they are nonlinear as shown in the right of the figure. <img alt="入力と出力の関係" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/04.png" /></p>
+<p>Therefore, in the neural network, the linear transformation is followed by the nonlinear transformation in each layer so that the whole function has nonlinearity. The function that performs this non-linear transformation is called an activation function in the context of neural networks .</p>
+<p>The result of the linear transformation above <span class="math notranslate nohighlight">\(u_{11}, u_{12}, u_{13}\)</span> Result of nonlinear conversion using the activation function <span class="math notranslate nohighlight">\(h_{11}, h_{12}, h_{13}\)</span> These are called activation values (see the figure below). This is the input to the next layer.</p>
+<p><img alt="活性値" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/activation.png" /></p>
+<p>As a specific example of the activation function, the logistic sigmoid function (hereinafter referred to as sigmoid function) shown in the figure below</p>
+<p><img alt="シグモイド関数" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/05.png" /></p>
+<p>Has been used in the past. However, in recent years, sigmoid functions are hardly used as activation functions in neural networks with many layers. One of the reasons is that adopting a sigmoid function as an activation function makes the phenomenon of gradient disappearance more likely to occur, which may cause a problem that learning does not progress. This will be detailed later. To avoid this, a function called “ Rectified Linear Unit (ReLU) ” is often used. This is a function of the form</p>
+<p><img alt="ReLU関数" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/06.png" /></p>
+<p>here, <span class="math notranslate nohighlight">\({\rm max}(0, u)\)</span> ,<span class="math notranslate nohighlight">\(0\)</span> When <span class="math notranslate nohighlight">\(u\)</span> It is a function that compares the and returns the larger one. That is, ReLU is a function that the output is constant at 0 when the input is a negative value, and outputs the input as it is when it is a positive value. In the sigmoid function, it can also be seen from the plot that the slope will become smaller and smaller when the input takes small or large values. On the other hand, ReLU function generates a constant gradient no matter
+how large the input value. This works well for the problem of gradient loss that we will introduce later.</p>
 </div>
-<div class="section" id="数値を見ながら計算の流れを確認">
-<h3>3.1.3. 数値を見ながら計算の流れを確認<a class="headerlink" href="#数値を見ながら計算の流れを確認" title="Permalink to this headline">¶</a></h3>
-<p>ここで，下図に書き込まれた具体的な数値を使って，入力 <span class="math notranslate nohighlight">\(x_1, x_2, x_3\)</span> から出力 <span class="math notranslate nohighlight">\(y\)</span> が計算される過程を確認してみましょう．今は計算を簡略化するためバイアス <span class="math notranslate nohighlight">\({\bf b}\)</span> の計算は省略します（バイアスが全て0であるとします）．数値例として，<span class="math notranslate nohighlight">\({\bf x} = \begin{bmatrix} 2 &amp; 3 &amp; 1 \end{bmatrix}^T\)</span> が与えられた時の出力 <span class="math notranslate nohighlight">\(y\)</span> の計算手順を一つ一つ追いかけてみましょう．</p>
-<p><img alt="出力までの計算例" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/output.png" /></p>
-<p>前章で解説した重回帰分析では，目的関数のパラメータについての導関数を0とおいて解析的に最適なパラメータを計算できましたが，ニューラルネットワークでは一般的に，解析的にパラメータを解くことはできません．その代わり，この導関数の値（勾配）を利用した別の方法でパラメータを逐次的に最適化していきます．</p>
-<p>このため，ニューラルネットワークの場合は，<strong>まずパラメータを乱数で初期化し，ひとまずデータを入力して目的関数の値を計算します</strong>．次にその関数の勾配を計算して，それを利用してパラメータを更新し，その更新後の新しいパラメータを使って再度入力データを処理して目的関数の値を計算し…といったことを繰り返し行っていくことになります．</p>
-<p>今，パラメータを初期化した結果，上の図のグラフの枝に与えられているような数値になった状態で，入力層の値に線形変換を施すところまでを考えてみましょう．この計算は，以下のようになります．</p>
+<div class="section" id="3.1.3.-Check-the-flow-of-calculation-while-watching-the-numerical">
+<h3>3.1.3. 3.1.3. Check the flow of calculation while watching the numerical<a class="headerlink" href="#3.1.3.-Check-the-flow-of-calculation-while-watching-the-numerical" title="Permalink to this headline">¶</a></h3>
+<p>Here, input using the specific numbers written in the figure below <span class="math notranslate nohighlight">\(x_1, x_2, x_3\)</span> Output from <span class="math notranslate nohighlight">\(y\)</span> Let’s check the process of calculating. Now bias to simplify the calculations <span class="math notranslate nohighlight">\({\bf b}\)</span> The calculation of is omitted (assuming the bias is all zeros). As a numerical example, <span class="math notranslate nohighlight">\({\bf x} = \begin{bmatrix} 2 &amp; 3 &amp; 1 \end{bmatrix}^T\)</span> Output when given <span class="math notranslate nohighlight">\(y\)</span> Let’s follow the calculation procedure of</p>
+<p><img alt="出力までの計算例" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/output.png" /></p>
+<p>In the multiple regression analysis described in the previous chapter, although it was possible to calculate analytically optimal parameters by setting the derivative of the objective function parameters to 0, it is generally impossible to solve analytically parameters in neural networks . Instead, we will optimize the parameters sequentially in another way using the value of this derivative (slope).</p>
+<p>For this reason, in the case of a neural network, <strong>parameters are first initialized with random numbers, and data are first input to calculate the value of the objective function</strong>. Next, calculate the gradient of the function, use it to update the parameter, process the input data again using the updated new parameter, calculate the value of the objective function, and so on repeatedly. It will be taken care of.</p>
+<p>Now, let’s consider the case where the linear transformation is applied to the values ​​of the input layer with the numerical values ​​given to the branches of the graph in the above figure as a result of initializing the parameters. This calculation is as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 u_{11}&amp;=3\times 2+1\times 3+2\times 1=11\\
 u_{12}&amp;=-2\times 2-3\times 3-1\times 1=-14
 \end{aligned}\end{split}\]</div>
-<p>次に非線形変換を行う活性化関数としてReLU関数を採用し，以下のように中間層の値を計算してみましょう．</p>
+<p>Next, let’s adopt the ReLU function as the activation function that performs non-linear transformation, and calculate the value of the middle layer as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 h_{11} &amp;= \max(0, 11) = 11 \\
 h_{12} &amp;= \max(0, -14)  = 0
 \end{aligned}\end{split}\]</div>
-<p>同様に，出力層の <span class="math notranslate nohighlight">\(y\)</span> の値までを計算すると，</p>
+<p>Similarly, in the output layer 𝑦 If you calculate up to the value of,</p>
 <div class="math notranslate nohighlight">
 \[y = 3 \times 11 + 2 \times 0 = 33\]</div>
-<p>となります．</p>
-<p>さて，次節からは，パラメータを，どうやって更新していくかを見てみましょう．</p>
+<p>Now, from the next section, let’s see how to update parameters.</p>
 </div>
 </div>
-<div class="section" id="目的関数">
-<h2>3.2. 目的関数<a class="headerlink" href="#目的関数" title="Permalink to this headline">¶</a></h2>
-<p>ニューラルネットワークでも，微分可能でさえあれば解きたいタスクに合わせて様々な目的関数を利用することができます．</p>
-<div class="section" id="平均二乗誤差">
-<h3>3.2.1. 平均二乗誤差<a class="headerlink" href="#平均二乗誤差" title="Permalink to this headline">¶</a></h3>
-<p>例えば，出力層に<span class="math notranslate nohighlight">\(N\)</span>個の値を持つニューラルネットワークで回帰問題を解く場合を考えてみましょう．<span class="math notranslate nohighlight">\(N\)</span>個の出力それぞれ（<span class="math notranslate nohighlight">\(y_n (n=1, 2, \dots, N)\)</span>）に対して望ましい出力（<span class="math notranslate nohighlight">\(t_n (n=1, 2, \dots, N)\)</span>）が与えられたとき，目的関数をそれぞれの出力（<span class="math notranslate nohighlight">\(y_n\)</span>）と対応する正解（<span class="math notranslate nohighlight">\(t_n\)</span>）の間の <strong>平均二乗誤差（mean squared error）</strong> とすることで，回帰問題を解くことができます．</p>
+<div class="section" id="3.2.-The-objective-function">
+<h2>3.2. 3.2. The objective function<a class="headerlink" href="#3.2.-The-objective-function" title="Permalink to this headline">¶</a></h2>
+<p>Even in neural networks, as long as they are differentiable, you can use various objective functions according to the task you want to solve.</p>
+<div class="section" id="3.2.1.-Mean-squared">
+<h3>3.2.1. 3.2.1. Mean squared<a class="headerlink" href="#3.2.1.-Mean-squared" title="Permalink to this headline">¶</a></h3>
+<p>For example, in the output layer <span class="math notranslate nohighlight">\(N\)</span> Consider the case of solving a regression problem with a neural network with discrete values.<span class="math notranslate nohighlight">\(N\)</span> Each of the <span class="math notranslate nohighlight">\(y_n (n=1, 2, \dots, N)\)</span>）Desired output <span class="math notranslate nohighlight">\(t_n (n=1, 2, \dots, N)\)</span>）When the objective function is given,（<span class="math notranslate nohighlight">\(y_n\)</span>）And the corresponding correct answer <span class="math notranslate nohighlight">\(t_n\)</span>）The regression problem can be solved by using the <strong>mean squared error</strong> between) .</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \dfrac{1}{N} \sum_{n=1}^{N}(t_{n} - y_{n})^{2}\]</div>
-<p>これを最小にするようにニューラルネットワーク中のパラメータを決定するわけです．例えば，上図の例で正解として <span class="math notranslate nohighlight">\(t = 20\)</span> が与えられたときの目的関数の値は，</p>
+<p>The parameters in the neural network are determined to minimize this. For example, as the correct answer in the example above𝑡=20 The value of the objective function when given is</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \dfrac{1}{1} (20 - 33)^2 = 169\]</div>
-<p>です．これを小さくするような重み行列の値を探せばよいということです．</p>
+<p>is. You just have to look for values in the weight matrix that make this smaller.</p>
 </div>
-<div class="section" id="交差エントロピー">
-<h3>3.2.2. 交差エントロピー<a class="headerlink" href="#交差エントロピー" title="Permalink to this headline">¶</a></h3>
-<p>一方，分類問題の場合はしばしば <strong>交差エントロピー（cross entropy）</strong> が目的関数として利用されます．</p>
-<p>例として，<span class="math notranslate nohighlight">\(N\)</span>クラスの分類問題を考えてみましょう．ある入力 <span class="math notranslate nohighlight">\(x\)</span> が与えられたとき，ニューラルネットワークの出力層に <span class="math notranslate nohighlight">\(N\)</span> 個のノードがあり，それぞれがこの入力が <span class="math notranslate nohighlight">\(n\)</span> 番目のクラスに属する確率 <span class="math notranslate nohighlight">\(y_n = p(y=n|x)\)</span> を表しているとします．これは，入力 <span class="math notranslate nohighlight">\(x\)</span> が与えられたという条件のもとで，予測クラスを意味する <span class="math notranslate nohighlight">\(y\)</span> が <span class="math notranslate nohighlight">\(n\)</span> であるような確率ということです．</p>
-<p>ここで，<span class="math notranslate nohighlight">\(x\)</span> が所属するクラスについての正解が， <span class="math notranslate nohighlight">\({\bf t} = \begin{bmatrix} t_1 &amp; t_2 &amp; \dots &amp; t_N \end{bmatrix}^T\)</span> というベクトルで与えられているとします．ただし，このベクトルは <span class="math notranslate nohighlight">\(t_n (n=1, 2, \dots, N)\)</span> のいずれか1つだけが1であり，それ以外は0であるようなベクトルであるとします． これを <strong>1-hotベクトル</strong>
-と呼びます．そして，この1つだけ値が1となっている要素は，その要素のインデックスに対応したクラスが正解であることを意味します．例えば，<span class="math notranslate nohighlight">\(t_3 = 1\)</span>であれば3というインデックスに対応するクラスが正解であるということになります．</p>
-<p>さて，このような準備を行うと，交差エントロピーは以下のように計算できるものとして記述することができます．</p>
+<div class="section" id="3.2.2.-Cross-entropy">
+<h3>3.2.2. 3.2.2. Cross entropy<a class="headerlink" href="#3.2.2.-Cross-entropy" title="Permalink to this headline">¶</a></h3>
+<p>In the case of classification problems, on the other hand, <strong>cross entropy</strong> is often used as an objective function.</p>
+<p>As an example,<span class="math notranslate nohighlight">\(N\)</span> Consider class classification problems. Certain input𝑥 Is given to the output layer of the neural network <span class="math notranslate nohighlight">\(N\)</span> Nodes, each of which has <span class="math notranslate nohighlight">\(n\)</span> Probability of belonging to the second class <span class="math notranslate nohighlight">\(y_n = p(y=n|x)\)</span> Let’s say that This is an input <span class="math notranslate nohighlight">\(x\)</span> Means a prediction class, given the condition that is given <span class="math notranslate nohighlight">\(y\)</span> But <span class="math notranslate nohighlight">\(n\)</span> It is the probability that it is.</p>
+<p>here, <span class="math notranslate nohighlight">\(x\)</span> The correct answer for the class to which <span class="math notranslate nohighlight">\({\bf t} = \begin{bmatrix} t_1 &amp; t_2 &amp; \dots &amp; t_N \end{bmatrix}^T\)</span> It is assumed that it is given by the vector However, this vector is <span class="math notranslate nohighlight">\(t_n (n=1, 2, \dots, N)\)</span> Suppose that the vector is such that only one of is 1 and the other is 0. This is called a <strong>1-hot vector</strong> . And an element with a value of 1 means that the class corresponding to the index of the element is the correct one. For example, <span class="math notranslate nohighlight">\(t_3 = 1\)</span> If it is, it
+means that the class corresponding to the index 3 is correct.</p>
+<p>Well, with this kind of preparation, we can describe the intersection entropy as something that can be calculated as follows.</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = - \frac{1}{N} \sum_{n=1}^{N}t_{n}\log y_{n}\]</div>
-<div class="section" id="補足：交差エントロピーについて">
-<h4>3.2.2.1. 補足：交差エントロピーについて<a class="headerlink" href="#補足：交差エントロピーについて" title="Permalink to this headline">¶</a></h4>
-<p>以下は，交差エントロピーの定義について知りたい方だけ参考にしてください．情報理論などで交差エントロピーの定義を知っている方は上の式で表されるものが交差エントロピーとは違うようにみえるかもしれません．しかしこれは，以下のように説明できます．今，<span class="math notranslate nohighlight">\(q(y|x)\)</span>をニューラルネットワークのモデルが定義する条件付き確率とし，<span class="math notranslate nohighlight">\(p(y|x)\)</span>を実データの条件付き確率とします．ここで，<span class="math notranslate nohighlight">\(p(y|x)\)</span>は実際には未知であるため，代わりに学習データの経験分布</p>
+<div class="section" id="3.2.2.1-Note:-for-cross-entropy">
+<h4>3.2.2.1. 3.2.2.1 Note: for cross-entropy<a class="headerlink" href="#3.2.2.1-Note:-for-cross-entropy" title="Permalink to this headline">¶</a></h4>
+<p>The following is for reference only if you want to know about the definition of cross entropy. If you know the definition of cross entropy in information theory etc., it may appear that what is expressed by the above equation is different from cross entropy. But this can be explained as follows. now, <span class="math notranslate nohighlight">\(q(y|x)\)</span> Let be the conditional probability defined by the model of the neural network, <span class="math notranslate nohighlight">\(p(y|x)\)</span> Let be the conditional probability of real data. here, <span class="math notranslate nohighlight">\(p(y|x)\)</span> Instead the
+empirical distribution of learning data, since</p>
 <div class="math notranslate nohighlight">
 \[\hat{p}(y|x) = \frac{1}{N} \sum_{n=1}^N I(x =x_n, y=y_n)\]</div>
-<p>を用いることとします．ただし <span class="math notranslate nohighlight">\(I\)</span> はディラック関数とよばれ，その等号が成立する時，値が<span class="math notranslate nohighlight">\(\infty\)</span>，それ以外では<span class="math notranslate nohighlight">\(0\)</span>であるような関数で，その定義域全体にわたる積分は1になるものです．この時，確率分布 <span class="math notranslate nohighlight">\(\hat{p}(y|x)\)</span> と <span class="math notranslate nohighlight">\(q(y|x)\)</span> の間のKLダイバージェンス（確率分布間の距離を測り、確率分布が一致する時、またその時のみ<span class="math notranslate nohighlight">\(0\)</span>となり、それ以外は正の値をとる）は</p>
+<p>We will use. However <span class="math notranslate nohighlight">\(I\)</span> Is called the Dirac function, and when its equal sign holds, the value is <span class="math notranslate nohighlight">\(\infty\)</span>, Otherwise <span class="math notranslate nohighlight">\(0\)</span> The function is such that the integral over its domain is 1. At this time, probability distribution <span class="math notranslate nohighlight">\(\hat{p}(y|x)\)</span> When <span class="math notranslate nohighlight">\(q(y|x)\)</span> Divergence (measure the distance between probability distributions, and only if and when the probability distributions match <span class="math notranslate nohighlight">\(0\)</span> And otherwise take positive values)</p>
 <div class="math notranslate nohighlight">
 \[KL(p||q) = \int_{x, y} \hat{p}(y|x) \log \frac{\hat{p}(y|x)}{q(y|x)} dx dy\]</div>
-<p>と定義されます．ここでディラックのデルタ関数の定義を用い，また<span class="math notranslate nohighlight">\(q\)</span>に依存する項だけを抜き出すと，先程の交差エントロピーの目的関数が導出されます．</p>
+<p>It is defined as Here we use the Dirac delta function definition and <span class="math notranslate nohighlight">\(q\)</span> If you extract only the terms that depend on, you get the objective function of the previous cross entropy.</p>
 </div>
 </div>
 </div>
-<div class="section" id="ニューラルネットワークの最適化">
-<h2>3.3. ニューラルネットワークの最適化<a class="headerlink" href="#ニューラルネットワークの最適化" title="Permalink to this headline">¶</a></h2>
-<p>目的関数の値を最小にするようなパラメータの値を決定することが，ニューラルネットワークの学習の目的であるとわかりました．では，どのようにしてそのパラメータを探し当てればよいのでしょうか．ある目的関数が与えられたもとで，その目的関数が望ましい値をとるようにニューラルネットワークのパラメータを決定することを，ニューラルネットワークの最適化といいます．</p>
-<p>まず最適化の方法を考える前に，まず最適化の対象とはなんであったか，再度確認しましょう．「ニューラルネットワークを最適化する」とは，すなわち「ニューラルネットワークが内部で用いている全てのパラメータの値を適切に決定する」という意味です．では，ニューラルネットワークにおけるパラメータとは，何だったでしょうか．それは，ここまで紹介したシンプルな全結合型ニューラルネットワークの場合，各層の線形変換に用いられていた <span class="math notranslate nohighlight">\({\bf W}\)</span> と <span class="math notranslate nohighlight">\({\bf b}\)</span> のことを指します．</p>
-<p>ニューラルネットワークの各パラメータを，目的関数に対する勾配を0とおいて解析的に解くことは，一般的には困難です．しかし，実データをニューラルネットワークに入力すれば，その入力の値における目的関数の勾配を数値的に求めることは可能です．この値が分かれば，パラメータをどのように変化させれば目的関数の値を小さくすることができるのかが分かります．そこで，この勾配を使ってパラメータを繰り返し少しずつ更新していくことで，ニューラルネットワークの最適化を行うことができるのです．この方法について順を追って考えていきましょう．</p>
-<p>まず，以下の図を見てください．図中の点線は，パラメータ <span class="math notranslate nohighlight">\(w\)</span> を変化させた際の目的関数 <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> の値を表しています．この例では簡単のため二次関数の形になっていますが，ニューラルネットワークの目的関数は実際には多次元で，かつもっと複雑な形をしていることがほとんどでしょう．しかし，ここでは説明のためこのようにシンプルな形を想像してみましょう．さて，この目的関数が最小値を与えるような <span class="math notranslate nohighlight">\(w\)</span> は，どのようにして発見できるでしょうか．</p>
-<p><img alt="パラメータと目的関数の関係（イメージ）" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/13.png" /></p>
-<p>前節で説明したように，ニューラルネットワークのパラメータはまず乱数で初期化されます．ここでは，例として <span class="math notranslate nohighlight">\(w=3\)</span> という初期化が行われたと考えてみましょう．そうすると，<span class="math notranslate nohighlight">\(w=3\)</span>における<span class="math notranslate nohighlight">\(\mathcal{L}\)</span>の勾配 <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> が求まります．ニューラルネットワークの目的関数は，全てのパラメータについて微分可能である* ためです．さて，ここでは仮に <span class="math notranslate nohighlight">\(w=3\)</span> における <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> が <span class="math notranslate nohighlight">\(3\)</span>
-であったとしましょう（このことを<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w} |_{w=3} = 3\)</span>と書きます）．すると，以下の図のように，この <span class="math notranslate nohighlight">\(3\)</span> という値は <span class="math notranslate nohighlight">\(w=3\)</span> における <span class="math notranslate nohighlight">\(\mathcal{L}(w)\)</span> という関数の接線の傾き（勾配; gradient）を表しています．</p>
-<p>（* 厳密には損失関数に微分不可能な点が存在する可能性はあります．例えばReLUは <span class="math notranslate nohighlight">\(x=0\)</span> の点で微分不可能なため，ReLUを含んだニューラルネットワークには微分不可能な点があります．しかし，通常使うニューラルネットワークの場合，そのような微分不可能な点はわずかしかないため，以下に説明する最適化の方法の中では，無視できます．）</p>
-<p><img alt="目的関数の接線の傾き" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/11.png" /></p>
-<p>傾きとは，<span class="math notranslate nohighlight">\(w\)</span> を増加させた際に <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> が増加する方向を意味しているので，今は <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> の値を小さくしたいわけですから，この傾きの逆方向へ <span class="math notranslate nohighlight">\(w\)</span> を変化させる，すなわち <span class="math notranslate nohighlight">\(w\)</span> <strong>から</strong> <span class="math notranslate nohighlight">\(\partial \mathcal{L} / \partial w\)</span> <strong>を引けばよい</strong> ことになります．</p>
-<p>これがニューラルネットワークのパラメータを目的関数の勾配を用いて更新していく際の基本的な考え方です．このときの <span class="math notranslate nohighlight">\(w\)</span> のステップサイズ（更新量）のスケールを調整するために，勾配に <strong>学習率 (learning rate)</strong> と呼ばれる値を乗じるのが一般的です．</p>
-<p>例えば，今学習率を <span class="math notranslate nohighlight">\(0.5\)</span> に設定してみます．そうすると，<span class="math notranslate nohighlight">\(w\)</span>の更新量は <strong>学習率</strong> <span class="math notranslate nohighlight">\(\times\)</span> <strong>勾配</strong> で決まるので，<span class="math notranslate nohighlight">\(0.5 \times 3 = 1.5\)</span> となります．現在 <span class="math notranslate nohighlight">\(w=3\)</span> なので，<strong>この値を引いて</strong> <span class="math notranslate nohighlight">\(w \leftarrow w - 1.5\)</span> と更新した後は， <span class="math notranslate nohighlight">\(w=1.5\)</span> となります．上の図は，この1度の更新を行ったあとの状態を表しています．</p>
-<p>1度目の更新を行って，<span class="math notranslate nohighlight">\(w\)</span> が <span class="math notranslate nohighlight">\(w = 1.5\)</span> の位置に移動しました．そこで，再度この点においても勾配を求めてみます．今度は <span class="math notranslate nohighlight">\(-1\)</span> になっていたとしましょう．すると <strong>学習率</strong> <span class="math notranslate nohighlight">\(\times\)</span> <strong>勾配</strong> は <span class="math notranslate nohighlight">\(0.5 \times -1 = -0.5\)</span> となります．これを再び用いて，<span class="math notranslate nohighlight">\(w \leftarrow w - (-0.5)\)</span> と2度目の更新を行うと，今度は <span class="math notranslate nohighlight">\(w = 2\)</span> の位置にくるでしょう．このようにして，2回更新したあとは，以下の図のようになります．</p>
-<p><img alt="パラメータの更新" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/12.png" /></p>
-<p>徐々に<span class="math notranslate nohighlight">\(\mathcal{L}\)</span>が最小値をとるときの<span class="math notranslate nohighlight">\(w\)</span>の値に近づいていっていることが見て取れます．</p>
-<p>こうして，<strong>学習率</strong> <span class="math notranslate nohighlight">\(\times\)</span> <strong>勾配</strong> を更新量としてパラメータを変化させていくと，パラメータ <span class="math notranslate nohighlight">\(w\)</span> を求めたい <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> の最小値を与える <span class="math notranslate nohighlight">\(w\)</span> に徐々に近づけていくことができます．このような勾配を用いた目的関数の最小化手法を <strong>勾配降下法</strong> と呼びます．ニューラルネットワークは，基本的に <strong>微分可能な関数のみを層間をつなぐ関数として用いて</strong>
-設計されるため，登場する関数はすべて微分可能であり，学習データセットを用いて勾配降下法によってパラメータを最適化する方法が適用可能なのです．</p>
-<p>ただし，通常ニューラルネットワークを勾配降下法で最適化する場合は，データを一つ一つ用いてパラメータを更新するのではなく，いくつかのデータをまとめて入力し，それぞれの勾配を計算したあと，その勾配の平均値を用いてパラメータの更新を行う方法がよく行われます．これを <strong>ミニバッチ学習</strong> と呼びます．これは，学習データセットから一様ランダムに <span class="math notranslate nohighlight">\(k (&gt;0)\)</span> 個のデータを抽出し，その <span class="math notranslate nohighlight">\(k\)</span> 個のデータに対する目的関数の平均の値を小さくするようパラメータを更新することを，異なる <span class="math notranslate nohighlight">\(k\)</span>
-個のデータの組み合わせに対して繰り返し行う方法です．結果的にはデータセットに含まれる全てのデータを使用していきますが，1度の更新に用いるデータは <span class="math notranslate nohighlight">\(k\)</span> 個ずつということになります．実際の実装では，データセット内のサンプルのインデックスをまずランダムにシャッフルして並べた配列を作り，その配列の先頭から <span class="math notranslate nohighlight">\(k\)</span>
-個ずつインデックスを取り出し，対応するデータを使ってミニバッチを構成します．こうして，全てのインデックスを使い切ること，すなわちデータセット内のデータを1度ずつ，すべてパラメータ更新に用い終えることを <strong>1エポックの学習</strong> と呼びます．そして，この <span class="math notranslate nohighlight">\(k\)</span> をバッチサイズもしくはミニバッチサイズと呼び，このような学習方法を指して，<strong>確率的勾配降下法 (SGD: Stocastic Gradient Descent)</strong>
-という名前が用いられます．現在ほとんどすべてのニューラルネットワークの最適化手法はこのSGDをベースとした手法となっています．SGDを用いると，全体の計算時間が劇的に少なくできるだけでなく，下図のように目的関数が凸関数でなかったとしても，適当な条件のもとで“ほとんど確実に”局所最適解に収束することが知られています．</p>
-<p><img alt="局所最適解と大域最適解" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/14.png" /></p>
-<div class="section" id="パラメータ更新量の算出">
-<h3>3.3.1. パラメータ更新量の算出<a class="headerlink" href="#パラメータ更新量の算出" title="Permalink to this headline">¶</a></h3>
-<p>それでは今，下図のような3層の全結合型ニューラルネットワークを考え，1層目と2層目の間の線形変換が <span class="math notranslate nohighlight">\({\bf w}_1, {\bf b}_1\)</span>，2層目と3層目の間の線形変換が <span class="math notranslate nohighlight">\({\bf w}_2, {\bf b}_2\)</span> というパラメータによって表されているとします（図ではバイアス <span class="math notranslate nohighlight">\({\bf b}_1, {\bf b}_2\)</span> は省略されています）．また，これらをまとめて <span class="math notranslate nohighlight">\(\boldsymbol{\Theta}\)</span> と表すことにします．</p>
-<p><img alt="パラメータ更新の例" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/08.png" /></p>
-<p>入力ベクトルは <span class="math notranslate nohighlight">\({\bf x}\)</span>，ニューラルネットワークの出力は <span class="math notranslate nohighlight">\({\bf y} \in \mathbb{R}^N\)</span>（<span class="math notranslate nohighlight">\(N\)</span> 次元実数ベクトルという意味）とし，入力 <span class="math notranslate nohighlight">\({\bf x}\)</span> に対応した“望ましい出力”である教師ベクトルを <span class="math notranslate nohighlight">\({\bf t}\)</span> とします．ここで，目的関数には前述の平均二乗誤差関数を用いることとしましょう．</p>
-<p>さて，パラメータをそれぞれ適当な乱数で初期化したあと，入力 <span class="math notranslate nohighlight">\({\bf x}\)</span> が与えられたときの目的関数の各パラメータについての勾配を計算して，それぞれのパラメータについて更新量を算出してみましょう．</p>
-<p>まず，目的関数を改めてベクトル表記を用いて書き下すと，以下のようになります．</p>
+<div class="section" id="3.3.-Optimization-of-neural">
+<h2>3.3. 3.3. Optimization of neural<a class="headerlink" href="#3.3.-Optimization-of-neural" title="Permalink to this headline">¶</a></h2>
+<p>Determining the value of the parameter that minimizes the value of the objective function proved to be the purpose of learning of the neural network. So how do you find that parameter? Determining the parameters of a neural network so that the objective function takes a desired value, given an objective function, is called neural network optimization.</p>
+<p>Before considering the optimization method, let’s check again what was the object of optimization. “Optimizing a neural network” means “determining properly the values of all parameters used internally by a neural network”. So what were the parameters in neural networks? In the case of the simple fully coupled neural network introduced so far, it was used for linear transformation of each layer <span class="math notranslate nohighlight">\({\bf W}\)</span> When <span class="math notranslate nohighlight">\({\bf b}\)</span></p>
+<p>It is generally difficult to analytically solve each parameter of a neural network with a gradient to the objective function as 0. However, if actual data is input to a neural network, it is possible to numerically obtain the gradient of the objective function at the value of the input. Knowing this value, we can know how to change the parameter to reduce the value of the objective function. Therefore, it is possible to optimize the neural network by updating the parameters repeatedly and
+gradually using this gradient. Let’s think about this method in order.</p>
+<p>First, please look at the following figure. The dotted line in the figure is the parameter <span class="math notranslate nohighlight">\(w\)</span> Objective function when changing <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Represents the value of. In this example, although it is in the form of a quadratic function for simplicity, the objective function of the neural network is in fact almost multidimensional and more complicated. However, let’s imagine a simple form like this for explanation here. Well, this objective function gives the minimum value <span class="math notranslate nohighlight">\(w\)</span>
+How can you discover</p>
+<p><img alt="パラメータと目的関数の関係（イメージ）" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/13.png" /></p>
+<p>As described in the previous section, the neural network parameters are first initialized with random numbers. Here, as an example <span class="math notranslate nohighlight">\(w=3\)</span> Let’s think that initialization has been done. Then, <span class="math notranslate nohighlight">\(w=3\)</span> In <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Slope of <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> Can be obtained. The objective function of neural networks is * differentiable * for all parameters. Well, let’s say here temporarily <span class="math notranslate nohighlight">\(w=3\)</span> In <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> But 3 Let’s
+say that <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w} |_{w=3} = 3\)</span>)). Then, as shown in the following figure,<span class="math notranslate nohighlight">\(3\)</span> The value is <span class="math notranslate nohighlight">\(w=3\)</span> In <span class="math notranslate nohighlight">\(\mathcal{L}(w)\)</span> Represents the slope of the tangent of the function (gradient).</p>
+<p>(* Strictly speaking, loss functions may have indifferentiable points. For example, ReLU <span class="math notranslate nohighlight">\(x=0\)</span> There is a non-differentiable point in the neural network including ReLU because it is non-differentiable in terms of. However, in the case of commonly used neural networks, there are only a few such non-differentiable points, so they can be ignored in the optimization method described below.)</p>
+<p><img alt="目的関数の接線の傾き" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/11.png" /></p>
+<p>With inclination, <span class="math notranslate nohighlight">\(w\)</span> When you increase <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Now means that the direction of <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Because we want to decrease the value of, <span class="math notranslate nohighlight">\(w\)</span> Change the <span class="math notranslate nohighlight">\(w\)</span> <strong>From :math:`partial mathcal{L} / partial w` It is good to pull the</strong> .</p>
+<p>This is the basic idea when updating the parameters of the neural network using the gradient of the objective function. At this time <span class="math notranslate nohighlight">\(w\)</span> It is common to multiply the gradient by a value called the <strong>learning rate</strong> to adjust the scale of the step size (the amount of updates) of .</p>
+<p>For example, now learning rate <span class="math notranslate nohighlight">\(0.5\)</span> Let’s set it to. Then, <span class="math notranslate nohighlight">\(w\)</span> Update rate is the <strong>learning rate</strong> <span class="math notranslate nohighlight">\(\times\)</span> Because it depends on the <strong>gradient</strong> , <span class="math notranslate nohighlight">\(0.5 \times 3 = 1.5\)</span>. Current <span class="math notranslate nohighlight">\(w=3\)</span> So, <strong>subtract this value</strong> <span class="math notranslate nohighlight">\(w \leftarrow w - 1.5\)</span> And after updating <span class="math notranslate nohighlight">\(w=1.5\)</span>. The figure above shows the state after this one-time update.</p>
+<p>Perform the first update,<span class="math notranslate nohighlight">\(w\)</span> But <span class="math notranslate nohighlight">\(w = 1.5\)</span> It moved to the position of. So, I will try to find the slope again at this point. Next time <span class="math notranslate nohighlight">\(-1\)</span> Let’s say it was Then the <strong>learning rate :math:`times` The slope</strong> is <span class="math notranslate nohighlight">\(0.5 \times -1 = -0.5\)</span>. Using this again, <span class="math notranslate nohighlight">\(w \leftarrow w - (-0.5)\)</span> With the second update, this time <span class="math notranslate nohighlight">\(w = 2\)</span> It will come to the position of After updating twice in this way, it looks like the following figure.</p>
+<p><img alt="パラメータの更新" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/12.png" /></p>
+<p>gradually <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Is the minimum value𝑤You can see that it is approaching the value of.</p>
+<p>Thus, the learning rate <span class="math notranslate nohighlight">\(\times\)</span> When changing the parameter with the gradient as the update amount, the parameter <span class="math notranslate nohighlight">\(w\)</span> I want to ask for <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Give the minimum value of 𝑤You can get closer to The objective function minimization method using such a gradient is called gradient descent method . Since neural networks are basically designed using only differentiable functions as functions between layers, all appearing functions are differentiable, and parameters are
+optimized by gradient descent using a training data set The method is applicable.</p>
+<p>However, usually, when optimizing a neural network by gradient descent method, it is not necessary to update parameters using data one by one, but input some data together and calculate each gradient, The method of updating parameters using the average value of the gradient is often used. This is called mini-batch learning . This is uniformly random from the training data set <span class="math notranslate nohighlight">\(k (&gt;0)\)</span> Data of the <span class="math notranslate nohighlight">\(k\)</span> Update the parameters to reduce the average value of the objective function for
+<span class="math notranslate nohighlight">\(k\)</span> It is a method to repeat for the combination of the data As a result, all data included in the data set will be used, but the data used for one update is <span class="math notranslate nohighlight">\(k\)</span> It becomes one by one. In the actual implementation, the indices of the samples in the data set are randomly shuffled first to form an array, and <span class="math notranslate nohighlight">\(k\)</span> Fetch the index one by one and construct a mini-batch using the corresponding data. Thus, using up all the indexes, that is, finishing using the data in the data set one
+time each, for updating parameters is called 1 epoch learning . And this <span class="math notranslate nohighlight">\(k\)</span> We refer to as batch size or mini-batch size, and the name Stochastic Gradient Descent (SGD) is used to indicate such a learning method . Currently, almost all neural network optimization methods are based on this SGD. With SGD, not only can the overall computation time be dramatically reduced, but as in the figure below, even if the objective function is not a convex function, it converges to the “almost certain”
+local optimal solution under appropriate conditions It is known to do.</p>
+<p><img alt="局所最適解と大域最適解" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/14.png" /></p>
+<div class="section" id="3.3.1.-Calculation-of-parameter-update">
+<h3>3.3.1. 3.3.1. Calculation of parameter update<a class="headerlink" href="#3.3.1.-Calculation-of-parameter-update" title="Permalink to this headline">¶</a></h3>
+<p>Now, consider a three-layer fully connected neural network as shown in the figure below, and a linear transformation between the first and second layers. <span class="math notranslate nohighlight">\({\bf w}_1, {\bf b}_1\)</span> The linear transformation between the second and third layers is <span class="math notranslate nohighlight">\({\bf w}_2, {\bf b}_2\)</span> Is represented by the parameter <span class="math notranslate nohighlight">\({\bf b}_1, {\bf b}_2\)</span> Is omitted). Also, put these together <span class="math notranslate nohighlight">\(\boldsymbol{\Theta}\)</span> I will represent it as.</p>
+<p><img alt="パラメータ更新の例" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/08.png" /></p>
+<p>The input vector is <span class="math notranslate nohighlight">\({\bf x}\)</span>, The output of the neural network is <span class="math notranslate nohighlight">\({\bf y} \in \mathbb{R}^N\)</span> (<span class="math notranslate nohighlight">\(N\)</span> (Meaning real dimensional vector) and input <span class="math notranslate nohighlight">\({\bf x}\)</span> Is the “desired output” corresponding to <span class="math notranslate nohighlight">\({\bf t}\)</span> will do. Let’s use the mean squared error function described above as the objective function.</p>
+<p>Now, after initializing the parameters with appropriate random numbers, input 𝐱<span class="math notranslate nohighlight">\({\bf x}\)</span> Let’s calculate the gradient for each parameter of the objective function given, and calculate the update amount for each parameter.</p>
+<p>First, the objective function is rewritten using vector notation as follows. ．</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L}({\bf y}, {\bf t}) = \frac{1}{N} || {\bf t} - {\bf y} ||_2^2\]</div>
 <p><span class="math notranslate nohighlight">\(|| {\bf t} - {\bf y} ||_2^2\)</span>はここでは<span class="math notranslate nohighlight">\(({\bf t} - {\bf y})^T({\bf t} - {\bf y})\)</span>と同等の意味となります．さらに，ニューラルネットワーク全体を <span class="math notranslate nohighlight">\(f\)</span> と書くことにすると，出力 <span class="math notranslate nohighlight">\({\bf y}\)</span> は</p>
@@ -600,7 +610,8 @@ h_{12} &amp;= \max(0, -14)  = 0
 {\bf y} &amp;= f({\bf x}; \boldsymbol{\Theta}) \\
 &amp;= a_2 ( {\bf w}_2 a_1({\bf w}_1 {\bf x} + {\bf b}_1) + {\bf b}_2 )
 \end{aligned}\end{split}\]</div>
-<p>と書くことができます．ここで，<span class="math notranslate nohighlight">\(a_1, a_2\)</span> はそれぞれ，1層目と2層目の，および2層目と3層目の間で線形変換のあとに施される非線形変換（活性化関数）を意味しています．以下，簡単のために，各層間で行われた線形変換の結果を <span class="math notranslate nohighlight">\({\bf u}_1, {\bf u}_2\)</span>とし，中間層の値，すなわち <span class="math notranslate nohighlight">\({\bf u}_1\)</span> に活性化関数を適用した結果を <span class="math notranslate nohighlight">\({\bf h}_1\)</span> と書きます．ただし，<span class="math notranslate nohighlight">\({\bf u}_2\)</span> に活性化関数を適用した結果は <span class="math notranslate nohighlight">\({\bf y}\)</span> と表記します．すると，これらの関係は以下のように整理することができます．</p>
+<p>You can write here, <span class="math notranslate nohighlight">\(a_1, a_2\)</span> Denotes the non-linear transformation (activation function) applied after the linear transformation between the first and second layers and between the second and third layers, respectively. Below, for the sake of simplicity, the result of the linear transformation performed between each layer is <span class="math notranslate nohighlight">\({\bf u}_1, {\bf u}_2\)</span> And the value of the middle layer, ie <span class="math notranslate nohighlight">\({\bf u}_1\)</span> Apply the activation function to <span class="math notranslate nohighlight">\({\bf h}_1\)</span> Write. However,
+<span class="math notranslate nohighlight">\({\bf u}_2\)</span> The result of applying the activation function to <span class="math notranslate nohighlight">\({\bf y}\)</span> It is written as Then, these relations can be organized as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 {\bf y} &amp;= a_2({\bf u}_2) \\
@@ -608,16 +619,16 @@ h_{12} &amp;= \max(0, -14)  = 0
 {\bf h}_1 &amp;= a_1({\bf u}_1) \\
 {\bf u}_1 &amp;= {\bf w}_1 {\bf x} + {\bf b}_1
 \end{aligned}\end{split}\]</div>
-<div class="section" id="パラメータ-{\bf-w}_2-の更新量">
-<h4>3.3.1.1. パラメータ <span class="math notranslate nohighlight">\({\bf w}_2\)</span> の更新量<a class="headerlink" href="#パラメータ-{\bf-w}_2-の更新量" title="Permalink to this headline">¶</a></h4>
-<p>それではまず，出力層に近い方のパラメータ，<span class="math notranslate nohighlight">\({\bf w}_2\)</span> についての <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> の勾配を求めてみましょう．これは，合成関数の偏微分なので，連鎖律（chain rule）を用いて以下のように展開できます．</p>
+<div class="section" id="3.3.1.1.-Parameters-𝐰2-Of-the-update-amount">
+<h4>3.3.1.1. 3.3.1.1. Parameters 𝐰2 Of the update amount<a class="headerlink" href="#3.3.1.1.-Parameters-𝐰2-Of-the-update-amount" title="Permalink to this headline">¶</a></h4>
+<p>So first, the parameters closer to the output layer,<span class="math notranslate nohighlight">\({\bf w}_2\)</span> about <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Find the slope of. Since this is a partial derivative of the composite function, it can be expanded as follows using the chain rule.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \frac{\partial \mathcal{L}}{\partial {\bf w}_2}
 &amp;= \frac{\partial \mathcal{L}}{\partial {\bf y}} \frac{\partial {\bf y}}{\partial {\bf w}_2} \\
 &amp;= \frac{\partial \mathcal{L}}{\partial {\bf y}} \frac{\partial {\bf y}}{\partial {\bf u}_2} \frac{\partial {\bf u}_2}{\partial {\bf w}_2}
 \end{aligned}\end{split}\]</div>
-<p>この3つの偏微分はそれぞれ，</p>
+<p>The three partial derivatives are</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \frac{\partial \mathcal{L}}{\partial {\bf y}}
@@ -627,13 +638,13 @@ h_{12} &amp;= \max(0, -14)  = 0
 \frac{\partial {\bf u}_2}{\partial {\bf w}_2}
 &amp;= {\bf h}_1
 \end{aligned}\end{split}\]</div>
-<p>と求まります．ここで，活性化関数の入力に関する出力の勾配</p>
+<p>I will ask. Where the slope of the output with respect to the input of the activation function</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial a_2}{\partial {\bf u}_2}\]</div>
-<p>が登場しました．これは，例えば活性化関数にシグモイド関数を用いる場合は，</p>
+<p>Has appeared. This is, for example, when using a sigmoid function as the activation function,</p>
 <div class="math notranslate nohighlight">
 \[a_2({\bf u}_2) = \frac{1}{1 + \exp(-{\bf u}_2)}\]</div>
-<p>の微分ですから，すなわち</p>
+<p>Because it is a derivative of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \frac{\partial a_2({\bf u}_2)}{\partial {\bf u}_2}
@@ -643,61 +654,61 @@ h_{12} &amp;= \max(0, -14)  = 0
 &amp;= \frac{1}{1 + \exp(-{\bf u}_2)} (1 - \frac{1}{1 + \exp(-{\bf u}_2)}) \\
 &amp;= a_2({\bf u}_2)(1 - a_2({\bf u}_2))
 \end{aligned}\end{split}\]</div>
-<p>となります．シグモイド関数の勾配は，このようにシグモイド関数の出力値を使って簡単に計算することができます．</p>
-<p>これで <span class="math notranslate nohighlight">\({\bf w}_2\)</span> の勾配を計算するのに必要な値は全て出揃いました．では実際にNumPyを使ってこれらを計算してみましょう．ここでは簡単のために，バイアスベクトルはすべて0で初期化されているとします．</p>
+<p>The slope of the sigmoid function can thus be easily calculated using the output value of the sigmoid function.</p>
+<p>with this <span class="math notranslate nohighlight">\({\bf w}_2\)</span> All the values needed to calculate the slope of were available. Let’s actually calculate these using NumPy. Here, for the sake of simplicity, all bias vectors are assumed to be initialized to zero.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import numpy as np
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-# 入力
-x = np.array([2, 3, 1])
+<span class="c1"># 入力</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
-# 正解
-t = np.array([20])
+<span class="c1"># 正解</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
-<p>まず，NumPyモジュールを読み込んでから，入力の配列を定義します．ここでは，上図と同じになるように <code class="docutils literal notranslate"><span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">1</span></code> の3つの値を持つ3次元ベクトルを定義しています．また，正解として仮に <code class="docutils literal notranslate"><span class="pre">20</span></code> を与えることにしました．次に，パラメータを定義します．</p>
+<p>First, load the NumPy module and define an array of inputs. Here, a three-dimensional vector with three values is defined to be the same as the above figure . In addition, I decided to give tentatively as the correct answer . Next, define the parameters. <code class="docutils literal notranslate"><span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">1</span></code> <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># 1-2層間のパラメータ
-w1 = np.array([[3, 1, 2], [-2, -3, -1]])
-b1 = np.array([0, 0])
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 1-2層間のパラメータ</span>
+<span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
-# 2-3層間のパラメータ
-w2 = np.array([[3, 2]])
-b2 = np.array([0])
+<span class="c1"># 2-3層間のパラメータ</span>
+<span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
-<p>ここでは，以下の4つのパラメータを定義しました．</p>
-<p><strong>1層目と2層目の間の線形変換のパラメータ</strong></p>
-<p><span class="math notranslate nohighlight">\({\bf w}_1 \in \mathbb{R}^{2 \times 3}\)</span> : 3次元ベクトルを2次元ベクトルに変換する行列</p>
-<p><span class="math notranslate nohighlight">\({\bf b}_1 \in \mathbb{R}^2\)</span> : 2次元バイアスベクトル</p>
-<p><strong>2層目と3層目の間の線形変換のパラメータ</strong></p>
-<p><span class="math notranslate nohighlight">\({\bf w}_2 \in \mathbb{R}^{1 \times 2}\)</span> : 2次元ベクトルを1次元ベクトルに変換する行列</p>
-<p><span class="math notranslate nohighlight">\({\bf b}_2 \in \mathbb{R}^1\)</span> : 1次元バイアスベクトル</p>
-<p>それでは，各層の計算を実際に実行してみましょう．</p>
+<p>Here, the following four parameters are defined.</p>
+<p><strong>Parameters of linear transformation between layer 1 and layer 2</strong></p>
+<p><span class="math notranslate nohighlight">\({\bf w}_1 \in \mathbb{R}^{2 \times 3}\)</span> : A matrix that converts a 3D vector to a 2D vector</p>
+<p><span class="math notranslate nohighlight">\({\bf b}_1 \in \mathbb{R}^2\)</span> : Two-dimensional bias vector</p>
+<p><strong>Parameters of linear transformation between layer 2 and layer 3</strong></p>
+<p><span class="math notranslate nohighlight">\({\bf w}_2 \in \mathbb{R}^{1 \times 2}\)</span> :A matrix that converts a two-dimensional vector to a one-dimensional vector</p>
+<p><span class="math notranslate nohighlight">\({\bf b}_2 \in \mathbb{R}^1\)</span> : One-dimensional bias vector</p>
+<p>Let’s actually carry out the calculation of each layer.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># 中間層の計算
-u1 = w1.dot(x) + b1
-h1 = 1. / (1 + np.exp(-u1))
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 中間層の計算</span>
+<span class="n">u1</span> <span class="o">=</span> <span class="n">w1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>
+<span class="n">h1</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u1</span><span class="p">))</span>
 
-# 出力の計算
-u2 = w2.dot(h1) + b2
-y = 1. / (1 + np.exp(-u2))
+<span class="c1"># 出力の計算</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="n">w2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u2</span><span class="p">))</span>
 
-print(y)
+<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -709,37 +720,37 @@ print(y)
 [0.95257194]
 </pre></div></div>
 </div>
-<p>出力は <span class="math notranslate nohighlight">\(0.95257194\)</span> と求まりました．つまり，<span class="math notranslate nohighlight">\(f([2, 3, 1]^T) = 0.95257194\)</span> ということになります．次に，上で求めた</p>
+<p>The output is 0.95257194I asked for it. In other words,<span class="math notranslate nohighlight">\(f([2, 3, 1]^T) = 0.95257194\)</span> will be said. Next, I asked for it</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial \mathcal{L}}{\partial {\bf w}_2}
 = \frac{\partial \mathcal{L}}{\partial {\bf y}} \frac{\partial {\bf y}}{\partial {\bf u}_2} \frac{\partial {\bf u}_2}{\partial {\bf w}_2}\]</div>
-<p>の右辺の3つの偏微分をそれぞれ計算してみましょう．</p>
+<p>Let’s calculate each of the three partial derivatives on the right side of.．</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># dL / dy
-g_Ly = -2 / 1 * (t - y)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># dL / dy</span>
+<span class="n">g_Ly</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
 
-# dy / du_2
-g_yu2 = y * (1 - y)
+<span class="c1"># dy / du_2</span>
+<span class="n">g_yu2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
 
-# du_2 / dw_2
-g_u2w2 = h1
+<span class="c1"># du_2 / dw_2</span>
+<span class="n">g_u2w2</span> <span class="o">=</span> <span class="n">h1</span>
 </pre></div>
 </div>
 </div>
-<p>これらを掛け合わせれば，求めたかったパラメータ <span class="math notranslate nohighlight">\({\bf w}_2\)</span> についての勾配を得ることができます．</p>
+<p>If you multiply these, you will find the parameter you wanted <span class="math notranslate nohighlight">\({\bf w}_2\)</span> You can get the gradient about.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># dL / dw_2: 求めたい勾配
-g_Lw2 = g_Ly * g_yu2 * g_u2w2
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># dL / dw_2: 求めたい勾配</span>
+<span class="n">g_Lw2</span> <span class="o">=</span> <span class="n">g_Ly</span> <span class="o">*</span> <span class="n">g_yu2</span> <span class="o">*</span> <span class="n">g_u2w2</span>
 
-print(g_Lw2)
+<span class="k">print</span><span class="p">(</span><span class="n">g_Lw2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -751,18 +762,18 @@ print(g_Lw2)
 [-1.72104507e+00 -1.43112111e-06]
 </pre></div></div>
 </div>
-<p>勾配が求まりました．これが <span class="math notranslate nohighlight">\(\partial \mathcal{L} / \partial {\bf w}_2\)</span> の値です．これを学習率でスケールさせたものを使えば，パラメータ <span class="math notranslate nohighlight">\({\bf w}_2\)</span> を更新することができます．更新式は，具体的には以下のようになります．</p>
+<p>I got the slope. This is <span class="math notranslate nohighlight">\(\partial \mathcal{L} / \partial {\bf w}_2\)</span> Is the value of If this is scaled by the learning rate, the parameters𝐰2Can be updated. Specifically, the update expression is as follows.</p>
 <div class="math notranslate nohighlight">
 \[{\bf w}_2 \leftarrow {\bf w}_2 - \eta \frac{\partial \mathcal{L}}{\partial {\bf w}_2}\]</div>
-<p>ここでは学習率を <span class="math notranslate nohighlight">\(\eta\)</span> で表記しました．</p>
+<p>Here is the learning rate <span class="math notranslate nohighlight">\(\eta\)</span> Indicated in.</p>
 </div>
-<div class="section" id="学習率（learning-rate）について">
-<h4>3.3.1.2. 学習率（learning rate）について<a class="headerlink" href="#学習率（learning-rate）について" title="Permalink to this headline">¶</a></h4>
-<p>学習率が大きすぎると，繰り返しパラメータ更新を行っていく中で目的関数の値が振動したり，発散したりしてしまいます．小さすぎると，収束に時間がかかってしまいます．そのため，この学習率を適切に決定することがニューラルネットワークの学習においては非常に重要となります．多くの場合，学習がきちんと進むもっとも大きな値を経験的に探すということが行われます．シンプルな画像認識のタスクなどでは大抵，0.1~0.01などが最初に用いられる場合が比較的多く見られます．</p>
+<div class="section" id="3.3.1.2.-Learning-rate-for-the-(Learning-Rate)">
+<h4>3.3.1.2. 3.3.1.2. Learning rate for the (Learning Rate)<a class="headerlink" href="#3.3.1.2.-Learning-rate-for-the-(Learning-Rate)" title="Permalink to this headline">¶</a></h4>
+<p>If the learning rate is too high, the value of the objective function may oscillate or diverge while updating parameters repeatedly. If it is too small, convergence will take time. Therefore, it is very important in neural network learning to determine this learning rate properly. In many cases, empirically searching for the largest value that learning proceeds properly is done. For simple image recognition tasks etc., usually 0.1 to 0.01 etc. are relatively often seen first.</p>
 </div>
-<div class="section" id="パラメータ-{\bf-w}_1-の更新量">
-<h4>3.3.1.3. パラメータ <span class="math notranslate nohighlight">\({\bf w}_1\)</span> の更新量<a class="headerlink" href="#パラメータ-{\bf-w}_1-の更新量" title="Permalink to this headline">¶</a></h4>
-<p>次に，<span class="math notranslate nohighlight">\({\bf w}_1\)</span> の更新量も求めてみましょう．そのためには，<span class="math notranslate nohighlight">\({\bf w}_1\)</span> で目的関数 <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> を偏微分した値が必要です．これは以下のように計算できます．</p>
+<div class="section" id="3.3.1.3.-Parameters-{\bf-w}_1-Of-the-update-amount">
+<h4>3.3.1.3. 3.3.1.3. Parameters <span class="math notranslate nohighlight">\({\bf w}_1\)</span> Of the update amount<a class="headerlink" href="#3.3.1.3.-Parameters-{\bf-w}_1-Of-the-update-amount" title="Permalink to this headline">¶</a></h4>
+<p>next, <span class="math notranslate nohighlight">\({\bf w}_1\)</span> Let’s also calculate the update amount of. for that purpose, <span class="math notranslate nohighlight">\({\bf w}_1\)</span> Objective function at <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> You need a value that is a partial derivative of. This can be calculated as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \frac{\partial \mathcal{L}}{\partial {\bf w}_1}
@@ -783,7 +794,7 @@ print(g_Lw2)
 \frac{\partial {\bf h}_1}{\partial {\bf u}_1}
 \frac{\partial {\bf u}_1}{\partial {\bf w}_1}
 \end{aligned}\end{split}\]</div>
-<p>この5つの偏微分のうち初めの1つはすでに求めました．残りの3つは，それぞれ，</p>
+<p>The first of these five partial derivatives has already been found. The remaining three are</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \frac{\partial {\bf y}}{\partial {\bf u}_2}
@@ -795,27 +806,27 @@ print(g_Lw2)
 \frac{\partial {\bf u}_1}{\partial {\bf w}_1}
 &amp;= {\bf x}
 \end{aligned}\end{split}\]</div>
-<p>と計算できます．では，さっそく実際にNumPyを用いて計算を実行してみましょう．</p>
+<p>You can calculate Now, let’s actually execute the calculation using NumPy.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>g_yu2 = y * (1 - y)
-g_u2h1 = w2
-g_h1u1 = h1 * (1 - h1)
-g_u1w1 = x
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">g_yu2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">g_u2h1</span> <span class="o">=</span> <span class="n">w2</span>
+<span class="n">g_h1u1</span> <span class="o">=</span> <span class="n">h1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h1</span><span class="p">)</span>
+<span class="n">g_u1w1</span> <span class="o">=</span> <span class="n">x</span>
 
-# 上から du1 / dw1 の直前までを一旦計算
-g_Lu1 = g_Ly * g_yu2 * g_u2h1 * g_h1u1
+<span class="c1"># 上から du1 / dw1 の直前までを一旦計算</span>
+<span class="n">g_Lu1</span> <span class="o">=</span> <span class="n">g_Ly</span> <span class="o">*</span> <span class="n">g_yu2</span> <span class="o">*</span> <span class="n">g_u2h1</span> <span class="o">*</span> <span class="n">g_h1u1</span>
 
-# g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形
-g_u1w1 = g_u1w1[None]
+<span class="c1"># g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形</span>
+<span class="n">g_u1w1</span> <span class="o">=</span> <span class="n">g_u1w1</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span>
 
-# dL / dw_1: 求めたい勾配
-g_Lw1 = g_Lu1.T.dot(g_u1w1)
+<span class="c1"># dL / dw_1: 求めたい勾配</span>
+<span class="n">g_Lw1</span> <span class="o">=</span> <span class="n">g_Lu1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_u1w1</span><span class="p">)</span>
 
-print(g_Lw1)
+<span class="k">print</span><span class="p">(</span><span class="n">g_Lw1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -828,60 +839,67 @@ print(g_Lw1)
  [-5.72447970e-06 -8.58671954e-06 -2.86223985e-06]]
 </pre></div></div>
 </div>
-<p>これが <span class="math notranslate nohighlight">\(\partial \mathcal{L} / \partial {\bf w}_1\)</span> の値です．これを用いて，<span class="math notranslate nohighlight">\({\bf w}_2\)</span> と同様に以下のような更新式でパラメータ <span class="math notranslate nohighlight">\({\bf w}_1\)</span> の更新をすることができます．</p>
+<p>This is <span class="math notranslate nohighlight">\(\partial \mathcal{L} / \partial {\bf w}_1\)</span> Is the value of Using this, <span class="math notranslate nohighlight">\({\bf w}_2\)</span> Update parameters like the following <span class="math notranslate nohighlight">\({\bf w}_1\)</span> You can update the.</p>
 <div class="math notranslate nohighlight">
 \[{\bf w}_1 \leftarrow {\bf w}_1 - \eta \frac{\partial \mathcal{L}}{\partial {\bf w}_1}\]</div>
 </div>
 </div>
 </div>
-<div class="section" id="誤差逆伝播法（バックプロパゲーション）">
-<h2>3.4. 誤差逆伝播法（バックプロパゲーション）<a class="headerlink" href="#誤差逆伝播法（バックプロパゲーション）" title="Permalink to this headline">¶</a></h2>
-<p>ここまでで，各パラメータについての目的関数の導関数を手計算により導出して実際に勾配の数値計算を行うということを体験しました．では，もっと層数の多いニューラルネットワークの場合は，どうなるでしょうか．同様に手計算によって導関数を求めることももちろん可能ですが，ニューラルネットワークが微分可能な関数を繰り返し適用するものであるという性質を用いると，コンピュータによって自動的に勾配を与える関数を導き出すことが可能です．合成関数の偏微分は，連鎖律によって複数の偏微分の積の形に変形できたことを思い出しましょう．</p>
-<p>下図は，ここまでの説明で用いていた3層の全結合型ニューラルネットワークの出力を得るための計算と，その値を使って目的関数の値を計算する過程を青い矢印で，そして前節で手計算によって行った各パラメータによる目的関数の偏微分を計算する過程を赤い矢印で表現した動画となっています．</p>
-<p><img alt="誤差逆伝播法(Backpropagation)の計算過程" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/backpropagation.gif" /></p>
-<p>まず，目的関数の出力を <span class="math notranslate nohighlight">\(l = \mathcal{L}({\bf y}, {\bf t})\)</span> とします．この図の丸いノードは変数を表し，四角いノードは関数を表しています．今，一つの巨大な合成関数として見ることができるニューラルネットワーク全体を <span class="math notranslate nohighlight">\(f\)</span> と表し，その中で各層間の線形変換に用いられる関数を <span class="math notranslate nohighlight">\(f_1\)</span>, <span class="math notranslate nohighlight">\(f_2\)</span>，非線形変換をそれぞれ <span class="math notranslate nohighlight">\(a_1\)</span>, <span class="math notranslate nohighlight">\(a_2\)</span> と表します．このとき，前節で行った更新量の算出はどのように捉えることができるでしょうか．</p>
-<p>今，上図の青い矢印で表されるように，新しい入力 <span class="math notranslate nohighlight">\({\bf x}\)</span> がニューラルネットワークに与えられ，それが順々に出力側に伝わっていき，最終的に目的関数の値 <span class="math notranslate nohighlight">\(l\)</span> まで計算が終わったとします．ここまでを <strong>順伝播（forward propagation）</strong> といいます．</p>
-<p>すると次は，目的関数の出力の値を小さくするような各パラメータの更新量を求めたいということになりますが，このために必要な目的関数の勾配は，各パラメータの丸いノードより先の部分（出力側）にある関数の勾配だけで計算できることが分かります．具体的には，それらを全て掛け合わせたものになっています．つまり，上図の赤い矢印で表されるように，出力側から入力側に向かって，<strong>順伝播とは逆向きに</strong>，各関数における入力についての勾配を求めて掛け合わせていけば，パラメータについての目的関数の勾配が計算できるわけです．</p>
-<p>このように，微分の連鎖律の仕組みを用いて，ニューラルネットワークを構成する関数が持つパラメータについての目的関数の勾配を，<strong>順伝播で通った経路を逆向きにたどるようにして</strong>途中の関数の勾配の掛け算によって求めるアルゴリズムを <strong>誤差逆伝播法（backpropagation）</strong> と呼びます．</p>
+<div class="section" id="3.4.-Back-propagation-method-(back-propagation)">
+<h2>3.4. 3.4. Back propagation method (back propagation)<a class="headerlink" href="#3.4.-Back-propagation-method-(back-propagation)" title="Permalink to this headline">¶</a></h2>
+<p>Up to this point, I have experienced that the derivative of the objective function for each parameter is derived by hand calculation and the numerical calculation of the gradient is actually performed. So what happens if the neural network has more layers? Similarly, it is of course possible to obtain the derivative by hand calculation, but it is possible to derive a function which gives a gradient automatically by a computer by using the property that a neural network applies a differentiable
+function repeatedly. is. Recall that partial derivatives of composite functions can be transformed into the product of multiple partial derivatives by the chain law.</p>
+<p>The figure below shows the calculation for obtaining the output of the 3-layer fully connected neural network used in the explanation so far, and the process of calculating the value of the objective function using that value with blue arrows, and the hand in the previous section. It is an animation that expresses the process of calculating the partial derivatives of the objective function by each parameter by the calculation with red arrows.</p>
+<p><img alt="誤差逆伝播法(Backpropagation)の計算過程" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/backpropagation.gif" /></p>
+<p>First, the output of the objective function <span class="math notranslate nohighlight">\(l = \mathcal{L}({\bf y}, {\bf t})\)</span> will do. The round nodes in this figure represent variables, and the square nodes represent functions. Now, the whole neural network that can be seen as one huge synthetic function <span class="math notranslate nohighlight">\(f\)</span> In which the function used for the linear transformation between each layer is <span class="math notranslate nohighlight">\(f_1\)</span>, <span class="math notranslate nohighlight">\(f_2\)</span>, Non-linear transformation 𝑎1, 𝑎2It is expressed as. In this case, how can the calculation of the update amount
+performed in the previous section be understood?</p>
+<p>Now, as represented by the blue arrow above, a new input <span class="math notranslate nohighlight">\({\bf x}\)</span> Is given to the neural network and transmitted to the output side in order, and finally the value of the objective function <span class="math notranslate nohighlight">\(l\)</span> Suppose that the calculation is finished. This is called <strong>forward propagation</strong>.</p>
+<p>Then, next, we would like to find the update amount of each parameter that makes the value of the output of the objective function smaller, but the gradient of the objective function necessary for this is the part beyond the round node of each parameter You can see that it can be calculated only by the gradient of the function at (output side). Specifically, they are all multiplied. That is, as shown by the red arrows in the above figure, if the gradient for the input in each function is
+determined and multiplied in the <strong>opposite direction</strong> to the <strong>forward propagation</strong> from the output side to the input side, The gradient of the objective function can be calculated.</p>
+<p>Thus, by using the mechanism of chain rule of differentiation, the purpose of the gradient of a function, for parameters of the function to configure the neural network <strong>so as to follow a path through in forward propagation in a reverse direction</strong> gradient of the course of function The algorithm obtained by multiplication of is called error backpropagation.</p>
 </div>
-<div class="section" id="勾配消失">
-<h2>3.5. 勾配消失<a class="headerlink" href="#勾配消失" title="Permalink to this headline">¶</a></h2>
-<p>活性化関数について初めに触れた際，シグモイド関数には勾配消失という現象が起きやすくなるという問題があり，現在はあまり使われていないと説明をしました．その理由についてもう少し詳しく見ていきましょう．</p>
-<p>上で既に計算した，シグモイド関数の導関数を思い出してみます．</p>
+<div class="section" id="3.5.-Slope">
+<h2>3.5. 3.5. Slope<a class="headerlink" href="#3.5.-Slope" title="Permalink to this headline">¶</a></h2>
+<p>When I first mentioned the activation function, the sigmoid function has a problem that the phenomenon of gradient disappearance is likely to occur, and explained that it is not used so much at present. Let’s look more closely at the reasons.</p>
+<p>Recall the derivative of the sigmoid function that you have already calculated above.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 f\left( u\right) &amp;=\dfrac {1}{1+e^{-u}} \\
 f'\left( u\right) &amp;= f\left( u\right) \left( 1-f\left( u\right) \right)
 \end{aligned}\end{split}\]</div>
-<p>さて，この導関数の値を入力変数に関してプロットしてみると，下記のようになります．</p>
-<p><img alt="シグモイド関数の導関数" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/09.png" /></p>
-<p>この図の上2つは，導関数を構成する2つの部分 <span class="math notranslate nohighlight">\(f(u)\)</span> と <span class="math notranslate nohighlight">\(1 - f(u)\)</span> の値を別々にプロットしたもので，中央下の図が実際の導関数の値となります．上図中央下の導関数の形を見ると，入力が原点から遠くなるにつれ勾配の値がどんどん減少し，0に漸近していくことが見て取れます．</p>
-<p>各パラメータの更新量を求めるには，前節で説明したように，<strong>そのパラメータよりも先のすべての関数の勾配を掛け合わせる</strong>必要がありました．このとき，活性化関数にシグモイド関数を用いていると，勾配は必ず<strong>最大でも0.25</strong>という値にしかなりません．すると，線形変換が計算グラフ中に現れるたびに，目的関数の勾配は，多くとも0.25倍されてしまいます．これは，層数が増えていけばいくほど，この最大でも0.25という値が繰り返し掛け合わされることになるため，入力に近い層に流れていく勾配がどんどん0に近づいていってしまいます．</p>
-<p>具体例を見てみましょう．今回は3層のニューラルネットワークを用いて説明を行っていましたが，4層の場合を考えてみます，すると，一番入力に近い線形変換のパラメータの勾配は，多くとも目的関数の勾配を <span class="math notranslate nohighlight">\(0.25 \times 0.25 = 0.0625\)</span> 倍したものということになります．層数が一つ増えるたびに，指数的に勾配が小さくなるということがよく分かります．</p>
-<p>ディープラーニングでは，4層よりもさらに多くの層を積み重ねたニューラルネットワークが用いられます．そうすると，活性化関数としてシグモイド関数を使用した場合，<strong>目的関数の勾配が入力に近い関数が持つパラメータへほぼ全く伝わらなくなってしまいます</strong>，あまりにも小さな勾配しか伝わってこなくなると，パラメータの更新量がほとんど0になるため，どんなに目的関数が大きな値になっていても，入力層に近い関数が持つパラメータは変化しなくなります．つまり初期化時からほとんど値が変わらなくなるということになり，学習が行われていないという状態になるわけです．これを
-<strong>勾配消失（vanishing gradient）</strong> と呼び，長らく深い（十数層を超える）ニューラルネットワークの学習が困難であった一つの要因でした．</p>
+<p>Now, when plotting the value of this derivative with respect to the input variable, it becomes as follows.</p>
+<p><img alt="シグモイド関数の導関数" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/09.png" /></p>
+<p>The top two in this figure are the two parts that make up the derivative <span class="math notranslate nohighlight">\(f(u)\)</span> When <span class="math notranslate nohighlight">\(1 - f(u)\)</span> Plotted separately for the values of, the lower middle figure is the actual derivative value. If you look at the shape of the derivative in the lower center of the upper figure, you can see that the value of the gradient decreases gradually as the input goes away from the origin and asymptotically approaches 0.</p>
+<p>In order to obtain the update amount of each parameter, it was necessary <strong>to multiply the gradients of all functions ahead of that parameter</strong> , as described in the previous section . At this time, if a sigmoid function is used for the activation function, the gradient must have a value of <strong>at most 0.25</strong> at most. Then, each time a linear transformation appears in the computation graph, the slope of the objective function is multiplied by at most 0.25. This is because as the number of layers
+increases, the maximum value of 0.25 is repeatedly multiplied, so the gradient flowing to the layer closer to the input approaches 0 more and more.</p>
+<p>Let’s look at a concrete example. This time, the explanation was made using a three-layer neural network, but let’s consider the case of four layers. Then, the gradient of the parameter of the linear transformation closest to the input is at most the gradient of the objective function. <span class="math notranslate nohighlight">\(0.25 \times 0.25 = 0.0625\)</span> It will be doubled. It is clear that the slope decreases exponentially as the number of layers increases.</p>
+<p>In deep learning, a neural network is used in which more than four layers are stacked. Then, when the sigmoid function is used as the <strong>activation function, the gradient of the objective function is almost completely not transmitted to the parameters of the function close to the input, and when</strong> only a very small gradient is transmitted, the parameter update amount is almost Because it is 0, the parameters of functions close to the input layer will not change no matter how large the objective
+function is. In other words, the value hardly changes from the time of initialization, which means that learning is not being performed. This <strong>gradient loss (vanishing gradient</strong> is referred to as, was a long deep (more than a dozen layers) one of the factors learning is difficult in the neural network.</p>
 </div>
-<div class="section" id="「レイヤ」が指すもの">
-<h2>3.6. 「レイヤ」が指すもの<a class="headerlink" href="#「レイヤ」が指すもの" title="Permalink to this headline">¶</a></h2>
-<p>ここまでの解説では，前々節の誤差逆伝播法の説明に登場した図のようなグラフにおける丸いノード（中間出力などの値）の数を指して○層（○-layer）のニューラルネットワーク，という言い方をしてきました．しかし，このグラフにおける四角いノード（関数）を指して層（layer）と呼ぶ場合もあります．そしてニューラルネットワークの実装に使われるフレームワークでは，多くの場合，層タイプ（layer
-type）として様々な関数がまとめられています．そこで，以下ではこの関数に対して「層」もしくは「レイヤ」という言葉を用いることに注意してください．</p>
+<div class="section" id="3.6.-What-“layer”-points">
+<h2>3.6. 3.6. What “layer” points<a class="headerlink" href="#3.6.-What-“layer”-points" title="Permalink to this headline">¶</a></h2>
+<p>In the explanation up to this point, the number of round nodes (values such as intermediate output) in the graph as shown in the explanation of the error back propagation method of the last two clauses indicates the neural network of ○ layer (○ -layer), It has been said that. However, in some cases, the square nodes (functions) in this graph are referred to as layers. And in frameworks used to implement neural networks, various functions are often organized as layer types. So, be careful to use
+the words “layer” or “layer” for this function below.</p>
 </div>
-<div class="section" id="様々なレイヤタイプ">
-<h2>3.7. 様々なレイヤタイプ<a class="headerlink" href="#様々なレイヤタイプ" title="Permalink to this headline">¶</a></h2>
-<p>ここまでで，ニューラルネットワークには大別して線形変換を行う関数と非線形変換を行う関数という二種類の関数が含まれることを説明し，線形変換の例として <strong>全結合層（fully-connected layer）</strong> のみを用いてきました．</p>
-<p>しかし，ニューラルネットワークの構成要素として用いることができるレイヤは，全結合層と活性化関数だけではありません．画像認識や画像生成，画像の変換や超解像（低解像の画像から解像度を高めた画像を作る技術）など，様々なタスクで入力に画像というデータ形式が用いられますが，こういったタスクではしばしば画像というデータ形式の特徴と相性の良い変換である畳み込み層（convolution layer）というものが全結合層の代わりにニューラルネットワークの中で線形変換を担います．</p>
-<p>また，ニューラルネットワークの構成要素となるレイヤには，微分可能な関数であればなんであろうと用いることができます．そこで，いわゆる <strong>畳み込みニューラルネットワーク（convolutional neural networks; CNN）</strong> と呼ばれるネットワークアーキテクチャの種別では，この畳込み層に加えてプーリング層（pooling layer）というレイヤがしばしば用いられてきました．</p>
-<p>本節では，このCNNでしばしば用いられる畳み込み層とプーリング層について，その計算の概要を説明します．</p>
-<div class="section" id="畳み込み層（convolution-layer）">
-<h3>3.7.1. 畳み込み層（convolution layer）<a class="headerlink" href="#畳み込み層（convolution-layer）" title="Permalink to this headline">¶</a></h3>
-<p>全結合層では，出力の計算のためにパラメータ行列<span class="math notranslate nohighlight">\({\bf W}\)</span>中の一つ一つの値が入力データの持つ全ての要素（ベクトルであれば，全次元の値）と掛け合わされていました．言い換えると，「結合」を何らかの演算が行われる関係を指すものとすれば，パラメータ行列<span class="math notranslate nohighlight">\({\bf W}\)</span>の<span class="math notranslate nohighlight">\(i, j\)</span>要素である<span class="math notranslate nohighlight">\(W_{ij}\)</span>と，入力データ<span class="math notranslate nohighlight">\({\bf x}\)</span>の全要素の間が，全結合（fully-connected）していたということです．</p>
-<p>一方，畳み込み層では，ここまでで説明した全結合層とは異なり，パラメータと入力データの間の結合が局所的になっており，各々のパラメータは入力データの全ての要素と結合しているとは限りません．具体的には，2次元畳み込み層の場合，パラメータはカーネル（もしくはフィルタ）と呼ばれる小さな画像パッチのようなものの集合として用意され，そのパッチごとに入力データの一部の値との間の演算が行われる形になっています．</p>
-<p>下の図を用いて，<span class="math notranslate nohighlight">\(3 \times 3\)</span>の大きさの小さな画像パッチのような畳み込みカーネルを2つ持つ畳み込み層の実際の計算過程を調べてみましょう．</p>
-<p><img alt="畳み込み層の計算過程" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/convolution.gif" /></p>
-<p>（図は<a class="reference external" href="http://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition</a>より引用）</p>
-<p>一番左の青いブロックが並ぶ列は，入力画像を表しています．入力は 幅・高さが<span class="math notranslate nohighlight">\(5 \times 5\)</span> の大きさの3チャンネル画像です．上図ではまず，パディング（padding）と呼ばれる処理をして，入力画像の周囲に値が0となる領域を付け足しています．今回は幅1の領域をパディングしています．</p>
-<p>中央2列は，それぞれ1列ごとに1つの畳み込みカーネルを表しています．1つの畳み込みカーネルは，入力の画像（もしくは特徴マップ（feature
-map）と呼ばれる一つ前の層の出力）が持つのと同数のチャンネルを持ちます．ここでは入力画像は3チャンネルだったので，各カーネルは3チャンネル分の値を持っています．これが縦に並んだ3つの赤い<span class="math notranslate nohighlight">\(3 \times 3\)</span>の大きさのブロックで表されています．各カーネルの各チャンネルは，対応する入力のチャンネルに対して自らをスライドさせていくような形で計算を行います．このときのスライド幅をストライド（stride）と呼びます．図では，2個飛びに入力画像上を<span class="math notranslate nohighlight">\(3 \times 3\)</span>の枠が移動しているようすが見て取れます．すなわち，ストライドは2に設定されています．ここで行われる計算は，入力のある位置にカーネルを重ね合わせた際に，重なっている<span class="math notranslate nohighlight">\(3 \times 3 = 9\)</span>個の要素を互いに掛け合わせて，結果を全て足すという計算です．上の図では，例えば1つ目のカーネル（W0）の1つ目のチャンネルは，</p>
+<div class="section" id="3.7.-Various-layer">
+<h2>3.7. 3.7. Various layer<a class="headerlink" href="#3.7.-Various-layer" title="Permalink to this headline">¶</a></h2>
+<p>Up to this point, it is explained that the neural network includes two kinds of functions, roughly divided into a function that performs linear transformation and a function that performs nonlinear transformation, and as a linear transformation example, only <strong>fully-connected layer</strong> I used it.</p>
+<p>However, layers that can be used as components of neural networks are not limited to all connection layers and activation functions. There are various tasks such as image recognition, image generation, image conversion, super-resolution (a technique for creating an image with high resolution from low-resolution images), and so on. In the task, the convolution layer, which is often a transformation that is compatible with the characteristics of the data format of the image, carries a linear
+transformation in the neural network instead of the full connection layer.</p>
+<p>Also, layers that are components of neural networks can be used with any differentiable function. Therefore, in addition to this convolutional layer, a layer called a pooling layer has often been used in a type of network architecture called so-called <strong>convolutional neural networks (CNN)</strong> .</p>
+<p>This section outlines the calculations for the convolution and pooling layers often used in this CNN.</p>
+<div class="section" id="3.7.1.-Convolution-layer">
+<h3>3.7.1. 3.7.1. Convolution layer<a class="headerlink" href="#3.7.1.-Convolution-layer" title="Permalink to this headline">¶</a></h3>
+<p>In the total connection layer, the parameter matrix for calculating the output <span class="math notranslate nohighlight">\({\bf W}\)</span> Every single value in the input data was multiplied by all elements of the input data (if it is a vector, it is the value of all dimensions). In other words, if “join” refers to a relation in which some operation is performed, the parameter matrix <span class="math notranslate nohighlight">\({\bf W}\)</span> of <span class="math notranslate nohighlight">\(i, j\)</span> Is an element <span class="math notranslate nohighlight">\(W_{ij}\)</span> And the input data <span class="math notranslate nohighlight">\({\bf x}\)</span> It means that all elements of were completely connected
+(fully connected).</p>
+<p>On the other hand, in the convolutional layer, unlike in the all coupling layer described above, the coupling between parameters and input data is local, and each parameter is coupled to all elements of the input data. There is no limit. Specifically, in the case of a two-dimensional convolutional layer, the parameters are prepared as a set of small image patches or the like called kernels (or filters), and for each patch, an operation between part of the input data and It is in the form of
+being done.</p>
+<p>Using the figure below, <span class="math notranslate nohighlight">\(3 \times 3\)</span> Let’s examine the actual calculation process of a convolution layer with two convolution kernels such as small image patches of size.</p>
+<p><img alt="畳み込み層の計算過程" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/convolution.gif" /></p>
+<p>（Figure is taken from <a class="reference external" href="http://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition</a>）</p>
+<p>The leftmost row of blue blocks represents the input image. Input width and height <span class="math notranslate nohighlight">\(5 \times 5\)</span> It is a 3-channel image of the size of. In the figure above, first, processing called padding is performed to add an area with a value of 0 around the input image. This time we pad the area of width 1.</p>
+<p>The middle two columns each represent one convolution kernel per column. One convolution kernel has as many channels as the input image (or the output of the previous layer called feature map) has. Since the input image is 3 channels here, each kernel has a value for 3 channels. Three reds, which are arranged vertically <span class="math notranslate nohighlight">\(3 \times 3\)</span>It is represented by a block of size. Each channel in each kernel performs calculations in a manner that slides itself to the corresponding input channel. The
+slide width at this time is called stride. In the figure, the input image is <span class="math notranslate nohighlight">\(3 \times 3\)</span> You can see how the frame of has moved. That is, the stride is set to 2. The calculations performed here are overlapping when the kernel is superimposed at a certain position of the input <span class="math notranslate nohighlight">\(3 \times 3 = 9\)</span> It is a calculation of multiplying the elements by each other and adding all the results. In the figure above, for example, the first channel of the first kernel (W0) is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[
 \begin{matrix}
@@ -890,7 +908,7 @@ map）と呼ばれる一つ前の層の出力）が持つのと同数のチャ�
 1 &amp; -1 &amp; -1
 \end{matrix}
 \right]\end{split}\]</div>
-<p>という値をもっており，それに対応する入力画像の1チャンネル目の左上から<span class="math notranslate nohighlight">\(3 \times 3\)</span>の小領域には</p>
+<p>From the top left of the first channel of the corresponding input image <span class="math notranslate nohighlight">\(3 \times 3\)</span> In the small area of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[
 \begin{matrix}
@@ -899,7 +917,7 @@ map）と呼ばれる一つ前の層の出力）が持つのと同数のチャ�
 0 &amp; 2 &amp; 0
 \end{matrix}
 \right]\end{split}\]</div>
-<p>という値が並んでいます．そのため，それぞれ重なりあっている値同士を掛け合わせると，</p>
+<p>The values are listed. Therefore, when the overlapping values are multiplied,，</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[
 \begin{matrix}
@@ -908,20 +926,30 @@ map）と呼ばれる一つ前の層の出力）が持つのと同数のチャ�
 0 &amp; -2 &amp; 0
 \end{matrix}
 \right]\end{split}\]</div>
-<p>となることが分かります．この9つの値を全て足したものが，まずこのカーネルの1つ目のチャンネルの1つ目の計算結果となります．計算すると，結果は-2です．これを2チャンネル目，3チャンネル目の値でも同様に行うと，2チャンネル目は0，3チャンネル目は1という計算結果になります．そして，最後にこの全てのチャンネルの結果を足し合わせます．その結果は-1となります．これにカーネルごとに用意されるバイアスの値（上図では1つ目のカーネルのバイアスは1）を足したものが，このカーネルの入力の左上隅の領域に対する出力結果となります．結果は，0です．一番右の列の緑色のブロックはこの畳込み層の出力値を表しており，1つ目のブロックの左上のマスを見ると，確かに0となっていることが分かります．</p>
-<p>同様に，他のマスの値もいくつか自分で計算してみてください．</p>
-<p>このレイヤの微分を考えるようとすると一見複雑に感じられますが，個別のパラメータ値を使って行われる演算は <strong>重みを掛けてバイアスを足す</strong> だけであるため，原理的にはシンプルな線形変換のみで構成されていることからこの変換をパラメータおよび入力について微分することは可能であることが分かります．実際，カーネルサイズが <span class="math notranslate nohighlight">\(1 \times 1\)</span> のカーネルを用いた畳み込み演算は各入力次元に同一の重み行列を用いた線形変換を施すのと同等です．たとえば，入力の幅と高さが <span class="math notranslate nohighlight">\(W \times H\)</span>
-で3チャンネルの場合，カーネルサイズが <span class="math notranslate nohighlight">\(1 \times 1\)</span> の畳み込み層のカーネルは <span class="math notranslate nohighlight">\(1 \times 1 \times 3\)</span> のテンソル，バイアスは1次元のスカラーとなり，<span class="math notranslate nohighlight">\(W \times H\)</span> 個の全ての入力次元にこのテンソルとスカラーによる線形変換を施します．</p>
-<p>このように，畳み込み層はカーネルを様々に定義することで多様なデータ形式を扱うことができます．1次元のカーネルを使うと1次元の系列データなどにも適用でき，3次元のカーネルを用いれば動画やボクセルのようなデータにも適用できます．</p>
+<p>It turns out that it becomes. The sum of all nine values is the first calculation result of the first channel of this kernel. Calculated, the result is -2. If this is done for the second channel and the third channel in the same way, the second channel will be calculated as 0, and the third channel will be 1. And finally add the results of all the channels. The result is -1. If you add the value of bias prepared for each kernel (the bias of the first kernel is 1 in the above figure), the output
+result for the upper left corner of the input of this kernel is obtained. The result is 0. The green blocks in the rightmost column represent the output of this convolutional layer, and looking at the top left box of the first block you can see that it is indeed zero.</p>
+<p>Similarly, try calculating some of the other mass values yourself.</p>
+<p>It seems at first glance complicated to think of the derivative of this layer, but since the operations performed using individual parameter values are only weighted and added bias , in principle it is only a simple linear transformation From the construction it can be seen that it is possible to differentiate this transformation with respect to parameters and inputs. In fact, the kernel size is <span class="math notranslate nohighlight">\(1 \times 1\)</span> A convolution operation using a kernel of is equivalent to performing a linear
+transformation using the same weight matrix for each input dimension. For example, the width and height of the input <span class="math notranslate nohighlight">\(W \times H\)</span> Kernel size for 3 channels <span class="math notranslate nohighlight">\(1 \times 1\)</span> The kernel of the convolutional layer of <span class="math notranslate nohighlight">\(1 \times 1 \times 3\)</span> Becomes a one-dimensional scalar, <span class="math notranslate nohighlight">\(W \times H\)</span> Apply this tensor and scalar linear transformation to all input dimensions.</p>
+<p>Thus, the convolutional layer can handle various data formats by defining kernels in various ways. A one-dimensional kernel can be applied to one-dimensional series data, etc. A three-dimensional kernel can be applied to data such as video and voxels.</p>
 </div>
-<div class="section" id="プーリング層（pooling-layer）">
-<h3>3.7.2. プーリング層（pooling layer）<a class="headerlink" href="#プーリング層（pooling-layer）" title="Permalink to this headline">¶</a></h3>
-<p>プーリングは，主に特徴マップに対して行われる操作で，特徴マップの空間方向の次元（spatial dimension，入力画像における幅・高さに対応する次元）の大きさを削減し計算量を抑えたり，微小な平行移動について出力を不変とすることで画像認識タスクなどにおけるロバスト性の向上のためなどに用いられます．</p>
-<p>プーリングの計算方法は畳み込みと似ています．ただしパラメータはなく，畳み込みカーネルを用いて行われた計算の部分が，対応する入力の部分領域に対する平均の計算や最大値計算などに置き換えられたものです．部分領域ごとの平均値を計算していくプーリングを平均値プーリング（average pooling），最大値を計算するプーリングを最大値プーリング（max pooling）と呼びます．</p>
-<p>以下の図のうち左側の部分では，プーリング層を用いたダウンサンプリング（解像度を下げること）を <span class="math notranslate nohighlight">\(224 \times 224\)</span> サイズの，<span class="math notranslate nohighlight">\(64\)</span> チャンネルの特徴マップに適用し，縦横半分の大きさ （<span class="math notranslate nohighlight">\(112 \times 112\)</span>サイズ）の特徴マップにしています．このとき，チャンネル数（depthとも呼ばれる）は維持されています．</p>
-<p>この図のうち右側の部分は，左側の直方体の64チャンネルのうちの一つ，濃い色になっているチャンネルの <span class="math notranslate nohighlight">\(4 \times 4\)</span> の部分領域を抜き出してきて模式的に表したものに，<span class="math notranslate nohighlight">\(2 \times 2\)</span> 領域ごとに最大値を計算しその領域の代表値とする最大値プーリングを領域を2つ飛びで（ストライド2で）ずらしながら行った際の結果を表しています．</p>
-<p><img alt="プーリング層の計算過程" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/pooling.png" /></p>
-<p>（図は<a class="reference external" href="http://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition</a>より引用）</p>
+<div class="section" id="3.7.2.-Pooling-layer">
+<h3>3.7.2. 3.7.2. Pooling layer<a class="headerlink" href="#3.7.2.-Pooling-layer" title="Permalink to this headline">¶</a></h3>
+<p>Pooling is an operation mainly performed on the feature map to reduce the size of the spatial dimension of the feature map (spatial dimension, the dimension corresponding to the width and height in the input image), and reduce the amount of calculation, It is used to improve robustness in image recognition tasks etc. by making the output invariant for minute translation.</p>
+<p>The pooling calculation is similar to convolution. However, there is no parameter, and the part of the calculation performed using the convolution kernel has been replaced with the calculation of the average or the maximum value for the corresponding input subregion. The pooling that calculates the average value for each partial area is called average pooling (average pooling), and the pooling that calculates the maximum value is called maximum pooling (max pooling).</p>
+<p>In the left part of the figure below, downsampling (reducing the resolution) using the pooling layer <span class="math notranslate nohighlight">\(224 \times 224\)</span> Of size,<span class="math notranslate nohighlight">\(64\)</span> Apply to the channel’s feature map, and <span class="math notranslate nohighlight">\(112 \times 112\)</span> Size map). At this time, the number of channels (also called depth) is maintained.</p>
+<p>The right part of this figure is one of the 64 channels on the left side of the rectangular solid, the dark <span class="math notranslate nohighlight">\(4 \times 4\)</span> In the partial representation of the part of <span class="math notranslate nohighlight">\(2 \times 2\)</span> The figure shows the result when the maximum value is calculated for each area and maximum value pooling, which is the representative value of the area, is performed while shifting the area by two (with stride 2).</p>
+<p><img alt="プーリング層の計算過程" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/pooling.png" /></p>
+<p>（Figure is taken from <a class="reference external" href="http://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition</a>）</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -937,7 +965,7 @@ map）と呼ばれる一つ前の層の出力）が持つのと同数のチャ�
         <a href="Introduction_to_Chainer.html" class="btn btn-neutral float-right" title="4. Introduction to Deep Learning Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Introduction_to_ML_libs.html" class="btn btn-neutral" title="2. 機械学習ライブラリの基礎" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Introduction_to_ML_libs.html" class="btn btn-neutral" title="2. 2. Basics of machine learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

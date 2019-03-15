@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. 機械学習に必要な数学の基礎 &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  <title>1. 1. basis of the mathematics required to machine learning &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. 機械学習ライブラリの基礎" href="Introduction_to_ML_libs.html" />
+    <link rel="next" title="2. 2. Basics of machine learning" href="Introduction_to_ML_libs.html" />
     <link rel="prev" title="メディカルAI専門コース オンライン講義資料" href="../index.html" /> 
 
   
@@ -98,50 +98,58 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 機械学習に必要な数学の基礎</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#機械学習とは">1.1. 機械学習とは</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#微分">1.2. 微分</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#2点間を通る直線の傾き">1.2.1. 2点間を通る直線の傾き</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#1点での接線の傾き">1.2.2. 1点での接線の傾き</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#微分の公式">1.2.3. 微分の公式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#合成関数の微分">1.2.4. 合成関数の微分</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#偏微分">1.2.5. 偏微分</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 1. basis of the mathematics required to machine learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.1.-What-is-machine-learning?">1.1. 1.1. What is machine learning?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#1.2.-Derivative">1.2. 1.2. Derivative</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.2.1.-Slope-of-a-straight-line-passing-through-two">1.2.1. 1.2.1. Slope of a straight line passing through two</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.2.2.-Slope-of-tangent-at-one-point">1.2.2. 1.2.2. Slope of tangent at one point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.2.3.-Differentiation">1.2.3. 1.2.3. Differentiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.2.4.-Derivative-of-the-synthetic-function">1.2.4. 1.2.4. Derivative of the synthetic function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.2.5-Partial-derivative">1.2.5. 1.2.5 Partial derivative</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#線形代数">1.3. 線形代数</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#線形代数とは">1.3.1. 線形代数とは</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#スカラー，ベクトル，行列，テンソル">1.3.2. スカラー，ベクトル，行列，テンソル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#足し算・引き算">1.3.3. 足し算・引き算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#内積">1.3.4. 内積</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#かけ算（行列積）">1.3.5. かけ算（行列積）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#転置">1.3.6. 転置</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ベクトル，行列のサイズ">1.3.7. ベクトル，行列のサイズ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#単位行列">1.3.8. 単位行列</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#逆行列">1.3.9. 逆行列</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#線形結合と二次形式">1.3.10. 線形結合と二次形式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ベクトルによる微分と勾配">1.3.11. ベクトルによる微分と勾配</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#1.3.-Linear">1.3. 1.3. Linear</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.1.-What-is-linear-algebra?">1.3.1. 1.3.1. What is linear algebra?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.2.-Scalar,-vector,-matrix,">1.3.2. 1.3.2. Scalar, vector, matrix,</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.3.-Addition,-subtraction">1.3.3. 1.3.3. Addition, subtraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.4.-Dot-inner">1.3.4. 1.3.4. Dot inner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.5.-Multiplication-(matrix-multiplication)">1.3.5. 1.3.5. Multiplication (matrix multiplication)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.6.-Transpose">1.3.6. 1.3.6. Transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.7.-Vector,-size-of-matrix">1.3.7. 1.3.7. Vector, size of matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.8.-Unit-matrix">1.3.8. 1.3.8. Unit matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.9.-Inverse-matrix">1.3.9. 1.3.9. Inverse matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.10.-Linear-joins-and-quadratic">1.3.10. 1.3.10. Linear joins and quadratic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.3.11.-Differential-by-the-vector-and-gradient">1.3.11. 1.3.11. Differential by the vector and gradient</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#確率・統計">1.4. 確率・統計</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#確率や統計は何に使えるのか">1.4.1. 確率や統計は何に使えるのか</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#確率">1.4.2. 確率</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#尤度と最尤推定">1.4.3. 尤度と最尤推定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#事後確率最大化推定(MAP推定)">1.4.4. 事後確率最大化推定(MAP推定)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#統計量">1.4.5. 統計量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#正規分布と正規化">1.4.6. 正規分布と正規化</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#標準偏差を利用したスケーリング">1.4.7. 標準偏差を利用したスケーリング</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#外れ値除去">1.4.8. 外れ値除去</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#1.4.-Probability-and-Statistics">1.4. 1.4. Probability and Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.1.-What-are-probability-and-statistics-available-for?">1.4.1. 1.4.1. What are probability and statistics available for?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.2.-Probability">1.4.2. 1.4.2. Probability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.3.-The-likelihood-and-maximum-likelihood-estimation">1.4.3. 1.4.3. The likelihood and maximum likelihood estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.4.-Posterior-probability-maximization-estimation-(MAP-estimation)">1.4.4. 1.4.4. Posterior probability maximization estimation (MAP estimation)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.5.-Statistics">1.4.5. 1.4.5. Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.6.-Normal-distribution-and-the-normalized">1.4.6. 1.4.6. Normal distribution and the normalized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.7.-Scaling-using-the-standard-deviation">1.4.7. 1.4.7. Scaling using the standard deviation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1.4.8.-Outlier-removal">1.4.8. 1.4.8. Outlier removal</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 機械学習ライブラリの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. ニューラルネットワークの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 2. Basics of machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 実践編: MRI画像のセグメンテーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 実践編: 血液の顕微鏡画像からの細胞検出</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. 実践編: ディープラーニングを使った配列解析</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. 実践編: ディープラーニングを使ったモニタリングデータの時系列解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 5. Practice: Segmentation of MRI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. 7. practical part: sequence analysis using deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.2.-Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. 8.2. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.3.-Data-sets">10. 8.3. Data sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.4.-Data-pre-processing">11. 8.4. Data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.-Series-data-analysis-when-using-the-deep-learning">12. 8.5. Series data analysis when using the deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.2.-Evaluation">13. 8.5.2. Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.6.-Towards-the-accuracy">14. 8.6. Towards the accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.7.-Conclusion">15. 8.7. Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.8.-References">16. 8.8. References</a></li>
 </ul>
 
             
@@ -193,7 +201,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>1. 機械学習に必要な数学の基礎</li>
+      <li>1. 1. basis of the mathematics required to machine learning</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -236,63 +244,65 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="機械学習に必要な数学の基礎">
-<h1>1. 機械学習に必要な数学の基礎<a class="headerlink" href="#機械学習に必要な数学の基礎" title="Permalink to this headline">¶</a></h1>
-<p>本章では，ディープラーニングを含めた機械学習に必要な数学の基礎である「微分」「線形代数」「確率・統計」の3つについて，簡潔に紹介していきます．</p>
-<div class="section" id="機械学習とは">
-<h2>1.1. 機械学習とは<a class="headerlink" href="#機械学習とは" title="Permalink to this headline">¶</a></h2>
-<p>機械学習は，コンピュータがデータから学習することで，そのデータに含まれる規則や判断基準などのパターンを抽出する関数を獲得し，その関数を用いて新たなデータについて予測を行う手法です．機械学習技術は現在では，画像認識，音声認識，文書分類，医療診断，迷惑メール検知，商品推薦など，幅広い分野に応用されています．</p>
-<p>ここで，学習によって獲得される関数（ <strong>モデル</strong>ともよばれます ）は多くの場合 <strong>パラメータ</strong> によって特徴づけられており，パラメータを決めればその関数の挙動が決まります．最も単純な例として直線の関数を考えると，これは傾き<span class="math notranslate nohighlight">\(a\)</span>と切点<span class="math notranslate nohighlight">\(b\)</span>の２つのパラメータで特徴づけられ，<span class="math notranslate nohighlight">\(f(x; a, b) = ax + b\)</span>のように表記します．（ここで<span class="math notranslate nohighlight">\(x\)</span> は関数の <strong>入力変数</strong> とよびます．また <span class="math notranslate nohighlight">\(；\)</span>
-の後ろにパラメータを表記します）．機械学習の目標は，学習データを使ってこれらのパラメータを決定することです．</p>
-<p>機械学習は，<strong>目的関数</strong>を最小化（または最大化）することで学習，つまり望ましい挙動をするようなパラメータを決定します．そのため，目的関数はモデルの出力値が望ましい場合には小さな（または大きな）値をとり，そうでない場合は大きな（または小さな）値をとるように設計します．</p>
-<p>例えば，学習データとして入力と出力のペアからなるデータセット<span class="math notranslate nohighlight">\(D=\left((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n) \right)\)</span>が与えられたとします．ここで，<span class="math notranslate nohighlight">\(x_{i}\)</span>は<span class="math notranslate nohighlight">\(i\)</span>番目のサンプルの入力，<span class="math notranslate nohighlight">\(y_{i}\)</span>は<span class="math notranslate nohighlight">\(i\)</span>番目のサンプルの出力を表します．これらの点の近くをできる限り通るような直線<span class="math notranslate nohighlight">\(f(x; a, b) = ax + b\)</span>を学習したいとします．出力が実数値の場合，パラメータ<span class="math notranslate nohighlight">\(\theta = (a, b)\)</span>とおいて，次のような目的関数がよく利用されます．</p>
+<div class="section" id="1.-basis-of-the-mathematics-required-to-machine-learning">
+<h1>1. 1. basis of the mathematics required to machine learning<a class="headerlink" href="#1.-basis-of-the-mathematics-required-to-machine-learning" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter, we will briefly introduce three of the fundamentals of mathematics necessary for machine learning including deep learning, “differential” “linear algebra” “probability / statistics”.</p>
+<div class="section" id="1.1.-What-is-machine-learning?">
+<h2>1.1. 1.1. What is machine learning?<a class="headerlink" href="#1.1.-What-is-machine-learning?" title="Permalink to this headline">¶</a></h2>
+<p>Machine learning is a method of acquiring a function that extracts patterns such as rules and judgment criteria contained in the data by computer learning from data, and predicting new data using that function. Machine learning technology is now applied to a wide range of fields such as image recognition, speech recognition, document classification, medical diagnosis, spam mail detection, product recommendation.</p>
+<p>Here, (a function that is acquired by the learning <strong>model</strong> will be called) is often <strong>parameters</strong> have been characterized by a determines the behavior of the function if determined parameters. Considering the function of a straight line as the simplest example, this is a gradient <span class="math notranslate nohighlight">\(a\)</span> and a cut point <span class="math notranslate nohighlight">\(b\)</span>It is characterized by two parameters,<span class="math notranslate nohighlight">\(f(x; a, b) = ax + b\)</span> I will write like this. (here <span class="math notranslate nohighlight">\(x\)</span> is called the input variable of the function . Also <span class="math notranslate nohighlight">\(；\)</span>
+Parameters are written after the). The goal of machine learning is to determine these parameters using learning data.</p>
+<p>Machine learning determines parameters that will learn, that is, make the desired behavior by minimizing (or maximizing) the <strong>objective function</strong> . Therefore, the objective function is designed to take a small (or large) value if the output value of the model is desired, and a large (or small) value if not.</p>
+<p>For example, as a learning data, a data set composed of input and output pairs <span class="math notranslate nohighlight">\(D=\left((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n) \right)\)</span> You are given. Here,<span class="math notranslate nohighlight">\(x_{i}\)</span> The input of the second sample,<span class="math notranslate nohighlight">\(y_{i}\)</span> Represents the output of the second sample. A straight line that passes as close as possible to these points <span class="math notranslate nohighlight">\(f(x; a, b) = ax + b\)</span> You want to learn. If the output is a real value, the parameter <span class="math notranslate nohighlight">\(\theta = (a, b)\)</span> Then, the following objective function is
+often used.</p>
 <p><span class="math notranslate nohighlight">\(L( \theta) = \sum_{i=1}^n (y_i - f(x_i; \theta))^2\)</span></p>
-<p>この関数を最小化することを考えます．上式では，モデルの予測値<span class="math notranslate nohighlight">\(f(x_i; \theta)\)</span>と正解<span class="math notranslate nohighlight">\(y_i\)</span>との二乗誤差を求め，その合計値を計算しています．全てのデータで予測と正解が一致する時だけ<span class="math notranslate nohighlight">\(0\)</span>，それ以外は，大きく間違えるほど大きな正の値をとります．間違えた度合いを測る関数を，特に <strong>損失関数</strong> とよぶこともあります．また，与えられたデータセット全体に対するペナルティの合計値を求めるような目的関数は
-<strong>コスト関数</strong>ともよばれることもあります．目的関数の引数は<span class="math notranslate nohighlight">\(\theta\)</span>となっており，目的関数を最小化する最適な<span class="math notranslate nohighlight">\(\theta\)</span>を求めることで，データセット<span class="math notranslate nohighlight">\(D\)</span>を精度良く予測する関数<span class="math notranslate nohighlight">\(f(x; \theta)\)</span>が得られることになります</p>
-<p>目的関数の最小化問題を解くためには微分と線形代数の知識が必要になります．ただし，全ての微分と線形代数の知識は必要ありません．以降，機械学習の理解に必要な最低限の知識を説明します．</p>
+<p>Consider minimizing this function. In the above equation, the predicted value of the model <span class="math notranslate nohighlight">\(f(x_i; \theta)\)</span> And the correct answer <span class="math notranslate nohighlight">\(y_i\)</span> We calculate the total value by finding the square error between and. Only when prediction and correct answer are consistent with all data <span class="math notranslate nohighlight">\(0\)</span> Otherwise, it takes a large positive value as it makes a big mistake. Functions that measure the degree of mistake are sometimes called <strong>loss functions</strong> in particular . Further, purposes such as
+obtaining the total value of the penalty for the entire data given set function <strong>cost function</strong> sometimes also called. The argument of the objective function is <span class="math notranslate nohighlight">\(\theta\)</span> It is optimal to minimize the objective function <span class="math notranslate nohighlight">\(\theta\)</span>, The data set <span class="math notranslate nohighlight">\(D\)</span> Function to predict accurately<span class="math notranslate nohighlight">\(f(x; \theta)\)</span>Will be obtained</p>
+<p>In order to solve the problem of minimizing the objective function, knowledge of differentiation and linear algebra is required. However, knowledge of all differentiation and linear algebra is not necessary. After that, I will explain the minimum knowledge necessary for understanding machine learning.</p>
 </div>
-<div class="section" id="微分">
-<h2>1.2. 微分<a class="headerlink" href="#微分" title="Permalink to this headline">¶</a></h2>
-<p>関数の入力値における微分は，その点におけるグラフの <strong>接線の傾き</strong>に相当し，下図のように関数に接する直線として表すことができます．</p>
+<div class="section" id="1.2.-Derivative">
+<h2>1.2. 1.2. Derivative<a class="headerlink" href="#1.2.-Derivative" title="Permalink to this headline">¶</a></h2>
+<p>Differentiation in the input value of the function corresponds to <strong>the slope</strong> of the <strong>tangent</strong> of the graph at that point and can be expressed as a straight line that contacts the function as shown below.</p>
 <p><img alt="image0" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/01.png" /></p>
-<p>例えば上図の関数においては，<span class="math notranslate nohighlight">\(a\)</span> の点における接線は赤い直線であり，その傾きは<span class="math notranslate nohighlight">\(+3\)</span>となっています．右肩上がりな直線の傾きは正の値になります．</p>
+<p>For example, in the function shown above,<span class="math notranslate nohighlight">\(a\)</span> The tangent line at the point of <span class="math notranslate nohighlight">\(+3\)</span> It has become. The inclination of the straight line rising to the right is a positive value.</p>
 <p><img alt="image1" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/02.png" /></p>
-<p>それに対し，次の図の <span class="math notranslate nohighlight">\(b\)</span> の点においては，傾きは-1であり，接線は右肩下がりの直線となっています．</p>
-<p>もし目的関数の値が全てのパラメータについて計算できているならば，その中から目的関数の最小値を選び出すのは可能ですが，そのようなことは通常不可能です．しかし，ある点でのパラメータに関する微分を計算できれば，接線の傾きを求めることができ，パラメータ全域のグラフ形状がわからなくても，パラメータを変化させた時に目的関数がどう変化するのかが分かります．この情報に基づいて，目的関数を小さくするようにパラメータを更新することができます．</p>
-<p>再度，微分の説明に戻り，その定義や多変数入力，多変数出力の場合について詳しくみていきます．</p>
-<div class="section" id="2点間を通る直線の傾き">
-<h3>1.2.1. 2点間を通る直線の傾き<a class="headerlink" href="#2点間を通る直線の傾き" title="Permalink to this headline">¶</a></h3>
-<p>はじめに，微分の原理を理解していくために，下図に示す2点間を通る直線の傾き <span class="math notranslate nohighlight">\(a\)</span> を求めてみましょう．</p>
+<p>On the other hand, in the figure below <span class="math notranslate nohighlight">\(b\)</span> , The slope is -1, and the tangent line is a straight downward sloping straight line.</p>
+<p>If the value of the objective function can be calculated for all parameters, it is possible to select the minimum value of the objective function from among them, but such is usually impossible. However, if you can calculate the derivative with respect to parameters at a certain point, you can determine the slope of the tangent and you can see how the objective function changes when changing the parameters, even if you do not know the graph shape across the parameter. Based on this information,
+you can update the parameters to reduce the objective function.</p>
+<p>Returning to the explanation of differentiation again, I will look in detail about its definition, multivariable input, and multivariable output.</p>
+<div class="section" id="1.2.1.-Slope-of-a-straight-line-passing-through-two">
+<h3>1.2.1. 1.2.1. Slope of a straight line passing through two<a class="headerlink" href="#1.2.1.-Slope-of-a-straight-line-passing-through-two" title="Permalink to this headline">¶</a></h3>
+<p>First, in order to understand the principle of differentiation, the slope of a straight line passing through two points shown in the figure below <span class="math notranslate nohighlight">\(a\)</span> Let’s ask.</p>
 <p><img alt="image2" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/04.png" /></p>
-<p>この時，傾き<span class="math notranslate nohighlight">\(a\)</span> は，</p>
+<p>At this time, the inclination <span class="math notranslate nohighlight">\(a\)</span> ,</p>
 <div class="math notranslate nohighlight">
 \[a = \dfrac{f(x_{2}) - f(x_{1})}{x_{2}-x_{1}}\]</div>
-<p>と求まります．</p>
+<p>You can get.</p>
 </div>
-<div class="section" id="1点での接線の傾き">
-<h3>1.2.2. 1点での接線の傾き<a class="headerlink" href="#1点での接線の傾き" title="Permalink to this headline">¶</a></h3>
-<p>次に，与えられた関数の接線の傾きを求めていきます．そのためには，<strong>極限</strong>の考えが必要になります．極限では，変数がある値に限りなく近づくとき，その変数によって記述される関数がどのような振る舞いをするか考えます．極限を表すために，<span class="math notranslate nohighlight">\(\lim\)</span> という記号が一般的に用いられます．例えば，</p>
+<div class="section" id="1.2.2.-Slope-of-tangent-at-one-point">
+<h3>1.2.2. 1.2.2. Slope of tangent at one point<a class="headerlink" href="#1.2.2.-Slope-of-tangent-at-one-point" title="Permalink to this headline">¶</a></h3>
+<p>Next, we will find the slope of the tangent of the given function. To do that, the <strong>limit</strong> idea is necessary. In the limit, when the variable approaches a certain value as close as possible, we will consider how the function described by that variable behaves. In order to express the limit,<span class="math notranslate nohighlight">\(\lim\)</span> The symbol ‘common’ is used. For example,</p>
 <div class="math notranslate nohighlight">
 \[\displaystyle \lim _{x\rightarrow 0}3x=3\times 0=0\]</div>
-<p>は，<span class="math notranslate nohighlight">\(x\)</span>という変数を<span class="math notranslate nohighlight">\(0\)</span>に近づけていったときに式の値がどのような値になるかを与えます．</p>
-<p>それでは，下図のある点 <span class="math notranslate nohighlight">\(x\)</span> における接線の傾き<span class="math notranslate nohighlight">\(a\)</span>を求めていきましょう．</p>
+<p><span class="math notranslate nohighlight">\(x\)</span> The variable <span class="math notranslate nohighlight">\(0\)</span> The value of the expression will be given when approaching it.</p>
+<p>Then, some point in the figure below <span class="math notranslate nohighlight">\(x\)</span> Slope of tangent at <span class="math notranslate nohighlight">\(a\)</span> Let’s seek for.</p>
 <p><img alt="image3" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/05.png" /></p>
-<p>さきほど考えた2点を通る直線と極限を組み合わせて，接線を求めることができます．</p>
+<p>Tangent can be obtained by combining the straight line passing through the two points I thought earlier and the limit.</p>
 <p><img alt="image4" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/06.png" /></p>
-<p>はじめに，<span class="math notranslate nohighlight">\(x\)</span> から <span class="math notranslate nohighlight">\(h\)</span> だけ離れた点 <span class="math notranslate nohighlight">\(x+h\)</span> を考え，2点を通る直線の傾きを求めてみます．次に<span class="math notranslate nohighlight">\(h\)</span>を<span class="math notranslate nohighlight">\(h \rightarrow 0\)</span> のように小さくしていけば，直線の開始点と終了点の2点が1点に収束し，1点での接線として考えることができます．これを式でみると</p>
+<p>First, <span class="math notranslate nohighlight">\(x\)</span> From <span class="math notranslate nohighlight">\(h\)</span> Only a point away <span class="math notranslate nohighlight">\(x+h\)</span> Consider the slope of the straight line passing through the two points. next <span class="math notranslate nohighlight">\(h\)</span> to <span class="math notranslate nohighlight">\(h \rightarrow 0\)</span> If you make it as small as you can, the starting point and ending point of the line converge to 1 point and you can think of it as a tangent at 1 point. Looking at this expression</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 a &amp;=\lim _{h\rightarrow 0}\dfrac {f\left( x+h\right) -f\left( x\right) }{\left( x+h\right) -x}\\
 &amp;=\lim _{h\rightarrow 0}\dfrac {f\left( x+h\right) -f\left( x\right) }{h}\\
 \end{aligned}\end{split}\]</div>
-<p>となります．上の式は<strong>導関数</strong>とよび，<span class="math notranslate nohighlight">\(f'(x)\)</span> で表されます．また導関数を求めることを<strong>微分する</strong>といいます．また，記号の使い方として，</p>
+<p>The above equation is called a <strong>derivative</strong> ,𝑓′(𝑥)It is represented by. It is said to <strong>differentiate</strong> finding <strong>derivatives</strong>. Also, as a way of using the symbols,</p>
 <div class="math notranslate nohighlight">
 \[(\cdot)' = \dfrac{d}{dx}(\cdot)\]</div>
-<p>のように表しても構いません．この<span class="math notranslate nohighlight">\(d\)</span>という記号は微分（differentiation）を表しており，<span class="math notranslate nohighlight">\(d(\cdot)\)</span>が対象の値の変化量，<span class="math notranslate nohighlight">\(dx\)</span>が<span class="math notranslate nohighlight">\(x\)</span>の変化量を表し，それらを小さくしていった時の極限を表します．この記法は煩雑ですが，変数が<span class="math notranslate nohighlight">\(x\)</span>，<span class="math notranslate nohighlight">\(y\)</span>など複数ある場合に，<span class="math notranslate nohighlight">\(x\)</span>を微分しているか，<span class="math notranslate nohighlight">\(y\)</span>を微分しているかが明確になるため，正確な表現をすることができます．</p>
+<p>It can be expressed as follows. this <span class="math notranslate nohighlight">\(d\)</span> The symbol “differentiation” represents,<span class="math notranslate nohighlight">\(d(\cdot)\)</span>Is the change in the value of the object, <span class="math notranslate nohighlight">\(dx\)</span> But <span class="math notranslate nohighlight">\(x\)</span> It shows the amount of change and expresses the limit when decreasing them. This notation is cumbersome, but the variable <span class="math notranslate nohighlight">\(x\)</span>，<span class="math notranslate nohighlight">\(y\)</span> If there are multiple such as,<span class="math notranslate nohighlight">\(x\)</span> Whether differentiating,<span class="math notranslate nohighlight">\(y\)</span> It becomes clear whether to differentiate, so you can express accurately.</p>
 </div>
-<div class="section" id="微分の公式">
-<h3>1.2.3. 微分の公式<a class="headerlink" href="#微分の公式" title="Permalink to this headline">¶</a></h3>
-<p>覚えておくと便利な微分の公式がありますので，以下に幾つか紹介していきます（<span class="math notranslate nohighlight">\(c\)</span>は定数，<span class="math notranslate nohighlight">\(x\)</span>は変数を表します）．</p>
+<div class="section" id="1.2.3.-Differentiation">
+<h3>1.2.3. 1.2.3. Differentiation<a class="headerlink" href="#1.2.3.-Differentiation" title="Permalink to this headline">¶</a></h3>
+<p>There are some useful formulas for differentiation to keep in mind, so I will introduce some of them below (<span class="math notranslate nohighlight">\(c\)</span>Is a constant,<span class="math notranslate nohighlight">\(x\)</span> Represents a variable).</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \left( c\right) ^{'}&amp;=0 \\
@@ -303,7 +313,7 @@ a &amp;=\lim _{h\rightarrow 0}\dfrac {f\left( x+h\right) -f\left( x\right) }{\le
 \left( f(x) g(x) \right) ^{'} &amp;= f^{'}(x)g(x) + f(x)g^{'}(x) \\
 \left( f(g(x)) \right) ^{'} &amp;= \frac{df(u)}{du}\frac{du}{dx}, u = g(x)
 \end{align}\end{split}\]</div>
-<p>例えば，以下の微分を考えてみましょう．</p>
+<p>For example, consider the following differentiation.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \left( 3x^{2} + 4x + 5 \right)' &amp;= \left( 3x^{2} \right)' + \left( 4x \right)' + \left( 5 \right)' \\
@@ -311,20 +321,20 @@ a &amp;=\lim _{h\rightarrow 0}\dfrac {f\left( x+h\right) -f\left( x\right) }{\le
 &amp;= 3 \times 2x + 4 \times 1 + 5 \times 0  \\
 &amp;= 6x + 4
 \end{aligned}\end{split}\]</div>
-<p>このように，各項の和に対する微分の計算は，各項に対して微分した後に和をとるようにしても等式の関係が成立します．また，各項の微分を行う際に，定数の係数（変数にかかる数）は微分演算の外側に出すことができます．これらは微分の <strong>線形性</strong> とよばれる性質であり，この性質を使うことで，微分を簡単に計算できるようになります．</p>
+<p>n this way, the derivation of each term with respect to the sum is differentiated with respect to each term and even if it is summed, the relationship of equality is established. Also, when differentiating each term, the coefficients of the constant (the number of variables) can be placed outside the differential operation. These are the properties called <strong>linearity</strong> of differential , and by using this property, we can easily calculate the differentiation.</p>
 </div>
-<div class="section" id="合成関数の微分">
-<h3>1.2.4. 合成関数の微分<a class="headerlink" href="#合成関数の微分" title="Permalink to this headline">¶</a></h3>
-<p>後の章で詳しく述べますが，一般的に機械学習においては複雑な <strong>合成関数の微分</strong> を考える必要が出てきます．簡単な例として，</p>
+<div class="section" id="1.2.4.-Derivative-of-the-synthetic-function">
+<h3>1.2.4. 1.2.4. Derivative of the synthetic function<a class="headerlink" href="#1.2.4.-Derivative-of-the-synthetic-function" title="Permalink to this headline">¶</a></h3>
+<p>In detail later in the chapter, in general machine learning it is necessary to consider the <strong>differentiation</strong> of complicated <strong>synthetic functions</strong> . As a simple example,</p>
 <div class="math notranslate nohighlight">
 \[\left\{ (3x + 4)^{2} \right\}'\]</div>
-<p>を計算することを考えます．この式は，<span class="math notranslate nohighlight">\(3x+4\)</span> という内側の部分と <span class="math notranslate nohighlight">\((\cdot)^{2}\)</span>
-という外側の部分で構成されています．この式を<span class="math notranslate nohighlight">\((9x^2 + 24x + 16)'\)</span>のように展開してから微分を計算してもよいのですが，3乗や4乗となってくると展開するのも大変になります．ここで役に立つ考え方が合成関数の微分です．先程紹介した微分の公式の最後に登場していた式です．合成関数の微分は，内側の微分と外側の微分をそれぞれ行い，その結果をかけ合わせることで求めることができます．外側の微分の際には関数の引数を入力とみなし，その入力について微分をとります．</p>
-<p>それでは先程の<span class="math notranslate nohighlight">\((3x+4)^2\)</span>という関数の微分を考えてみます．</p>
-<p>まず内側の関数を <span class="math notranslate nohighlight">\(u = (3x+4)\)</span> とおいて，</p>
+<p>Consider to calculate. In this equation,<span class="math notranslate nohighlight">\(3x+4\)</span> And the inner part <span class="math notranslate nohighlight">\((\cdot)^{2}\)</span> It is composed of the outside part. This equation <span class="math notranslate nohighlight">\((9x^2 + 24x + 16)'\)</span>′It is OK to calculate the derivative after it has been expanded, but it will be hard to develop it as it becomes the third power or the fourth power. The useful idea here is the differentiation of the composite function. It is an expression that appeared at the end of the differentiation formula introduced earlier.
+Differentiation of the composite function can be obtained by doing inner differentiation and outer differentiation and multiplying the result with each other. When external differentiation, argument of function is regarded as input and differentiation is taken on its input.</p>
+<p>Well then,<span class="math notranslate nohighlight">\((3x+4)^2\)</span>) Consider the differentiation of the function.</p>
+<p>First, inside functions 𝑢=(3𝑥+4) And, First, inside functions <span class="math notranslate nohighlight">\(u = (3x+4)\)</span> And,</p>
 <div class="math notranslate nohighlight">
 \[\left\{ (3x + 4)^{2} \right\}' = (u^{2})'\]</div>
-<p>とします．ここで，<span class="math notranslate nohighlight">\((\cdot)'\)</span> をもう少し厳密に考える必要が出てきます．今は，<span class="math notranslate nohighlight">\(x\)</span> と <span class="math notranslate nohighlight">\(u\)</span> の2つの変数が登場しており，<span class="math notranslate nohighlight">\((\cdot)'\)</span> では，<span class="math notranslate nohighlight">\(x\)</span> で微分しているのか <span class="math notranslate nohighlight">\(u\)</span> で微分しているのかの区別がつきません．そこで，多少複雑に見えますが，先程紹介した<span class="math notranslate nohighlight">\(d\)</span>を使った記法で微分する変数を厳密に記述すると，</p>
+<p>Will do. here,<span class="math notranslate nohighlight">\((\cdot)'\)</span> We need to think more strictly. now,<span class="math notranslate nohighlight">\(x\)</span> When <span class="math notranslate nohighlight">\(u\)</span> Two variables have appeared,<span class="math notranslate nohighlight">\((\cdot)'\)</span> Then,<span class="math notranslate nohighlight">\(x\)</span> Differentiating with <span class="math notranslate nohighlight">\(u\)</span> You can not distinguish whether you are differentiating with. So, it looks somewhat complicated, but as I mentioned earlier <span class="math notranslate nohighlight">\(d\)</span> If you strictly describe the variable to be differentiated by the notation using</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \left\{ (3x + 4)^{2} \right\}' &amp;= \dfrac{d}{dx} \left\{ (3x + 4)^{2} \right\} \\
@@ -333,17 +343,16 @@ a &amp;=\lim _{h\rightarrow 0}\dfrac {f\left( x+h\right) -f\left( x\right) }{\le
 &amp;= 2u \cdot 3 \\
 &amp;= 6u = 6(3x + 4) = 18x + 24 \\
 \end{aligned}\end{split}\]</div>
-<p>となります．</p>
-<p>ニューラルネットワークの学習では合成関数の微分を使用する場面が何度も登場するため，この計算方法をしっかりと覚えておきましょう．</p>
+<p>Learn this calculation method firmly as scenes using derivative of composite function appear many times in learning of neural network.</p>
 </div>
-<div class="section" id="偏微分">
-<h3>1.2.5. 偏微分<a class="headerlink" href="#偏微分" title="Permalink to this headline">¶</a></h3>
-<p>機械学習では，1つの入力変数 <span class="math notranslate nohighlight">\(x\)</span> から出力変数 <span class="math notranslate nohighlight">\(y\)</span> を予測するケースは稀であり，基本的には，複数の入力変数 <span class="math notranslate nohighlight">\(x_{1}\)</span>, <span class="math notranslate nohighlight">\(x_{2}\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(x_{M}\)</span> を用いて出力変数 <span class="math notranslate nohighlight">\(y\)</span>
-を予測する多変数関数を扱います．例えば，家賃を予測する場合，部屋の広さだけではなく，駅からの距離や犯罪発生率なども考慮した方がより正確に予測できると期待されます．複数の入力<span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_M\)</span>を考慮した関数<span class="math notranslate nohighlight">\(f(x_1, x_2, \ldots, x_M)\)</span>を多変数関数とよびます．この多変数関数において，ある入力<span class="math notranslate nohighlight">\(x_m\)</span>にのみ注目して微分することを <strong>偏微分</strong> とよび，</p>
+<div class="section" id="1.2.5-Partial-derivative">
+<h3>1.2.5. 1.2.5 Partial derivative<a class="headerlink" href="#1.2.5-Partial-derivative" title="Permalink to this headline">¶</a></h3>
+<p>In machine learning, one input variable <span class="math notranslate nohighlight">\(x\)</span> Output variable from <span class="math notranslate nohighlight">\(y\)</span> The case of predicting is rare, basically it is possible to use multiple input variables <span class="math notranslate nohighlight">\(x_{1}\)</span>, <span class="math notranslate nohighlight">\(x_{2}\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(x_{M}\)</span> Output variable using <span class="math notranslate nohighlight">\(y\)</span> It handles multivariable functions that predicts. For example, when predicting rent, it is expected that it is more accurate to predict not only the size of the room, but also the distance from the station and the rate of crime
+occurrence. Multiple inputs <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_M\)</span> A function that takes into consideration <span class="math notranslate nohighlight">\(f(x_1, x_2, \ldots, x_M)\)</span> Is called a multivariable function. In this multivariable function,<span class="math notranslate nohighlight">\(x_m\)</span> Differentiating by focusing attention only on <strong>partial derivatives</strong> is called <strong>partial differentiation</strong> ,</p>
 <div class="math notranslate nohighlight">
 \[\dfrac{\partial}{\partial x_{m}} f(x_{1}, x_{2}, \ldots, x_{M})\]</div>
-<p>のように表します．微分を表す記号が，<span class="math notranslate nohighlight">\(d\)</span> から <span class="math notranslate nohighlight">\(\partial\)</span> に変わり，計算としては <span class="math notranslate nohighlight">\(\dfrac{\partial}{\partial x_{m}}\)</span> の場合は <span class="math notranslate nohighlight">\(x_{m}\)</span> 以外は定数と考え，<span class="math notranslate nohighlight">\(x_{m}\)</span> にのみ着目して微分を行います．（ただし，入力変数が他の入力変数と独立ではない場合は定数と考えることはできません．本講義ではそのようなケースは出てきません）．</p>
-<p>例題で具体的な計算の流れを確認していきましょう．</p>
+<p>It is expressed as follows. The symbol representing the differentiation, <span class="math notranslate nohighlight">\(d\)</span> From <span class="math notranslate nohighlight">\(\partial\)</span> As a calculation, <span class="math notranslate nohighlight">\(\dfrac{\partial}{\partial x_{m}}\)</span> In the case of <span class="math notranslate nohighlight">\(x_{m}\)</span> Think of it as a constant except for <span class="math notranslate nohighlight">\(x_{m}\)</span> We focus only on the differentiation. (However, if the input variable is not independent of other input variables, it can not be thought of as a constant.There is no such case in this lecture.)</p>
+<p>Let’s check the flow of concrete calculation by example.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \dfrac {\partial }{\partial x_{1}}\left( 3x_{1}+4x_{2}\right) &amp;=\dfrac {\partial }{\partial x_{1}}\left( 3x_{1}\right) +\dfrac {\partial }{\partial x_{1}}\left( 4x_{2}\right) \\
@@ -351,24 +360,24 @@ a &amp;=\lim _{h\rightarrow 0}\dfrac {f\left( x+h\right) -f\left( x\right) }{\le
 &amp;=3\times 1+4x_{2}\times 0\\
 &amp;= 3
 \end{aligned}\end{split}\]</div>
-<p>偏微分でも微分と同じ公式を適用できます．今回のケースでは，<span class="math notranslate nohighlight">\(x_{1}\)</span> にだけ着目するため，<span class="math notranslate nohighlight">\(x_{2}\)</span> は定数として扱うことを把握しておけば上記の計算の流れが理解できるはずです．</p>
+<p>Even partial derivatives can apply the same formulas as differentiation. In this case,<span class="math notranslate nohighlight">\(x_{1}\)</span> To focus only on,<span class="math notranslate nohighlight">\(x_{2}\)</span> If you grasp that it treats it as a constant, you should be able to understand the flow of the above calculation.</p>
 </div>
 </div>
-<div class="section" id="線形代数">
-<h2>1.3. 線形代数<a class="headerlink" href="#線形代数" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="線形代数とは">
-<h3>1.3.1. 線形代数とは<a class="headerlink" href="#線形代数とは" title="Permalink to this headline">¶</a></h3>
-<p>次に，<strong>線形代数</strong> について解説します．ベクトル，行列，逆行列などが登場します．</p>
-<p>線形代数を導入することで，複数の変数間の関係をシンプルに記述可能となるため，機械学習の中でも度々登場してきます．大変重要な概念ですので，ぜひ身に着けていきましょう．</p>
+<div class="section" id="1.3.-Linear">
+<h2>1.3. 1.3. Linear<a class="headerlink" href="#1.3.-Linear" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="1.3.1.-What-is-linear-algebra?">
+<h3>1.3.1. 1.3.1. What is linear algebra?<a class="headerlink" href="#1.3.1.-What-is-linear-algebra?" title="Permalink to this headline">¶</a></h3>
+<p>Next, I will explain about <strong>linear algebra</strong> . Vectors, matrices, inverse matrices etc. will appear.</p>
+<p>Introducing linear algebra makes it possible to simply describe the relationship between multiple variables, so it will appear frequently in machine learning. It is a very important concept, so let’s definitely wear it.</p>
 </div>
-<div class="section" id="スカラー，ベクトル，行列，テンソル">
-<h3>1.3.2. スカラー，ベクトル，行列，テンソル<a class="headerlink" href="#スカラー，ベクトル，行列，テンソル" title="Permalink to this headline">¶</a></h3>
-<p>最初に線形代数で使われるスカラー，ベクトル，行列，テンソルの4つを解説します．</p>
-<p><strong>スカラー</strong>は，1つの値もしくは変数のことです．例えば，</p>
+<div class="section" id="1.3.2.-Scalar,-vector,-matrix,">
+<h3>1.3.2. 1.3.2. Scalar, vector, matrix,<a class="headerlink" href="#1.3.2.-Scalar,-vector,-matrix," title="Permalink to this headline">¶</a></h3>
+<p>We first explain four scalars, vectors, matrices, and tensors used in linear algebra.</p>
+<p><strong>A scalar</strong> is a value or variable. For example,</p>
 <div class="math notranslate nohighlight">
 \[x, \ y,\  M,\  N\]</div>
-<p>のように表します．スカラーは例えば温度や身長といった単一の量を表すことに使われます．</p>
-<p><strong>ベクトル</strong>は，複数のスカラーを縦方向（もしくは横方向）に集めて並べたものであり，</p>
+<p>It is expressed as follows. A scalar is used to represent a single quantity such as temperature or height.</p>
+<p><strong>A vector</strong> is a collection of a plurality of scalars arranged in a vertical direction (or a horizontal direction)</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\boldsymbol{x}=\begin{bmatrix}
 x_{1} \\
@@ -381,19 +390,20 @@ y_{2} \\
 \vdots \\
 y_{N}
 \end{bmatrix}\end{split}\]</div>
-<p>のように表します．ベクトルの表記は太文字とする場合が多く，スカラーかベクトルかを区別できるようにしています．ベクトルを表現する際，縦方向に並べたものを列ベクトル，横方向に並べたものを行ベクトルとよびます．数学や機械学習では列ベクトルを利用する論文や参考書が多いため，特に明示しない限り，単にベクトルと表現した場合には列ベクトルを指すこととします．</p>
-<p><strong>行列</strong>は複数の同じサイズのベクトルを並べたものであり，</p>
+<p>It is expressed as follows. The notation of a vector is often expressed in boldface, so it can distinguish between scalar and vector. When expressing a vector, columns aligned in the vertical direction are called column vectors, and those arranged in the horizontal direction are called row vectors. Since there are many papers and reference books that use column vectors in mathematics and machine learning, unless otherwise specified, we will refer to column vectors when expressed simply as
+vectors.</p>
+<p>A matrix is obtained by arranging a plurality of vectors of the same size,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\boldsymbol{X}=\begin{bmatrix}
 x_{11} &amp; x_{12} \\
 x_{21} &amp; x_{22} \\
 x_{31} &amp; x_{32}
 \end{bmatrix}\end{split}\]</div>
-<p>のように表します．行列のサイズは行と列で表現します．例えば，この <span class="math notranslate nohighlight">\(\boldsymbol{X}\)</span> は3行2列であり，サイズが(3, 2)の行列と言います．多くの場合，行列は大文字，または大文字の太文字で表記されます．</p>
-<p><strong>テンソル</strong>はベクトルや行列を一般化した概念であり，ベクトルは1階のテンソル，行列は2階のテンソルと表現することができます．また，図のように行列を奥行き方向にさらに並べたものは3階のテンソルとなります．例えば，カラー画像をデジタル表現する場合，画像を構成する各ピクセルはRGB (Red Green Blue)
-などの色空間を用いるのが一般的であり，（行番号，列番号，色）の3つの軸で1つの値を指定するため，3階のテンソルで表現されます．本講座を含めて，単にテンソルと表現されている場合には，3階以上のテンソルを指すことが多いので，注意してください．</p>
+<p>It is expressed as follows. The size of the matrix is represented by rows and columns. For example,<span class="math notranslate nohighlight">\(\boldsymbol{X}\)</span> Is 3 rows by 2 columns and is called a matrix of size (3, 2). In many cases, matrices are written in uppercase letters or upper case bold letters.</p>
+<p><strong>Tensors</strong> are generalized concepts of vectors and matrices, vectors can be expressed as tensors on the first floor and matrices as tensors on the second floor. Also, as shown in the figure, the further arranged in the depth direction is the tensor on the third floor. For example, in the case of digital representation of a color image, it is common to use a color space such as RGB (Red Green Blue) for each pixel constituting an image, and by using three axes (row number, column number, color)
+In order to specify one value, it is represented by the tensor on the third floor. When including this course, if it is expressed simply as a tensor, it often points to the tensor of the third floor or more, so please be careful.</p>
 <p><img alt="image5" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/07.png" /></p>
-<p>線形代数では <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> や <span class="math notranslate nohighlight">\(\boldsymbol{X}\)</span> といった文字だけで式変形をしていくため，どのような形の数値が取り扱われているかわかりくいのですが，これはベクトルなどと常に意識しておくことでその形を見失わないように注意しましょう．</p>
+<p>In linear algebra <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> Ya <span class="math notranslate nohighlight">\(\boldsymbol{X}\)</span> It is easy to understand what type of numerical value is handled because it deforms expressions with only letters like this, but be careful not to lose sight of its shape by always keeping aware of vectors etc Let’s see.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="18%" />
@@ -418,9 +428,9 @@ x_{31} &amp; x_{32}
 </tbody>
 </table>
 </div>
-<div class="section" id="足し算・引き算">
-<h3>1.3.3. 足し算・引き算<a class="headerlink" href="#足し算・引き算" title="Permalink to this headline">¶</a></h3>
-<p>行列やベクトルの演算について覚えていきましょう．足し算は同じサイズの行列，ベクトル間だけで成立し，次のように定義されます．</p>
+<div class="section" id="1.3.3.-Addition,-subtraction">
+<h3>1.3.3. 1.3.3. Addition, subtraction<a class="headerlink" href="#1.3.3.-Addition,-subtraction" title="Permalink to this headline">¶</a></h3>
+<p>Let’s memorize matrices and vector operations. The addition is established only between matrices of the same size and vectors, and is defined as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}&amp;\begin{bmatrix}
 1 \\
@@ -452,11 +462,11 @@ x_{31} &amp; x_{32}
 8 &amp; 10 &amp; 12 \\
 14 &amp; 16 &amp; 18
 \end{bmatrix}\end{aligned}\end{split}\]</div>
-<p>このように行列やベクトルの中の<strong>要素</strong>で対応する場所を足し合わせます．引き算も同様です．<strong>同じサイズでないと計算が成立しない</strong>ということを覚えておきましょう．</p>
+<p>In this way add the corresponding places with the <strong>elements</strong> in the matrix or vector . Subtraction is similar. Let’s remember that <strong>calculation is not established unless it is the same size</strong>.</p>
 </div>
-<div class="section" id="内積">
-<h3>1.3.4. 内積<a class="headerlink" href="#内積" title="Permalink to this headline">¶</a></h3>
-<p>同じサイズのベクトル間では内積が定義できます．内積は同じ位置の対応する値同士を掛けていき，それらを足し合わせたものです．</p>
+<div class="section" id="1.3.4.-Dot-inner">
+<h3>1.3.4. 1.3.4. Dot inner<a class="headerlink" href="#1.3.4.-Dot-inner" title="Permalink to this headline">¶</a></h3>
+<p>Dot product can be defined between vectors of the same size. The inner product is the sum of the corresponding values of the same position and adding them together.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}&amp; \begin{bmatrix}
 1 &amp; 2 &amp; 3
@@ -466,16 +476,16 @@ x_{31} &amp; x_{32}
 6
  \end{bmatrix} = 1 \times 4 + 2 \times 5  + 3 \times 6 = 32 \end{aligned}\end{split}\]</div>
 </div>
-<div class="section" id="かけ算（行列積）">
-<h3>1.3.5. かけ算（行列積）<a class="headerlink" href="#かけ算（行列積）" title="Permalink to this headline">¶</a></h3>
-<p>行列の掛け算には，行列積，外積，要素積（アダマール積）など複数種あります．ここではそのうち最もよく使われる<strong>行列積</strong>について説明します．以降では明示しない限り行列の掛け算は行列積を指すこととします．</p>
-<p>行列<span class="math notranslate nohighlight">\(A\)</span>と行列<span class="math notranslate nohighlight">\(B\)</span>の行列積は<span class="math notranslate nohighlight">\(A\)</span>の各行と<span class="math notranslate nohighlight">\(B\)</span>の各列の内積を並べたものとして定義されます．例えば行列Aの2行目の行ベクトルと行列Bの3列目の列ベクトルの内積は結果の行列Cの2行3列目に対応します．</p>
+<div class="section" id="1.3.5.-Multiplication-(matrix-multiplication)">
+<h3>1.3.5. 1.3.5. Multiplication (matrix multiplication)<a class="headerlink" href="#1.3.5.-Multiplication-(matrix-multiplication)" title="Permalink to this headline">¶</a></h3>
+<p>There are multiple kinds of matrix multiplication, such as matrix multiplication, cross product, element product (Hadamard product). Here we explain the most commonly used <strong>matrix product</strong> . Unless explicitly stated below, matrix multiplication refers to matrix multiplication.</p>
+<p>matrix <span class="math notranslate nohighlight">\(A\)</span> And matrix <span class="math notranslate nohighlight">\(B\)</span> The matrix product of <span class="math notranslate nohighlight">\(A\)</span>With each row of <span class="math notranslate nohighlight">\(B\)</span> It is defined as an array of dot products of each column of. For example, the inner product of the row vector of the second row of matrix A and the column vector of the third column of matrix B corresponds to the second row and the third column of matrix C of the result.</p>
 <p><img alt="image6" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/08.png" /></p>
-<p>そして，内積が定義される条件はベクトルのサイズが等しいということでしたが，ここでもそれが成り立つために，Aの行のサイズ（=Aの列数）とBの列のサイズ（=Bの行数）が一致する必要があります．また，結果はAの行数とBの列数からなる行列となります．</p>
+<p>And the condition that the inner product is defined is that the size of the vector is equal, but also here it holds that the size of row A (= the number of columns of A) and the size of the column of B (= B The number of lines) must match. The result is a matrix consisting of the number of rows of A and the number of columns of B.</p>
 <p><img alt="image7" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/09.png" /></p>
-<p>また，行列積がスカラー積と大きく異なる性質のひとつとして，<span class="math notranslate nohighlight">\(AB\)</span>と<span class="math notranslate nohighlight">\(BA\)</span>が等しいとは限らないということが挙げられます．</p>
-<p>行列積は線形代数や機械学習の多くの問題で使われます．また，行列では割り算に相当する演算はありませんが，後述する逆行列を使って<span class="math notranslate nohighlight">\(4 / 2 = 4 \times \dfrac{1}{2}\)</span> のように割り算を逆数（逆行列）の掛け算として記述します．</p>
-<p>それでは，計算条件の確認も踏まえて，下記の３つを練習問題として解いてください．</p>
+<p>Also, as one of the properties where matrix multiplication is significantly different from scalar product,<span class="math notranslate nohighlight">\(AB\)</span> When <span class="math notranslate nohighlight">\(BA\)</span> It is not necessarily the same thing.</p>
+<p>Matrix products are used for many problems of linear algebra and machine learning. Although there is no operation equivalent to division in the matrix, using the inverse matrix described later <span class="math notranslate nohighlight">\(4 / 2 = 4 \times \dfrac{1}{2}\)</span> Describe the division as multiplication of reciprocal (inverse matrix) as shown in.</p>
+<p>Then, based on the confirmation of the calculation condition, please solve the following three as exercises.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 &amp;\left( 1\right)
@@ -505,7 +515,7 @@ x_{31} &amp; x_{32}
 1
 \end{bmatrix}
 \end{aligned}\end{split}\]</div>
-<p>こちらが解答です．</p>
+<p>Here is the answer.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 &amp;\left( 1\right)
@@ -553,11 +563,11 @@ x_{31} &amp; x_{32}
 = 1 \times 13 + 2 \times 21
 =55
 \end{aligned}\end{split}\]</div>
-<p>この形の計算は，機械学習においてよく登場してきます．行列積は，演算後に形が変わることを覚えておきましょう．</p>
+<p>Calculations of this form often appear in machine learning. Let’s keep in mind that the matrix product changes shape after operation.</p>
 </div>
-<div class="section" id="転置">
-<h3>1.3.6. 転置<a class="headerlink" href="#転置" title="Permalink to this headline">¶</a></h3>
-<p>ベクトルは縦向きの列ベクトルを基本としていましたが，横向きのベクトルを使いたい場合もあります．そこで縦向きのベクトルを横向きのベクトルに，横向きのベクトルを縦向きのベクトルに入れ替える演算を<strong>転置Transpose）</strong> とよび，<span class="math notranslate nohighlight">\(T\)</span>で表記します．例えば，</p>
+<div class="section" id="1.3.6.-Transpose">
+<h3>1.3.6. 1.3.6. Transpose<a class="headerlink" href="#1.3.6.-Transpose" title="Permalink to this headline">¶</a></h3>
+<p>Vectors are based on portrait oriented column vectors, but sometimes you may want to use a vector of landscape orientation. Therefore, the operation of swapping vertically oriented vectors to transverse vectors and horizontally oriented vectors into vertically oriented vectors is called <strong>Transpose)𝑇</strong> I will write it. For example,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}\boldsymbol{x}&amp;=\begin{bmatrix}
 1 \\
@@ -574,21 +584,24 @@ x_{31} &amp; x_{32}
 1 &amp; 2 &amp; 3 \\
 4 &amp; 5 &amp; 6
 \end{bmatrix}\end{aligned}\end{split}\]</div>
+<p>It looks like. On transposition to a matrix, the size is<span class="math notranslate nohighlight">\((N, M)\)</span> From <span class="math notranslate nohighlight">\((M, N)\)</span> become,<span class="math notranslate nohighlight">\(i\)</span> line <span class="math notranslate nohighlight">\(j\)</span> After transposing the value of the column <span class="math notranslate nohighlight">\(j\)</span> line <span class="math notranslate nohighlight">\(i\)</span> It becomes the value of the column column. It is a good idea to remember the following as the transpose formula.</p>
 <p>のようになります．行列に対する転置では，サイズが<span class="math notranslate nohighlight">\((N, M)\)</span>から<span class="math notranslate nohighlight">\((M, N)\)</span>になり，<span class="math notranslate nohighlight">\(i\)</span>行<span class="math notranslate nohighlight">\(j\)</span>列目の値が転置後には<span class="math notranslate nohighlight">\(j\)</span>行<span class="math notranslate nohighlight">\(i\)</span>列目の値になります．転置の公式として次を覚えておくとよいでしょう．</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}&amp;\left( 1\right) \ \left( \boldsymbol{A}^{T}\right)^{T}=\boldsymbol{A}\\
 &amp;\left( 2\right) \ \left( \boldsymbol{A}\boldsymbol{B}\right) ^{T}=\boldsymbol{B}^{T}\boldsymbol{A}^{T}\\
 &amp;\left( 3\right) \ \left( \boldsymbol{A}\boldsymbol{B}\boldsymbol{C}\right) ^{T}=\boldsymbol{C}^{T}\boldsymbol{B}^{T}\boldsymbol{A}^{T}\end{aligned}\end{split}\]</div>
 </div>
-<div class="section" id="ベクトル，行列のサイズ">
-<h3>1.3.7. ベクトル，行列のサイズ<a class="headerlink" href="#ベクトル，行列のサイズ" title="Permalink to this headline">¶</a></h3>
-<p>行列積を行った後は行列サイズが変わります．サイズが<span class="math notranslate nohighlight">\((L, M)\)</span>の行列と<span class="math notranslate nohighlight">\((M ,N)\)</span>の行列の行列積の結果は<span class="math notranslate nohighlight">\((L, N)\)</span>となります．例えば先ほどの３つの練習問題のサイズがどのように変化したかをまとめると，</p>
+<div class="section" id="1.3.7.-Vector,-size-of-matrix">
+<h3>1.3.7. 1.3.7. Vector, size of matrix<a class="headerlink" href="#1.3.7.-Vector,-size-of-matrix" title="Permalink to this headline">¶</a></h3>
+<p>After matrix multiplication, matrix size will change. size is <span class="math notranslate nohighlight">\((L, M)\)</span> With a matrix of <span class="math notranslate nohighlight">\((M ,N)\)</span> The matrix multiplication result of <span class="math notranslate nohighlight">\((L, N)\)</span>. For example, when summarizing how the sizes of the three exercise problems changed,</p>
 <p><img alt="image8" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/10.png" /></p>
-<p>となります．(3)は最初のベクトルと行列の結果が横方向のベクトルであり(1)に帰着することに注意してください．また，ある次元のサイズが1となった場合，その次元を削除しベクトルがスカラーに，行列がベクトルになる場合があります．</p>
+<ol class="arabic simple" start="3">
+<li>Note that the result of the first vector and matrix are horizontal vectors and result in (1). Also, if the size of a dimension becomes 1, the dimension may be deleted, the vector may be a scalar, and the matrix may be a vector.</li>
+</ol>
 </div>
-<div class="section" id="単位行列">
-<h3>1.3.8. 単位行列<a class="headerlink" href="#単位行列" title="Permalink to this headline">¶</a></h3>
-<p>スカラー値の<span class="math notranslate nohighlight">\(1\)</span>は，<span class="math notranslate nohighlight">\(10 \times 1 = 10\)</span> といったように，その数を任意の数に乗じても変わらないという性質を持ちます．行列の演算において，これと同様の働きをする行列が<strong>単位行列</strong>です．</p>
+<div class="section" id="1.3.8.-Unit-matrix">
+<h3>1.3.8. 1.3.8. Unit matrix<a class="headerlink" href="#1.3.8.-Unit-matrix" title="Permalink to this headline">¶</a></h3>
+<p>Scalar value1,<span class="math notranslate nohighlight">\(10 \times 1 = 10\)</span> It has the property that it does not change even if that number is multiplied by an arbitrary number. In matrices, matrices that work like this are <strong>unit matrices</strong>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\boldsymbol{I}=\begin{bmatrix}
 1 &amp; 0 &amp; \ldots  &amp; 0 \\
@@ -596,28 +609,28 @@ x_{31} &amp; x_{32}
 \vdots &amp; \vdots  &amp; \ddots  &amp; \vdots  \\
 0 &amp; 0 &amp; \ldots  &amp; 1
 \end{bmatrix}\end{split}\]</div>
-<p>上記のような形をしており，記号 <span class="math notranslate nohighlight">\(\boldsymbol{I}\)</span> で表されるのが一般的です．行列の斜めの要素を <strong>対角要素</strong> とよび，それ以外の要素を非対角要素とよびます．単位行列は，対角要素が1で，非対角要素が0であるような <strong>正方行列</strong> （行要素の数と列要素の数が一致する行列）です．例えば， 2x2行列の場合は，</p>
+<p>It has the shape as above and the symbol <span class="math notranslate nohighlight">\(\boldsymbol{I}\)</span> It is common to be represented by. The diagonal elements of a matrix are called <strong>diagonal elements</strong> , and the other elements are called offdiagonal elements. An identity matrix is a <strong>square matrix</strong> ( <strong>a matrix</strong> whose number of row elements matches the number of column elements) such that the diagonal elements are 1 and the off-diagonal elements are 0 . For example, in the case of a 2 × 2 matrix,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\boldsymbol{I} =\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1
 \end{bmatrix}\end{split}\]</div>
-<p>であり，3x3行列の場合は，</p>
+<p>In the case of a 3 × 3 matrix,，</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\boldsymbol{I}=\begin{bmatrix}
 1 &amp; 0 &amp; 0 \\
 0 &amp; 1 &amp; 0 \\
 0 &amp; 0 &amp; 1
 \end{bmatrix}\end{split}\]</div>
-<p>となります．行列のサイズを明示したい場合は，<span class="math notranslate nohighlight">\(I_{n}\)</span> (<span class="math notranslate nohighlight">\(n×n\)</span>行列の場合)と添字を付けて区別します．</p>
-<p>単位行列は任意の行列<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>に対し，以下が成立します．</p>
+<p>If you want to specify the size of the matrix,<span class="math notranslate nohighlight">\(I_{n}\)</span> (<span class="math notranslate nohighlight">\(n×n\)</span> and subscripts to distinguish them.</p>
+<p>An identity matrix is an arbitrary matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span> The following holds.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \boldsymbol{A}\boldsymbol{I}&amp;=\boldsymbol{A}\\
 \boldsymbol{I}\boldsymbol{A}&amp;=\boldsymbol{A}
 \end{aligned}\end{split}\]</div>
-<p>先程説明したように，行列の掛け算が成立するためには，<span class="math notranslate nohighlight">\(I\)</span>のサイズは<span class="math notranslate nohighlight">\(A\)</span>と同じである必要があります．</p>
-<p>実際に計算して，元の行列と値が変わらないかを確認してみると，</p>
+<p>As explained earlier, in order for multiplication of a matrix to be established,<span class="math notranslate nohighlight">\(I\)</span> The size of <span class="math notranslate nohighlight">\(A\)</span> It must be the same as.</p>
+<p>By actually calculating and checking whether the value does not change from the original matrix,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}\begin{bmatrix}
 1 &amp; 2 \\
@@ -636,24 +649,24 @@ x_{31} &amp; x_{32}
 3 &amp; 4
 \end{bmatrix}
 \end{aligned}\end{split}\]</div>
-<p>のように，元の値と一致することが確認できます．</p>
+<p>As you can see, it matches the original value.</p>
 </div>
-<div class="section" id="逆行列">
-<h3>1.3.9. 逆行列<a class="headerlink" href="#逆行列" title="Permalink to this headline">¶</a></h3>
-<p><strong>逆行列</strong>とは，元の行列にかけると単位行列になるような行列であり，スカラーにおける逆数(<span class="math notranslate nohighlight">\(2 \times 2^{-1} = 1\)</span>)に対応するような行列です．行列<span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>に対し，その逆行列は<span class="math notranslate nohighlight">\(\boldsymbol{A}^{-1}\)</span>のように表記します．</p>
-<p>逆行列の定義を数式で表すと，</p>
+<div class="section" id="1.3.9.-Inverse-matrix">
+<h3>1.3.9. 1.3.9. Inverse matrix<a class="headerlink" href="#1.3.9.-Inverse-matrix" title="Permalink to this headline">¶</a></h3>
+<p><strong>The inverse matrix</strong> is a matrix that becomes an identity matrix when multiplied by the original matrix, and the reciprocal number in the scalar (<span class="math notranslate nohighlight">\(2 \times 2^{-1} = 1\)</span>) It is a matrix corresponding to. matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>, Its inverse matrix is <span class="math notranslate nohighlight">\(\boldsymbol{A}^{-1}\)</span> I will write like this.</p>
+<p>When the definition of the inverse matrix is represented by a mathematical expression,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \boldsymbol{A}\boldsymbol{A}^{-1}=\boldsymbol{I}\\
 \boldsymbol{A}^{-1}\boldsymbol{A}=\boldsymbol{I}
 \end{aligned}\end{split}\]</div>
-<p>となります．ここで，<span class="math notranslate nohighlight">\(\boldsymbol{I}\)</span> は先程の単位行列です．サイズが<span class="math notranslate nohighlight">\(2 \times 2\)</span> や <span class="math notranslate nohighlight">\(3 \times 3\)</span> といった小さな行列の場合には，逆行列計算に公式がありますが，機械学習ではより大きなサイズの行列( <span class="math notranslate nohighlight">\(1000 \times 1000\)</span> など)を扱う必要が出てくるため，逆行列を効率的に求める計算手法が提案されています．</p>
-<p>逆行列は常に存在するとは限りません．逆行列が存在するような行列のことを <strong>正則行列</strong> とよびます（行列が正則であるための条件については今回は説明しません）．</p>
+<p>here,<span class="math notranslate nohighlight">\(\boldsymbol{I}\)</span> Is the unit matrix of the previous time. size is<span class="math notranslate nohighlight">\(2 \times 2\)</span> Ya <span class="math notranslate nohighlight">\(3 \times 3\)</span> In the case of a small matrix such as small matrix, there are formulas for inverse matrix calculation, but in machine learning a matrix of larger size ( <span class="math notranslate nohighlight">\(1000 \times 1000\)</span> Etc.), it is necessary to deal with calculation methods for efficient inversion of inverse matrices.</p>
+<p>Inverse matrices do not always exist. A matrix in which an inverse matrix exists is called a <strong>regular matrix</strong> (conditions for the matrix being regular are not explained this time).</p>
 </div>
-<div class="section" id="線形結合と二次形式">
-<h3>1.3.10. 線形結合と二次形式<a class="headerlink" href="#線形結合と二次形式" title="Permalink to this headline">¶</a></h3>
-<p>機械学習の式によく出てくる形式として， <span class="math notranslate nohighlight">\(\boldsymbol{b}^{T}\boldsymbol{x}\)</span> と <span class="math notranslate nohighlight">\(\boldsymbol{x}^{T}\boldsymbol{A}\boldsymbol{x}\)</span> の2つの形式があります．前者は<strong>線形結合</strong>もしくは<strong>一次結合</strong>，後者は<strong>二次形式</strong>とよばれています．スカラーの場合，一次式（<span class="math notranslate nohighlight">\(ax+b\)</span>）や二次式（<span class="math notranslate nohighlight">\(ax^2+bx+c\)</span>）がありますが，それをベクトルに拡張したものです．</p>
-<p>線形結合の計算の中身を見てみると，</p>
+<div class="section" id="1.3.10.-Linear-joins-and-quadratic">
+<h3>1.3.10. 1.3.10. Linear joins and quadratic<a class="headerlink" href="#1.3.10.-Linear-joins-and-quadratic" title="Permalink to this headline">¶</a></h3>
+<p>As a form often appearing in machine learning equations, <span class="math notranslate nohighlight">\(\boldsymbol{b}^{T}\boldsymbol{x}\)</span> When <span class="math notranslate nohighlight">\(\boldsymbol{x}^{T}\boldsymbol{A}\boldsymbol{x}\)</span> There are two forms. The former linear combination or linear combination , the latter quadratic form has been called. For scalars, linear expressions <span class="math notranslate nohighlight">\(ax+b\)</span>） And quadratic equation （<span class="math notranslate nohighlight">\(ax^2+bx+c\)</span>）, But it is an extension of it to a vector.</p>
+<p>Looking at the contents of the linear combination calculation,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \boldsymbol{b}&amp;=\begin{bmatrix}
@@ -670,8 +683,8 @@ x_{2}
 x_{1} \\
 x_{2}
 \end{bmatrix}=x_{1}+2x_{2}\end{aligned}\end{split}\]</div>
-<p>のように <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> の要素である <span class="math notranslate nohighlight">\(x_{1}\)</span> もしくは <span class="math notranslate nohighlight">\(x_{2}\)</span> に関して，一次式となっていることがわかります．</p>
-<p>また，二次形式も同様に計算の中身を確認してみると，</p>
+<p>like <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> It is an element of <span class="math notranslate nohighlight">\(x_{1}\)</span> Or <span class="math notranslate nohighlight">\(x_{2}\)</span> As you can see, it is a primary equation.</p>
+<p>Also, if you check the contents of the calculation for the quadratic form as well,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \boldsymbol{A}&amp;=\begin{bmatrix}
@@ -697,16 +710,16 @@ x_{1}+2x_{2} \\
 \end{bmatrix}\\
 &amp;=x_{1}\left( x_{1}+2x_{2}\right) +x_{2}\left( 3x_{1}+4x_{2}\right) \\
 &amp;=x^{2}_{1}+5x_{1}x_{2}+4x_{2}^{2}\end{aligned}\end{split}\]</div>
-<p>となり，各要素において二次式となっていることがわかります．</p>
-<p>従って，任意の二次関数を</p>
+<p>It turns out that each element has a quadratic expression.</p>
+<p>Therefore, an arbitrary quadratic function</p>
 <div class="math notranslate nohighlight">
 \[\boldsymbol{x}^{T}\boldsymbol{A}\boldsymbol{x} + \boldsymbol{b}^{T}\boldsymbol{x} + c\]</div>
-<p>の形で表現できます．ここで，<span class="math notranslate nohighlight">\(c\)</span> はスカラーの定数項です．</p>
+<p>It can be expressed in the form of. here, <span class="math notranslate nohighlight">\(c\)</span> Is a constant term of a scalar.</p>
 </div>
-<div class="section" id="ベクトルによる微分と勾配">
-<h3>1.3.11. ベクトルによる微分と勾配<a class="headerlink" href="#ベクトルによる微分と勾配" title="Permalink to this headline">¶</a></h3>
-<p>微分は入力を変えた場合の関数値の変化量と説明しました．同様に関数の入力がベクトルである場合，ベクトルによる微分を考えることができます．関数のそれぞれのベクトルの成分毎に偏微分を計算し，それらを並べてベクトルにしたものを<strong>勾配</strong>とよびます．</p>
-<p>勾配の計算を紹介する前に，下記の例題を計算しましょう．</p>
+<div class="section" id="1.3.11.-Differential-by-the-vector-and-gradient">
+<h3>1.3.11. 1.3.11. Differential by the vector and gradient<a class="headerlink" href="#1.3.11.-Differential-by-the-vector-and-gradient" title="Permalink to this headline">¶</a></h3>
+<p>Differential is described as the amount of change in function value when input is changed. Likewise, if the input of the function is a vector, we can think of a differentiation with a vector. Calculate partial derivatives for each vector component of the function, and arrange them into vectors called <strong>gradients</strong>.</p>
+<p>Before introducing the gradient calculation, let’s calculate the following example.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \boldsymbol{b}&amp;=\begin{bmatrix}
@@ -724,10 +737,10 @@ x_{1} \\
 x_{2}
 \end{bmatrix}
 =3x_{1}+4x_{2}\end{aligned}\end{split}\]</div>
-<p>この <span class="math notranslate nohighlight">\(\boldsymbol{b}^{T}\boldsymbol{x}\)</span> を ベクトル <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> で微分したものを，</p>
+<p>this <span class="math notranslate nohighlight">\(\boldsymbol{b}^{T}\boldsymbol{x}\)</span> With vector <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> ,</p>
 <div class="math notranslate nohighlight">
 \[\dfrac {\partial }{\partial \boldsymbol{x}}\left( \boldsymbol{b}^{T}\boldsymbol{x}\right)\]</div>
-<p>と表し．これを<strong>ベクトルで微分</strong>すると言います．今回の例では，</p>
+<p>とIt is expressed. It is said <strong>to differentiate</strong> this with a <strong>vector</strong> . In this example,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \dfrac {\partial }{\partial \boldsymbol{x}}\left( \boldsymbol{b}^{T}\boldsymbol{x}\right) &amp;=\dfrac {\partial }{\partial \boldsymbol{x}}\left( 3x_{1}+4x_{2}\right) \\
@@ -736,7 +749,7 @@ x_{2}
 \dfrac {\partial }{\partial x_{2}} \left( 3x_{1}+4x_{2}\right)
 \end{bmatrix}
 \end{aligned}\end{split}\]</div>
-<p>のようになり，計算を進めると</p>
+<p>As we go forward with the calculation</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}\dfrac {\partial }{\partial x_{1}}\left( 3x_{1}+4x_{2}\right) &amp;=\dfrac {\partial }{\partial x_{1}}\left( 3x_{1}\right) +\dfrac {\partial }{\partial x_{1}}\left( 4x_{2}\right) \\
 &amp;=3\times \dfrac {\partial }{\partial x_{1}}\left( x_{1}\right) +4x_{2}\times \dfrac {\partial }{\partial x_{1}}\left( 1\right) \\
@@ -748,7 +761,7 @@ x_{2}
 &amp;=3x_{1} \times 0 + 4 \times 1 \\
 &amp;= 4
 \end{aligned}\end{split}\]</div>
-<p>となり，下記の計算結果が得られます．</p>
+<p>The following calculation results are obtained.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \dfrac {\partial }{\partial \boldsymbol{x}}\left( \boldsymbol{b}^{T}\boldsymbol{x}\right)
@@ -760,7 +773,7 @@ x_{2}
 4
 \end{bmatrix} = \boldsymbol{b}
 \end{aligned}\end{split}\]</div>
-<p>もう一問，以下の例題を考えましょう．</p>
+<p>Another question, let’s consider the following example.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \boldsymbol{b}&amp;=\begin{bmatrix}
@@ -779,120 +792,128 @@ x_{2}
 0 \\
 0
 \end{bmatrix}=\boldsymbol{0}\end{aligned}\end{split}\]</div>
-<p>偏微分を行う対象の変数が含まれていない場合，その偏微分は <span class="math notranslate nohighlight">\(0\)</span> となります．要素が <span class="math notranslate nohighlight">\(0\)</span> のみで構成されたベクトルを <strong>零（ゼロ）ベクトル</strong> と言います．</p>
-<p>これらを踏まえて，公式としてまとめておきましょう．</p>
+<p>If the variable to be subjected to partial differentiation is not included, its partial differential is 0. Elements0A vector consisting solely of it is called a <strong>zero (zero) vector</strong>.</p>
+<p>Based on these, let’s summarize as official.</p>
+<p>．</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 &amp;\left( 1\right) \ \dfrac {\partial}{\partial \boldsymbol{x}}\left( \boldsymbol{c} \right) = \boldsymbol{0}\\
 &amp;\left( 2\right) \ \dfrac {\partial }{\partial \boldsymbol{x}}\left( \boldsymbol{b}^{T}\boldsymbol{x}\right) = \boldsymbol{b}\\
 &amp;\left( 3\right) \ \dfrac {\partial }{\partial \boldsymbol{x}}\left( \boldsymbol{x}^{T}\boldsymbol{A}\boldsymbol{x}\right) =\left( \boldsymbol{A}+\boldsymbol{A}^{T}\right) \boldsymbol{x}\end{aligned}\end{split}\]</div>
 <p>(1)と(2) はすでに導出済みです．(3) は導出が少し複雑なので省略しますが，数値を代入して確認してみてください．この3つの公式は機械学習を学んでいく上で非常に重要な公式となりますので，必ず覚えておきましょう．</p>
-<p>こういった行列などにおける公式は他にもたくさんあり，論文などを読む際にはどういった公式があるのかを知っておくことも重要です．例えば，<a class="reference external" href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">The Matrix Cookbook</a>などを参考にしてみてください．</p>
-<p>また，今回は多入力単出力関数の微分として勾配まで紹介しましたが，多入力多出力関数の微分であるヤコビ行列（ヤコビアン）もニューラルネットワークの誤差逆伝播法を理解するために必要となります（ただし殆どの場合，行列を掛けた場合のヤコビ行列は，その転置行列だと覚えるだけで十分です）．さらに詳しく知りたい方は，例えば<a class="reference external" href="https://arxiv.org/abs/1802.01528">The Matrix Calculus You Need For Deep Learning</a>などを参考にしてみてください．</p>
+<p>There are many other formulas in such matrices etc. It is also important to know what formulas are available when reading papers and the like. For example, please refer to <a class="reference external" href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">The Matrix Cookbook</a>.</p>
+<p>In addition, this time we introduced gradients as derivatives of the multiple input single output function, but the Jacobian matrix (Jacobian), which is a derivative of the multiple input multiple output function, is also necessary to understand the error back propagation method of the neural network However, in most cases it is sufficient to memorize that the Jacobian matrix multiplied by a matrix is its transposed matrix.) For more information, please refer to, for example, The <a class="reference external" href="https://arxiv.org/abs/1802.01528">The Matrix
+Calculus You Need For Deep Learning</a>.</p>
 </div>
 </div>
-<div class="section" id="確率・統計">
-<h2>1.4. 確率・統計<a class="headerlink" href="#確率・統計" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="確率や統計は何に使えるのか">
-<h3>1.4.1. 確率や統計は何に使えるのか<a class="headerlink" href="#確率や統計は何に使えるのか" title="Permalink to this headline">¶</a></h3>
-<p>機械学習といえば確率や統計といったイメージで勉強する人も多いと思いますが，簡単なアルゴリズムであれば，微分と線形代数を理解しておくだけで説明することができ，確率や統計が出てくることはありません．それでは，確率，統計はなぜ必要なのでしょうか？</p>
-<p>機械学習はデータを扱う手法です．データは個別の事象の集まりですが，学習の目的はそのデータの背後にある普遍性，法則を捉えることです．確率はデータの分布や不確実性といった概念を数式化することができます．また統計によって，ある集団に対する様々な統計量を得ることができ，それらを使ってデータを学習しやすいように正規化したり，モデルが妥当なのか，各データが外れ値ではないのかといった判断をすることができます．</p>
+<div class="section" id="1.4.-Probability-and-Statistics">
+<h2>1.4. 1.4. Probability and Statistics<a class="headerlink" href="#1.4.-Probability-and-Statistics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="1.4.1.-What-are-probability-and-statistics-available-for?">
+<h3>1.4.1. 1.4.1. What are probability and statistics available for?<a class="headerlink" href="#1.4.1.-What-are-probability-and-statistics-available-for?" title="Permalink to this headline">¶</a></h3>
+<p>Speaking of machine learning, I think that there are many studying in the image such as probability and statistics, but if it is a simple algorithm, it can explain by just understanding differential and linear algebra, probability and statistics come out There is nothing to come. So, why are probability and statistics necessary?</p>
+<p>Machine learning is a method of handling data. Data is a collection of individual events, but the purpose of learning is to capture the universality and the law behind that data. Probability can formulate the concept of data distribution and uncertainty. Also, by statistics, various statistics can be obtained for a certain group, and normalization is made so that data can be easily learned using them, and it is judged whether each data is valid or outliers can do.</p>
 </div>
-<div class="section" id="確率">
-<h3>1.4.2. 確率<a class="headerlink" href="#確率" title="Permalink to this headline">¶</a></h3>
-<p>確率は様々な可能性がある事象に対し，その事象が起こることが期待される度合いを表します．パラメータ推定の文脈では確率はどれくらい起きそうだという信念を表す場合もあります．確率は<span class="math notranslate nohighlight">\(p(x)\)</span>のような関数の形で表し，<span class="math notranslate nohighlight">\(x\)</span>を<strong>確率変数</strong>とよびます．確率変数は起きうる事象のいずれかの値をとるような変数です．さらに<span class="math notranslate nohighlight">\(p(x=u)\)</span>を確率変数<span class="math notranslate nohighlight">\(x\)</span>の値<span class="math notranslate nohighlight">\(u\)</span>だった時の確率を表すものとします．これを省略した<span class="math notranslate nohighlight">\(p(u)\)</span>の形で表します．確率は，「全ての事象の確率の和が<span class="math notranslate nohighlight">\(1\)</span>になる」，「全ての事象の確率は<span class="math notranslate nohighlight">\(0\)</span>以上である」という2つの制約を満たします．これを式で書くと，</p>
+<div class="section" id="1.4.2.-Probability">
+<h3>1.4.2. 1.4.2. Probability<a class="headerlink" href="#1.4.2.-Probability" title="Permalink to this headline">¶</a></h3>
+<p>The probability represents the degree to which the event is expected to occur for various possible events. In the context of parameter estimation, there may be cases in which the probability represents a belief that it is likely to occur. The probability is <span class="math notranslate nohighlight">\(p(x)\)</span> In the form of a function like <span class="math notranslate nohighlight">\(x\)</span> The random variable is called. A random variable is a variable that takes one of the possible events. further <span class="math notranslate nohighlight">\(p(x=u)\)</span> As a random variable <span class="math notranslate nohighlight">\(x\)</span> The value of the <span class="math notranslate nohighlight">\(u\)</span> It is
+assumed to be the probability when it was. I omit this <span class="math notranslate nohighlight">\(p(x=u)\)</span> In the form of. The probability is “the sum of the probabilities of all events is 1” The probability of all events is0 It meets the two constraints of “It is over”. When writing this with an expression,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \sum_{x } p(x) &amp;= 1 \\
 p(x) &amp; \geq  0
 \end{align}\end{split}\]</div>
-<p>となります．</p>
-<p>2つの事象が同時に起きる確率を<strong>同時確率</strong>とよび<span class="math notranslate nohighlight">\(p(x, y)\)</span>のように表します．例えばサイコロを2回振り，1回目の目が<span class="math notranslate nohighlight">\(0\)</span>，2回目の目が<span class="math notranslate nohighlight">\(5\)</span>となる確率は同時確率で表すことができます．</p>
-<p>同時確率のうち，特定の確率変数のみに注目し，それ以外の確率変数について和を取って消去する操作を<strong>周辺化</strong>とよびます（周辺化という言葉は，行を１つ目の確率変数，列を二つ目の確率変数に対応させて同時確率を表で書いた場合，その行の合計，列の合計を表の周辺に書いたことからそうよばれています）．周辺化の結果は，注目した確率変数の確率に一致します．</p>
+<p>The probability that two events occur <strong>simultaneously</strong> is called <strong>simultaneous probability</strong> <span class="math notranslate nohighlight">\(p(x, y)\)</span> It is expressed as follows. For example, swipe the dice twice, the first eye <span class="math notranslate nohighlight">\(0\)</span>, The second eye <span class="math notranslate nohighlight">\(5\)</span> Probability to be represented by joint probability.</p>
+<p>Among the joint probability, paying attention only to a particular random variable, the operation to be erased by taking the sum for the other random variable <strong>marginalization</strong> is called (the word marginalization is, first of random variables a row, column Is associated with the second random variable and the joint probability is written in a table, it is said that it is because the sum of the rows and the sum of the columns are written around the table). The result of marginalization matches
+the probability of random variables of interest.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}p(x) = \sum_y p(x, y) \\
 p(y) = \sum_x p(x, y)\end{split}\]</div>
-<p>片方の確率変数がある値で固定されている条件下で，もう片方の確率がどうなるのかを表した確率分布を<strong>条件付き確率</strong>とよび，<span class="math notranslate nohighlight">\(p(y|x)\)</span>のように表します．例えば<span class="math notranslate nohighlight">\(y\)</span>を外で雨が降っているかを表す確率変数，<span class="math notranslate nohighlight">\(x\)</span>を部屋に入ってきた人が傘を持っていたかを表す確率変数とします（<span class="math notranslate nohighlight">\(y=1\)</span>を雨が振っている，<span class="math notranslate nohighlight">\(y=0\)</span>を雨が振っていない，のように割り当てます）．この時<span class="math notranslate nohighlight">\(p(y|x)\)</span>は，部屋に入ってきた人が傘をもっていた場合に外で雨が振っている条件付き確率を表します．</p>
-<p>条件付き確率は，同時確率を条件の確率で割った値と一致します．</p>
+<p>The conditional probability is called the probability distribution that shows the probability of the other under the condition that one random variable is fixed with a certain value ,<span class="math notranslate nohighlight">\(p(y|x)\)</span>It is expressed as follows. For example𝑦A random variable representing whether it is raining outside,𝑥As a random variable representing whether the person who entered the room had an umbrella (<span class="math notranslate nohighlight">\(y=1\)</span> Rain is shaking,<span class="math notranslate nohighlight">\(y=0\)</span> Assign it as if the rain did not shake). At this time
+<span class="math notranslate nohighlight">\(p(y|x)\)</span> Represents the conditional probability of rain outside when the person who entered the room had an umbrella.</p>
+<p>The conditional probability is equal to the value obtained by dividing the joint probability by the probability of the condition.</p>
 <div class="math notranslate nohighlight">
 \[p(y|x) = \frac{p(x, y)}{p(x)}\]</div>
-<p>ここで，条件付確率の式を変形させた<span class="math notranslate nohighlight">\(p(y|x)p(x) = p(x, y)\)</span>に注意すると，</p>
+<p>Here, we modified the expression of the conditional probability <span class="math notranslate nohighlight">\(p(y|x)p(x) = p(x, y)\)</span> Note that,</p>
 <div class="math notranslate nohighlight">
 \[p(x|y) = \frac{p(x, y)}{p(y)} = \frac{p(y | x)p(x)}{p(y)}\]</div>
-<p>が得られます．これを<strong>ベイズの定理</strong>とよびます．重要な定理なので，ぜひ覚えておきましょう．</p>
-<p>例えば，ベイズの定理の応用事例として，スパム（迷惑）メールフィルターがあります．メールに単語<span class="math notranslate nohighlight">\(i\)</span>が含むか否かを表す確率変数を <span class="math notranslate nohighlight">\(x_{i}\)</span> ，メールがスパムであるか否かを表す確率変数を <span class="math notranslate nohighlight">\(y\)</span> とおくと， <span class="math notranslate nohighlight">\(p(x_{i}=1)\)</span> は「メールが単語<span class="math notranslate nohighlight">\(i\)</span>を含む確率」， <span class="math notranslate nohighlight">\(p(y=1)\)</span> は「メールがスパムである確率」， <span class="math notranslate nohighlight">\(p(x_{i}=1|y=1)\)</span>
-は「メールがスパムであった場合に，その中に単語<span class="math notranslate nohighlight">\(i\)</span>が含まれる確率」となります．受信済みの大量のメールからそれぞれの割合を集計して求め，ベイズの定理を適用することで， <span class="math notranslate nohighlight">\(p(y=1|x_{i}=1)\)</span> として，「メールに単語<span class="math notranslate nohighlight">\(i\)</span>が出現した場合に，そのメールがスパムである確率」を求めることができます．</p>
+<p>can be obtained. This is called <strong>Bayes’ theorem</strong> . It is an important theorem, so let’s remember.</p>
+<p>For example, as an application example of Bayes’ theorem, there is a spam (unsolicited) mail filter. A word in e-mail𝑖A probability variable representing whether or not <span class="math notranslate nohighlight">\(i\)</span> , A random variable representing whether or not the mail is spam <span class="math notranslate nohighlight">\(y\)</span> Then, <span class="math notranslate nohighlight">\(p(x_{i}=1)\)</span> “Mail is a word𝑖Probability including” <span class="math notranslate nohighlight">\(p(y=1)\)</span> “Probability that mail is spam”,<span class="math notranslate nohighlight">\(p(x_{i}=1|y=1)\)</span> “When the mail was spam, a word𝑖Probability of being included”. By aggregating each proportion from the
+received large number of e-mails and applying Bayes’ theorem, <span class="math notranslate nohighlight">\(p(y=1|x_{i}=1)\)</span> As a word “<span class="math notranslate nohighlight">\(i\)</span> The probability that the mail is spam”can be obtained.</p>
 </div>
-<div class="section" id="尤度と最尤推定">
-<h3>1.4.3. 尤度と最尤推定<a class="headerlink" href="#尤度と最尤推定" title="Permalink to this headline">¶</a></h3>
-<p>（パラメトリックな）確率モデル<span class="math notranslate nohighlight">\(p(x; \theta)\)</span>はパラメータ<span class="math notranslate nohighlight">\(\theta\)</span>で特徴付けられたような関数です．確率モデル<span class="math notranslate nohighlight">\(p(x)\)</span>上で事象<span class="math notranslate nohighlight">\(u\)</span>が観測される確率<span class="math notranslate nohighlight">\(p(x=u; \theta)\)</span>を事象<span class="math notranslate nohighlight">\(u\)</span>の <strong>尤度</strong> とよびます．尤度の尤は「尤（もっと）もらしい」という意味であり，その事象の起きやすさを表します．</p>
-<p>ここで，<span class="math notranslate nohighlight">\(N\)</span>個のデータ<span class="math notranslate nohighlight">\(X = \left( x^{(1)}, x^{(2)}, \ldots, x^{(N)} \right)\)</span>が与えられ，そのデータ<span class="math notranslate nohighlight">\(X\)</span>を生成するような確率分布を推定する問題を考えます．この場合，<strong>最尤（さいゆう）推定</strong>とよばれる手法がよく使われます．最尤推定は観測データ<span class="math notranslate nohighlight">\(X\)</span>を最も生成しそうなパラメータ<span class="math notranslate nohighlight">\(\theta\)</span>を推定する手法です．観測するデータがそれぞれ独立に生成されている場合，その尤度は</p>
+<div class="section" id="1.4.3.-The-likelihood-and-maximum-likelihood-estimation">
+<h3>1.4.3. 1.4.3. The likelihood and maximum likelihood estimation<a class="headerlink" href="#1.4.3.-The-likelihood-and-maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h3>
+<p>(Parametric) stochastic model <span class="math notranslate nohighlight">\(p(x; \theta)\)</span> Is the parameter <span class="math notranslate nohighlight">\(\theta\)</span> It is a function as characterized by. Probabilistic model <span class="math notranslate nohighlight">\(p(x)\)</span> Event on𝑢Probability of observation <span class="math notranslate nohighlight">\(p(x=u; \theta)\)</span> Event <span class="math notranslate nohighlight">\(u\)</span> It is called the likelihood of . The likelihood likelihood means “likelihood (more) likely” and it indicates the likelihood of the event.</p>
+<p>here,<span class="math notranslate nohighlight">\(N\)</span> Pieces of data <span class="math notranslate nohighlight">\(X = \left( x^{(1)}, x^{(2)}, \ldots, x^{(N)} \right)\)</span> And the data <span class="math notranslate nohighlight">\(X\)</span> We will consider the problem of estimating the probability distribution that generates. In this case, a method called maximum likelihood estimation is often used. <strong>Maximum likelihood estimation</strong> is based on observed data <span class="math notranslate nohighlight">\(X\)</span> Parameters most likely to be generated <span class="math notranslate nohighlight">\(\theta\)</span> It is a method to estimate. When the data to be observed are generated independently, the
+likelihood is</p>
 <div class="math notranslate nohighlight">
 \[L(\theta) = p(X; \theta) = \prod_{i=1}^N p(x^{(i)}; \theta)\]</div>
-<p>のように表されます．この<span class="math notranslate nohighlight">\(\prod\)</span>という記号は<span class="math notranslate nohighlight">\(\sum\)</span>の掛け算版で全ての値を掛け合わせるという意味です．複数データに対する尤度は，<span class="math notranslate nohighlight">\(1\)</span>より小さな値の積となるため非常に小さな数になりコンピュータ上で扱うことが困難になります．また尤度を最大化したい場合，積の形の式の最大化は難しいことが知られています．そこで尤度の代わりにその対数をとった対数尤度を考えます．</p>
+<p>It is represented as follows. this <span class="math notranslate nohighlight">\(\prod\)</span> The sign <span class="math notranslate nohighlight">\(\sum\)</span> It means to multiply all the values with the multiplication version of. As for the likelihood for multiple data,1. Since it is a product of smaller values, it becomes a very small number and becomes difficult to handle on a computer. When maximizing the likelihood, it is known that maximization of product form is difficult. Therefore, instead of likelihood, we consider the log likelihood taking the logarithm.</p>
 <div class="math notranslate nohighlight">
 \[\log L(\theta) = \log p(X; \theta) = \sum_{i=1}^N \log p(x^{(i)}; \theta)\]</div>
-<p>この対数尤度を最大化するパラメータ<span class="math notranslate nohighlight">\(\theta\)</span>を求めることができれば，その値がデータ<span class="math notranslate nohighlight">\(X\)</span>を最も生成しそうな確率モデルのパラメータとなります．</p>
-<p>ここで，わかりやすい具体例として，コインの表・裏が出る確率を推定する問題を考えてみます．コインの表・裏を表す確率変数を<span class="math notranslate nohighlight">\(x\)</span>とおき，<span class="math notranslate nohighlight">\(x = 1\)</span>であれば表，<span class="math notranslate nohighlight">\(x = 0\)</span>であれば裏とします．また，表(<span class="math notranslate nohighlight">\(x = 1\)</span>)となる確率を表すパラメータを<span class="math notranslate nohighlight">\(\theta\)</span>とおきます．コインを<span class="math notranslate nohighlight">\(10\)</span>回投げた結果，以下の観測結果<span class="math notranslate nohighlight">\(X\)</span>が得られたとします．</p>
+<p>Parameters that maximize this log likelihood <span class="math notranslate nohighlight">\(\theta\)</span> If it can be determined that the value is data <span class="math notranslate nohighlight">\(X\)</span> It is a parameter of the probability model that is most likely to generate.</p>
+<p>Here, as a concrete example easy to understand, let us consider the problem of estimating the probability that the front and back of a coin will appear. A random variable representing the front and back of the coin𝑥Aside,<span class="math notranslate nohighlight">\(x\)</span> = 1 If it is a table,<span class="math notranslate nohighlight">\(x\)</span> =0 If it is, it will be behind. Also, in the table (<span class="math notranslate nohighlight">\(X\)</span>=1) As a parameter representing the probability of <span class="math notranslate nohighlight">\(\theta\)</span> I will leave. Coin <span class="math notranslate nohighlight">\(10\)</span> As a result of throwing, the following observation result <span class="math notranslate nohighlight">\(X\)</span> Is
+obtained.</p>
 <div class="math notranslate nohighlight">
 \[X = \left(1, 0, 1, 1, 1, 0, 0, 1, 0, 0 \right)\]</div>
-<p>すると，その尤度は，</p>
+<p>Then,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 L(\theta) &amp;= \theta \cdot (1 - \theta) \cdot  \ldots  \cdot (1 - \theta) \cdot (1 - \theta) \\
 &amp;= \theta^{5} \cdot (1 - \theta)^{5}
 \end{aligned}\end{split}\]</div>
-<p>と計算され，その対数尤度は，</p>
+<p>The log likelihood is calculated as follows:</p>
 <div class="math notranslate nohighlight">
 \[\log L(\theta) = 5 \log \theta + 5 \log \left( 1 - \theta \right)\]</div>
-<p>となります．これを<span class="math notranslate nohighlight">\(\theta\)</span>で微分して<span class="math notranslate nohighlight">\(0\)</span>になる条件を求めると，</p>
+<p>this <span class="math notranslate nohighlight">\(\theta\)</span> Differentiate with <span class="math notranslate nohighlight">\(0\)</span> Is obtained,</p>
 <div class="math notranslate nohighlight">
 \[\frac{5}{\theta} - \frac{5}{\left( 1 - \theta \right)} = 0\]</div>
-<p>より，<span class="math notranslate nohighlight">\(\theta = 0.5\)</span>が最尤推定により得られます．</p>
-<p>回帰モデルの目的関数として真値と予測値の二乗誤差の和を使う場合（<strong>最小二乗法</strong>とよばれています），モデルの出力値に正規分布（後述）の誤差を仮定した最尤推定を行っているのと等価であることが知られています．</p>
+<p>Than，<span class="math notranslate nohighlight">\(\theta = 0.5\)</span> is obtained by maximum likelihood estimation.．</p>
+<p>In the case of using the sum of the square error of the true value and the predicted value as the objective function of the regression model ( called the <strong>least squares method</strong> ), the maximum likelihood estimation is performed assuming the error of the normal distribution (described later) to the output value of the model It is known to be equivalent to being.</p>
 </div>
-<div class="section" id="事後確率最大化推定(MAP推定)">
-<h3>1.4.4. 事後確率最大化推定(MAP推定)<a class="headerlink" href="#事後確率最大化推定(MAP推定)" title="Permalink to this headline">¶</a></h3>
-<p>最尤推定は多くの場合有効ですが，求めるパラメータに何らかの事前情報がある場合，最尤推定ではその事前情報を扱うことができません．そのため，試行回数が少ない中でパラメータを推定しようとすると，最尤推定ではうまくいかない場合があります．</p>
-<p>先程と同様に，コインの表・裏が出る確率を推定する例を考えてみましょう．コインを<span class="math notranslate nohighlight">\(5\)</span>回投げたところ，たまたま<span class="math notranslate nohighlight">\(5\)</span>回とも表(<span class="math notranslate nohighlight">\(x = 1\)</span>)が出たとします．この場合，最尤推定では，表が出る確率が<span class="math notranslate nohighlight">\(100\)</span>%（裏が出る確率が<span class="math notranslate nohighlight">\(0\)</span>%）であると推定してしまいます．しかし，明らかに裏が出る確率は<span class="math notranslate nohighlight">\(0\)</span>よりも大きいはずという事前情報があれば，より良い推定ができそうです．</p>
-<p>このような場合に，事前情報も考慮しながら，観測データに基づいてパラメータを推定する方法が <strong>事後確率最大化(Maximum A Posteriori, MAP)推定</strong> です．MAP推定においては，パラメータ<span class="math notranslate nohighlight">\(\theta\)</span>も確率変数であり，その分布（ <strong>事前確率</strong> ともよばれます）<span class="math notranslate nohighlight">\(p\left( \theta \right)\)</span>が存在すると考えます．その上で，観測データ<span class="math notranslate nohighlight">\(X\)</span>が与えられた条件での，パラメータ<span class="math notranslate nohighlight">\(\theta\)</span>の条件付き確率（ <strong>事後確率</strong> ともよばれます） <span class="math notranslate nohighlight">\(p\left( \theta|X\right)\)</span>
-を最大化するような<span class="math notranslate nohighlight">\(\theta\)</span>を求めることになります．</p>
-<p>ここでベイズの定理を思い出しましょう．ベイズの定理を用いると事後確率は，</p>
+<div class="section" id="1.4.4.-Posterior-probability-maximization-estimation-(MAP-estimation)">
+<h3>1.4.4. 1.4.4. Posterior probability maximization estimation (MAP estimation)<a class="headerlink" href="#1.4.4.-Posterior-probability-maximization-estimation-(MAP-estimation)" title="Permalink to this headline">¶</a></h3>
+<p>Although maximum likelihood estimation is effective in many cases, if there is some prior information in the parameter to be obtained, maximum likelihood estimation can not handle that a priori information. Therefore, trying to estimate the parameters while the number of trials is small may not work well with maximum likelihood estimation.</p>
+<p>As in the previous example, let’s consider an example of estimating the probability that the front and back of a coin will appear. Coin5When throwing it, it happens <span class="math notranslate nohighlight">\(5\)</span> Times and tables (<span class="math notranslate nohighlight">\(x = 1\)</span>) Has come out. In this case, in the maximum likelihood estimation, the probability that the table appears is <span class="math notranslate nohighlight">\(100\)</span>% (Probability of backing out <span class="math notranslate nohighlight">\(0\)</span>%) In the future. However, the probability of obvious backing out is0If there is prior information that it should be larger than
+that, it is likely to make a better estimate.</p>
+<p>In such a case, the method of estimating the parameters based on observation data while also considering prior information is estimation of a posteriori probability <strong>(Maximum A Posteriori, MAP)</strong> . In MAP estimation, parameters <span class="math notranslate nohighlight">\(\theta\)</span> Is also a random variable, its distribution ( also called <strong>prior probability</strong>)<span class="math notranslate nohighlight">\(p\left( \theta \right)\)</span> I think that it exists. Then, observation data <span class="math notranslate nohighlight">\(X\)</span> In the given condition, the parameters <span class="math notranslate nohighlight">\(\theta\)</span> The conditional probability (
+also called <strong>posteriori probability</strong>) <span class="math notranslate nohighlight">\(p\left( \theta|X\right)\)</span> To maximize <span class="math notranslate nohighlight">\(\theta\)</span> You will be asked.</p>
+<p>Let’s recall Bayes’ theorem here. When using Bayes’ theorem, the posterior probability is</p>
 <div class="math notranslate nohighlight">
 \[p(\theta|X) = \frac{p(X|\theta)p(\theta)}{p(X)}\]</div>
-<p>となります．これをパラメータについて最大化することを考えると，<span class="math notranslate nohighlight">\(P(X)\)</span>はパラメータとは関係が無いので無視することができ，</p>
+<p>Considering maximizing this for parameters,<span class="math notranslate nohighlight">\(P(X)\)</span> Can not be ignored since it has no relation with the parameter,</p>
 <div class="math notranslate nohighlight">
 \[p(X|\theta) p(\theta)\]</div>
-<p>を最大化するようなパラメータを求めることになります．<span class="math notranslate nohighlight">\(p(X|\theta)\)</span>の部分は最尤推定と同じですが，MAP推定ではさらにパラメータの事前確率<span class="math notranslate nohighlight">\(p(\theta)\)</span>を掛けた確率を最大化することになります．（ここではMAP推定の解を求める過程については説明しません．）</p>
-<p>機械学習においてパラメータを最適化する際，正則化とよばれる，パラメータの値が大きいことに対する罰則項を設けたりしますが，これはパラメータの事前確率（の対数）とみなすことができ，パラメータをMAP推定していると解釈できます．</p>
+<p>You will be asked to maximize parameters.<span class="math notranslate nohighlight">\(p(X|\theta)\)</span> is the same as the maximum likelihood estimation, but in the MAP estimation, the prior probability of the parameter <span class="math notranslate nohighlight">\(p(\theta)\)</span> It will maximize the probability of multiplication. (I will not explain the process of obtaining the solution of MAP estimation here.)</p>
+<p>When optimizing parameters in machine learning, we set a penalty term for the large value of the parameter called regularization, but this can be regarded as the prior probability (the log of) of the parameters, It can be interpreted as MAP estimation.</p>
 </div>
-<div class="section" id="統計量">
-<h3>1.4.5. 統計量<a class="headerlink" href="#統計量" title="Permalink to this headline">¶</a></h3>
-<p>ここでは，代表的な統計量である平均，分散，標準偏差について紹介していきます．</p>
-<p>最初は，<strong>平均</strong>を紹介します．たとえば，300円, 400円, 500円の平均は，</p>
+<div class="section" id="1.4.5.-Statistics">
+<h3>1.4.5. 1.4.5. Statistics<a class="headerlink" href="#1.4.5.-Statistics" title="Permalink to this headline">¶</a></h3>
+<p>Here, I will introduce the representative statistics, mean, variance, standard deviation.</p>
+<p>First, I will introduce the average . For example, the average of 300 yen, 400 yen, 500 yen,</p>
 <div class="math notranslate nohighlight">
 \[\dfrac{300 + 400 + 500}{3} = 400\]</div>
-<p>となり，すべてを足し合わせて対象の数で割ります．これを定式化すると，</p>
+<p>Then, add up all and divide by the number of targets. When this is formulated,</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}\overline {x}=\dfrac {x_{1}+x_{2}+\ldots +x_{N}}{N}
 =\dfrac {1}{N}\sum ^{N}_{n=1}x_{n}\end{aligned}\]</div>
-<p>のようになります．<span class="math notranslate nohighlight">\(N\)</span> は<strong>サンプルの数</strong>を表します．平均は， <span class="math notranslate nohighlight">\(\bar{x}\)</span> や <span class="math notranslate nohighlight">\(\mu\)</span> といった記号で表わされるのが一般的です．データ分布において，平均はその重心に相当する値です．</p>
-<p>次に，<strong>分散</strong>を紹介します．分散の定義は</p>
+<p>It looks like. <span class="math notranslate nohighlight">\(N\)</span> Represents the number of samples . The average, <span class="math notranslate nohighlight">\(\bar{x}\)</span> Ya <span class="math notranslate nohighlight">\(\mu\)</span> It is common to be represented by a symbol such as. In the data distribution, the average is the value corresponding to its center of gravity.</p>
+<p>Next, I will introduce distribution . The definition of dispersion</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}\sigma ^{2}=\dfrac {1}{N}\sum ^{N}_{n=1}\left( x_{n}-\overline {x}\right) ^{2}\end{aligned}\]</div>
-<p>となります．各サンプルの平均 <span class="math notranslate nohighlight">\(\bar{x}\)</span> からの差分 <span class="math notranslate nohighlight">\(x- \bar{x}\)</span> を計算し，それらの二乗誤差の平均の値を計算します．分散にはもう一つ定義があり，</p>
+<p>Average of each sample <span class="math notranslate nohighlight">\(\bar{x}\)</span> Difference from <span class="math notranslate nohighlight">\(x- \bar{x}\)</span> And calculate the average value of their squared errors. There is another definition in dispersion,</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
 \sigma ^{2}=\dfrac {1}{N-1}\sum ^{N}_{n=1}\left( x_{n}-\overline {x}\right) ^{2}
 \end{aligned}\]</div>
-<p>と表す場合もありあります．前者は<strong>標本分散</strong>といい，後者は<strong>不偏分散</strong>といいます．これらの式の導出は他書に譲るとして，ここではその使い分けについて説明します．</p>
-<p><img alt="image9" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/12.png" /></p>
-<p>データ解析を行う際に，<strong>母集団</strong>に対する解析か<strong>標本集団</strong>に対する解析かを意識することが重要です．母集団とは解析を行いたい想定の範囲に対して，すべてのデータが揃っている場合であり，標本集団はそのうちの一部を抽出する場合です．例えば，全国の小学生の身長と体重を集計する際，全国の小学生を一人の抜け漏れもなく集められれば母集団ですが，各都道府県で100人ずつ抜き出して集計すると，標本集団となります．母集団のデータを集めることは現実的に難しいことが多く，標本集団のデータから母集団の分布を推定することが一般的です．そうなると，基本的には標本集団向けである不偏分散を使用することになります．サンプル数<span class="math notranslate nohighlight">\(N\)</span>が多い場合には，母分散と不偏分散の違いは殆どありませんが，サンプル数が小さい場合は大きな差となるので注意しましょう．</p>
-<p>分散を利用すると，データのばらつきを定量評価することができるようになります．例えば，実験を行った際に，結果にばらつきが多ければ，各実験で再現性が確保できていない可能性が考えられます．このように，多数の試行の結果がある値に集まっていることが望ましいような状況において，ばらつきの度合いを定量し評価することが重要となってきます．他に，データのばらつき具合にもよりますが，分散を使えばスケールの違いも評価することができます．</p>
-<p>最後に<strong>標準偏差</strong>を紹介します．分散では各サンプルの平均からの差の二乗の合計のため，単位は元の単位の二乗となっています．例えば元の単位がkgであれば，分散はkgの二乗という単位になります．そこで分散の平方根をとった<span class="math notranslate nohighlight">\(\sigma\)</span>を用いることで，元の単位と等しくなり，解釈が容易になります．これを標準偏差とよびます．</p>
-<p>練習問題で具体的な計算手順の確認を行いましょう．以下の①と②のデータに対して，平均，分散，標準偏差を求めてください．ただし，今回は母分散を使用することとします．</p>
+<p>t may be expressed as. The former is called specimen variance and the latter is called unbiased variance . The derivation of these expressions will be handed over to other books, and here we will explain their use properly. <img alt="image9" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/12.png" /></p>
+<p>When analyzing data, it is important to be conscious of analysis on <strong>population</strong> or analysis on <strong>specimen group</strong> . The population is a case where all the data is available for the range of assumptions to be analyzed, and the sample group is for extracting a part of them. For example, when aggregating height and weight of primary school students nationwide, if you can collect elementary school students nationwide without leakage of one person, it is a population, but if you collect 100 people
+in each prefecture and compile it, it becomes a specimen group. It is practically difficult to gather population data and it is common to estimate population distribution from sample group data. In that case, you will basically use the unbiased variance, which is for sample groups. The number of samples <span class="math notranslate nohighlight">\(N\)</span> If there are many, there is almost no difference between population variance and unbiased variance, but be careful as the number of samples is small when it is small.</p>
+<p>By using variance, it becomes possible to quantitatively evaluate the variation of data. For example, if there are many variations in the results of experiments, it is possible that reproducibility could not be ensured in each experiment. In this way, it is important to quantify and evaluate the degree of variation in situations where it is desirable that the results of many trials gather at certain values. Besides, depending on the variation of data, you can also evaluate the difference in
+scale by using variance.</p>
+<p>Finally, I will introduce the standard deviation . In the variance, the unit is the square of the original unit because of the sum of the square of the difference from the average of each sample. For example, if the original unit is kg, the variance is in units of square of kg. So I took the square root of the variance <span class="math notranslate nohighlight">\(\sigma\)</span> By using, it becomes equal to the original unit, making interpretation easier. This is called standard deviation.</p>
+<p>Let’s check the concrete calculation procedure with exercises. Please calculate average, variance, standard deviation for the following data in ① and ②. However, we will use the mother variance this time.</p>
 <p><img alt="image10" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/13.png" /></p>
-<p>①の解答は以下の通りです．</p>
+<p>The answers to ① are as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \bar{x}&amp;=\dfrac {1}{5}\left( -2-1+0+1+2\right) =0\\
@@ -900,7 +921,7 @@ L(\theta) &amp;= \theta \cdot (1 - \theta) \cdot  \ldots  \cdot (1 - \theta) \cd
 &amp;=\dfrac {1}{5}\times 10=2\\
 \sigma &amp;=\sqrt {2}
 \end{aligned}\end{split}\]</div>
-<p>また，②の解答は以下の通りです．</p>
+<p>The answer to ② is as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \overline {x}&amp;=\dfrac {1}{5}\left( -4-2+0+2+4\right) =0\\
@@ -908,26 +929,27 @@ L(\theta) &amp;= \theta \cdot (1 - \theta) \cdot  \ldots  \cdot (1 - \theta) \cd
 &amp;=\dfrac {1}{5}\times 40=8\\
 \sigma &amp;=\sqrt {8}=2\sqrt {2}
 \end{aligned}\end{split}\]</div>
-<p>これより，②のケースの方が分散が大きく，データのばらつきが大きいことがわかります．</p>
+<p>From this, it can be seen that the case of ② has larger variance and large data variation.</p>
 </div>
-<div class="section" id="正規分布と正規化">
-<h3>1.4.6. 正規分布と正規化<a class="headerlink" href="#正規分布と正規化" title="Permalink to this headline">¶</a></h3>
-<p>ここでは，確率で度々登場する<strong>正規分布</strong>について紹介します．<strong>ガウス分布</strong>ともよばれています．平均<span class="math notranslate nohighlight">\(\mu\)</span>，標準偏差<span class="math notranslate nohighlight">\(\sigma\)</span>を持つ正規分布は以下のような形をしています．</p>
+<div class="section" id="1.4.6.-Normal-distribution-and-the-normalized">
+<h3>1.4.6. 1.4.6. Normal distribution and the normalized<a class="headerlink" href="#1.4.6.-Normal-distribution-and-the-normalized" title="Permalink to this headline">¶</a></h3>
+<p>Here, we will introduce the normal distribution that appears frequently with probability . It is also called <strong>Gaussian distribution</strong> . average<span class="math notranslate nohighlight">\(\mu\)</span>,standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> The normal distribution with the shape has the following form.</p>
 <p><img alt="image11" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/14.png" /></p>
-<p>なぜこの正規分布がよく登場するのでしょうか．その理由として，以下のような物理的・数学的背景があります．</p>
+<p>Why does this normal distribution appear frequently? There are the following physical and mathematical background as the reason.</p>
 <ul class="simple">
-<li>独立で多数の因子の和で表される確率変数は正規分布に近似的に従う</li>
-<li>数式が扱いやすい</li>
+<li>A random variable expressed as a sum of independent and numerous factors approximates a normal distribution</li>
+<li>Easy to handle formulas</li>
 </ul>
-<p>世の中でみられる多くのデータが正規分布に従うことが知られています（例えば，性年代別の身長，試験の点数，物理実験の測定誤差など）．一方で必ずしもデータは正規分布に従うとは限りません．正規分布ではないような分布に対し正規分布にあてはめて考えてしまい誤った結論を導く場合も多々あります．データの分布は図示化するなどして正規分布として扱ってよいかは常に考えましょう．</p>
-<p>正規分布では平均 <span class="math notranslate nohighlight">\(\mu\)</span> と標準偏差 <span class="math notranslate nohighlight">\(\sigma\)</span> に対して，何%がその分布に入っているかといった議論を良く行います．例えば，<span class="math notranslate nohighlight">\(\mu \pm 3\sigma\)</span> の範囲内に，データの全体の99.7%が入るため，この <span class="math notranslate nohighlight">\(\mu \pm 3 \sigma\)</span> に入らない領域を外れ値（他の値から大きく外れた値）として定義するといった使い方ができます．</p>
+<p>Many data seen in the world are known to follow the normal distribution (eg height according to gender age, points of examination, measurement error of physical experiments, etc.). On the other hand, the data does not always obey the normal distribution. In many cases there are many cases where wrong conclusions are derived by applying it to a normal distribution for distribution that is not a normal distribution. Always think whether distributing the data can be handled as a normal distribution
+by making it diagrammatic.</p>
+<p>For normal distribution average <span class="math notranslate nohighlight">\(\mu\)</span> And standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> We will do a lot of discussions on what percentage is in that distribution. For example,<span class="math notranslate nohighlight">\(\mu \pm 3\sigma\)</span> Since 99.7% of the total of the data falls within the range of <span class="math notranslate nohighlight">\(\mu \pm 3 \sigma\)</span> It can be used to define an area that does not fall into an outlier value (a value greatly deviating from other values).</p>
 </div>
-<div class="section" id="標準偏差を利用したスケーリング">
-<h3>1.4.7. 標準偏差を利用したスケーリング<a class="headerlink" href="#標準偏差を利用したスケーリング" title="Permalink to this headline">¶</a></h3>
-<p>スケーリングは，大抵の機械学習アルゴリズムにおける前処理として重要です，</p>
-<p>なぜスケーリングが重要かを説明するために，2点間の距離を計算する例題を取りあげます．スケールが異なる変数 <span class="math notranslate nohighlight">\(x_{1}\)</span> と <span class="math notranslate nohighlight">\(x_{2}\)</span> があった場合に，下記の図のような状況になります．ここで，縦軸と横軸のスケールが大きく異なっていることに注意してください．</p>
+<div class="section" id="1.4.7.-Scaling-using-the-standard-deviation">
+<h3>1.4.7. 1.4.7. Scaling using the standard deviation<a class="headerlink" href="#1.4.7.-Scaling-using-the-standard-deviation" title="Permalink to this headline">¶</a></h3>
+<p>Scaling is important as preprocessing in most machine learning algorithms,</p>
+<p>To illustrate why scaling is important, I will take an example of calculating the distance between two points. Variables with different scales <span class="math notranslate nohighlight">\(x1\)</span> When <span class="math notranslate nohighlight">\(x2\)</span> If there is, the situation will be as shown in the figure below. Please note that the scales on the vertical axis and the horizontal axis are greatly different here.</p>
 <p><img alt="image12" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/15.png" /></p>
-<p>この２点間の距離 <span class="math notranslate nohighlight">\(d\)</span> を求めると，</p>
+<p>Distance between these two points <span class="math notranslate nohighlight">\(d\)</span> Is obtained,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 d&amp;=\sqrt {\left( 100-1000\right) ^{2}+\left( 0.1-1\right) ^{2}}\\
@@ -935,16 +957,16 @@ d&amp;=\sqrt {\left( 100-1000\right) ^{2}+\left( 0.1-1\right) ^{2}}\\
 &amp;= \sqrt {810000+0.81} \\
 &amp;= \sqrt {810000.81}
 \end{aligned}\end{split}\]</div>
-<p>のようになります．距離 <span class="math notranslate nohighlight">\(d\)</span> の中で<span class="math notranslate nohighlight">\(x_{1}\)</span>の影響量が大きく<span class="math notranslate nohighlight">\(x_{2}\)</span> に関しては，スケールが小さいが故にほとんど影響を与えていません．これでは <span class="math notranslate nohighlight">\(x_{2}\)</span> がデータの意味として重要な場合においても考慮できません．こうした問題を解決する方法の一つが，ここで紹介する<strong>スケーリング</strong>です．代表的なスケーリングの方法としては２つあります．</p>
-<p>１つ目が，サンプル集合を<strong>最小値0</strong>，<strong>最大値1</strong>にスケーリングする方法です．これを<strong>Min-Max スケーリング</strong>とよびます．この方法では，各変数ごとに最小値 <span class="math notranslate nohighlight">\(x_{\min}\)</span> と最大値 <span class="math notranslate nohighlight">\(x_{\max}\)</span> を求めておき，すべてのデータに対して，</p>
+<p>It looks like. distance <span class="math notranslate nohighlight">\(d\)</span> among <span class="math notranslate nohighlight">\(x_{1}\)</span> Influence amount is large <span class="math notranslate nohighlight">\(x_{2}\)</span> As for the scale, it has little influence because it is small. With this <span class="math notranslate nohighlight">\(x_{2}\)</span> Can not be taken into account even when the meaning of data is important. One method of solving these problems is the <strong>scaling described</strong> here. There are two typical scaling methods.</p>
+<p>The first method scales the sample set to a <strong>minimum value of 0</strong> and a <strong>maximum value of 1</strong> . This is called <strong>Min-Max scaling</strong> . In this method, the minimum value <span class="math notranslate nohighlight">\(x_{\min}\)</span> And the maximum value <span class="math notranslate nohighlight">\(x_{\max}\)</span> For all the data,</p>
 <div class="math notranslate nohighlight">
 \[\widetilde{x} = \dfrac{x - x_{\min}}{x_{\max} - x_{\min}}\]</div>
-<p>の計算を行います．Min-Maxスケーリングには計算が単純というメリットがある反面，下図の例ように<span class="math notranslate nohighlight">\(x_1\)</span>で外れ値を持つデータ点が存在するような場合，<span class="math notranslate nohighlight">\(x_{\max}\)</span> が外れ値に大きく引っ張られてしまうという弱点があります．</p>
+<p>Calculation is performed. Although Min-Max scaling has the merit of simple calculation, on the other hand, as shown in the figure below <span class="math notranslate nohighlight">\(x_1\)</span> If data points with outliers are present, <span class="math notranslate nohighlight">\(x_{\max}\)</span> There is a weak point that it is greatly pulled by outliers.</p>
 <p><img alt="image13" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/16.png" /></p>
-<p>もう１つのスケーリングの方法として，<strong>平均0</strong>，<strong>標準偏差1</strong> にスケーリングする方法があります．これは一般的に <strong>標準化（正規化）</strong> とよばれています．全てのデータから平均を引くと平均<span class="math notranslate nohighlight">\(0\)</span>になり，標準偏差で割ると標準偏差は<span class="math notranslate nohighlight">\(1\)</span>になります．</p>
+<p>Another way of scaling is to scale to an <strong>average of 0</strong> and a <strong>standard deviation of 1</strong> . This is commonly referred to as <strong>normalization</strong> . When you subtract the average from all data, the average <span class="math notranslate nohighlight">\(0\)</span> When dividing by the standard deviation, the standard deviation becomes 1 It becomes.</p>
 <div class="math notranslate nohighlight">
 \[\widetilde{x}  = \dfrac{x - \bar{x}}{\sigma}\]</div>
-<p>分散を計算した例題の①に対して，このスケーリングを適用してみると，</p>
+<p>Applying this scaling to the example ① in which the variance was calculated,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 x_{1}&amp;=\dfrac {-2-0}{\sqrt {2}}=-\dfrac {2}{\sqrt {2}}\\
@@ -953,7 +975,7 @@ x_{3}&amp;=\dfrac {0-0}{\sqrt {2}}=0\\
 x_{4}&amp;=\dfrac {1-0}{\sqrt {2}}=\dfrac {1}{\sqrt {2}}\\
 x_{5}&amp;=\dfrac {2-0}{\sqrt {2}}=\dfrac {2}{\sqrt {2}}
 \end{aligned}\end{split}\]</div>
-<p>のように，データが変換されます．この時の平均と標準偏差を求めてみると，</p>
+<p>The data is converted like this. When we look at the mean and standard deviation at this time,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \overline {x}&amp;=\dfrac {1}{5}\left( -\dfrac {2}{\sqrt {2}}-\dfrac {1}{\sqrt {2}}+0+\dfrac {1}{\sqrt {2}}+\dfrac {2}{\sqrt {2}}\right) =0\\
@@ -961,17 +983,17 @@ x_{5}&amp;=\dfrac {2-0}{\sqrt {2}}=\dfrac {2}{\sqrt {2}}
  +\left( \dfrac {1}{\sqrt {2}}-0\right) ^{2}+\left( \dfrac {2}{\sqrt {2}}-0\right) ^{2}\right\} =1\\
 \sigma &amp;=\sqrt {\sigma ^{2}}=1
 \end{aligned}\end{split}\]</div>
-<p>のように，平均0，標準偏差1にスケーリングできていることがわかります．この方法であれば，Min-Maxスケーリングと比較して，少数の外れ値には強いスケーリングが実現できます．</p>
+<p>As you can see, you can scaled to 0 average and 1 standard deviation. With this method, strong scaling can be achieved for a small number of outliers compared with Min-Max scaling.</p>
 </div>
-<div class="section" id="外れ値除去">
-<h3>1.4.8. 外れ値除去<a class="headerlink" href="#外れ値除去" title="Permalink to this headline">¶</a></h3>
-<p>以下のように時間によって変動するようなデータを扱うとしましょう．例えば，横軸が時刻，縦軸が温度だとします．また，平均的な温度は一定であり，温度はランダムに変動しているものと仮定します．</p>
+<div class="section" id="1.4.8.-Outlier-removal">
+<h3>1.4.8. 1.4.8. Outlier removal<a class="headerlink" href="#1.4.8.-Outlier-removal" title="Permalink to this headline">¶</a></h3>
+<p>Let’s handle data that varies with time as follows. For example, the horizontal axis is time and the vertical axis is temperature. Also assume that the average temperature is constant and the temperature fluctuates randomly.</p>
 <p><img alt="image14" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/17.png" /></p>
-<p>このデータに対して，温度計の異常や不具合による温度の異常（外れ値）を検出したい場合，どのようにこの外れ値を定義して検出すれば良いでしょうか．一つの方法として，値の<strong>頻度</strong>に着目する方法があります．</p>
+<p>If you want to detect abnormality (outlier) of temperature due to abnormality of thermometer or failure of this data, how should we define and detect this outlier? One way is to focus on the <strong>frequency</strong> of values .</p>
 <p><img alt="image15" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/18.png" /></p>
-<p>上図のように，平均に対して線を引き，それぞれの値において頻度を算出してヒストグラムを描いてみると正規分布が現れます．ここでは，データが従う分布に正規性を仮定できるとします（データが正規分布に従うかどうかを統計的に確認したい場合は，正規性検定などの方法があります），外れ値を定義するために，データの平均 <span class="math notranslate nohighlight">\(\mu\)</span> と標準偏差 <span class="math notranslate nohighlight">\(\sigma\)</span>
-を計算し，<span class="math notranslate nohighlight">\(\mu \pm 3\sigma\)</span>の値に線を引けば，外れ値除去を行うことができます．これを<strong>3σ法</strong>とよびます．ただし，外れ値の回数が多かったり，外れ値が極端な値を持つ場合には平均や標準偏差がその外れ値に引っ張られ，3σ法ではうまく対処できないことがあります．</p>
-<p>その場合には，データを大きい順に並べて上位5%，下位5%を取り除くといった処理をすることもできます．</p>
+<p>As shown above, if you draw a line against the mean, calculate the frequency at each value and draw a histogram, a normal distribution appears. Here we assume that normality can be assumed for the distribution followed by the data (there is a method such as normality test if you want to check statistically whether the data follows the normal distribution), to define outliers, Average of data <span class="math notranslate nohighlight">\(\mu\)</span> And standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> Is calculated, <span class="math notranslate nohighlight">\(\mu \pm 3\sigma\)</span> You can remove
+outliers by subtracting a line to the value of. This is called the 3σ method . However, when the number of outliers increases or the outliers have extreme values, the mean and standard deviation are pulled to their outliers, and the 3σ method may not be able to cope well.</p>
+<p>In that case, you can also arrange the data in descending order and remove the top 5% and bottom 5%.</p>
 </div>
 </div>
 </div>
@@ -984,7 +1006,7 @@ x_{5}&amp;=\dfrac {2-0}{\sqrt {2}}=\dfrac {2}{\sqrt {2}}
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Introduction_to_ML_libs.html" class="btn btn-neutral float-right" title="2. 機械学習ライブラリの基礎" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Introduction_to_ML_libs.html" class="btn btn-neutral float-right" title="2. 2. Basics of machine learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral" title="メディカルAI専門コース オンライン講義資料" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

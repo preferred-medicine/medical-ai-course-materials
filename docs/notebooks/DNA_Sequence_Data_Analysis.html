@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7. 実践編: ディープラーニングを使った配列解析 &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  <title>7. 7. practical part: sequence analysis using deep learning &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. 実践編: ディープラーニングを使ったモニタリングデータの時系列解析" href="Sequential_Data_Analysis_with_Deep_Learning.html" />
-    <link rel="prev" title="6. 実践編: 血液の顕微鏡画像からの細胞検出" href="Blood_Cell_Detection.html" /> 
+    <link rel="next" title="8. Environment" href="Sequential_Data_Analysis_with_Deep_Learning.html" />
+    <link rel="prev" title="6. 6. Practice section: Detection of cells from microscopic images of" href="Blood_Cell_Detection.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,25 +98,33 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. 機械学習に必要な数学の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 機械学習ライブラリの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. ニューラルネットワークの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. 1. basis of the mathematics required to machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 2. Basics of machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 実践編: MRI画像のセグメンテーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 実践編: 血液の顕微鏡画像からの細胞検出</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. 実践編: ディープラーニングを使った配列解析</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#環境構築">7.1. 環境構築</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#配列解析について">7.2. 配列解析について</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#データセット">7.3. データセット</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Dilated-Convolutionを用いた解析">7.4. Dilated Convolutionを用いた解析</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#配列解析の戦略">7.4.1. 配列解析の戦略</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Dilated-Convolution">7.4.2. Dilated Convolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ブロック">7.4.3. ブロック</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 5. Practice: Segmentation of MRI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. 7. practical part: sequence analysis using deep learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#7.1.-Environment">7.1. 7.1. Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#7.2.-For-the-sequence-analysis">7.2. 7.2. For the sequence analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#7.3.">7.3. 7.3.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#7.4.-Dilated-Convolution-analysis-using">7.4. 7.4. Dilated Convolution analysis using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#7.4.1.-Strategy-of-sequence-analysis">7.4.1. 7.4.1. Strategy of sequence analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.4.2.-Dilated-Convolution">7.4.2. 7.4.2. Dilated Convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.4.3.">7.4.3. 7.4.3.</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. 実践編: ディープラーニングを使ったモニタリングデータの時系列解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.2.-Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. 8.2. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.3.-Data-sets">10. 8.3. Data sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.4.-Data-pre-processing">11. 8.4. Data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.-Series-data-analysis-when-using-the-deep-learning">12. 8.5. Series data analysis when using the deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.2.-Evaluation">13. 8.5.2. Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.6.-Towards-the-accuracy">14. 8.6. Towards the accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.7.-Conclusion">15. 8.7. Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.8.-References">16. 8.8. References</a></li>
 </ul>
 
             
@@ -168,7 +176,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>7. 実践編: ディープラーニングを使った配列解析</li>
+      <li>7. 7. practical part: sequence analysis using deep learning</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -409,41 +417,40 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<p><a class="reference external" href="https://colab.research.google.com/github/japan-medical-ai/medical-ai-course-materials/blob/master/notebooks/DNA_Sequence_Data_Analysis.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<div class="section" id="実践編:-ディープラーニングを使った配列解析">
-<h1>7. 実践編: ディープラーニングを使った配列解析<a class="headerlink" href="#実践編:-ディープラーニングを使った配列解析" title="Permalink to this headline">¶</a></h1>
-<p>近年，次世代シーケンサ（NGS; Next Generation Sequencer）の発展により，遺伝子の塩基配列が高速，大量，安価に読み取られるようになってきました．</p>
-<p>ここではディープラーニングを用いて，DNA配列からエピジェネティックな影響や転写制御を予測する問題に取り組みます．ディープラーニングは複雑なモデルを表現でき，遠距離の影響も考慮することができ，より高い精度で予測することが期待できます．</p>
-<div class="section" id="環境構築">
-<h2>7.1. 環境構築<a class="headerlink" href="#環境構築" title="Permalink to this headline">¶</a></h2>
-<p>ここで用いるライブラリは</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/DNA_Sequence_Data_Analysis.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="section" id="7.-practical-part:-sequence-analysis-using-deep-learning">
+<h1>7. 7. practical part: sequence analysis using deep learning<a class="headerlink" href="#7.-practical-part:-sequence-analysis-using-deep-learning" title="Permalink to this headline">¶</a></h1>
+<p>In recent years, with the development of the Next Generation Sequencer (NGS), nucleotide sequences of genes have been read at high speed, in large amounts, and at low cost.</p>
+<p>Here we will address the issue of predicting epigenetic effects and transcriptional control from DNA sequences using deep learning. Deep learning can express a complicated model, it can also take into account the effects of long distances and it can be expected to predict with higher accuracy.</p>
+<div class="section" id="7.1.-Environment">
+<h2>7.1. 7.1. Environment<a class="headerlink" href="#7.1.-Environment" title="Permalink to this headline">¶</a></h2>
+<p>The library used here is</p>
 <ul class="simple">
 <li>Chainer</li>
 <li>Cupy</li>
-<li>matplotlib</li>
+<li>matplotlib is. On Google Colab, you can install as follows. Execute the following cell (Shit + Enter).</li>
 </ul>
-<p>です．Google Colab上では，以下のようにしてインストールすることができます．以下のセルを実行（Shit+Enter）してください．</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>!curl https://colab.chainer.org/install | sh -
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
 </pre></div>
 </div>
 </div>
-<p>インストールが完了したら，以下のセルを実行して，各ライブラリのバージョンを確認してください．</p>
+<p>When installation is completed, run the following cell and check the version of each library.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import cupy
-import matplotlib
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">cupy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
 
-chainer.print_runtime_info()
-print(&#39;matplotlib:&#39;, matplotlib.__version__)
+<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;matplotlib:&#39;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -485,30 +492,32 @@ matplotlib: 2.1.2
 </pre></div>
 </div>
 </div>
-<div class="section" id="配列解析について">
-<h2>7.2. 配列解析について<a class="headerlink" href="#配列解析について" title="Permalink to this headline">¶</a></h2>
-<p>次世代シーケンサの発展・普及とともに，大量の遺伝子配列が読み取られるようになりました．そうした中で，塩基配列で表現された遺伝子型と病気や形態などの表現型との関係を推定するようなGWAS（Genome Wide Association Study;
-ゲノムワイド関連解析）が行われてきましたが，遺伝子の変異だけでは全ての表現型の変化を説明できないことがわかってきました．特に，非翻訳領域が遺伝子発現に影響を与え，表現型の変化を生じさせていることが様々な実験結果からわかってきています．遺伝子発現時に周辺領域がどのように影響を与えているのかを調べるために様々な手法が提案されています．</p>
+<div class="section" id="7.2.-For-the-sequence-analysis">
+<h2>7.2. 7.2. For the sequence analysis<a class="headerlink" href="#7.2.-For-the-sequence-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Along with the development and popularization of next-generation sequencers, a large number of gene sequences have been read. Under such circumstances, GWAS (Genome Wide Association Study; genome wide association study) that estimates the relationship between the genotype expressed in the base sequence and the phenotype such as disease and morphology has been performed, I have learned that mutation alone can not explain all phenotypic changes. In particular, various experimental results have
+shown that untranslated regions influence gene expression and cause phenotypic changes. Various methods have been proposed to investigate how the surrounding area affects gene expression.</p>
 <p><img alt="エピゲノム解析概略図（Encode Projectより引用）" src="https://www.encodeproject.org/images/c45f4d8c-0340-4fcb-abe3-e4ff0bb919be/download/attachment/EncodeDatatypes2013-7.png" /></p>
-<p>例えば，ChIP-Seq（クロマチン免疫沈降シーケンス）は，ChIP（クロマチン免疫沈降）と高速DNAシーケンスを組み合わせることで，ヒストン修飾状況や転写調節因子の結合部位を網羅的（ゲノムワイド）に同定する手法です．これにより，転写調節機能を司るヒストン修飾やDNA結合タンパクの結合部位をゲノム全体で同定することができ，遺伝子変異だけでは説明しきれない細胞の表現型に関与する膨大な情報の取得が可能になります．</p>
-<p>そこで本節では，ChIP-Seqにより得られた転写調節因子の結合部位に当たるDNA塩基配列のパターンを深層学習により学習することで，任意のDNA塩基配列に対して特定の転写調節因子との結合可能性の予測を行います．この手法はゲノム全体のヒストン修飾部位の予測やオープンクロマチン領域の予測など幅広い生命現象を取り扱うことが可能であり有益な洞察を与えてくれます．</p>
-<p>この課題を機械学習で取り扱う際の技術的な難しさの一つが，DNA塩基配列の長距離相互作用と呼ばれる現象です．これは，核内のDNAは複雑に折り畳まれた様式で存在しており，塩基配列上の並びとしては遠く離れた2つの領域が空間的には近い距離に位置し，転写調節因子の結合に影響を及ぼすことがあるということです．そこで，この長距離相互作用を考慮した学習を可能する効率的なモデルを構築し，10万bp (ベース・ペア：DNAを構成する塩基を数える単位)
-超の長さのDNA塩基配列を入力として受け取り，DNA塩基配列中のある領域が転写調節因子の結合部位になり得るかを予測することとします.</p>
-<p>今回は，数百種類の人の細胞型から得られた数千のChIP-Seq，DNase-seq（オープンクロマチン領域の網羅的解析の一手法）のデータセットから得られたDNA塩基配列を入力としてCAGE（Cap Analysis of Gene Expression）の結果計測されたmRNAの発現量を推定する問題を考えます[1]．</p>
+<p>For example, ChIP-Seq (chromatin immunoprecipitation sequence) is a method to identify histone modification status and the binding site of transcriptional regulatory elements exhaustively (genome-wide) by combining ChIP (chromatin immunoprecipitation) and high-speed DNA sequence . As a result, it is possible to identify the binding site of histone modification and DNA binding protein which controls the transcriptional regulatory function throughout the genome, enabling the acquisition of vast
+amounts of information related to cellular phenotype which can not be fully explained by gene mutation alone Become.</p>
+<p>Therefore, in this section, learning patterns of DNA base sequences corresponding to binding sites of transcriptional regulatory factors obtained by ChIP-Seq by deep learning can identify the possibility of binding to an arbitrary DNA base sequence with a specific transcriptional regulatory factor We will make predictions. This method can deal with a wide range of biological phenomena such as prediction of the histone modification site of the whole genome and prediction of the open chromatin
+region and gives useful insights.</p>
+<p>One of the technical difficulties in dealing with this task with machine learning is a phenomenon called long-distance interaction of DNA base sequence. This is because DNA in the nucleus exists in a complicated folded manner, and as far as the sequence on the base sequence two distant regions are spatially close to each other, and the binding of the transcriptional regulatory factor It may have an impact. Therefore, we constructed an efficient model that enables learning with this long distance
+interaction taken into account, and inputs a DNA base sequence having a length exceeding 100,000 bp (base pair: a unit that counts bases constituting DNA) We will expect to predict if a region in the DNA base sequence can be the binding site for the transcriptional regulatory factor.</p>
+<p>In this case, we input DNA base sequence obtained from dataset of thousands of ChIP-Seq, DNase-seq (one method of comprehensive analysis of open chromatin region) obtained from hundreds of human cell types as input Result of CAGE (Cap Analysis of Gene Expression) Consider the problem of estimating the expression level of mRNA measured [1].</p>
 </div>
-<div class="section" id="データセット">
-<h2>7.3. データセット<a class="headerlink" href="#データセット" title="Permalink to this headline">¶</a></h2>
-<p>ここでは，Basenji[1]で使われた実験データセットの一部を利用します.これらはCAGEなどの配列解析処理を行って得られたデータセットです．</p>
-<p>下のセルを実行してデータをダウンロードしてください．</p>
-<p>この配列はそれぞれが長さ131072bpからなり，128bp毎に対しそのカバレッジ値が記録されています．このカバレッジ値の配列の長さは131072/128=1024です．</p>
-<p>この問題の目標は長さ131072bpの配列を入力として受け取った時に，この128bp毎のカバレッジ値を推定することが目標です．</p>
-<p>今回は10種類の異なる実験のカバレッジ値を同時に予測する問題を扱います．</p>
+<div class="section" id="7.3.">
+<h2>7.3. 7.3.<a class="headerlink" href="#7.3." title="Permalink to this headline">¶</a></h2>
+<p>Here we use some of the experimental data set used in Basenji [1], which is a data set obtained by performing sequence analysis such as CAGE.</p>
+<p>Please execute the cell below and download the data.</p>
+<p>Each of these arrays consists of 131072 bp in length, and its coverage value is recorded every 128 bp. The array length of this coverage value is 131072/128 = 1024.</p>
+<p>The goal of this problem is to estimate the coverage value every 128 bp when receiving an array of length 131072 bp as input.</p>
+<p>This time we will deal with the problem of simultaneously predicting coverage values ​​of 10 different experiments.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>!wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
 </pre></div>
 </div>
 </div>
@@ -539,8 +548,8 @@ seq.h5              100%[===================&gt;] 566.60M  71.1MB/s    in 8.5s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>!ls -lh
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls -lh
 </pre></div>
 </div>
 </div>
@@ -554,25 +563,25 @@ drwxr-xr-x 1 root root 4.0K Dec 10 17:34 sample_data
 -rw-r--r-- 1 root root 567M Dec  3 06:54 seq.h5
 </pre></div></div>
 </div>
-<p>seq.h5というファイルが正しくダウンロードされているかを確認してください．サイズは567MBです．</p>
-<p>seq.h5はHDF5形式でデータを格納したファイルです．HDF5ファイルは，ファイルシステムと同様に，階層的にデータを格納することができ，行列やテンソルデータをそれぞれの位置で名前付きで格納することができます．</p>
-<p>HDF5形式のファイルを操作するためにh5pyというライブラリがあります．h5pyのFile()関数でファイルを開き，keys()関数でその中に含まれているキーを列挙します．また取得したキーを’[]’内で指定することでそのキーに紐付けられて格納されている各データを参照することができます．</p>
-<p>テンソルデータはnumpyと同様にshapeという属性でそのサイズを取得することができます．</p>
-<p>以下のセルを実行して格納されているデータを確認してください．</p>
-<p>各データの名前にtrain（学習），validate（検証），test（テスト）の接頭辞がつけられ，inが入力の塩基配列，outが出力のカバレッジ値に対応します．</p>
-<p>例えば，’train_in’は学習用の入力データであり(5000, 131072, 4)というサイズを持ちます．これは長さが130172からなる配列が5000個あり，それぞれA, T, C, Gの対応する次元の値が1, それ以外は0であるような配列です．</p>
-<p>また,‘train_out’は学習用の出力データであり,（’5000, 1024, 10’)というサイズを持ちます.これは長さが1024からなる配列が5000個あり,それぞれが10種類の異なるChIP-Seqの結果のカバレッジ値が格納されています.</p>
+<p>Please check that the file seq.h5 is downloaded correctly. The size is 567 MB.</p>
+<p>seq.h 5 is a file that stores data in HDF 5 format. Like the file system, the HDF5 file can store data hierarchically, and can store matrix and tensor data named at each position.</p>
+<p>There is a library called h5py to manipulate HDF5 format files. Open the file with h5py’s File () function and enumerate the keys contained in it with the keys () function. By specifying the acquired key within ‘[]’, you can refer to each stored data linked to that key.</p>
+<p>Like the numpy tensor data, you can get its size with the attribute shape.</p>
+<p>Execute the following cell and check the stored data.</p>
+<p>A prefix of train (learning), validate (verification), test (test) is attached to the name of each data, in corresponds to the base sequence of the input, and out corresponds to the coverage value of the output.</p>
+<p>For example, ‘train_in’ is input data for learning and has a size of (5000, 131072, 4). This is an array with 5000 arrays of length 130172, where the corresponding dimension values ​​of A, T, C and G are 1 and the others are 0.</p>
+<p>‘Train_out’ is output data for learning and has a size of ‘(5000, 1024, 10’), which has 5000 arrays of length 1024, each with 10 different ChIP - The result coverage value of Seq is stored.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import h5py
-import numpy as np
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-with h5py.File(&#39;seq.h5&#39;, &#39;r&#39;) as hf:
-    for key in hf.keys():
-        print(key, hf[key].shape, hf[key].dtype)
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -599,24 +608,24 @@ valid_out (500, 1024, 10) float16
 <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;valid_out&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;f2&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>h5py形式のファイルをnumpyデータとして扱うには，コピーする必要があります．以下のコードは’train_in’というキーに対応するテンソルデータをnumpyデータとして読み出し，そのデータの一部を表示します．</p>
-<p>試しに最初のデータを取り出して，それの出力の値を表示してみます．</p>
-<p>下のセルを実行してみてください．最初のデータの出力の三つの値を線グラフで出力します．（ここまでのセルを実行していてください）．</p>
+<p>To handle h5py format files as numpy data, you need to copy them. The following code reads the tensor data corresponding to the key ‘train_in’ as numpy data and displays part of that data.</p>
+<p>Try to extract the first data and display the output value of it.</p>
+<p>Please try running the cell below. We output three values ​​of the first data output as a line graph. (Please run the cells so far).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>%matplotlib inline
-import matplotlib.pyplot as plt
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-with h5py.File(&#39;seq.h5&#39;) as hf:
-    y = hf[&#39;train_out&#39;][:100]
-    fig_size = plt.rcParams[&quot;figure.figsize&quot;]
-    fig_size[0] = 20
-    fig_size[1] = 5
-    for i in range(3):
-        plt.bar(range(y.shape[1]), y[0,:,i])
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;train_out&#39;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span>
+    <span class="n">fig_size</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span>
+    <span class="n">fig_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">fig_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -628,188 +637,191 @@ with h5py.File(&#39;seq.h5&#39;) as hf:
 </div>
 </div>
 </div>
-<div class="section" id="Dilated-Convolutionを用いた解析">
-<h2>7.4. Dilated Convolutionを用いた解析<a class="headerlink" href="#Dilated-Convolutionを用いた解析" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="配列解析の戦略">
-<h3>7.4.1. 配列解析の戦略<a class="headerlink" href="#配列解析の戦略" title="Permalink to this headline">¶</a></h3>
-<p>今回は配列データが入力であるような問題である．</p>
-<p>配列データを扱うためには大きく３つの戦略があります．</p>
-<p>一つ目は，配列中の順序情報は捨てて，配列をその特徴の集合とみなすことです．これはBag of Words（BoW）表現とよびます．このBoW表現は特徴に十分情報が含まれていれば強力な手法ですがDNA配列のような4種類の文字からなる配列やその部分配列だけではその特徴を捉えることは困難です．</p>
-<p>二つ目は配列中の要素を左から右に順に読み込んでいき計算していく手法です．これは4章でも少し触れたRNNを用いて解析します．RNNは時刻毎に入力を一つずつ読み取り内部状態を更新していきます．RNNの問題点はその計算が逐次的であり計算量が配列長に比例するという点です．現在の計算機は計算を並列化することで高速化を達成していますがRNNは計算を並列化することが困難です．もう一つの問題は遠距離間の関係を捉えることが難しいという点です．RNNはその計算方式から，計算の途中結果を全て固定長の内部状態ベクトルに格納する必要があります．遠距離間の関係を捉えようとすると，多くの情報を覚えておかなければなりませんが状態ベクトルサイズは有限なので，遠距離間の関係を捉えることが困難となっていきます．</p>
-<p>三つ目は配列データを1次元の画像とみなし，画像処理の時と同様にCNNを用いて解析する手法です．CNNはRNNの場合と違って各位置の処理を独立に実行できるため並列に処理することができます．</p>
-<p>今回はこの３つ目の戦略，CNNを用いて解析する手法を採用します．また，Dilated Convolutionを使うことで各位置の処理は遠距離にある情報を直接読み取ることができます．次の章でDilated Convolutionについて詳しくみていきます．</p>
+<div class="section" id="7.4.-Dilated-Convolution-analysis-using">
+<h2>7.4. 7.4. Dilated Convolution analysis using<a class="headerlink" href="#7.4.-Dilated-Convolution-analysis-using" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="7.4.1.-Strategy-of-sequence-analysis">
+<h3>7.4.1. 7.4.1. Strategy of sequence analysis<a class="headerlink" href="#7.4.1.-Strategy-of-sequence-analysis" title="Permalink to this headline">¶</a></h3>
+<p>This time it is a problem that array data is input.</p>
+<p>There are three major strategies to handle array data.</p>
+<p>The first is to discard the sequence information in the array and to consider the array as a set of its features. This is called Bag of Words (BoW) expression. This BoW expression is a powerful technique if enough information is included in the feature, but it is difficult to capture its features only with an array of four kinds of characters such as a DNA sequence or a partial sequence thereof.</p>
+<p>The second method is to read elements in the array from left to right in order and calculate. This is analyzed using RNN which I mentioned a little in Chapter 4 as well. RNN reads input one by one at each time and updates the internal state. The problem with RNN is that its calculation is sequential and the amount of calculation is proportional to the length of the array. The current computer achieves high speed by parallelizing the calculation, but it is difficult for RNN to parallelize the
+calculation. Another problem is that it is difficult to capture relationships between long distances. From RNN, it is necessary to store all intermediate results of calculation in fixed length internal state vector from the calculation method. When trying to capture relationships between long distances, we need to remember a lot of information, but since state vector size is finite, it becomes difficult to capture relationships between long distances.</p>
+<p>The third method is to analyze array data as one dimensional image and analyze it using CNN as in the case of image processing. Unlike the case of RNN, CNN can process each position independently, so it can process in parallel.</p>
+<p>In this time we will adopt this third strategy, a method to analyze using CNN. In addition, by using Dilated Convolution, processing at each position can directly read information at a long distance. In the next chapter we will look at Dilated Convolution in detail.</p>
 </div>
-<div class="section" id="Dilated-Convolution">
-<h3>7.4.2. Dilated Convolution<a class="headerlink" href="#Dilated-Convolution" title="Permalink to this headline">¶</a></h3>
-<p>従来の畳み込み層を使って配列解析をする場合を考えてみます． 以下の図のようにある位置の入力の情報は各層で隣接する位置からしか読み込まれません．どのくらい離れた位置から情報を取得するかはカーネルサイズによって決定され，カーネルサイズがKの時，Dだけ離れた距離にある情報を取得するためにはD/K層必要となります．今回の問題の場合Dは数百から数万，Kは3や5といった値ですので必要な層数も百から万といった数になってしまい現実的ではありません．</p>
+<div class="section" id="7.4.2.-Dilated-Convolution">
+<h3>7.4.2. 7.4.2. Dilated Convolution<a class="headerlink" href="#7.4.2.-Dilated-Convolution" title="Permalink to this headline">¶</a></h3>
+<p>Consider the case of sequence analysis using the conventional convolutional layer. As shown in the figure below, the input information of a certain position is read only from the adjacent position in each layer. The kernel size determines how much information is acquired from the distance, and if the kernel size is K, the D / K layer is required to acquire the information that is at a distance D from the kernel size. In the case of this problem D is hundreds to tens of thousands and K is the
+value of 3 or 5 so it is not realistic that the number of necessary layers will also be from one hundred to ten thousand.</p>
 <p><img alt="従来の畳み込み層の計算イメージ" src="http://musyoku.github.io/images/post/2016-09-17/naive_conv.png" /></p>
 <p><a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WaveNet: A Generative Model for Raw Audio</a>より引用</p>
-<p>それに対し，Dilated Convolution（atrous convolutionやconvolution weith holesともよばれます）は読み取る場所をずらしたところからうけとります．例えばDilation=4の場合，4だけ離れた位置から情報を受け取ります．このDilatedを倍々にしていき，カーネルサイズを2とした場合，Dだけ離れた位置の情報を受取るには <span class="math notranslate nohighlight">\(\log_2 D\)</span>層だけ必要になります．今回のDが数百から数万の場合，10から20層程度あれば済むことになります．</p>
-<p>今回はこのDilated Convolutionを使うことで遠距離にある情報を考慮できるモデルを作成します．</p>
+<p>On the other hand, Dilated Convolution (also called atrous convolution and convolution weith holes) receives from the place where the reading place shifts. For example, if Dilation = 4, we will receive information from a distance of 4. If we double this Dilated and set the kernel size to 2, in order to receive information at a position separated by Dlog2𝐷Only layers are required. If this time D is hundreds to tens of thousands, only about 10 to 20 layers will be enough.</p>
+<p>In this time, I will create a model that can consider information in long distance by using this Dilated Convolution.</p>
 <p><img alt="Dilated Convolutionの計算イメージ" src="https://storage.googleapis.com/deepmind-live-cms/documents/BlogPost-Fig2-Anim-160908-r01.gif" /></p>
-<p><a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WAVENET: A GENERATIVE MODEL FOR RAW AUDIO, blog</a>より</p>
+<p><a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WAVENET: A GENERATIVE MODEL FOR RAW AUDIO, blog</a> blogpost</p>
 </div>
-<div class="section" id="ブロック">
-<h3>7.4.3. ブロック<a class="headerlink" href="#ブロック" title="Permalink to this headline">¶</a></h3>
-<p>それでは最初に，ネットワークの全体を設計します． このネットワークは二つのブロックから構成されます．</p>
-<p>１つ目のブロックは長さが<span class="math notranslate nohighlight">\(2^{17}\)</span>から配列を入力として長さが<span class="math notranslate nohighlight">\(2^{10}\)</span>のベクトルを出力とします．これにより入力の128
-(<span class="math notranslate nohighlight">\(=2^{17}/2^{10}\)</span>)bpが出力の1つの位置に対応するようになります．これを実現しているのが，SqueezeBlockです．すなわち，SqueezeBlockは長さ131072bpからなるDNAの塩基配列を入力として受け取り，各フラグメントの長さに相当する128bp毎の情報が一つの値となるような畳込み処理を行います．結果として131072/128=1024の長さのベクトル列が出力されます．このベクトル列はフラグメント毎の特徴が一つのベクトルに圧縮されたものとみなすことができます．</p>
-<p>二つ目のブロックは遠距離にある情報を考慮して各ベクトルの値を計算していく部分であり，DilatedBlockが担当します．DilatedBlockは，SqueezeBlockから出力された1024の長さのベクトル列を受け取り，Dilated Convolutionの仕組みを使うことで互いに離れた位置の情報を効率的に考慮した上で処理していき，入力と同じ1024の長さの出力を返します．この出力が，フラグメント毎に与えられたDNA関連タンパク質の結合可能性を表す数値（カバレッジ値）と一致するように学習を進めます．</p>
-<p>それでは，以下のコードを実行してみましょう．</p>
+<div class="section" id="7.4.3.">
+<h3>7.4.3. 7.4.3.<a class="headerlink" href="#7.4.3." title="Permalink to this headline">¶</a></h3>
+<p>Let’s start by designing the whole network. This network consists of two blocks.</p>
+<p>The first block is of length217From the array as input length210The vector is output. This makes the input 128=217/210) bp corresponds to one position of the output. This is realized by SqueezeBlock. That is, SqueezeBlock accepts the base sequence of the DNA consisting of the length 131072 bp as an input and performs convolution processing so that the information of every 128 bp corresponding to the length of each fragment becomes one value. As a result, a vector sequence with length of
+131072/128 = 1024 is output. This vector sequence can be regarded as the feature of each fragment compressed into one vector.</p>
+<p>The second block is the part which calculates the value of each vector in consideration of the information in the long distance, and is handled by DilatedBlock. DilatedBlock receives a vector sequence of 1024 length output from SqueezeBlock and uses the mechanism of Dilated Convolution to efficiently consider the information at mutually separated positions and process it and input the same 1024 Returns the length output. We will proceed with learning so that this output agrees with the numerical
+value (coverage value) representing the possibility of binding of DNA-related protein given for each fragment.</p>
+<p>Let’s execute the following code.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.functions as F
-import chainer.links as L
-import cupy as cp
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="kn">as</span> <span class="nn">cp</span>
 
-bc = 24 # base channel
+<span class="n">bc</span> <span class="o">=</span> <span class="mi">24</span> <span class="c1"># base channel</span>
 
-default_squeeze_params = [
-    # out_ch, kernel, stride, dropout
-    [bc*2, 21, 2, 0], #1 128 -&gt; 64
-    [int(bc*2.5), 7, 4, 0.05], #2  64 -&gt; 16
-    [int(bc*3.2), 7, 4, 0.05], #3  16 -&gt; 4
-    [bc*4, 7, 4, 0.05]  #4  4 -&gt; 1
-]
-
-
-default_dilated_params = [
-# out_ch, kernel, dilated
-  [bc, 3, 1, 0.1],
-  [bc, 3, 2, 0.1],
-  [bc, 3, 4, 0.1],
-  [bc, 3, 8, 0.1],
-  [bc, 3, 16, 0.1],
-  [bc, 3, 32, 0.1],
-  [bc, 3, 64, 0.1]
-]
+<span class="n">default_squeeze_params</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># out_ch, kernel, stride, dropout</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1">#1 128 -&gt; 64</span>
+    <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bc</span><span class="o">*</span><span class="mf">2.5</span><span class="p">),</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="c1">#2  64 -&gt; 16</span>
+    <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bc</span><span class="o">*</span><span class="mf">3.2</span><span class="p">),</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="c1">#3  16 -&gt; 4</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]</span>  <span class="c1">#4  4 -&gt; 1</span>
+<span class="p">]</span>
 
 
-class Net(chainer.Chain):
+<span class="n">default_dilated_params</span> <span class="o">=</span> <span class="p">[</span>
+<span class="c1"># out_ch, kernel, dilated</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+<span class="p">]</span>
 
-    def __init__(self, squeeze_params=default_squeeze_params, dilated_params=default_dilated_params, n_targets=10):
-        super(Net, self).__init__()
-        self._n_squeeze = len(squeeze_params)
-        self._n_dilated = len(dilated_params)
-        with self.init_scope():
-            in_ch = 4
-            for i, param in enumerate(squeeze_params):
-                out_ch, kernel, stride, do_rate = param
-                setattr(self, &quot;s_{}&quot;.format(i), SqueezeBlock(in_ch, out_ch, kernel, stride, do_rate))
-                in_ch = out_ch
-            for i, param in enumerate(dilated_params):
-                out_ch, kernel, dilated, do_rate = param
-                setattr(self, &quot;d_{}&quot;.format(i), DilatedBlock(in_ch, out_ch, kernel, dilated, do_rate))
-                in_ch += out_ch
-            self.l = L.ConvolutionND(1, None, n_targets, 1)
 
-    def forward(self, x):
-        # x : (B, X, 4)
-        xp = cp.get_array_module(x)
-        h = xp.transpose(x, (0, 2, 1))
-        h = h.astype(xp.float32)
+<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-        for i in range(self._n_squeeze):
-            h = self[&quot;s_{}&quot;.format(i)](h)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">squeeze_params</span><span class="o">=</span><span class="n">default_squeeze_params</span><span class="p">,</span> <span class="n">dilated_params</span><span class="o">=</span><span class="n">default_dilated_params</span><span class="p">,</span> <span class="n">n_targets</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_squeeze</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">squeeze_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_dilated</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dilated_params</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="n">in_ch</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">squeeze_params</span><span class="p">):</span>
+                <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span> <span class="o">=</span> <span class="n">param</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;s_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">SqueezeBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
+                <span class="n">in_ch</span> <span class="o">=</span> <span class="n">out_ch</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dilated_params</span><span class="p">):</span>
+                <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span> <span class="o">=</span> <span class="n">param</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;d_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">DilatedBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
+                <span class="n">in_ch</span> <span class="o">+=</span> <span class="n">out_ch</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">n_targets</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        hs = [h]
-        for i in range(self._n_dilated):
-            h = self[&quot;d_{}&quot;.format(i)](hs)
-            hs.append(h)
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># x : (B, X, 4)</span>
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">get_array_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-        h = self.l(F.concat(hs, axis=1))
-        h = xp.transpose(h, (0, 2, 1))
-        return h
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_squeeze</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;s_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">h</span><span class="p">)</span>
+
+        <span class="n">hs</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_dilated</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;d_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">hs</span><span class="p">)</span>
+            <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">h</span>
 </pre></div>
 </div>
 </div>
-<p>このネットワークは初期化時の引数としてSqueezeBlockに関するパラメータと，DilatedBlockに関するパラメータを受け取ります．</p>
-<p>それぞれ，出力チャンネル，カーネルサイズ，プーリングの三つ組からなるリストと，出力チャンネル，カーネルサイズ，dilatedサイズの三つ組からなるリストを受け取ります．</p>
-<p>次に，ブロックの定義をします．</p>
+<p>This network receives parameters related to SqueezeBlock and parameters related to DilatedBlock as initialization arguments.</p>
+<p>We receive a list consisting of triplets of output channel, kernel size, pooling and a triad of output channel, kernel size, and dilated size, respectively.</p>
+<p>Next, we define the block.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.functions as F
-import chainer.links as L
-import cupy as cp
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="kn">as</span> <span class="nn">cp</span>
 
-class WNConvolutionND(L.ConvolutionND):
-    def __init__(self, *args, **kwargs):
-        super(WNConvolutionND, self).__init__(*args, **kwargs)
-        self.add_param(&#39;g&#39;, self.W.data.shape[0])
-        norm = np.linalg.norm(self.W.data.reshape(
-            self.W.data.shape[0], -1), axis=1)
-        self.g.data[...] = norm
+<span class="k">class</span> <span class="nc">WNConvolutionND</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WNConvolutionND</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_param</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span>
 
-    def __call__(self, x):
-        norm = F.batch_l2_norm_squared(self.W) ** 0.5
-        channel_size = self.W.data.shape[0]
-        norm_broadcasted = F.broadcast_to(
-            F.reshape(norm, (channel_size, 1, 1)), self.W.data.shape)
-        g_broadcasted = F.broadcast_to(
-            F.reshape(self.g, (channel_size, 1, 1)), self.W.data.shape)
-        return F.convolution_nd(
-            x, g_broadcasted * self.W / norm_broadcasted, self.b, self.stride,
-            self.pad, self.cover_all, self.dilate)
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">batch_l2_norm_squared</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+        <span class="n">channel_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">norm_broadcasted</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="p">(</span><span class="n">channel_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">g_broadcasted</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="p">(</span><span class="n">channel_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">convolution_nd</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">g_broadcasted</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">/</span> <span class="n">norm_broadcasted</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilate</span><span class="p">)</span>
 
-class SqueezeBlock(chainer.Chain):
-    def __init__(self, in_ch, out_ch, kernel, stride, do_rate):
-        super(SqueezeBlock, self).__init__()
+<span class="k">class</span> <span class="nc">SqueezeBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SqueezeBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-        self.do_rate = do_rate
-        with self.init_scope():
-            pad = kernel // 2
-            self.conv = WNConvolutionND(1, in_ch, out_ch*2, kernel, pad=pad, stride=stride)
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span> <span class="o">=</span> <span class="n">do_rate</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="n">pad</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">WNConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span>
 
-    def forward(self, x):
-        h = self.conv(x)
-        h, g = F.split_axis(h, 2, 1)
-        h = F.dropout(h * F.sigmoid(g), self.do_rate)
-        return h
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split_axis</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 
-class DilatedBlock(chainer.Chain):
-     def __init__(self, in_ch, out_ch, kernel, dilate, do_rate):
-        super(DilatedBlock, self).__init__()
-        self.do_rate = do_rate
-        with self.init_scope():
-            self.conv = WNConvolutionND(1, in_ch, out_ch*2, kernel, pad=dilate, dilate=dilate)
+<span class="k">class</span> <span class="nc">DilatedBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DilatedBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span> <span class="o">=</span> <span class="n">do_rate</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">WNConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
 
-     def forward(self, xs):
-        x = F.concat(xs, axis=1)
-        h = self.conv(x)
-        h, g = F.split_axis(h, 2, 1)
-        h = F.dropout(h * F.sigmoid(g), self.do_rate)
-        return h
+     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split_axis</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 
 </pre></div>
 </div>
 </div>
-<p><img alt="ネットワーク構造" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/7/network.png" /></p>
-<p>WeightNormalization[2]はパラメータの表現を長さと向きに分解して表現する手法で，今回の系列問題のような場合に使われる正規化法です．コード中ではWeightNormalizationが適用された畳み込み層である<code class="docutils literal notranslate"><span class="pre">WNConvolutionND</span></code>が定義されています.</p>
-<p>SqueezeBlockは配列を縮めていき，長さが<span class="math notranslate nohighlight">\(2^{17}\)</span>の配列を<span class="math notranslate nohighlight">\(2^{10}\)</span>に縮めるためのブロックです（上図）． 1次元配列を扱うためWNConvolutionNDを使い，最初の引数で1次元配列であることを示す<code class="docutils literal notranslate"><span class="pre">1</span></code>を指定しています． また，活性化関数では<span class="math notranslate nohighlight">\(h = Wx * sigmoid(Ux)\)</span>と表されるGated Linear
-Unit[3]を利用しています．計算では効率化のため，WxとUxを別々に計算するのではなく2倍の出力チャンネル数を持つConvolutionを適用した後に出力結果をチャンネル方向に２つに分割し<span class="math notranslate nohighlight">\((Wx, Ux)\)</span>，片方にsigmoid関数を適用した後，それらを要素毎にかけ合わせます．</p>
-<p>DilatedBlockはすでに長さ1024の長さになった配列に対し，Dilated Convolutionを使って遠距離にある情報も使って計算していくブロックです（上図）．引数としてdilatedを受け取ります．Dilated Convolutionを使う場合は通常のConvolution層（今回はConvolutionNDだが，Convolution2Dも同様）の引数にdilatedを加えるだけで計算できます．</p>
-<p>また，DilatedBlockではDenseNet[4]と呼ばれる，以前の途中結果が全て次の層の入力として使われる手法を採用します（DilatedBlock内 forward()内の<code class="docutils literal notranslate"><span class="pre">concat</span></code>がそれに対応）．これはニューラルネットワークで多くのスキップ接続を作ることで，層が増えても勾配が減衰せず，学習がしやすくなることを利用したものです．</p>
-<p>それでは，試しにネットワークを構築して，そこにサンプルデータを流してみましょう．</p>
+<p><img alt="ネットワーク構造" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/7/network.png" /></p>
+<p>WeightNormalization [2] is a method of expressing parameter representation in length and direction, and is a normalization method used in cases like this series problem. In the code WeightNormalization <code class="docutils literal notranslate"><span class="pre">WNConvolutionND</span></code> is defined as the convolved layer applied .</p>
+<p>SqueezeBlock shortens the array and has a length of217The sequence of210It is a block to shorten it (upper figure). We use WNConvolutionND to handle a one-dimensional array, 1and specify that it is a one-dimensional array with the first argument . Also, in the activation functionℎ=𝑊𝑥∗𝑠𝑖𝑔𝑚𝑜𝑖𝑑(𝑈𝑥)We use the Gated Linear Unit [3] which is denoted as “Gated Linear Unit [3]”. For efficiency in computation, instead of calculating Wx and Ux separately, instead of applying Convolution, which has twice
+the number of output channels, divide the output result into two in the channel direction(𝑊𝑥,𝑈𝑥), Apply the sigmoid function to one side, and then multiply them by element.</p>
+<p>DilatedBlock is a block that calculates using long distance information using Dilated Convolution for an array whose length has already become 1024 (upper figure). We accept dilated as an argument. When using Dilated Convolution you can calculate by simply adding dilated to the argument of the usual Convolution layer (this time ConvolutionND but also Convolution 2D).</p>
+<p>Also, DilatedBlock adopts a method called DenseNet [4], in which all previous intermediate results are used as inputs for the next layer (corresponding to that in forward () within DilatedBlock <code class="docutils literal notranslate"><span class="pre">concat</span></code>). This is based on making a lot of skip connections in the neural network so that the gradient does not decay and the learning becomes easy even if the number of layers increases.</p>
+<p>Let’s build a network on a trial and let the sample data flow there.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import numpy as np
-n = Net()
-size = 131072 # 128 * 1024
-batchsize = 4
-x = np.empty((batchsize, size, 4), dtype=np.bool)
-y = n.forward(x)
-print(y.shape)
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">131072</span> <span class="c1"># 128 * 1024</span>
+<span class="n">batchsize</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">batchsize</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -824,178 +836,180 @@ print(y.shape)
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>ここで，もともとバッチサイズ(B)=4, 入力長(L)=131072, 入力チャンネル数(C)=4だった配列が計算後はB=4, L=1024, C=10の配列となりました．</p>
-<p>今回予測するカバレッチ値は，フラグメント毎にDNA関連タンパク質がどの程度の頻度で結合したかを表すカウントデータであるとみなせます．そこで学習ではカウントデータに対する損失関数である対数ポアソン損失関数を利用します．</p>
-<p>対数ポアソン損失関数を使う場合，モデルはポアソン分布の唯一のパラメータである平均を予測し，その予測された平均をもったポアソン分布を使った場合の学習データの尤度を計算します．そしてその尤度の最大化，それと同じである負の対数尤度の最小化を行います．この際，プログラム上では学習対象パラメータが含まれない項を無視しています． なお，この関数の最小値はそのままだと<span class="math notranslate nohighlight">\(0\)</span>にはならので，最小値である<span class="math notranslate nohighlight">\(t \log t\)</span>をあらかじめひいておき，損失関数の最小値が<span class="math notranslate nohighlight">\(0\)</span>となるようにします．</p>
+<p>Here, the array where the batch size (B) = 4, the input length (L) = 131072 and the input channel number (C) = 4 has been calculated, it becomes an array of B = 4, L = 1024, C = 10 It was.</p>
+<p>The coverage value predicted this time can be regarded as count data showing how frequently the DNA related protein binds to each fragment. Therefore, we use logarithmic Poisson loss function which is loss function for count data in learning.</p>
+<p>When using the logarithmic Poisson loss function, the model predicts the mean which is the only parameter of the Poisson distribution, and calculates the likelihood of the learning data when using the Poisson distribution with the predicted mean. Then maximize its likelihood and minimize the same negative logarithmic likelihood. In this case, ignoring the term which does not include the parameter to be learned on the program. If the minimum value of this function remains unchanged0So it is the
+minimum value <span class="math notranslate nohighlight">\(t \log t\)</span> In advance, and the minimum value of the loss function is0It is made to become.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer.functions as F
-import math
-import sklearn
-import numpy as np
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-def log_poisson_loss(log_x, t):
-    loss =  F.mean(F.exp(log_x) - t * log_x)
-    t = chainer.cuda.to_cpu(t.astype(np.float32))
-    offset = F.mean(cp.array(t - t * np.ma.log(t)))
-    return loss - offset
+<span class="k">def</span> <span class="nf">log_poisson_loss</span><span class="p">(</span><span class="n">log_x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span>  <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_x</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">log_x</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">loss</span> <span class="o">-</span> <span class="n">offset</span>
 
 
-def log_r2_score(log_x, t):
-    return F.r2_score(F.exp(log_x), t)
+<span class="k">def</span> <span class="nf">log_r2_score</span><span class="p">(</span><span class="n">log_x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_x</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>また，学習率の調整にCosineSchedulerを使います．ニューラルネットワークの学習では，徐々に学習率を小さくしていくと，より汎化性能の高い解を見つけられることがわかっています．ニューラルネットワークの学習の目的関数は多くの性能の悪い局所解があるため，最初は学習率を高くして局所解にはまらないようにして全体の中での良い解を探し，後半は徐々に学習率を0に近づけていき収束させるというものです．
-CosineSchedulerはCosine関数の0度から90度までの変化のように学習率を変化させます．また学習は初期が不安定なので最初のn_warmup回，学習率を0から初期学習率まで線形に増やすことも一般的です．今回は学習率が低めで学習も安定しているのでn_warmupは0としてあります．</p>
+<p>We also use CosineScheduler to adjust the learning rate. In learning of neural networks, we know that we can find solutions with higher generalization performance gradually as we gradually reduce the learning rate. Since the objective function of the learning of the neural network has many poor performance local solutions, at first, the learning rate is increased so that the local solution is not overcome so as to find a good solution in the whole and gradually learned in the second half It
+converts the rate closer to 0 and convergence. CosineScheduler changes the learning rate like the change of the Cosine function from 0 degrees to 90 degrees. Since learning is initially unstable, it is also common to increase the learning rate linearly from 0 to the initial learning rate for the first n_warmup cycles. Since learning rate is low and learning is stable this time, n_warmup is set to 0.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>from chainer import training
-import numpy as np
-import math
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-class CosineScheduler(training.Extension):
+<span class="k">class</span> <span class="nc">CosineScheduler</span><span class="p">(</span><span class="n">training</span><span class="o">.</span><span class="n">Extension</span><span class="p">):</span>
 
-    def __init__(self, attr=&#39;lr&#39;, init_val=0.0001, n_decays=200, n_warmups=3, target=None, optimizer=None):
-        self._attr = attr
-        self._target = target
-        self._optimizer = optimizer
-        self._min_loss = None
-        self._last_value = None
-        self._init_val = init_val
-        self._n_decays = n_decays - n_warmups
-        self._decay_count = 0
-        self._n_warmups = n_warmups
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">n_decays</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_warmups</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span> <span class="o">=</span> <span class="n">attr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_loss</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_value</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">=</span> <span class="n">init_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_decays</span> <span class="o">=</span> <span class="n">n_decays</span> <span class="o">-</span> <span class="n">n_warmups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decay_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span> <span class="o">=</span> <span class="n">n_warmups</span>
 
-    def __call__(self, trainer):
-        updater = trainer.updater
-        optimizer = self._get_optimizer(trainer)
-        epoch = updater.epoch
-        if epoch &lt; self._n_warmups:
-            value = self._init_val / (self._n_warmups + 1) * (epoch + 1)
-        else:
-            value = 0.5 * self._init_val * (1 + math.cos(math.pi * (epoch - self._n_warmups) / self._n_decays))
-        self._update_value(optimizer, value)
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+        <span class="n">updater</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_optimizer</span><span class="p">(</span><span class="n">trainer</span><span class="p">)</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">epoch</span>
+        <span class="k">if</span> <span class="n">epoch</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_decays</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_value</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 
-    def _get_optimizer(self, trainer):
-        return self._optimizer or trainer.updater.get_optimizer(&#39;main&#39;)
+    <span class="k">def</span> <span class="nf">_get_optimizer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="ow">or</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">get_optimizer</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
 
-    def _update_value(self, optimizer, value):
-        setattr(optimizer, self._attr, value)
-        self._last_value = value
+    <span class="k">def</span> <span class="nf">_update_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_value</span> <span class="o">=</span> <span class="n">value</span>
 </pre></div>
 </div>
 </div>
-<p>最後に学習中に訓練データに意味を変えない変化を加えるData Augmentationを適用します．これは画像において回転させたり，平行移動させたりする場合と同じです． 今回は128bp毎にカバレッジ値を予測していますが，数塩基（例えば4~8など）移動したとしてもカバレッジ値は同じ程度になることが期待されます．そこで最大max_shift分だけ配列を前後にシフトします（完全にランダムな塩基配列を余った部分に入れると実際の塩基配列の分布と変わる可能性があるのでここではroll()関数を巡回シフトしています）．</p>
+<p>Finally, we apply Data Augmentation which makes a change which does not change meaning to training data during learning. This is the same as rotating and translating in the image. Although coverage value is predicted every 128 bp this time, it is expected that the coverage value will be about the same even if it moves several bases (eg 4 to 8). So we shift the array back and forth by max_shift max. (Putting a completely random base sequence in the remaining part may change from the actual base
+sequence distribution, so here we roll-shift the roll () function ).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import random
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-class PreprocessedDataset(chainer.dataset.DatasetMixin):
+<span class="k">class</span> <span class="nc">PreprocessedDataset</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
 
-    def __init__(self, xs, ys, max_shift):
-        self.xs = xs
-        self.ys = ys
-        self.max_shift = max_shift
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">max_shift</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ys</span> <span class="o">=</span> <span class="n">ys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span> <span class="o">=</span> <span class="n">max_shift</span>
 
-    def __len__(self):
-        return len(self.xs)
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
 
-    def get_example(self, i):
-        # It applies following preprocesses:
-        #     - Cropping
-        #     - Random flip
+    <span class="k">def</span> <span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="c1"># It applies following preprocesses:</span>
+        <span class="c1">#     - Cropping</span>
+        <span class="c1">#     - Random flip</span>
 
-        x = self.xs[i]
-        y = self.ys[i]
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
 
-        s = random.randint(-self.max_shift, self.max_shift)
-        x = np.roll(x, s, axis=0)
-        return x, y
+        <span class="n">s</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 </pre></div>
 </div>
 </div>
-<p>これで全部準備ができました．残りはchainerのtrainerを改造して学習するだけです．以下のコードを実行してください．</p>
-<p>元々のデータ全体では学習に時間がかかるので，データ/<code class="docutils literal notranslate"><span class="pre">ratio</span></code>分だけを学習，検証用データとして利用します．今回<code class="docutils literal notranslate"><span class="pre">ratio</span></code>は1に設定されています．この場合30分程度で学習が完了します．短い時間で試したい方はratio=1をratio=10やratio=20として実験してみてください．</p>
+<p>I have completed all the preparations. The rest is to remodel the chainer’s trainer and learn. Execute the following code.</p>
+<p>Since learning takes time in the entire original data, <code class="docutils literal notranslate"><span class="pre">ratio</span></code> only data / minutes is used as learning and verification data. This time it <code class="docutils literal notranslate"><span class="pre">ratio</span></code> is set to 1. In this case, learning is completed in about 30 minutes. If you want to try it in a short time, experiment with ratio = 1 as ratio = 10 or ratio = 20.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.functions as F
-import chainer.links as L
-import numpy as np
-from chainer.training import extensions
-from chainer import training
-import h5py
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">extensions</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
 
-ml_h5 = h5py.File(&#39;seq.h5&#39;)
+<span class="n">ml_h5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">)</span>
 
-train_x = ml_h5[&#39;train_in&#39;]
-train_y = ml_h5[&#39;train_out&#39;]
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;train_in&#39;</span><span class="p">]</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;train_out&#39;</span><span class="p">]</span>
 
-valid_x = ml_h5[&#39;valid_in&#39;]
-valid_y = ml_h5[&#39;valid_out&#39;]
+<span class="n">valid_x</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;valid_in&#39;</span><span class="p">]</span>
+<span class="n">valid_y</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;valid_out&#39;</span><span class="p">]</span>
 
-test_x = ml_h5[&#39;test_in&#39;]
-test_y = ml_h5[&#39;test_out&#39;]
+<span class="n">test_x</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;test_in&#39;</span><span class="p">]</span>
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;test_out&#39;</span><span class="p">]</span>
 
-ratio = 1
-train_x = train_x[:len(train_x)//ratio]
-train_y = train_y[:len(train_y)//ratio]
-valid_x = valid_x[:len(valid_x)//ratio]
-valid_y = valid_y[:len(valid_y)//ratio]
-
-
-max_shift_for_data_augmentation = 5
-train = PreprocessedDataset(train_x, train_y, max_shift_for_data_augmentation)
-val = chainer.datasets.TupleDataset(valid_x, valid_y)
-
-batchsize = 8
-
-train_iter = chainer.iterators.SerialIterator(train, batchsize)
-val_iter = chainer.iterators.SerialIterator(val, batchsize, repeat=False, shuffle=False)
-
-model = L.Classifier(Net(), lossfun=log_poisson_loss, accfun=log_r2_score)
-
-lr = 0.001
-optimizer = chainer.optimizers.Adam(alpha=lr, beta1=0.97, beta2=0.98)
-optimizer.setup(model)
-optimizer.add_hook(chainer.optimizer_hooks.GradientClipping(threshold=0.01))
+<span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">train_y</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
+<span class="n">valid_x</span> <span class="o">=</span> <span class="n">valid_x</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_x</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
+<span class="n">valid_y</span> <span class="o">=</span> <span class="n">valid_y</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_y</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
 
 
-updater = training.updaters.StandardUpdater(
-     train_iter, optimizer, device=0)
+<span class="n">max_shift_for_data_augmentation</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">PreprocessedDataset</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">max_shift_for_data_augmentation</span><span class="p">)</span>
+<span class="n">val</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">TupleDataset</span><span class="p">(</span><span class="n">valid_x</span><span class="p">,</span> <span class="n">valid_y</span><span class="p">)</span>
 
-n_epochs = 10
-n_warmups = 0
-out = &quot;out&quot;
-trainer = training.Trainer(updater, (n_epochs, &#39;epoch&#39;), out=out)
-trainer.extend(CosineScheduler(attr=&#39;alpha&#39;, init_val=lr, n_decays=n_epochs, n_warmups=n_warmups), trigger=(1, &#39;epoch&#39;))
+<span class="n">batchsize</span> <span class="o">=</span> <span class="mi">8</span>
 
-trainer.extend(extensions.Evaluator(val_iter, model, device = 0))
-trainer.extend(extensions.LogReport(trigger=(0.2, &#39;epoch&#39;)))
-trainer.extend(extensions.snapshot_object(model, &#39;model_epoch_{.updater.epoch}&#39;), trigger=(1, &#39;epoch&#39;))
+<span class="n">train_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
+<span class="n">val_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-trainer.extend(extensions.PrintReport(
-          [&#39;epoch&#39;, &#39;main/loss&#39;, &#39;validation/main/loss&#39;, &#39;elapsed_time&#39;]), trigger = (0.1, &#39;epoch&#39;))
+<span class="n">model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">Net</span><span class="p">(),</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">log_poisson_loss</span><span class="p">,</span> <span class="n">accfun</span><span class="o">=</span><span class="n">log_r2_score</span><span class="p">)</span>
 
-# trainer.extend(extensions.ProgressBar())
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">beta1</span><span class="o">=</span><span class="mf">0.97</span><span class="p">,</span> <span class="n">beta2</span><span class="o">=</span><span class="mf">0.98</span><span class="p">)</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">optimizer_hooks</span><span class="o">.</span><span class="n">GradientClipping</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
 
-trainer.run()
+
+<span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">updaters</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span>
+     <span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_warmups</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">CosineScheduler</span><span class="p">(</span><span class="n">attr</span><span class="o">=</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">n_decays</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_warmups</span><span class="o">=</span><span class="n">n_warmups</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">val_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">(</span><span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">)))</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">snapshot_object</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;model_epoch_{.updater.epoch}&#39;</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span>
+          <span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;validation/main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">]),</span> <span class="n">trigger</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+
+<span class="c1"># trainer.extend(extensions.ProgressBar())</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
 </pre></div>
 </div>
@@ -1057,13 +1071,13 @@ epoch       main/loss   validation/main/loss  elapsed_time
 9           1.55514                           2501.51
 </pre></div></div>
 </div>
-<p>学習が成功したならば，ディレクトリのout以下に学習されたモデルが出力されているはずです．実際にモデルが出力されているのかを確認しましょう．</p>
+<p>If learning is successful, the model learned under directory out should be output. Let’s see if the model is actually being output.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>!ls -l out/
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls -l out/
 </pre></div>
 </div>
 </div>
@@ -1086,31 +1100,31 @@ total 14172
 -rw-r--r-- 1 root root 1447650 Dec 16 05:21 model_epoch_9
 </pre></div></div>
 </div>
-<p>次に，学習したモデルを用いてテストデータに対しても予測してみます．次のようにして学習が終わったモデルを読み込み，テストデータに対してモデルを適用してみましょう．</p>
+<p>Next, let us also predict test data using the learned model. Let’s load the model after learning as follows and apply the model to the test data.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.links as L
-%matplotlib inline
-import matplotlib.pyplot as plt
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-model_n_epoch = 10
-out_dir = &#39;out&#39;
-model = L.Classifier(Net())
-chainer.serializers.load_npz(&#39;{}/model_epoch_{}&#39;.format(out_dir, model_n_epoch), model)
-predictor = model.predictor
+<span class="n">model_n_epoch</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">out_dir</span> <span class="o">=</span> <span class="s1">&#39;out&#39;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">Net</span><span class="p">())</span>
+<span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;{}/model_epoch_{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">model_n_epoch</span><span class="p">),</span> <span class="n">model</span><span class="p">)</span>
+<span class="n">predictor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predictor</span>
 
-print(len(test_x))
-with chainer.no_backprop_mode():
-    test_y_estimated = F.exp(predictor(test_x[:1]))
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">():</span>
+    <span class="n">test_y_estimated</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">predictor</span><span class="p">(</span><span class="n">test_x</span><span class="p">[:</span><span class="mi">1</span><span class="p">]))</span>
 
-test_y = test_y[:1]
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">test_y</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
 
-print(test_y_estimated.shape)
-print(test_y_estimated[0,:,0])
+<span class="k">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">])</span>
 
 
 </pre></div>
@@ -1127,20 +1141,20 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
           0.8720923 ])
 </pre></div></div>
 </div>
-<p>結果を抜粋して表示してみましょう．ここでは1つ目（i=0）の出力について正解と推定結果を出力しています．今回の場合でも，学習データを絞り（クラス数を10とした），学習回数も少ないですが，ピークを捉えられていることがわかると思います．</p>
+<p>Let’s excerpt the result and display it. Here, the correct answer and estimation result are output for the first (i = 0) output. Even in this case, although I narrowed down the learning data (the number of classes was set to 10) and the number of learning is also small, I think that you can see that the peak is captured.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>y = test_y_estimated.data
-fig_size = plt.rcParams[&quot;figure.figsize&quot;]
-fig_size[0] = 20
-fig_size[1] = 10
-i = 0
-b1 = plt.bar(range(y.shape[1]), y[0,:,i])
-b2 = plt.bar(range(y.shape[1]), test_y[0,:,i])
-plt.legend((b1, b2), (&#39;estimated&#39;, &#39;observed&#39;))
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">y</span> <span class="o">=</span> <span class="n">test_y_estimated</span><span class="o">.</span><span class="n">data</span>
+<span class="n">fig_size</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span>
+<span class="n">fig_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">fig_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">])</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">test_y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;estimated&#39;</span><span class="p">,</span> <span class="s1">&#39;observed&#39;</span><span class="p">))</span>
 
 </pre></div>
 </div>
@@ -1160,13 +1174,22 @@ plt.legend((b1, b2), (&#39;estimated&#39;, &#39;observed&#39;))
 <img alt="../_images/notebooks_DNA_Sequence_Data_Analysis_44_1.png" src="../_images/notebooks_DNA_Sequence_Data_Analysis_44_1.png" />
 </div>
 </div>
-<p>時間に余裕があれば学習のn_epochsを10から30~50程度に増やしたり，層数を増やしたり，チャンネル数を増やしたりして，より高精度なモデルが学習できるのかを調べてみましょう．</p>
+<p>Learn if you can learn more accurate models by increasing n_epochs of learning from 10 to 30 to 50, increasing the number of layers, or increasing the number of channels if you have time to spare.</p>
 <ul class="simple">
 <li>[1] “Sequential regulatory activity prediction across chromosomes with convolutional neural networks”, D. R. Kelly and et al., Genome Res. 2018. 28: 739-750</li>
 <li>[2] “Weight Normalization: A Simple Reparameterization to Accelerate Training of Deep Neural Networks”, T. Salimans and et al., arXiv:1602.07868</li>
 <li>[3] “Language Modeling with Gated Convolutional Networks”, Y. N. Dauphin and et al., arXiv:1612.08083</li>
 <li>[4] “Densely Connected Convolutional Networks”, G. Huang, and et al., CVPR 2017</li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1179,10 +1202,10 @@ plt.legend((b1, b2), (&#39;estimated&#39;, &#39;observed&#39;))
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Sequential_Data_Analysis_with_Deep_Learning.html" class="btn btn-neutral float-right" title="8. 実践編: ディープラーニングを使ったモニタリングデータの時系列解析" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Sequential_Data_Analysis_with_Deep_Learning.html" class="btn btn-neutral float-right" title="8. Environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Blood_Cell_Detection.html" class="btn btn-neutral" title="6. 実践編: 血液の顕微鏡画像からの細胞検出" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Blood_Cell_Detection.html" class="btn btn-neutral" title="6. 6. Practice section: Detection of cells from microscopic images of" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
