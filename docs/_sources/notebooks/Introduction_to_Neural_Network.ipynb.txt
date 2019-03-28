@@ -1,938 +1,967 @@
 {
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "name": "Introduction to Neural Network",
-      "version": "0.3.2",
-      "provenance": [],
-      "collapsed_sections": []
-    },
-    "kernelspec": {
-      "display_name": "Python 3",
-      "language": "python",
-      "name": "python3"
-    }
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "Da9LzFk5G38W"
+   },
+   "source": [
+    "[![colab-logo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Introduction_to_Neural_Network.ipynb)\n",
+    "\n",
+    "#  Basics of neural network \n",
+    "\n",
+    "Here, we will introduce the outline of the neural network (Neural Network). Methods such as Convolutional Neural Network (CNN), which is used for image recognition, and Recurrent Neural Network (RNN), which is used for natural language processing, are types of neural networks.\n",
+    "\n",
+    "Here, first of all, after explaining the structure of the neural network called the simplest all-connection type, when preparing a training data set consisting of a combination of a plurality of input data and a desired output, how to train the neural network We will explain about what to do (a supervised learning system).\n",
+    "\n",
+    "We also introduce an algorithm called error backpropagation to learn in real time the complex functions represented by neural networks.\n",
+    "\n",
+    "First, instead of treating the neural network as a black box, we carefully examine the calculations performed internally. And we will understand that the linear transformation represented by the function characterized by parameters and the subsequent nonlinear transformation are combined to represent one function that can be differentiated as a whole.\n",
+    "\n"
+   ]
   },
-  "cells": [
-    {
-      "metadata": {
-        "id": "Da9LzFk5G38W",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "[![colab-logo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/japan-medical-ai/medical-ai-course-materials/blob/master/notebooks/Introduction_to_Neural_Network.ipynb)\n",
-        "\n",
-        "# ニューラルネットワークの基礎\n",
-        "\n",
-        "ここでは，ニューラルネットワーク (Neural Network) についてその概要を紹介していきます．画像認識などに用いられる Convolutional Neural Network (CNN) や，自然言語処理などに用いられる Recurrent Neural Network (RNN) といった手法は，ニューラルネットワークの一種です．\n",
-        "\n",
-        "ここではまず，最もシンプルな全結合型と呼ばれるニューラルネットワークの構造について説明を行ったあと，複数の入力データと望ましい出力の組からなる学習用データセットを準備したとき，どうやってニューラルネットワークを学習させればよいのか（教師あり学習の仕組み）について解説を行います．\n",
-        "\n",
-        "ニューラルネットワークによって表現される複雑な関数を，現実的な時間で学習するための誤差逆伝播法（バックプロパゲーション）と呼ばれるアルゴリズムについても紹介します．\n",
-        "\n",
-        "まずはニューラルネットワークをブラックボックスとして扱ってしまうのではなく，一つ一つ内部で行われる計算を丁寧に調べます．そして，パラメータで特徴づけられた関数で表される線形変換とそれに続く非線形変換を組み合わせて，全体として微分可能な一つの関数を表していることを理解していきます．\n"
-      ]
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "LICMyO4rKUX9"
+   },
+   "source": [
+    "## 3.1. Structure of neural network\n",
+    "\n",
+    "First, let's look at the structure of the neural network graphically. The input variables are 4 variables of {years, alcohol content, color, smell}, and the output variables are 2 variables of {white wine, red wine}.\n",
+    "\n",
+    "![ニューラルネットワークの基本構造](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/01.png)\n",
+    "\n",
+    "Each round part of this figure is called a **node** or **unit**, and its vertical collection is called a **layer** . The first layer is called the **input layer** , the last layer is the **output layer** , and the **middle layer** is called the **intermediate layer** or **hidden layer** . This model has a three-layer structure with an input layer, an intermediate layer, and an output layer, but it is possible to define a multi-layered neural network by increasing the number of intermediate layers. In this example, all nodes between each layer are connected to each other, so it is also called a **fully connected** neural network, which is the most basic structure of neural networks.\n",
+    "\n",
+    "Input variables are the same as in the previous chapters, but the handling of output variables is different. For example, in the figure above, each node in the output layer corresponds to white wine and red wine, and there are as many output variables as there are categories. Why is this structure?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "meyqKCr-NUDs"
+   },
+   "source": [
+    "![ニューラルネットワークの出力値](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/02.png)\n",
+    "\n",
+    "First, let's look at a concrete example of what kind of value is in the final layer. For example, let's say you have a wine whose age is three years and whose alcohol content is 14 degrees, color is 0.2, and smell is 0.8. The internal calculation will be described later, so let's focus on the values obtained when such data are given to the neural network. Above, white wine $y_{1} = 0.15$,, Red wine $y_{2}= 0.85$ It is At this time, the class corresponding to the variable with the largest value among the output values, that is, \"red wine\" in this example can be used as the **prediction result** of this neural network in this classification problem .\n",
+    "\n",
+    "Here, when we add up all the values of the output layer, we notice that it is 1. This is not a coincidence, because it calculates the value of the output layer to be so\\*. In other words, the numerical values possessed by each node of the output layer represent the probability that the input belongs to each class. Therefore, the output layer needs nodes as many as the number of categories.\n",
+    "\n",
+    "Now let's take a closer look at the calculations performed inside the neural network. Each layer of the neural network is calculated by sequentially applying linear and nonlinear transformations to the values of the previous layer. First, let's look at what the linear transformation here means.\n",
+    "\n",
+    "\\* Specifically, apply the softmax activation function (also described later) to the output vector of the neural network so that the sum of all node values in the output layer is 1."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "X9-RYTlXNzNQ"
+   },
+   "source": [
+    "### 3.1.1. Linear transformation \n",
+    "\n",
+    "Here we describe the linear transformations that occur in each layer of the neural network.\n",
+    "\n",
+    "![ニューラルネットワークの線形変換](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/linear_transformation.png)\n",
+    "\n",
+    "Linear transformation * said here is weight matrix ($w$) $\\times$ Input vector ($h$) $+$  Bias vector ($b$) It refers to the calculation like). At this time, the input of this conversion is $h$, Parameter is $w$ When $b$. Multiplication here ($\\times$ Note that) is matrix multiplication. Also from now on, $h$ Often appear as letters, but this is the first letter of the hidden layer$h$ I'm from. However, in order to simplify the notation, in the following, the input layer𝑥 $x_1, x_2, x_3, x_4$ Think of ) as the 0 hidden layer , $h_{01}, h_{02}, h_{03}, h_{04}$ It is written as Now let's describe the calculation shown in the above figure with a formula.\n",
+    "\n",
+    "(* In linear mathematics, in linear mathematics ${\\bf w} \\times {\\bf h}$ This transformation is strictly called \"affine transformation (or affine transformation)\". However, in the context of deep learning, this transformation is also often referred to as a linear transformation.)\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "u_{11}&=w_{11}h_{01}+w_{12}h_{02}+w_{13}h_{03}+w_{14}h_{04}+b_{1} \\\\\n",
+    "u_{12}&=w_{21}h_{01}+w_{22}h_{02}+w_{23}h_{03}+w_{24}h_{04}+b_{2} \\\\\n",
+    "u_{13}&=w_{31}h_{01}+w_{32}h_{02}+w_{33}h_{03}+w_{34}h_{04}+b_{3}\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "bias ($b_1, b_2, b_3$) Note that is omitted in the above figure. Now, the above four expressions can be rewritten as vector and matrix calculations as follows.\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "\\begin{bmatrix}\n",
+    "u_{11} \\\\\n",
+    "u_{12} \\\\\n",
+    "u_{13}\n",
+    "\\end{bmatrix}&=\\begin{bmatrix}\n",
+    "w_{11} & w_{12} & w_{13} & w_{14} \\\\\n",
+    "w_{21} & w_{22} & w_{23} & w_{24} \\\\\n",
+    "w_{31} & w_{32} & w_{33} & w_{34}\n",
+    "\\end{bmatrix}\\begin{bmatrix}\n",
+    "h_{01} \\\\\n",
+    "h_{02} \\\\\n",
+    "h_{03} \\\\\n",
+    "h_{04}\n",
+    "\\end{bmatrix}+\\begin{bmatrix}\n",
+    "b_{1} \\\\\n",
+    "b_{2} \\\\\n",
+    "b_{3}\n",
+    "\\end{bmatrix}\\\\\n",
+    "{\\bf u}_{1}&={\\bf W}{\\bf h}_{0}+{\\bf b}\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "Initially ${\\bf W}$ and ${\\bf b}$ You should add a suffix to indicate which layer and which layer to use for the calculation, but this is omitted here for simplicity."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "JmlTx1YF4xMD"
+   },
+   "source": [
+    "### 3.1.2. Nonlinear transformation/Conversion\n",
+    "\n",
+    "Next, I will explain nonlinear conversion. Linear transformations alone can not properly represent the relationship between inputs and outputs if they are nonlinear as shown in the right of the figure.\n",
+    "![入力と出力の関係](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/04.png)\n",
+    "\n",
+    "Therefore, in the neural network, the linear transformation is followed by the nonlinear transformation in each layer so that the whole function has nonlinearity. The function that performs this non-linear transformation is called an activation function in the context of neural networks .\n",
+    "\n",
+    "The result of the linear transformation above $u_{11}, u_{12}, u_{13}$  Result of nonlinear conversion using the activation function $h_{11}, h_{12}, h_{13}$ These are called activation values (see the figure below). This is the input to the next layer.\n",
+    "\n",
+    "\n",
+    "![活性値](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/activation.png)\n",
+    "\n",
+    "As a specific example of the activation function, the logistic sigmoid function (hereinafter referred to as sigmoid function) shown in the figure below\n",
+    "\n",
+    "\n",
+    "![シグモイド関数](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/05.png)\n",
+    "\n",
+    "Has been used in the past. However, in recent years, sigmoid functions are hardly used as activation functions in neural networks with many layers. One of the reasons is that adopting a sigmoid function as an activation function makes the phenomenon of gradient disappearance more likely to occur, which may cause a problem that learning does not progress. This will be detailed later. To avoid this, a function called “ Rectified Linear Unit (ReLU) ” is often used. This is a function of the form\n",
+    "\n",
+    "![ReLU関数](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/06.png)\n",
+    "\n",
+    "here, ${\\rm max}(0, u)$ ,$0$ When $u$ It is a function that compares the and returns the larger one. That is, ReLU is a function that the output is constant at 0 when the input is a negative value, and outputs the input as it is when it is a positive value. In the sigmoid function, it can also be seen from the plot that the slope will become smaller and smaller when the input takes small or large values. On the other hand, ReLU function generates a constant gradient no matter how large the input value. This works well for the problem of gradient loss that we will introduce later.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "s-eFDAuJ-Cse"
+   },
+   "source": [
+    "### 3.1.3. Check the flow of calculation while watching the numerical \n",
+    "\n",
+    "Here, input using the specific numbers written in the figure below $x_1, x_2, x_3$ Output from $y$ Let's check the process of calculating. Now bias to simplify the calculations ${\\bf b}$ The calculation of is omitted (assuming the bias is all zeros). As a numerical example, ${\\bf x} = \\begin{bmatrix} 2 & 3 & 1 \\end{bmatrix}^T$ Output when given $y$  Let's follow the calculation procedure of\n",
+    "\n",
+    "\n",
+    "![出力までの計算例](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/output.png)\n",
+    "\n",
+    "In the multiple regression analysis described in the previous chapter, although it was possible to calculate analytically optimal parameters by setting the derivative of the objective function parameters to 0, it is generally impossible to solve analytically parameters in neural networks . Instead, we will optimize the parameters sequentially in another way using the value of this derivative (slope).\n",
+    "\n",
+    "For this reason, in the case of a neural network, **parameters are first initialized with random numbers, and data are first input to calculate the value of the objective function**. Next, calculate the gradient of the function, use it to update the parameter, process the input data again using the updated new parameter, calculate the value of the objective function, and so on repeatedly. It will be taken care of.\n",
+    "\n",
+    "Now, let's consider the case where the linear transformation is applied to the values ​​of the input layer with the numerical values ​​given to the branches of the graph in the above figure as a result of initializing the parameters. This calculation is as follows.\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "u_{11}&=3\\times 2+1\\times 3+2\\times 1=11\\\\\n",
+    "u_{12}&=-2\\times 2-3\\times 3-1\\times 1=-14\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "Next, let's adopt the ReLU function as the activation function that performs non-linear transformation, and calculate the value of the middle layer as follows.\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "h_{11} &= \\max(0, 11) = 11 \\\\\n",
+    "h_{12} &= \\max(0, -14)  = 0\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "Similarly, in the output layer 𝑦 If you calculate up to the value of,\n",
+    "\n",
+    "$$\n",
+    "y = 3 \\times 11 + 2 \\times 0 = 33\n",
+    "$$\n",
+    "\n",
+    "Now, from the next section, let's see how to update parameters."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "ivVppUOibSHy"
+   },
+   "source": [
+    "## 3.2. The objective function \n",
+    "\n",
+    "Even in neural networks, as long as they are differentiable, you can use various objective functions according to the task you want to solve.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "BCGZbTKcbUpe"
+   },
+   "source": [
+    "### 3.2.1. Mean squared \n",
+    "For example, in the output layer $N$ Consider the case of solving a regression problem with a neural network with discrete values.$N$ Each of the $y_n (n=1, 2, \\dots, N)$）Desired output $t_n (n=1, 2, \\dots, N)$）When the objective function is given,（$y_n$）And the corresponding correct answer $t_n$）The regression problem can be solved by using the **mean squared error** between) .\n",
+    "\n",
+    "$$\n",
+    "\\mathcal{L} = \\dfrac{1}{N} \\sum_{n=1}^{N}(t_{n} - y_{n})^{2}\n",
+    "$$\n",
+    "\n",
+    "The parameters in the neural network are determined to minimize this. For example, as the correct answer in the example above𝑡=20 The value of the objective function when given is\n",
+    "\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\mathcal{L} = \\dfrac{1}{1} (20 - 33)^2 = 169\n",
+    "$$\n",
+    "\n",
+    "is. You just have to look for values in the weight matrix that make this smaller."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "WqFc0jYJFLYz"
+   },
+   "source": [
+    "### 3.2.2. Cross entropy \n",
+    "In the case of classification problems, on the other hand, **cross entropy** is often used as an objective function.\n",
+    "\n",
+    "\n",
+    "As an example,$N$ Consider class classification problems. Certain input𝑥 Is given to the output layer of the neural network $N$ Nodes, each of which has $n$ Probability of belonging to the second class $y_n = p(y=n|x)$ Let's say that This is an input $x$ Means a prediction class, given the condition that is given $y$ But $n$ It is the probability that it is.\n",
+    "\n",
+    "here, $x$ The correct answer for the class to which ${\\bf t} = \\begin{bmatrix} t_1 & t_2 & \\dots & t_N \\end{bmatrix}^T$ It is assumed that it is given by the vector However, this vector is $t_n (n=1, 2, \\dots, N)$ Suppose that the vector is such that only one of is 1 and the other is 0. This is called a **1-hot vector** . And an element with a value of 1 means that the class corresponding to the index of the element is the correct one. For example, $t_3 = 1$ If it is, it means that the class corresponding to the index 3 is correct.\n",
+    "\n",
+    "Well, with this kind of preparation, we can describe the intersection entropy as something that can be calculated as follows.\n",
+    "$$\n",
+    "\\mathcal{L} = - \\frac{1}{N} \\sum_{n=1}^{N}t_{n}\\log y_{n}\n",
+    "$$\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "kxqfo4Yrekaw"
+   },
+   "source": [
+    "#### 3.2.2.1 Note: for cross-entropy \n",
+    "\n",
+    "The following is for reference only if you want to know about the definition of cross entropy. If you know the definition of cross entropy in information theory etc., it may appear that what is expressed by the above equation is different from cross entropy. But this can be explained as follows. now, $q(y|x)$ Let be the conditional probability defined by the model of the neural network, $p(y|x)$ Let be the conditional probability of real data. here, $p(y|x)$ Instead the empirical distribution of learning data, since\n",
+    "\n",
+    "$$\n",
+    "\\hat{p}(y|x) = \\frac{1}{N} \\sum_{n=1}^N I(x =x_n, y=y_n)\n",
+    "$$\n",
+    "\n",
+    "We will use. However $I$ Is called the Dirac function, and when its equal sign holds, the value is $\\infty$, Otherwise $0$ The function is such that the integral over its domain is 1. At this time, probability distribution $\\hat{p}(y|x)$ When $q(y|x)$ Divergence (measure the distance between probability distributions, and only if and when the probability distributions match $0$ And otherwise take positive values)\n",
+    "\n",
+    "$$\n",
+    "KL(p||q) = \\int_{x, y} \\hat{p}(y|x) \\log \\frac{\\hat{p}(y|x)}{q(y|x)} dx dy\n",
+    "$$\n",
+    "\n",
+    "It is defined as Here we use the Dirac delta function definition and $q$ If you extract only the terms that depend on, you get the objective function of the previous cross entropy.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "Drh35j_lCYiy"
+   },
+   "source": [
+    "## 3.3. Optimization of neural \n",
+    "\n",
+    "Determining the value of the parameter that minimizes the value of the objective function proved to be the purpose of learning of the neural network. So how do you find that parameter? Determining the parameters of a neural network so that the objective function takes a desired value, given an objective function, is called neural network optimization.\n",
+    "\n",
+    "Before considering the optimization method, let's check again what was the object of optimization. \"Optimizing a neural network\" means \"determining properly the values of all parameters used internally by a neural network\". So what were the parameters in neural networks? In the case of the simple fully coupled neural network introduced so far, it was used for linear transformation of each layer ${\\bf W}$ When ${\\bf b}$ \n",
+    "\n",
+    "It is generally difficult to analytically solve each parameter of a neural network with a gradient to the objective function as 0. However, if actual data is input to a neural network, it is possible to numerically obtain the gradient of the objective function at the value of the input. Knowing this value, we can know how to change the parameter to reduce the value of the objective function. Therefore, it is possible to optimize the neural network by updating the parameters repeatedly and gradually using this gradient. Let's think about this method in order.\n",
+    "\n",
+    "First, please look at the following figure. The dotted line in the figure is the parameter $w$ Objective function when changing  $\\mathcal{L}$ Represents the value of. In this example, although it is in the form of a quadratic function for simplicity, the objective function of the neural network is in fact almost multidimensional and more complicated. However, let's imagine a simple form like this for explanation here. Well, this objective function gives the minimum value $w$ How can you discover\n",
+    "\n",
+    "![パラメータと目的関数の関係（イメージ）](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/13.png)\n",
+    "\n",
+    "As described in the previous section, the neural network parameters are first initialized with random numbers. Here, as an example $w=3$ Let's think that initialization has been done. Then, $w=3$ In $\\mathcal{L}$ Slope of $\\frac{\\partial \\mathcal{L}}{\\partial w}$ Can be obtained. The objective function of neural networks is \\* differentiable \\* for all parameters. Well, let's say here temporarily $w=3$ In $\\frac{\\partial \\mathcal{L}}{\\partial w}$ But 3 Let's say that $\\frac{\\partial \\mathcal{L}}{\\partial w} |_{w=3} = 3$)). Then, as shown in the following figure,$3$ The value is $w=3$ In $\\mathcal{L}(w)$ Represents the slope of the tangent of the function (gradient).\n",
+    "\n",
+    "(\\* Strictly speaking, loss functions may have indifferentiable points. For example, ReLU $x=0$ There is a non-differentiable point in the neural network including ReLU because it is non-differentiable in terms of. However, in the case of commonly used neural networks, there are only a few such non-differentiable points, so they can be ignored in the optimization method described below.)\n",
+    "\n",
+    "![目的関数の接線の傾き](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/11.png)\n",
+    "\n",
+    "With inclination, $w$ When you increase $\\mathcal{L}$ Now means that the direction of $\\mathcal{L}$ Because we want to decrease the value of, $w$  Change the $w$  **From $\\partial \\mathcal{L} / \\partial w$ It is good to pull the** .\n",
+    "\n",
+    "This is the basic idea when updating the parameters of the neural network using the gradient of the objective function. At this time $w$ It is common to multiply the gradient by a value called the **learning rate** to adjust the scale of the step size (the amount of updates) of .\n",
+    "\n",
+    "For example, now learning rate $0.5$ Let's set it to. Then, $w$ Update rate is the **learning rate** $\\times$ Because it depends on the **gradient** , $0.5 \\times 3 = 1.5$. Current $w=3$ So, **subtract this value** $w \\leftarrow w - 1.5$ And after updating $w=1.5$. The figure above shows the state after this one-time update.\n",
+    "\n",
+    "Perform the first update,$w$ But $w = 1.5$ It moved to the position of. So, I will try to find the slope again at this point. Next time $-1$ Let's say it was Then the **learning rate $\\times$ The slope** is $0.5 \\times -1 = -0.5$. Using this again, $w \\leftarrow w - (-0.5)$ With the second update, this time $w = 2$ It will come to the position of After updating twice in this way, it looks like the following figure.\n",
+    "\n",
+    "![パラメータの更新](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/12.png)\n",
+    "\n",
+    "gradually $\\mathcal{L}$ Is the minimum value𝑤You can see that it is approaching the value of.\n",
+    "\n",
+    "Thus, the learning rate $\\times$ When changing the parameter with the gradient as the update amount, the parameter $w$ I want to ask for $\\mathcal{L}$ Give the minimum value of 𝑤You can get closer to The objective function minimization method using such a gradient is called gradient descent method . Since neural networks are basically designed using only differentiable functions as functions between layers, all appearing functions are differentiable, and parameters are optimized by gradient descent using a training data set The method is applicable.\n",
+    "\n",
+    "However, usually, when optimizing a neural network by gradient descent method, it is not necessary to update parameters using data one by one, but input some data together and calculate each gradient, The method of updating parameters using the average value of the gradient is often used. This is called mini-batch learning . This is uniformly random from the training data set $k (>0)$ Data of the $k$ Update the parameters to reduce the average value of the objective function for $k$ It is a method to repeat for the combination of the data As a result, all data included in the data set will be used, but the data used for one update is $k$ It becomes one by one. In the actual implementation, the indices of the samples in the data set are randomly shuffled first to form an array, and $k$ Fetch the index one by one and construct a mini-batch using the corresponding data. Thus, using up all the indexes, that is, finishing using the data in the data set one time each, for updating parameters is called 1 epoch learning . And this $k$ We refer to as batch size or mini-batch size, and the name Stochastic Gradient Descent (SGD) is used to indicate such a learning method . Currently, almost all neural network optimization methods are based on this SGD. With SGD, not only can the overall computation time be dramatically reduced, but as in the figure below, even if the objective function is not a convex function, it converges to the “almost certain” local optimal solution under appropriate conditions It is known to do.\n",
+    "\n",
+    "![局所最適解と大域最適解](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/14.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "gtJOsYWkKPDj"
+   },
+   "source": [
+    "### 3.3.1. Calculation of parameter update \n",
+    "\n",
+    "Now, consider a three-layer fully connected neural network as shown in the figure below, and a linear transformation between the first and second layers. ${\\bf w}_1, {\\bf b}_1$ The linear transformation between the second and third layers is ${\\bf w}_2, {\\bf b}_2$  Is represented by the parameter ${\\bf b}_1, {\\bf b}_2$ Is omitted). Also, put these together $\\boldsymbol{\\Theta}$  I will represent it as.\n",
+    "\n",
+    "\n",
+    "![パラメータ更新の例](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/08.png)\n",
+    "\n",
+    "The input vector is ${\\bf x}$, The output of the neural network is ${\\bf y} \\in \\mathbb{R}^N$ ($N$ (Meaning real dimensional vector) and input ${\\bf x}$ Is the “desired output” corresponding to ${\\bf t}$ will do. Let's use the mean squared error function described above as the objective function.\n",
+    "\n",
+    "Now, after initializing the parameters with appropriate random numbers, input 𝐱${\\bf x}$ Let's calculate the gradient for each parameter of the objective function given, and calculate the update amount for each parameter.\n",
+    "\n",
+    "First, the objective function is rewritten using vector notation as follows.\n",
+    "．\n",
+    "\n",
+    "$$\n",
+    "\\mathcal{L}({\\bf y}, {\\bf t}) = \\frac{1}{N} || {\\bf t} - {\\bf y} ||_2^2\n",
+    "$$\n",
+    "\n",
+    "$|| {\\bf t} - {\\bf y} ||_2^2$はここでは$({\\bf t} - {\\bf y})^T({\\bf t} - {\\bf y})$と同等の意味となります．さらに，ニューラルネットワーク全体を $f$ と書くことにすると，出力 ${\\bf y}$ は\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "{\\bf y} &= f({\\bf x}; \\boldsymbol{\\Theta}) \\\\\n",
+    "&= a_2 ( {\\bf w}_2 a_1({\\bf w}_1 {\\bf x} + {\\bf b}_1) + {\\bf b}_2 )\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "\n",
+    "You can write here, $a_1, a_2$ Denotes the non-linear transformation (activation function) applied after the linear transformation between the first and second layers and between the second and third layers, respectively. Below, for the sake of simplicity, the result of the linear transformation performed between each layer is ${\\bf u}_1, {\\bf u}_2$ And the value of the middle layer, ie ${\\bf u}_1$ Apply the activation function to ${\\bf h}_1$ Write. However, ${\\bf u}_2$ The result of applying the activation function to ${\\bf y}$ It is written as Then, these relations can be organized as follows.\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "{\\bf y} &= a_2({\\bf u}_2) \\\\\n",
+    "{\\bf u}_2 &= {\\bf w}_2 {\\bf h}_1 + {\\bf b}_2 \\\\\n",
+    "{\\bf h}_1 &= a_1({\\bf u}_1) \\\\\n",
+    "{\\bf u}_1 &= {\\bf w}_1 {\\bf x} + {\\bf b}_1\n",
+    "\\end{aligned}\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "k1L6xptUs3l4"
+   },
+   "source": [
+    "#### 3.3.1.1. Parameters 𝐰2 Of the update amount \n",
+    "So first, the parameters closer to the output layer,${\\bf w}_2$ about $\\mathcal{L}$ Find the slope of. Since this is a partial derivative of the composite function, it can be expanded as follows using the chain rule.\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_2}\n",
+    "&= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf w}_2} \\\\\n",
+    "&= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2} \\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_2}\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "The three partial derivatives are\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
+    "&= -\\frac{2}{N} ({\\bf t} - {\\bf y}) \\\\\n",
+    "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
+    "&= \\frac{\\partial a_2}{\\partial {\\bf u}_2} \\\\\n",
+    "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_2} \n",
+    "&= {\\bf h}_1\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "I will ask. Where the slope of the output with respect to the input of the activation function\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\frac{\\partial a_2}{\\partial {\\bf u}_2}\n",
+    "$$\n",
+    "\n",
+    "Has appeared. This is, for example, when using a sigmoid function as the activation function,\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "a_2({\\bf u}_2) = \\frac{1}{1 + \\exp(-{\\bf u}_2)}\n",
+    "$$\n",
+    "\n",
+    "Because it is a derivative of\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "\\frac{\\partial a_2({\\bf u}_2)}{\\partial {\\bf u}_2}\n",
+    "&= -\\frac{-(\\exp(-{\\bf u}_2))}{(1 + \\exp(-{\\bf u}_2))^2} \\\\\n",
+    "&= \\frac{1}{1 + \\exp(-{\\bf u}_2)} \\cdot \\frac{\\exp(-{\\bf u}_2)}{1 + \\exp(-{\\bf u}_2)} \\\\\n",
+    "&= \\frac{1}{1 + \\exp(-{\\bf u}_2)} \\cdot \\frac{1 + \\exp(-{\\bf u}_2) - 1}{1 + \\exp(-{\\bf u}_2)} \\\\\n",
+    "&= \\frac{1}{1 + \\exp(-{\\bf u}_2)} (1 - \\frac{1}{1 + \\exp(-{\\bf u}_2)}) \\\\\n",
+    "&= a_2({\\bf u}_2)(1 - a_2({\\bf u}_2))\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "The slope of the sigmoid function can thus be easily calculated using the output value of the sigmoid function.\n",
+    "\n",
+    "with this ${\\bf w}_2$ All the values needed to calculate the slope of were available. Let's actually calculate these using NumPy. Here, for the sake of simplicity, all bias vectors are assumed to be initialized to zero.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 0,
+   "metadata": {
+    "colab": {},
+    "colab_type": "code",
+    "id": "fD0MA510V1f-"
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "# 入力\n",
+    "x = np.array([2, 3, 1])\n",
+    "\n",
+    "# 正解\n",
+    "t = np.array([20])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "VOznWs5PV3pQ"
+   },
+   "source": [
+    "First, load the NumPy module and define an array of inputs. Here, a three-dimensional vector with three values is defined to be the same as the above figure . In addition, I decided to give tentatively as the correct answer . Next, define the parameters. `2, 3, 1` `20`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 0,
+   "metadata": {
+    "colab": {},
+    "colab_type": "code",
+    "id": "cBuj19ptXu1f"
+   },
+   "outputs": [],
+   "source": [
+    "# 1-2層間のパラメータ\n",
+    "w1 = np.array([[3, 1, 2], [-2, -3, -1]])\n",
+    "b1 = np.array([0, 0])\n",
+    "\n",
+    "# 2-3層間のパラメータ\n",
+    "w2 = np.array([[3, 2]])\n",
+    "b2 = np.array([0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "2xT4AnmBXwIb"
+   },
+   "source": [
+    "Here, the following four parameters are defined.\n",
+    "\n",
+    "**Parameters of linear transformation between layer 1 and layer 2**\n",
+    "\n",
+    "${\\bf w}_1 \\in \\mathbb{R}^{2 \\times 3}$ : A matrix that converts a 3D vector to a 2D vector\n",
+    "\n",
+    "${\\bf b}_1 \\in \\mathbb{R}^2$ : Two-dimensional bias vector\n",
+    "\n",
+    "**Parameters of linear transformation between layer 2 and layer 3**\n",
+    "\n",
+    "${\\bf w}_2 \\in \\mathbb{R}^{1 \\times 2}$ :A matrix that converts a two-dimensional vector to a one-dimensional vector\n",
+    "\n",
+    "${\\bf b}_2 \\in \\mathbb{R}^1$ : One-dimensional bias vector\n",
+    "\n",
+    "Let's actually carry out the calculation of each layer."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 0,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 34
     },
+    "colab_type": "code",
+    "id": "d-ELmfkiKQfd",
+    "outputId": "ef26b9e1-ecac-4e5c-f69b-d7443a2338ea"
+   },
+   "outputs": [
     {
-      "metadata": {
-        "id": "LICMyO4rKUX9",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## ニューラルネットワークの構造\n",
-        "\n",
-        "まずはニューラルネットワークの構造を図式化して見てみましょう．入力変数が{年数，アルコール度数，色合い，匂い}の4変数，出力変数が{白ワイン，赤ワイン}の2変数の場合を示します．\n",
-        "\n",
-        "![ニューラルネットワークの基本構造](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/01.png)\n",
-        "\n",
-        "この図のひとつひとつの丸い部分のことを**ノード**もしくは**ユニット**と呼び，その縦方向の集まりを**層**と呼びます．そして，一番初めの層を**入力層（input layer）**，最後の層を**出力層（output layer）**，そしてその間を**中間層（intermediate layer）**もしくは**隠れ層（hidden layer）**と呼びます．このモデルは入力層，中間層，出力層の３層の構造となっていますが，中間層の数を増やすことでさらに多層のニューラルネットワークを定義することもできます．この例では各層間の全てのノードが互いに結合されているため，**全結合型のニューラルネットワーク**とも呼び，ニューラルネットワークの最も基礎的な構造です．\n",
-        "\n",
-        "入力変数は前章までと同様ですが，出力変数の扱い方がこれまでと異なります．例えば，上図では出力層の各ノードがそれぞれ白ワインと赤ワインに対応しており，カテゴリの数だけ出力の変数があるということになります．なぜこのような構造となっているのでしょうか．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "meyqKCr-NUDs",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "![ニューラルネットワークの出力値](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/02.png)\n",
-        "\n",
-        "まず，最終層にどのような値が入るのか，具体例を見てみましょう．例えば，年数が3年物でアルコール度数が14度，色合いが0.2，匂いが0.8で表されるワインがあるとします．内部の計算は後述するとして，このようなデータをニューラルネットワークに与えたときに結果として得られる値に着目してみましょう．上図では，白ワイン $y_{1} = 0.15$, 赤ワイン $y_{2}= 0.85$ となっています．このとき，出力値の中で最も大きな値となっている変数に対応するクラス，すなわち今回の例では「赤ワイン」をこの分類問題におけるこのニューラルネットワークの**予測結果**とすることができます．\n",
-        "\n",
-        "ここで出力層のすべての値を合計してみると，1になっていることに気づきます．これは偶然ではなく，そうなるように出力層の値を計算しているためです* ．つまり，出力層のそれぞれのノードが持つ数値は，入力がそれぞれのクラスに属している確率を表していたのでした．そのため，カテゴリ数と同じ数だけ出力層にはノードが必要となります．\n",
-        "\n",
-        "それでは，ここからニューラルネットワークの内部で行われる計算を詳しく見ていきましょう．ニューラルネットワークの各層は，前の層の値に線形変換と非線形変換を順番に施すことで計算されています．まずは，ここで言う線形変換とは何を表すのか，から見ていきましょう．\n",
-        "\n",
-        "\\* 具体的には，Softmax関数という活性化関数（これも後述します）をニューラルネットワークの出力ベクトルに適用することで，出力層における全ノードの値の合計が1になるようにします．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "X9-RYTlXNzNQ",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### 線形変換\n",
-        "\n",
-        "ここでは，ニューラルネットワークの各層で行われる線形変換について説明します．\n",
-        "\n",
-        "![ニューラルネットワークの線形変換](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/linear_transformation.png)\n",
-        "\n",
-        "ここで言う線形変換* とは，重み行列 ($w$) $\\times$ 入力ベクトル ($h$) $+$ バイアスベクトル ($b$) のような計算のことを指しています．このとき，この変換の入力が$h$，パラメータが$w$と$b$となります．ここでの掛け算（$\\times$）は行列の掛け算であることに注意してください．また，これからは，$h$ が文字としてよく登場しますが，これは隠れ層 (hidden layer) の頭文字である $h$ から来ています．ただし，表記を簡潔にするため以下では入力層（上図における $x_1, x_2, x_3, x_4$）を**0層目の隠れ層と考える**ことにして， $h_{01}, h_{02}, h_{03}, h_{04}$ と表記します．では上図で表される計算を数式で記述してみましょう．\n",
-        "\n",
-        "（* 通常数学では線形変換とは ${\\bf w} \\times {\\bf h}$ のことを指し，この変換は厳密には「アファイン変換（もしくは アフィン変換）」と呼ばれるものです．しかし，深層学習の文脈ではこの変換も線形変換と呼ぶことも多いです．）\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "u_{11}&=w_{11}h_{01}+w_{12}h_{02}+w_{13}h_{03}+w_{14}h_{04}+b_{1} \\\\\n",
-        "u_{12}&=w_{21}h_{01}+w_{22}h_{02}+w_{23}h_{03}+w_{24}h_{04}+b_{2} \\\\\n",
-        "u_{13}&=w_{31}h_{01}+w_{32}h_{02}+w_{33}h_{03}+w_{34}h_{04}+b_{3}\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "バイアス（$b_1, b_2, b_3$）は上図では省略されていることに注意してください．さて，以上の4つの式は，ベクトルと行列の計算として以下のように書き直すことができます．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "\\begin{bmatrix}\n",
-        "u_{11} \\\\\n",
-        "u_{12} \\\\\n",
-        "u_{13}\n",
-        "\\end{bmatrix}&=\\begin{bmatrix}\n",
-        "w_{11} & w_{12} & w_{13} & w_{14} \\\\\n",
-        "w_{21} & w_{22} & w_{23} & w_{24} \\\\\n",
-        "w_{31} & w_{32} & w_{33} & w_{34}\n",
-        "\\end{bmatrix}\\begin{bmatrix}\n",
-        "h_{01} \\\\\n",
-        "h_{02} \\\\\n",
-        "h_{03} \\\\\n",
-        "h_{04}\n",
-        "\\end{bmatrix}+\\begin{bmatrix}\n",
-        "b_{1} \\\\\n",
-        "b_{2} \\\\\n",
-        "b_{3}\n",
-        "\\end{bmatrix}\\\\\n",
-        "{\\bf u}_{1}&={\\bf W}{\\bf h}_{0}+{\\bf b}\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "本来は ${\\bf W}$ や ${\\bf b}$ にも，どの層とどの層の間の計算に用いられるものなのかを表す添え字をつけるべきですが，ここでは簡単のため省略しています．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "JmlTx1YF4xMD",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### 非線形変換\n",
-        "\n",
-        "次に，非線形変換について説明します．線形変換のみでは，下図右のように入力と出力の間が非線形な関係である場合，両者の間の関係を適切に表現することができません．\n",
-        "\n",
-        "![入力と出力の関係](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/04.png)\n",
-        "\n",
-        "そこで，ニューラルネットワークでは各層で線形変換に引き続いて非線形変換を施すことで，全体の関数が非線形性を持つようにしています．この非線形変換を行う関数を，ニューラルネットワークの文脈においては **活性化関数** と呼びます．\n",
-        "\n",
-        "上図の線形変換の結果 $u_{11}, u_{12}, u_{13}$ に活性化関数を使って非線形変換を行った結果を $h_{11}, h_{12}, h_{13}$ と書き，これらを活性値（activation）と呼びます（下図参照）．これが次の層への入力となります．\n",
-        "\n",
-        "![活性値](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/activation.png)\n",
-        "\n",
-        "活性化関数の具体例としては，下図に示す **ロジスティックシグモイド関数**（以下シグモイド関数）\n",
-        "\n",
-        "![シグモイド関数](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/05.png)\n",
-        "\n",
-        "が従来，よく用いられてきました．しかし近年，層数が多いニューラルネットワークではシグモイド関数は活性化関数としてほとんど用いられていません．その理由の一つは，シグモイド関数を活性化関数に採用することで **勾配消失** という現象が起きやすくなり，学習が進行しなくなる問題が発生することがあったためです．これは後で詳述します．これを回避するために，**Rectified Linear Unit (ReLU)** という関数がよく用いられます．これは，以下のような形をした関数です．\n",
-        "\n",
-        "![ReLU関数](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/06.png)\n",
-        "\n",
-        "ここで， ${\\rm max}(0, u)$ は，$0$と$u$を比べて大きな方を返す関数です．すなわち，ReLUは入力が負の値の場合には出力は0で一定であり，正の値の場合は入力をそのまま出力するという関数です．シグモイド関数では，入力が小さな，もしくは大きな値をとった際に，勾配がどんどん小さくなってしまうだろうことがプロットからも見て取れます．それに対し，ReLU関数は入力の値がいくら大きくなっても，一定の勾配が発生します．これがのちほど紹介する勾配消失という問題に有効に働きます．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "s-eFDAuJ-Cse",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### 数値を見ながら計算の流れを確認\n",
-        "\n",
-        "ここで，下図に書き込まれた具体的な数値を使って，入力 $x_1, x_2, x_3$ から出力 $y$ が計算される過程を確認してみましょう．今は計算を簡略化するためバイアス ${\\bf b}$ の計算は省略します（バイアスが全て0であるとします）．数値例として，${\\bf x} = \\begin{bmatrix} 2 & 3 & 1 \\end{bmatrix}^T$ が与えられた時の出力 $y$ の計算手順を一つ一つ追いかけてみましょう．\n",
-        "\n",
-        "![出力までの計算例](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/output.png)\n",
-        "\n",
-        "前章で解説した重回帰分析では，目的関数のパラメータについての導関数を0とおいて解析的に最適なパラメータを計算できましたが，ニューラルネットワークでは一般的に，解析的にパラメータを解くことはできません．その代わり，この導関数の値（勾配）を利用した別の方法でパラメータを逐次的に最適化していきます．\n",
-        "\n",
-        "このため，ニューラルネットワークの場合は，**まずパラメータを乱数で初期化し，ひとまずデータを入力して目的関数の値を計算します**．次にその関数の勾配を計算して，それを利用してパラメータを更新し，その更新後の新しいパラメータを使って再度入力データを処理して目的関数の値を計算し…といったことを繰り返し行っていくことになります．\n",
-        "\n",
-        "今，パラメータを初期化した結果，上の図のグラフの枝に与えられているような数値になった状態で，入力層の値に線形変換を施すところまでを考えてみましょう．この計算は，以下のようになります．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "u_{11}&=3\\times 2+1\\times 3+2\\times 1=11\\\\\n",
-        "u_{12}&=-2\\times 2-3\\times 3-1\\times 1=-14\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "次に非線形変換を行う活性化関数としてReLU関数を採用し，以下のように中間層の値を計算してみましょう．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "h_{11} &= \\max(0, 11) = 11 \\\\\n",
-        "h_{12} &= \\max(0, -14)  = 0\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "同様に，出力層の $y$ の値までを計算すると，\n",
-        "\n",
-        "$$\n",
-        "y = 3 \\times 11 + 2 \\times 0 = 33\n",
-        "$$\n",
-        "\n",
-        "となります．\n",
-        "\n",
-        "さて，次節からは，パラメータを，どうやって更新していくかを見てみましょう．\n"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "ivVppUOibSHy",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## 目的関数\n",
-        "\n",
-        "ニューラルネットワークでも，微分可能でさえあれば解きたいタスクに合わせて様々な目的関数を利用することができます．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "BCGZbTKcbUpe",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### 平均二乗誤差\n",
-        "\n",
-        "例えば，出力層に$N$個の値を持つニューラルネットワークで回帰問題を解く場合を考えてみましょう．$N$個の出力それぞれ（$y_n (n=1, 2, \\dots, N)$）に対して望ましい出力（$t_n (n=1, 2, \\dots, N)$）が与えられたとき，目的関数をそれぞれの出力（$y_n$）と対応する正解（$t_n$）の間の **平均二乗誤差（mean squared error）** とすることで，回帰問題を解くことができます．\n",
-        "\n",
-        "$$\n",
-        "\\mathcal{L} = \\dfrac{1}{N} \\sum_{n=1}^{N}(t_{n} - y_{n})^{2}\n",
-        "$$\n",
-        "\n",
-        "これを最小にするようにニューラルネットワーク中のパラメータを決定するわけです．例えば，上図の例で正解として $t = 20$ が与えられたときの目的関数の値は，\n",
-        "\n",
-        "$$\n",
-        "\\mathcal{L} = \\dfrac{1}{1} (20 - 33)^2 = 169\n",
-        "$$\n",
-        "\n",
-        "です．これを小さくするような重み行列の値を探せばよいということです．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "WqFc0jYJFLYz",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### 交差エントロピー\n",
-        "\n",
-        "一方，分類問題の場合はしばしば **交差エントロピー（cross entropy）** が目的関数として利用されます．\n",
-        "\n",
-        "例として，$N$クラスの分類問題を考えてみましょう．ある入力 $x$ が与えられたとき，ニューラルネットワークの出力層に $N$ 個のノードがあり，それぞれがこの入力が $n$ 番目のクラスに属する確率 $y_n = p(y=n|x)$ を表しているとします．これは，入力 $x$ が与えられたという条件のもとで，予測クラスを意味する $y$ が $n$ であるような確率ということです．\n",
-        "\n",
-        "ここで，$x$ が所属するクラスについての正解が， ${\\bf t} = \\begin{bmatrix} t_1 & t_2 & \\dots & t_N \\end{bmatrix}^T$ というベクトルで与えられているとします．ただし，このベクトルは $t_n (n=1, 2, \\dots, N)$ のいずれか1つだけが1であり，それ以外は0であるようなベクトルであるとします． これを **1-hotベクトル** と呼びます．そして，この1つだけ値が1となっている要素は，その要素のインデックスに対応したクラスが正解であることを意味します．例えば，$t_3 = 1$であれば3というインデックスに対応するクラスが正解であるということになります．\n",
-        "\n",
-        "さて，このような準備を行うと，交差エントロピーは以下のように計算できるものとして記述することができます．\n",
-        "\n",
-        "$$\n",
-        "\\mathcal{L} = - \\frac{1}{N} \\sum_{n=1}^{N}t_{n}\\log y_{n}\n",
-        "$$"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "kxqfo4Yrekaw",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "#### 補足：交差エントロピーについて\n",
-        "\n",
-        "以下は，交差エントロピーの定義について知りたい方だけ参考にしてください．情報理論などで交差エントロピーの定義を知っている方は上の式で表されるものが交差エントロピーとは違うようにみえるかもしれません．しかしこれは，以下のように説明できます．今，$q(y|x)$をニューラルネットワークのモデルが定義する条件付き確率とし，$p(y|x)$を実データの条件付き確率とします．ここで，$p(y|x)$は実際には未知であるため，代わりに学習データの経験分布 \n",
-        "\n",
-        "$$\n",
-        "\\hat{p}(y|x) = \\frac{1}{N} \\sum_{n=1}^N I(x =x_n, y=y_n)\n",
-        "$$\n",
-        "\n",
-        "を用いることとします．ただし $I$ はディラック関数とよばれ，その等号が成立する時，値が$\\infty$，それ以外では$0$であるような関数で，その定義域全体にわたる積分は1になるものです．この時，確率分布 $\\hat{p}(y|x)$ と $q(y|x)$ の間のKLダイバージェンス（確率分布間の距離を測り、確率分布が一致する時、またその時のみ$0$となり、それ以外は正の値をとる）は\n",
-        "\n",
-        "$$\n",
-        "KL(p||q) = \\int_{x, y} \\hat{p}(y|x) \\log \\frac{\\hat{p}(y|x)}{q(y|x)} dx dy\n",
-        "$$\n",
-        "\n",
-        "と定義されます．ここでディラックのデルタ関数の定義を用い，また$q$に依存する項だけを抜き出すと，先程の交差エントロピーの目的関数が導出されます．\n"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "Drh35j_lCYiy",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## ニューラルネットワークの最適化\n",
-        "\n",
-        "目的関数の値を最小にするようなパラメータの値を決定することが，ニューラルネットワークの学習の目的であるとわかりました．では，どのようにしてそのパラメータを探し当てればよいのでしょうか．ある目的関数が与えられたもとで，その目的関数が望ましい値をとるようにニューラルネットワークのパラメータを決定することを，ニューラルネットワークの最適化といいます．\n",
-        "\n",
-        "まず最適化の方法を考える前に，まず最適化の対象とはなんであったか，再度確認しましょう．「ニューラルネットワークを最適化する」とは，すなわち「ニューラルネットワークが内部で用いている全てのパラメータの値を適切に決定する」という意味です．では，ニューラルネットワークにおけるパラメータとは，何だったでしょうか．それは，ここまで紹介したシンプルな全結合型ニューラルネットワークの場合，各層の線形変換に用いられていた ${\\bf W}$ と ${\\bf b}$ のことを指します．\n",
-        "\n",
-        "ニューラルネットワークの各パラメータを，目的関数に対する勾配を0とおいて解析的に解くことは，一般的には困難です．しかし，実データをニューラルネットワークに入力すれば，その入力の値における目的関数の勾配を数値的に求めることは可能です．この値が分かれば，パラメータをどのように変化させれば目的関数の値を小さくすることができるのかが分かります．そこで，この勾配を使ってパラメータを繰り返し少しずつ更新していくことで，ニューラルネットワークの最適化を行うことができるのです．この方法について順を追って考えていきましょう．\n",
-        "\n",
-        "まず，以下の図を見てください．図中の点線は，パラメータ $w$ を変化させた際の目的関数 $\\mathcal{L}$ の値を表しています．この例では簡単のため二次関数の形になっていますが，ニューラルネットワークの目的関数は実際には多次元で，かつもっと複雑な形をしていることがほとんどでしょう．しかし，ここでは説明のためこのようにシンプルな形を想像してみましょう．さて，この目的関数が最小値を与えるような $w$ は，どのようにして発見できるでしょうか．\n",
-        "\n",
-        "![パラメータと目的関数の関係（イメージ）](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/13.png)\n",
-        "\n",
-        "前節で説明したように，ニューラルネットワークのパラメータはまず乱数で初期化されます．ここでは，例として $w=3$ という初期化が行われたと考えてみましょう．そうすると，$w=3$における$\\mathcal{L}$の勾配 $\\frac{\\partial \\mathcal{L}}{\\partial w}$ が求まります．ニューラルネットワークの目的関数は，全てのパラメータについて微分可能である* ためです．さて，ここでは仮に $w=3$ における $\\frac{\\partial \\mathcal{L}}{\\partial w}$ が $3$ であったとしましょう（このことを$\\frac{\\partial \\mathcal{L}}{\\partial w} |_{w=3} = 3$と書きます）．すると，以下の図のように，この $3$ という値は $w=3$ における $\\mathcal{L}(w)$ という関数の接線の傾き（勾配; gradient）を表しています．\n",
-        "\n",
-        "（* 厳密には損失関数に微分不可能な点が存在する可能性はあります．例えばReLUは $x=0$ の点で微分不可能なため，ReLUを含んだニューラルネットワークには微分不可能な点があります．しかし，通常使うニューラルネットワークの場合，そのような微分不可能な点はわずかしかないため，以下に説明する最適化の方法の中では，無視できます．）\n",
-        "\n",
-        "![目的関数の接線の傾き](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/11.png)\n",
-        "\n",
-        "傾きとは，$w$ を増加させた際に $\\mathcal{L}$ が増加する方向を意味しているので，今は $\\mathcal{L}$ の値を小さくしたいわけですから，この傾きの逆方向へ $w$ を変化させる，すなわち $w$ **から** $\\partial \\mathcal{L} / \\partial w$ **を引けばよい** ことになります．\n",
-        "\n",
-        "これがニューラルネットワークのパラメータを目的関数の勾配を用いて更新していく際の基本的な考え方です．このときの $w$ のステップサイズ（更新量）のスケールを調整するために，勾配に **学習率 (learning rate)** と呼ばれる値を乗じるのが一般的です．\n",
-        "\n",
-        "例えば，今学習率を $0.5$ に設定してみます．そうすると，$w$の更新量は **学習率** $\\times$ **勾配** で決まるので，$0.5 \\times 3 = 1.5$ となります．現在 $w=3$ なので，**この値を引いて** $w \\leftarrow w - 1.5$ と更新した後は， $w=1.5$ となります．上の図は，この1度の更新を行ったあとの状態を表しています．\n",
-        "\n",
-        "1度目の更新を行って，$w$ が $w = 1.5$ の位置に移動しました．そこで，再度この点においても勾配を求めてみます．今度は $-1$ になっていたとしましょう．すると **学習率** $\\times$ **勾配** は $0.5 \\times -1 = -0.5$ となります．これを再び用いて，$w \\leftarrow w - (-0.5)$ と2度目の更新を行うと，今度は $w = 2$ の位置にくるでしょう．このようにして，2回更新したあとは，以下の図のようになります．\n",
-        "\n",
-        "![パラメータの更新](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/12.png)\n",
-        "\n",
-        "徐々に$\\mathcal{L}$が最小値をとるときの$w$の値に近づいていっていることが見て取れます．\n",
-        "\n",
-        "こうして，**学習率** $\\times$ **勾配** を更新量としてパラメータを変化させていくと，パラメータ $w$ を求めたい $\\mathcal{L}$ の最小値を与える $w$ に徐々に近づけていくことができます．このような勾配を用いた目的関数の最小化手法を **勾配降下法** と呼びます．ニューラルネットワークは，基本的に **微分可能な関数のみを層間をつなぐ関数として用いて** 設計されるため，登場する関数はすべて微分可能であり，学習データセットを用いて勾配降下法によってパラメータを最適化する方法が適用可能なのです．\n",
-        "\n",
-        "ただし，通常ニューラルネットワークを勾配降下法で最適化する場合は，データを一つ一つ用いてパラメータを更新するのではなく，いくつかのデータをまとめて入力し，それぞれの勾配を計算したあと，その勾配の平均値を用いてパラメータの更新を行う方法がよく行われます．これを **ミニバッチ学習** と呼びます．これは，学習データセットから一様ランダムに $k (>0)$ 個のデータを抽出し，その $k$ 個のデータに対する目的関数の平均の値を小さくするようパラメータを更新することを，異なる $k$ 個のデータの組み合わせに対して繰り返し行う方法です．結果的にはデータセットに含まれる全てのデータを使用していきますが，1度の更新に用いるデータは $k$ 個ずつということになります．実際の実装では，データセット内のサンプルのインデックスをまずランダムにシャッフルして並べた配列を作り，その配列の先頭から $k$ 個ずつインデックスを取り出し，対応するデータを使ってミニバッチを構成します．こうして，全てのインデックスを使い切ること，すなわちデータセット内のデータを1度ずつ，すべてパラメータ更新に用い終えることを **1エポックの学習** と呼びます．そして，この $k$ をバッチサイズもしくはミニバッチサイズと呼び，このような学習方法を指して，**確率的勾配降下法 (SGD: Stocastic Gradient Descent)** という名前が用いられます．現在ほとんどすべてのニューラルネットワークの最適化手法はこのSGDをベースとした手法となっています．SGDを用いると，全体の計算時間が劇的に少なくできるだけでなく，下図のように目的関数が凸関数でなかったとしても，適当な条件のもとで“ほとんど確実に”局所最適解に収束することが知られています．\n",
-        "\n",
-        "![局所最適解と大域最適解](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/14.png)"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "gtJOsYWkKPDj",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### パラメータ更新量の算出\n",
-        "\n",
-        "それでは今，下図のような3層の全結合型ニューラルネットワークを考え，1層目と2層目の間の線形変換が ${\\bf w}_1, {\\bf b}_1$，2層目と3層目の間の線形変換が ${\\bf w}_2, {\\bf b}_2$ というパラメータによって表されているとします（図ではバイアス ${\\bf b}_1, {\\bf b}_2$ は省略されています）．また，これらをまとめて $\\boldsymbol{\\Theta}$ と表すことにします．\n",
-        "\n",
-        "![パラメータ更新の例](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/08.png)\n",
-        "\n",
-        "入力ベクトルは ${\\bf x}$，ニューラルネットワークの出力は ${\\bf y} \\in \\mathbb{R}^N$（$N$ 次元実数ベクトルという意味）とし，入力 ${\\bf x}$ に対応した“望ましい出力”である教師ベクトルを ${\\bf t}$ とします．ここで，目的関数には前述の平均二乗誤差関数を用いることとしましょう．\n",
-        "\n",
-        "さて，パラメータをそれぞれ適当な乱数で初期化したあと，入力 ${\\bf x}$ が与えられたときの目的関数の各パラメータについての勾配を計算して，それぞれのパラメータについて更新量を算出してみましょう．\n",
-        "\n",
-        "まず，目的関数を改めてベクトル表記を用いて書き下すと，以下のようになります．\n",
-        "\n",
-        "$$\n",
-        "\\mathcal{L}({\\bf y}, {\\bf t}) = \\frac{1}{N} || {\\bf t} - {\\bf y} ||_2^2\n",
-        "$$\n",
-        "\n",
-        "$|| {\\bf t} - {\\bf y} ||_2^2$はここでは$({\\bf t} - {\\bf y})^T({\\bf t} - {\\bf y})$と同等の意味となります．さらに，ニューラルネットワーク全体を $f$ と書くことにすると，出力 ${\\bf y}$ は\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "{\\bf y} &= f({\\bf x}; \\boldsymbol{\\Theta}) \\\\\n",
-        "&= a_2 ( {\\bf w}_2 a_1({\\bf w}_1 {\\bf x} + {\\bf b}_1) + {\\bf b}_2 )\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "と書くことができます．ここで，$a_1, a_2$ はそれぞれ，1層目と2層目の，および2層目と3層目の間で線形変換のあとに施される非線形変換（活性化関数）を意味しています．以下，簡単のために，各層間で行われた線形変換の結果を ${\\bf u}_1, {\\bf u}_2$とし，中間層の値，すなわち ${\\bf u}_1$ に活性化関数を適用した結果を ${\\bf h}_1$ と書きます．ただし，${\\bf u}_2$ に活性化関数を適用した結果は ${\\bf y}$ と表記します．すると，これらの関係は以下のように整理することができます．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "{\\bf y} &= a_2({\\bf u}_2) \\\\\n",
-        "{\\bf u}_2 &= {\\bf w}_2 {\\bf h}_1 + {\\bf b}_2 \\\\\n",
-        "{\\bf h}_1 &= a_1({\\bf u}_1) \\\\\n",
-        "{\\bf u}_1 &= {\\bf w}_1 {\\bf x} + {\\bf b}_1\n",
-        "\\end{aligned}\n",
-        "$$"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "k1L6xptUs3l4",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "#### パラメータ ${\\bf w}_2$ の更新量\n",
-        "\n",
-        "それではまず，出力層に近い方のパラメータ，${\\bf w}_2$ についての $\\mathcal{L}$ の勾配を求めてみましょう．これは，合成関数の偏微分なので，連鎖律（chain rule）を用いて以下のように展開できます．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_2}\n",
-        "&= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf w}_2} \\\\\n",
-        "&= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2} \\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_2}\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "この3つの偏微分はそれぞれ，\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
-        "&= -\\frac{2}{N} ({\\bf t} - {\\bf y}) \\\\\n",
-        "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
-        "&= \\frac{\\partial a_2}{\\partial {\\bf u}_2} \\\\\n",
-        "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_2} \n",
-        "&= {\\bf h}_1\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "と求まります．ここで，活性化関数の入力に関する出力の勾配\n",
-        "\n",
-        "$$\n",
-        "\\frac{\\partial a_2}{\\partial {\\bf u}_2}\n",
-        "$$\n",
-        "\n",
-        "が登場しました．これは，例えば活性化関数にシグモイド関数を用いる場合は，\n",
-        "\n",
-        "$$\n",
-        "a_2({\\bf u}_2) = \\frac{1}{1 + \\exp(-{\\bf u}_2)}\n",
-        "$$\n",
-        "\n",
-        "の微分ですから，すなわち\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "\\frac{\\partial a_2({\\bf u}_2)}{\\partial {\\bf u}_2}\n",
-        "&= -\\frac{-(\\exp(-{\\bf u}_2))}{(1 + \\exp(-{\\bf u}_2))^2} \\\\\n",
-        "&= \\frac{1}{1 + \\exp(-{\\bf u}_2)} \\cdot \\frac{\\exp(-{\\bf u}_2)}{1 + \\exp(-{\\bf u}_2)} \\\\\n",
-        "&= \\frac{1}{1 + \\exp(-{\\bf u}_2)} \\cdot \\frac{1 + \\exp(-{\\bf u}_2) - 1}{1 + \\exp(-{\\bf u}_2)} \\\\\n",
-        "&= \\frac{1}{1 + \\exp(-{\\bf u}_2)} (1 - \\frac{1}{1 + \\exp(-{\\bf u}_2)}) \\\\\n",
-        "&= a_2({\\bf u}_2)(1 - a_2({\\bf u}_2))\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "となります．シグモイド関数の勾配は，このようにシグモイド関数の出力値を使って簡単に計算することができます．\n",
-        "\n",
-        "これで ${\\bf w}_2$ の勾配を計算するのに必要な値は全て出揃いました．では実際にNumPyを使ってこれらを計算してみましょう．ここでは簡単のために，バイアスベクトルはすべて0で初期化されているとします．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "fD0MA510V1f-",
-        "colab_type": "code",
-        "colab": {}
-      },
-      "cell_type": "code",
-      "source": [
-        "import numpy as np\n",
-        "\n",
-        "# 入力\n",
-        "x = np.array([2, 3, 1])\n",
-        "\n",
-        "# 正解\n",
-        "t = np.array([20])"
-      ],
-      "execution_count": 0,
-      "outputs": []
-    },
-    {
-      "metadata": {
-        "id": "VOznWs5PV3pQ",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "まず，NumPyモジュールを読み込んでから，入力の配列を定義します．ここでは，上図と同じになるように `2, 3, 1` の3つの値を持つ3次元ベクトルを定義しています．また，正解として仮に `20` を与えることにしました．次に，パラメータを定義します．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "cBuj19ptXu1f",
-        "colab_type": "code",
-        "colab": {}
-      },
-      "cell_type": "code",
-      "source": [
-        "# 1-2層間のパラメータ\n",
-        "w1 = np.array([[3, 1, 2], [-2, -3, -1]])\n",
-        "b1 = np.array([0, 0])\n",
-        "\n",
-        "# 2-3層間のパラメータ\n",
-        "w2 = np.array([[3, 2]])\n",
-        "b2 = np.array([0])"
-      ],
-      "execution_count": 0,
-      "outputs": []
-    },
-    {
-      "metadata": {
-        "id": "2xT4AnmBXwIb",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "ここでは，以下の4つのパラメータを定義しました．\n",
-        "\n",
-        "**1層目と2層目の間の線形変換のパラメータ**\n",
-        "\n",
-        "${\\bf w}_1 \\in \\mathbb{R}^{2 \\times 3}$ : 3次元ベクトルを2次元ベクトルに変換する行列\n",
-        "\n",
-        "${\\bf b}_1 \\in \\mathbb{R}^2$ : 2次元バイアスベクトル\n",
-        "\n",
-        "**2層目と3層目の間の線形変換のパラメータ**\n",
-        "\n",
-        "${\\bf w}_2 \\in \\mathbb{R}^{1 \\times 2}$ : 2次元ベクトルを1次元ベクトルに変換する行列\n",
-        "\n",
-        "${\\bf b}_2 \\in \\mathbb{R}^1$ : 1次元バイアスベクトル\n",
-        "\n",
-        "それでは，各層の計算を実際に実行してみましょう．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "d-ELmfkiKQfd",
-        "colab_type": "code",
-        "outputId": "ef26b9e1-ecac-4e5c-f69b-d7443a2338ea",
-        "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 34
-        }
-      },
-      "cell_type": "code",
-      "source": [
-        "# 中間層の計算\n",
-        "u1 = w1.dot(x) + b1\n",
-        "h1 = 1. / (1 + np.exp(-u1))\n",
-        "\n",
-        "# 出力の計算\n",
-        "u2 = w2.dot(h1) + b2\n",
-        "y = 1. / (1 + np.exp(-u2))\n",
-        "\n",
-        "print(y)"
-      ],
-      "execution_count": 0,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "text": [
-            "[0.95257194]\n"
-          ],
-          "name": "stdout"
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "id": "8t-YjO8BZ6kU",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "出力は $0.95257194$ と求まりました．つまり，$f([2, 3, 1]^T) = 0.95257194$ ということになります．次に，上で求めた\n",
-        "\n",
-        "$$\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_2}\n",
-        "= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2} \\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_2}\n",
-        "$$\n",
-        "\n",
-        "の右辺の3つの偏微分をそれぞれ計算してみましょう．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "8RkBjaaaZ7U8",
-        "colab_type": "code",
-        "colab": {}
-      },
-      "cell_type": "code",
-      "source": [
-        "# dL / dy\n",
-        "g_Ly = -2 / 1 * (t - y)\n",
-        "\n",
-        "# dy / du_2\n",
-        "g_yu2 = y * (1 - y)\n",
-        "\n",
-        "# du_2 / dw_2\n",
-        "g_u2w2 = h1"
-      ],
-      "execution_count": 0,
-      "outputs": []
-    },
-    {
-      "metadata": {
-        "id": "uPmRfu3_aXJG",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "これらを掛け合わせれば，求めたかったパラメータ ${\\bf w}_2$ についての勾配を得ることができます．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "ZrKfXtzfaWk4",
-        "colab_type": "code",
-        "outputId": "cc2060bc-b039-465c-b156-cb4b45264c5a",
-        "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 34
-        }
-      },
-      "cell_type": "code",
-      "source": [
-        "# dL / dw_2: 求めたい勾配\n",
-        "g_Lw2 = g_Ly * g_yu2 * g_u2w2\n",
-        "\n",
-        "print(g_Lw2)"
-      ],
-      "execution_count": 0,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "text": [
-            "[-1.72104507e+00 -1.43112111e-06]\n"
-          ],
-          "name": "stdout"
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "id": "XN293R5NU1zP",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "勾配が求まりました．これが $\\partial \\mathcal{L} / \\partial {\\bf w}_2$ の値です．これを学習率でスケールさせたものを使えば，パラメータ ${\\bf w}_2$ を更新することができます．更新式は，具体的には以下のようになります．\n",
-        "\n",
-        "$$\n",
-        "{\\bf w}_2 \\leftarrow {\\bf w}_2 - \\eta \\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_2}\n",
-        "$$\n",
-        "\n",
-        "ここでは学習率を $\\eta$ で表記しました．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "HLAwYypPshj8",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "#### 学習率（learning rate）について\n",
-        "\n",
-        "学習率が大きすぎると，繰り返しパラメータ更新を行っていく中で目的関数の値が振動したり，発散したりしてしまいます．小さすぎると，収束に時間がかかってしまいます．そのため，この学習率を適切に決定することがニューラルネットワークの学習においては非常に重要となります．多くの場合，学習がきちんと進むもっとも大きな値を経験的に探すということが行われます．シンプルな画像認識のタスクなどでは大抵，0.1~0.01などが最初に用いられる場合が比較的多く見られます．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "SC0RoRpucZh9",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "#### パラメータ ${\\bf w}_1$ の更新量\n",
-        "\n",
-        "次に，${\\bf w}_1$ の更新量も求めてみましょう．そのためには，${\\bf w}_1$ で目的関数 $\\mathcal{L}$ を偏微分した値が必要です．これは以下のように計算できます．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_1}\n",
-        "&= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf w}_1} \\\\\n",
-        "&=\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
-        "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
-        "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_1} \\\\\n",
-        "&=\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
-        "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
-        "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf h}_1}\n",
-        "\\frac{\\partial {\\bf h}_1}{\\partial {\\bf w}_1} \\\\\n",
-        "&=\n",
-        "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
-        "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
-        "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf h}_1}\n",
-        "\\frac{\\partial {\\bf h}_1}{\\partial {\\bf u}_1}\n",
-        "\\frac{\\partial {\\bf u}_1}{\\partial {\\bf w}_1}\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "この5つの偏微分のうち初めの1つはすでに求めました．残りの3つは，それぞれ，\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
-        "&= {\\bf y}(1 - {\\bf y}) \\\\\n",
-        "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf h}_1}\n",
-        "&= {\\bf w}_2 \\\\\n",
-        "\\frac{\\partial {\\bf h}_1}{\\partial {\\bf u}_1}\n",
-        "&= {\\bf h}_1(1 - {\\bf h}_1) \\\\\n",
-        "\\frac{\\partial {\\bf u}_1}{\\partial {\\bf w}_1}\n",
-        "&= {\\bf x}\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "と計算できます．では，さっそく実際にNumPyを用いて計算を実行してみましょう．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "v41tSnDkcbPk",
-        "colab_type": "code",
-        "outputId": "d6075fb2-5da9-4981-f1b7-d65eaf219fbe",
-        "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 51
-        }
-      },
-      "cell_type": "code",
-      "source": [
-        "g_yu2 = y * (1 - y)\n",
-        "g_u2h1 = w2\n",
-        "g_h1u1 = h1 * (1 - h1)\n",
-        "g_u1w1 = x\n",
-        "\n",
-        "# 上から du1 / dw1 の直前までを一旦計算\n",
-        "g_Lu1 = g_Ly * g_yu2 * g_u2h1 * g_h1u1\n",
-        "\n",
-        "# g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形\n",
-        "g_u1w1 = g_u1w1[None]\n",
-        "\n",
-        "# dL / dw_1: 求めたい勾配\n",
-        "g_Lw1 = g_Lu1.T.dot(g_u1w1)\n",
-        "\n",
-        "print(g_Lw1)"
-      ],
-      "execution_count": 0,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "text": [
-            "[[-1.72463398e-04 -2.58695098e-04 -8.62316992e-05]\n",
-            " [-5.72447970e-06 -8.58671954e-06 -2.86223985e-06]]\n"
-          ],
-          "name": "stdout"
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "id": "Al0CmLzTtyvR",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "これが $\\partial \\mathcal{L} / \\partial {\\bf w}_1$ の値です．これを用いて，${\\bf w}_2$ と同様に以下のような更新式でパラメータ ${\\bf w}_1$ の更新をすることができます．\n",
-        "\n",
-        "$$\n",
-        "{\\bf w}_1 \\leftarrow {\\bf w}_1 - \\eta \\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_1}\n",
-        "$$"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "zIv_rP32uH1y",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## 誤差逆伝播法（バックプロパゲーション）\n",
-        "\n",
-        "ここまでで，各パラメータについての目的関数の導関数を手計算により導出して実際に勾配の数値計算を行うということを体験しました．では，もっと層数の多いニューラルネットワークの場合は，どうなるでしょうか．同様に手計算によって導関数を求めることももちろん可能ですが，ニューラルネットワークが微分可能な関数を繰り返し適用するものであるという性質を用いると，コンピュータによって自動的に勾配を与える関数を導き出すことが可能です．合成関数の偏微分は，連鎖律によって複数の偏微分の積の形に変形できたことを思い出しましょう．\n",
-        "\n",
-        "下図は，ここまでの説明で用いていた3層の全結合型ニューラルネットワークの出力を得るための計算と，その値を使って目的関数の値を計算する過程を青い矢印で，そして前節で手計算によって行った各パラメータによる目的関数の偏微分を計算する過程を赤い矢印で表現した動画となっています．\n",
-        "\n",
-        "\n",
-        "![誤差逆伝播法(Backpropagation)の計算過程](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/backpropagation.gif)"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "R8YaTki1Dhhx",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "まず，目的関数の出力を $l = \\mathcal{L}({\\bf y}, {\\bf t})$ とします．この図の丸いノードは変数を表し，四角いノードは関数を表しています．今，一つの巨大な合成関数として見ることができるニューラルネットワーク全体を $f$ と表し，その中で各層間の線形変換に用いられる関数を $f_1$, $f_2$，非線形変換をそれぞれ $a_1$, $a_2$ と表します．このとき，前節で行った更新量の算出はどのように捉えることができるでしょうか．\n",
-        "\n",
-        "今，上図の青い矢印で表されるように，新しい入力 ${\\bf x}$ がニューラルネットワークに与えられ，それが順々に出力側に伝わっていき，最終的に目的関数の値 $l$ まで計算が終わったとします．ここまでを **順伝播（forward propagation）** といいます．\n",
-        "\n",
-        "すると次は，目的関数の出力の値を小さくするような各パラメータの更新量を求めたいということになりますが，このために必要な目的関数の勾配は，各パラメータの丸いノードより先の部分（出力側）にある関数の勾配だけで計算できることが分かります．具体的には，それらを全て掛け合わせたものになっています．つまり，上図の赤い矢印で表されるように，出力側から入力側に向かって，**順伝播とは逆向きに**，各関数における入力についての勾配を求めて掛け合わせていけば，パラメータについての目的関数の勾配が計算できるわけです．\n",
-        "\n",
-        "このように，微分の連鎖律の仕組みを用いて，ニューラルネットワークを構成する関数が持つパラメータについての目的関数の勾配を，**順伝播で通った経路を逆向きにたどるようにして**途中の関数の勾配の掛け算によって求めるアルゴリズムを **誤差逆伝播法（backpropagation）** と呼びます．\n"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "uHGp6qIBcKOI",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## 勾配消失\n",
-        "\n",
-        "活性化関数について初めに触れた際，シグモイド関数には勾配消失という現象が起きやすくなるという問題があり，現在はあまり使われていないと説明をしました．その理由についてもう少し詳しく見ていきましょう．\n",
-        "\n",
-        "上で既に計算した，シグモイド関数の導関数を思い出してみます．\n",
-        "\n",
-        "$$\n",
-        "\\begin{aligned}\n",
-        "f\\left( u\\right) &=\\dfrac {1}{1+e^{-u}} \\\\\n",
-        "f'\\left( u\\right) &= f\\left( u\\right) \\left( 1-f\\left( u\\right) \\right)\n",
-        "\\end{aligned}\n",
-        "$$\n",
-        "\n",
-        "さて，この導関数の値を入力変数に関してプロットしてみると，下記のようになります．\n",
-        "\n",
-        "![シグモイド関数の導関数](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/09.png)\n",
-        "\n",
-        "この図の上2つは，導関数を構成する2つの部分 $f(u)$ と $1 - f(u)$ の値を別々にプロットしたもので，中央下の図が実際の導関数の値となります．上図中央下の導関数の形を見ると，入力が原点から遠くなるにつれ勾配の値がどんどん減少し，0に漸近していくことが見て取れます．\n",
-        "\n",
-        "各パラメータの更新量を求めるには，前節で説明したように，**そのパラメータよりも先のすべての関数の勾配を掛け合わせる**必要がありました．このとき，活性化関数にシグモイド関数を用いていると，勾配は必ず**最大でも0.25**という値にしかなりません．すると，線形変換が計算グラフ中に現れるたびに，目的関数の勾配は，多くとも0.25倍されてしまいます．これは，層数が増えていけばいくほど，この最大でも0.25という値が繰り返し掛け合わされることになるため，入力に近い層に流れていく勾配がどんどん0に近づいていってしまいます．\n",
-        "\n",
-        "具体例を見てみましょう．今回は3層のニューラルネットワークを用いて説明を行っていましたが，4層の場合を考えてみます，すると，一番入力に近い線形変換のパラメータの勾配は，多くとも目的関数の勾配を $0.25 \\times 0.25 = 0.0625$ 倍したものということになります．層数が一つ増えるたびに，指数的に勾配が小さくなるということがよく分かります．\n",
-        "\n",
-        "ディープラーニングでは，4層よりもさらに多くの層を積み重ねたニューラルネットワークが用いられます．そうすると，活性化関数としてシグモイド関数を使用した場合，**目的関数の勾配が入力に近い関数が持つパラメータへほぼ全く伝わらなくなってしまいます**，あまりにも小さな勾配しか伝わってこなくなると，パラメータの更新量がほとんど0になるため，どんなに目的関数が大きな値になっていても，入力層に近い関数が持つパラメータは変化しなくなります．つまり初期化時からほとんど値が変わらなくなるということになり，学習が行われていないという状態になるわけです．これを **勾配消失（vanishing gradient）** と呼び，長らく深い（十数層を超える）ニューラルネットワークの学習が困難であった一つの要因でした．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "IRvZlChZ9Qna",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## 「レイヤ」が指すもの\n",
-        "\n",
-        "ここまでの解説では，前々節の誤差逆伝播法の説明に登場した図のようなグラフにおける丸いノード（中間出力などの値）の数を指して○層（○-layer）のニューラルネットワーク，という言い方をしてきました．しかし，このグラフにおける四角いノード（関数）を指して層（layer）と呼ぶ場合もあります．そしてニューラルネットワークの実装に使われるフレームワークでは，多くの場合，層タイプ（layer type）として様々な関数がまとめられています．そこで，以下ではこの関数に対して「層」もしくは「レイヤ」という言葉を用いることに注意してください．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "7dD2mgCOTvdW",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "## 様々なレイヤタイプ\n",
-        "\n",
-        "ここまでで，ニューラルネットワークには大別して線形変換を行う関数と非線形変換を行う関数という二種類の関数が含まれることを説明し，線形変換の例として **全結合層（fully-connected layer）** のみを用いてきました．\n",
-        "\n",
-        "しかし，ニューラルネットワークの構成要素として用いることができるレイヤは，全結合層と活性化関数だけではありません．画像認識や画像生成，画像の変換や超解像（低解像の画像から解像度を高めた画像を作る技術）など，様々なタスクで入力に画像というデータ形式が用いられますが，こういったタスクではしばしば画像というデータ形式の特徴と相性の良い変換である畳み込み層（convolution layer）というものが全結合層の代わりにニューラルネットワークの中で線形変換を担います．\n",
-        "\n",
-        "また，ニューラルネットワークの構成要素となるレイヤには，微分可能な関数であればなんであろうと用いることができます．そこで，いわゆる **畳み込みニューラルネットワーク（convolutional neural networks; CNN）** と呼ばれるネットワークアーキテクチャの種別では，この畳込み層に加えてプーリング層（pooling layer）というレイヤがしばしば用いられてきました．\n",
-        "\n",
-        "本節では，このCNNでしばしば用いられる畳み込み層とプーリング層について，その計算の概要を説明します．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "w-3rsIzXpCBo",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### 畳み込み層（convolution layer）\n",
-        "\n",
-        "全結合層では，出力の計算のためにパラメータ行列${\\bf W}$中の一つ一つの値が入力データの持つ全ての要素（ベクトルであれば，全次元の値）と掛け合わされていました．言い換えると，「結合」を何らかの演算が行われる関係を指すものとすれば，パラメータ行列${\\bf W}$の$i, j$要素である$W_{ij}$と，入力データ${\\bf x}$の全要素の間が，全結合（fully-connected）していたということです．\n",
-        "\n",
-        "一方，畳み込み層では，ここまでで説明した全結合層とは異なり，パラメータと入力データの間の結合が局所的になっており，各々のパラメータは入力データの全ての要素と結合しているとは限りません．具体的には，2次元畳み込み層の場合，パラメータはカーネル（もしくはフィルタ）と呼ばれる小さな画像パッチのようなものの集合として用意され，そのパッチごとに入力データの一部の値との間の演算が行われる形になっています．\n",
-        "\n",
-        "下の図を用いて，$3 \\times 3$の大きさの小さな画像パッチのような畳み込みカーネルを2つ持つ畳み込み層の実際の計算過程を調べてみましょう．\n",
-        "\n",
-        "![畳み込み層の計算過程](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/convolution.gif)\n",
-        "\n",
-        "（図は[CS231n Convolutional Neural Networks for Visual Recognition\n",
-        "](http://cs231n.github.io/convolutional-networks/)より引用）\n",
-        "\n",
-        "一番左の青いブロックが並ぶ列は，入力画像を表しています．入力は 幅・高さが$5 \\times 5$ の大きさの3チャンネル画像です．上図ではまず，パディング（padding）と呼ばれる処理をして，入力画像の周囲に値が0となる領域を付け足しています．今回は幅1の領域をパディングしています．\n",
-        "\n",
-        "中央2列は，それぞれ1列ごとに1つの畳み込みカーネルを表しています．1つの畳み込みカーネルは，入力の画像（もしくは特徴マップ（feature map）と呼ばれる一つ前の層の出力）が持つのと同数のチャンネルを持ちます．ここでは入力画像は3チャンネルだったので，各カーネルは3チャンネル分の値を持っています．これが縦に並んだ3つの赤い$3 \\times 3$の大きさのブロックで表されています．各カーネルの各チャンネルは，対応する入力のチャンネルに対して自らをスライドさせていくような形で計算を行います．このときのスライド幅をストライド（stride）と呼びます．図では，2個飛びに入力画像上を$3 \\times 3$の枠が移動しているようすが見て取れます．すなわち，ストライドは2に設定されています．ここで行われる計算は，入力のある位置にカーネルを重ね合わせた際に，重なっている$3 \\times 3 = 9$個の要素を互いに掛け合わせて，結果を全て足すという計算です．上の図では，例えば1つ目のカーネル（W0）の1つ目のチャンネルは，\n",
-        "\n",
-        "$$\n",
-        "\\left[\n",
-        "\\begin{matrix}\n",
-        "1 & 1 & -1 \\\\\n",
-        "0 & -1 & 0 \\\\\n",
-        "1 & -1 & -1\n",
-        "\\end{matrix}\n",
-        "\\right]\n",
-        "$$\n",
-        "\n",
-        "という値をもっており，それに対応する入力画像の1チャンネル目の左上から$3 \\times 3$の小領域には\n",
-        "\n",
-        "$$\n",
-        "\\left[\n",
-        "\\begin{matrix}\n",
-        "0 & 0 & 0 \\\\\n",
-        "0 & 0 & 1 \\\\\n",
-        "0 & 2 & 0\n",
-        "\\end{matrix}\n",
-        "\\right]\n",
-        "$$\n",
-        "\n",
-        "\n",
-        "という値が並んでいます．そのため，それぞれ重なりあっている値同士を掛け合わせると，\n",
-        "\n",
-        "$$\n",
-        "\\left[\n",
-        "\\begin{matrix}\n",
-        "0 & 0 & 0 \\\\\n",
-        "0 & 0 & 0 \\\\\n",
-        "0 & -2 & 0\n",
-        "\\end{matrix}\n",
-        "\\right]\n",
-        "$$\n",
-        "\n",
-        "となることが分かります．この9つの値を全て足したものが，まずこのカーネルの1つ目のチャンネルの1つ目の計算結果となります．計算すると，結果は-2です．これを2チャンネル目，3チャンネル目の値でも同様に行うと，2チャンネル目は0，3チャンネル目は1という計算結果になります．そして，最後にこの全てのチャンネルの結果を足し合わせます．その結果は-1となります．これにカーネルごとに用意されるバイアスの値（上図では1つ目のカーネルのバイアスは1）を足したものが，このカーネルの入力の左上隅の領域に対する出力結果となります．結果は，0です．一番右の列の緑色のブロックはこの畳込み層の出力値を表しており，1つ目のブロックの左上のマスを見ると，確かに0となっていることが分かります．\n",
-        "\n",
-        "同様に，他のマスの値もいくつか自分で計算してみてください．\n",
-        "\n",
-        "このレイヤの微分を考えるようとすると一見複雑に感じられますが，個別のパラメータ値を使って行われる演算は **重みを掛けてバイアスを足す** だけであるため，原理的にはシンプルな線形変換のみで構成されていることからこの変換をパラメータおよび入力について微分することは可能であることが分かります．実際，カーネルサイズが $1 \\times 1$ のカーネルを用いた畳み込み演算は各入力次元に同一の重み行列を用いた線形変換を施すのと同等です．たとえば，入力の幅と高さが $W \\times H$ で3チャンネルの場合，カーネルサイズが $1 \\times 1$ の畳み込み層のカーネルは $1 \\times 1 \\times 3$ のテンソル，バイアスは1次元のスカラーとなり，$W \\times H$ 個の全ての入力次元にこのテンソルとスカラーによる線形変換を施します．\n",
-        "\n",
-        "このように，畳み込み層はカーネルを様々に定義することで多様なデータ形式を扱うことができます．1次元のカーネルを使うと1次元の系列データなどにも適用でき，3次元のカーネルを用いれば動画やボクセルのようなデータにも適用できます．"
-      ]
-    },
-    {
-      "metadata": {
-        "id": "SUEmd9pOKe2D",
-        "colab_type": "text"
-      },
-      "cell_type": "markdown",
-      "source": [
-        "### プーリング層（pooling layer）\n",
-        "\n",
-        "プーリングは，主に特徴マップに対して行われる操作で，特徴マップの空間方向の次元（spatial dimension，入力画像における幅・高さに対応する次元）の大きさを削減し計算量を抑えたり，微小な平行移動について出力を不変とすることで画像認識タスクなどにおけるロバスト性の向上のためなどに用いられます．\n",
-        "\n",
-        "プーリングの計算方法は畳み込みと似ています．ただしパラメータはなく，畳み込みカーネルを用いて行われた計算の部分が，対応する入力の部分領域に対する平均の計算や最大値計算などに置き換えられたものです．部分領域ごとの平均値を計算していくプーリングを平均値プーリング（average pooling），最大値を計算するプーリングを最大値プーリング（max pooling）と呼びます．\n",
-        "\n",
-        "以下の図のうち左側の部分では，プーリング層を用いたダウンサンプリング（解像度を下げること）を $224 \\times 224$ サイズの，$64$ チャンネルの特徴マップに適用し，縦横半分の大きさ （$112 \\times 112$サイズ）の特徴マップにしています．このとき，チャンネル数（depthとも呼ばれる）は維持されています．\n",
-        "\n",
-        "この図のうち右側の部分は，左側の直方体の64チャンネルのうちの一つ，濃い色になっているチャンネルの $4 \\times 4$ の部分領域を抜き出してきて模式的に表したものに，$2 \\times 2$ 領域ごとに最大値を計算しその領域の代表値とする最大値プーリングを領域を2つ飛びで（ストライド2で）ずらしながら行った際の結果を表しています．\n",
-        "\n",
-        "![プーリング層の計算過程](https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/3/pooling.png)\n",
-        "\n",
-        "（図は[CS231n Convolutional Neural Networks for Visual Recognition\n",
-        "](http://cs231n.github.io/convolutional-networks/)より引用）\n",
-        "\n"
-      ]
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0.95257194]\n"
+     ]
     }
-  ]
+   ],
+   "source": [
+    "# 中間層の計算\n",
+    "u1 = w1.dot(x) + b1\n",
+    "h1 = 1. / (1 + np.exp(-u1))\n",
+    "\n",
+    "# 出力の計算\n",
+    "u2 = w2.dot(h1) + b2\n",
+    "y = 1. / (1 + np.exp(-u2))\n",
+    "\n",
+    "print(y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "8t-YjO8BZ6kU"
+   },
+   "source": [
+    "The output is 0.95257194I asked for it. In other words,$f([2, 3, 1]^T) = 0.95257194$ will be said. Next, I asked for it\n",
+    "\n",
+    "$$\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_2}\n",
+    "= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2} \\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_2}\n",
+    "$$\n",
+    "\n",
+    "Let's calculate each of the three partial derivatives on the right side of.．"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 0,
+   "metadata": {
+    "colab": {},
+    "colab_type": "code",
+    "id": "8RkBjaaaZ7U8"
+   },
+   "outputs": [],
+   "source": [
+    "# dL / dy\n",
+    "g_Ly = -2 / 1 * (t - y)\n",
+    "\n",
+    "# dy / du_2\n",
+    "g_yu2 = y * (1 - y)\n",
+    "\n",
+    "# du_2 / dw_2\n",
+    "g_u2w2 = h1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "uPmRfu3_aXJG"
+   },
+   "source": [
+    "If you multiply these, you will find the parameter you wanted ${\\bf w}_2$ You can get the gradient about."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 0,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 34
+    },
+    "colab_type": "code",
+    "id": "ZrKfXtzfaWk4",
+    "outputId": "cc2060bc-b039-465c-b156-cb4b45264c5a"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[-1.72104507e+00 -1.43112111e-06]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# dL / dw_2: 求めたい勾配\n",
+    "g_Lw2 = g_Ly * g_yu2 * g_u2w2\n",
+    "\n",
+    "print(g_Lw2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "XN293R5NU1zP"
+   },
+   "source": [
+    "I got the slope. This is $\\partial \\mathcal{L} / \\partial {\\bf w}_2$ Is the value of If this is scaled by the learning rate, the parameters𝐰2Can be updated. Specifically, the update expression is as follows.\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "{\\bf w}_2 \\leftarrow {\\bf w}_2 - \\eta \\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_2}\n",
+    "$$\n",
+    "\n",
+    "Here is the learning rate $\\eta$ Indicated in."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "HLAwYypPshj8"
+   },
+   "source": [
+    "#### 3.3.1.2. Learning rate for the (Learning Rate) \n",
+    "If the learning rate is too high, the value of the objective function may oscillate or diverge while updating parameters repeatedly. If it is too small, convergence will take time. Therefore, it is very important in neural network learning to determine this learning rate properly. In many cases, empirically searching for the largest value that learning proceeds properly is done. For simple image recognition tasks etc., usually 0.1 to 0.01 etc. are relatively often seen first.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "SC0RoRpucZh9"
+   },
+   "source": [
+    "####  3.3.1.3. Parameters ${\\bf w}_1$ Of the update amount \n",
+    "\n",
+    "next, ${\\bf w}_1$ Let's also calculate the update amount of. for that purpose, ${\\bf w}_1$ Objective function at $\\mathcal{L}$ You need a value that is a partial derivative of. This can be calculated as follows.\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_1}\n",
+    "&= \\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}} \\frac{\\partial {\\bf y}}{\\partial {\\bf w}_1} \\\\\n",
+    "&=\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
+    "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
+    "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf w}_1} \\\\\n",
+    "&=\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
+    "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
+    "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf h}_1}\n",
+    "\\frac{\\partial {\\bf h}_1}{\\partial {\\bf w}_1} \\\\\n",
+    "&=\n",
+    "\\frac{\\partial \\mathcal{L}}{\\partial {\\bf y}}\n",
+    "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
+    "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf h}_1}\n",
+    "\\frac{\\partial {\\bf h}_1}{\\partial {\\bf u}_1}\n",
+    "\\frac{\\partial {\\bf u}_1}{\\partial {\\bf w}_1}\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "The first of these five partial derivatives has already been found. The remaining three are\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "\\frac{\\partial {\\bf y}}{\\partial {\\bf u}_2}\n",
+    "&= {\\bf y}(1 - {\\bf y}) \\\\\n",
+    "\\frac{\\partial {\\bf u}_2}{\\partial {\\bf h}_1}\n",
+    "&= {\\bf w}_2 \\\\\n",
+    "\\frac{\\partial {\\bf h}_1}{\\partial {\\bf u}_1}\n",
+    "&= {\\bf h}_1(1 - {\\bf h}_1) \\\\\n",
+    "\\frac{\\partial {\\bf u}_1}{\\partial {\\bf w}_1}\n",
+    "&= {\\bf x}\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "You can calculate Now, let's actually execute the calculation using NumPy."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 0,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 51
+    },
+    "colab_type": "code",
+    "id": "v41tSnDkcbPk",
+    "outputId": "d6075fb2-5da9-4981-f1b7-d65eaf219fbe"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[-1.72463398e-04 -2.58695098e-04 -8.62316992e-05]\n",
+      " [-5.72447970e-06 -8.58671954e-06 -2.86223985e-06]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "g_yu2 = y * (1 - y)\n",
+    "g_u2h1 = w2\n",
+    "g_h1u1 = h1 * (1 - h1)\n",
+    "g_u1w1 = x\n",
+    "\n",
+    "# 上から du1 / dw1 の直前までを一旦計算\n",
+    "g_Lu1 = g_Ly * g_yu2 * g_u2h1 * g_h1u1\n",
+    "\n",
+    "# g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形\n",
+    "g_u1w1 = g_u1w1[None]\n",
+    "\n",
+    "# dL / dw_1: 求めたい勾配\n",
+    "g_Lw1 = g_Lu1.T.dot(g_u1w1)\n",
+    "\n",
+    "print(g_Lw1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "Al0CmLzTtyvR"
+   },
+   "source": [
+    "This is $\\partial \\mathcal{L} / \\partial {\\bf w}_1$ Is the value of Using this, ${\\bf w}_2$ Update parameters like the following ${\\bf w}_1$  You can update the.\n",
+    "\n",
+    "$$\n",
+    "{\\bf w}_1 \\leftarrow {\\bf w}_1 - \\eta \\frac{\\partial \\mathcal{L}}{\\partial {\\bf w}_1}\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "zIv_rP32uH1y"
+   },
+   "source": [
+    "## 3.4. Back propagation method (back propagation) \n",
+    "Up to this point, I have experienced that the derivative of the objective function for each parameter is derived by hand calculation and the numerical calculation of the gradient is actually performed. So what happens if the neural network has more layers? Similarly, it is of course possible to obtain the derivative by hand calculation, but it is possible to derive a function which gives a gradient automatically by a computer by using the property that a neural network applies a differentiable function repeatedly. is. Recall that partial derivatives of composite functions can be transformed into the product of multiple partial derivatives by the chain law.\n",
+    "\n",
+    "The figure below shows the calculation for obtaining the output of the 3-layer fully connected neural network used in the explanation so far, and the process of calculating the value of the objective function using that value with blue arrows, and the hand in the previous section. It is an animation that expresses the process of calculating the partial derivatives of the objective function by each parameter by the calculation with red arrows.\n",
+    "\n",
+    "![誤差逆伝播法(Backpropagation)の計算過程](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/backpropagation.gif)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "R8YaTki1Dhhx"
+   },
+   "source": [
+    "First, the output of the objective function $l = \\mathcal{L}({\\bf y}, {\\bf t})$  will do. The round nodes in this figure represent variables, and the square nodes represent functions. Now, the whole neural network that can be seen as one huge synthetic function $f$ In which the function used for the linear transformation between each layer is $f_1$, $f_2$, Non-linear transformation 𝑎1, 𝑎2It is expressed as. In this case, how can the calculation of the update amount performed in the previous section be understood?\n",
+    "\n",
+    "Now, as represented by the blue arrow above, a new input  ${\\bf x}$ Is given to the neural network and transmitted to the output side in order, and finally the value of the objective function $l$ Suppose that the calculation is finished. This is called **forward propagation**.\n",
+    "\n",
+    "Then, next, we would like to find the update amount of each parameter that makes the value of the output of the objective function smaller, but the gradient of the objective function necessary for this is the part beyond the round node of each parameter You can see that it can be calculated only by the gradient of the function at (output side). Specifically, they are all multiplied. That is, as shown by the red arrows in the above figure, if the gradient for the input in each function is determined and multiplied in the **opposite direction** to the **forward propagation** from the output side to the input side, The gradient of the objective function can be calculated.\n",
+    "\n",
+    "Thus, by using the mechanism of chain rule of differentiation, the purpose of the gradient of a function, for parameters of the function to configure the neural network **so as to follow a path through in forward propagation in a reverse direction** gradient of the course of function The algorithm obtained by multiplication of is called error backpropagation."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "uHGp6qIBcKOI"
+   },
+   "source": [
+    "## 3.5. Slope \n",
+    "\n",
+    "When I first mentioned the activation function, the sigmoid function has a problem that the phenomenon of gradient disappearance is likely to occur, and explained that it is not used so much at present. Let's look more closely at the reasons.\n",
+    "\n",
+    "Recall the derivative of the sigmoid function that you have already calculated above.\n",
+    "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "f\\left( u\\right) &=\\dfrac {1}{1+e^{-u}} \\\\\n",
+    "f'\\left( u\\right) &= f\\left( u\\right) \\left( 1-f\\left( u\\right) \\right)\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
+    "Now, when plotting the value of this derivative with respect to the input variable, it becomes as follows.\n",
+    "\n",
+    "![シグモイド関数の導関数](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/09.png)\n",
+    "\n",
+    "\n",
+    "The top two in this figure are the two parts that make up the derivative $f(u)$ When $1 - f(u)$ Plotted separately for the values of, the lower middle figure is the actual derivative value. If you look at the shape of the derivative in the lower center of the upper figure, you can see that the value of the gradient decreases gradually as the input goes away from the origin and asymptotically approaches 0.\n",
+    "\n",
+    "In order to obtain the update amount of each parameter, it was necessary **to multiply the gradients of all functions ahead of that parameter** , as described in the previous section . At this time, if a sigmoid function is used for the activation function, the gradient must have a value of **at most 0.25** at most. Then, each time a linear transformation appears in the computation graph, the slope of the objective function is multiplied by at most 0.25. This is because as the number of layers increases, the maximum value of 0.25 is repeatedly multiplied, so the gradient flowing to the layer closer to the input approaches 0 more and more.\n",
+    "\n",
+    "Let's look at a concrete example. This time, the explanation was made using a three-layer neural network, but let's consider the case of four layers. Then, the gradient of the parameter of the linear transformation closest to the input is at most the gradient of the objective function. $0.25 \\times 0.25 = 0.0625$ It will be doubled. It is clear that the slope decreases exponentially as the number of layers increases.\n",
+    "\n",
+    "In deep learning, a neural network is used in which more than four layers are stacked. Then, when the sigmoid function is used as the **activation function, the gradient of the objective function is almost completely not transmitted to the parameters of the function close to the input, and when** only a very small gradient is transmitted, the parameter update amount is almost Because it is 0, the parameters of functions close to the input layer will not change no matter how large the objective function is. In other words, the value hardly changes from the time of initialization, which means that learning is not being performed. This **gradient loss (vanishing gradient** is referred to as, was a long deep (more than a dozen layers) one of the factors learning is difficult in the neural network.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "IRvZlChZ9Qna"
+   },
+   "source": [
+    "## 3.6. What \"layer\" points \n",
+    "In the explanation up to this point, the number of round nodes (values such as intermediate output) in the graph as shown in the explanation of the error back propagation method of the last two clauses indicates the neural network of ○ layer (○ -layer), It has been said that. However, in some cases, the square nodes (functions) in this graph are referred to as layers. And in frameworks used to implement neural networks, various functions are often organized as layer types. So, be careful to use the words \"layer\" or \"layer\" for this function below."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "7dD2mgCOTvdW"
+   },
+   "source": [
+    "## 3.7. Various layer \n",
+    "\n",
+    "Up to this point, it is explained that the neural network includes two kinds of functions, roughly divided into a function that performs linear transformation and a function that performs nonlinear transformation, and as a linear transformation example, only **fully-connected layer** I used it.\n",
+    "\n",
+    "However, layers that can be used as components of neural networks are not limited to all connection layers and activation functions. There are various tasks such as image recognition, image generation, image conversion, super-resolution (a technique for creating an image with high resolution from low-resolution images), and so on. In the task, the convolution layer, which is often a transformation that is compatible with the characteristics of the data format of the image, carries a linear transformation in the neural network instead of the full connection layer.\n",
+    "\n",
+    "Also, layers that are components of neural networks can be used with any differentiable function. Therefore, in addition to this convolutional layer, a layer called a pooling layer has often been used in a type of network architecture called so-called **convolutional neural networks (CNN)** .\n",
+    "\n",
+    "This section outlines the calculations for the convolution and pooling layers often used in this CNN."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "w-3rsIzXpCBo"
+   },
+   "source": [
+    "### 3.7.1. Convolution layer \n",
+    "\n",
+    "In the total connection layer, the parameter matrix for calculating the output ${\\bf W}$ Every single value in the input data was multiplied by all elements of the input data (if it is a vector, it is the value of all dimensions). In other words, if \"join\" refers to a relation in which some operation is performed, the parameter matrix ${\\bf W}$ of $i, j$ Is an element $W_{ij}$  And the input data ${\\bf x}$ It means that all elements of were completely connected (fully connected).\n",
+    "\n",
+    "On the other hand, in the convolutional layer, unlike in the all coupling layer described above, the coupling between parameters and input data is local, and each parameter is coupled to all elements of the input data. There is no limit. Specifically, in the case of a two-dimensional convolutional layer, the parameters are prepared as a set of small image patches or the like called kernels (or filters), and for each patch, an operation between part of the input data and It is in the form of being done.\n",
+    "\n",
+    "Using the figure below, $3 \\times 3$ Let's examine the actual calculation process of a convolution layer with two convolution kernels such as small image patches of size.\n",
+    "\n",
+    "![畳み込み層の計算過程](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/convolution.gif)\n",
+    "\n",
+    "（Figure is taken from [CS231n Convolutional Neural Networks for Visual Recognition\n",
+    "](http://cs231n.github.io/convolutional-networks/)）\n",
+    "\n",
+    "\n",
+    "The leftmost row of blue blocks represents the input image. Input width and height $5 \\times 5$ It is a 3-channel image of the size of. In the figure above, first, processing called padding is performed to add an area with a value of 0 around the input image. This time we pad the area of width 1.\n",
+    "\n",
+    "The middle two columns each represent one convolution kernel per column. One convolution kernel has as many channels as the input image (or the output of the previous layer called feature map) has. Since the input image is 3 channels here, each kernel has a value for 3 channels. Three reds, which are arranged vertically $3 \\times 3$It is represented by a block of size. Each channel in each kernel performs calculations in a manner that slides itself to the corresponding input channel. The slide width at this time is called stride. In the figure, the input image is $3 \\times 3$ You can see how the frame of has moved. That is, the stride is set to 2. The calculations performed here are overlapping when the kernel is superimposed at a certain position of the input $3 \\times 3 = 9$ It is a calculation of multiplying the elements by each other and adding all the results. In the figure above, for example, the first channel of the first kernel (W0) is\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\left[\n",
+    "\\begin{matrix}\n",
+    "1 & 1 & -1 \\\\\n",
+    "0 & -1 & 0 \\\\\n",
+    "1 & -1 & -1\n",
+    "\\end{matrix}\n",
+    "\\right]\n",
+    "$$\n",
+    "\n",
+    "From the top left of the first channel of the corresponding input image $3 \\times 3$ In the small area of\n",
+    "\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\left[\n",
+    "\\begin{matrix}\n",
+    "0 & 0 & 0 \\\\\n",
+    "0 & 0 & 1 \\\\\n",
+    "0 & 2 & 0\n",
+    "\\end{matrix}\n",
+    "\\right]\n",
+    "$$\n",
+    "\n",
+    "The values are listed. Therefore, when the overlapping values are multiplied,，\n",
+    "\n",
+    "$$\n",
+    "\\left[\n",
+    "\\begin{matrix}\n",
+    "0 & 0 & 0 \\\\\n",
+    "0 & 0 & 0 \\\\\n",
+    "0 & -2 & 0\n",
+    "\\end{matrix}\n",
+    "\\right]\n",
+    "$$\n",
+    "\n",
+    "\n",
+    "It turns out that it becomes. The sum of all nine values is the first calculation result of the first channel of this kernel. Calculated, the result is -2. If this is done for the second channel and the third channel in the same way, the second channel will be calculated as 0, and the third channel will be 1. And finally add the results of all the channels. The result is -1. If you add the value of bias prepared for each kernel (the bias of the first kernel is 1 in the above figure), the output result for the upper left corner of the input of this kernel is obtained. The result is 0. The green blocks in the rightmost column represent the output of this convolutional layer, and looking at the top left box of the first block you can see that it is indeed zero.\n",
+    "\n",
+    "Similarly, try calculating some of the other mass values yourself.\n",
+    "\n",
+    "It seems at first glance complicated to think of the derivative of this layer, but since the operations performed using individual parameter values are only weighted and added bias , in principle it is only a simple linear transformation From the construction it can be seen that it is possible to differentiate this transformation with respect to parameters and inputs. In fact, the kernel size is $1 \\times 1$ A convolution operation using a kernel of is equivalent to performing a linear transformation using the same weight matrix for each input dimension. For example, the width and height of the input $W \\times H$ Kernel size for 3 channels $1 \\times 1$ The kernel of the convolutional layer of $1 \\times 1 \\times 3$ Becomes a one-dimensional scalar, $W \\times H$ Apply this tensor and scalar linear transformation to all input dimensions.\n",
+    "\n",
+    "Thus, the convolutional layer can handle various data formats by defining kernels in various ways. A one-dimensional kernel can be applied to one-dimensional series data, etc. A three-dimensional kernel can be applied to data such as video and voxels."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "SUEmd9pOKe2D"
+   },
+   "source": [
+    "### 3.7.2. Pooling layer \n",
+    "\n",
+    "Pooling is an operation mainly performed on the feature map to reduce the size of the spatial dimension of the feature map (spatial dimension, the dimension corresponding to the width and height in the input image), and reduce the amount of calculation, It is used to improve robustness in image recognition tasks etc. by making the output invariant for minute translation.\n",
+    "\n",
+    "The pooling calculation is similar to convolution. However, there is no parameter, and the part of the calculation performed using the convolution kernel has been replaced with the calculation of the average or the maximum value for the corresponding input subregion. The pooling that calculates the average value for each partial area is called average pooling (average pooling), and the pooling that calculates the maximum value is called maximum pooling (max pooling).\n",
+    "\n",
+    "In the left part of the figure below, downsampling (reducing the resolution) using the pooling layer $224 \\times 224$  Of size,$64$ Apply to the channel's feature map, and $112 \\times 112$ Size map). At this time, the number of channels (also called depth) is maintained.\n",
+    "\n",
+    "The right part of this figure is one of the 64 channels on the left side of the rectangular solid, the dark $4 \\times 4$ In the partial representation of the part of $2 \\times 2$ The figure shows the result when the maximum value is calculated for each area and maximum value pooling, which is the representative value of the area, is performed while shifting the area by two (with stride 2).\n",
+    "\n",
+    "![プーリング層の計算過程](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/pooling.png)\n",
+    "\n",
+    "（Figure is taken from [CS231n Convolutional Neural Networks for Visual Recognition\n",
+    "](http://cs231n.github.io/convolutional-networks/)）\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "colab": {
+   "collapsed_sections": [],
+   "name": "Introduction to Neural Network",
+   "provenance": [],
+   "version": "0.3.2"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
 }
