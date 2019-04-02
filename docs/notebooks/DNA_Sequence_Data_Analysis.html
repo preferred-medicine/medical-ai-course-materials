@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7. 7. practical part: sequence analysis using deep learning &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  <title>7. Practical part: sequence analysis using deep learning &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="8. Environment" href="Sequential_Data_Analysis_with_Deep_Learning.html" />
-    <link rel="prev" title="6. 6. Practice section: Detection of cells from microscopic images of" href="Blood_Cell_Detection.html" /> 
+    <link rel="prev" title="6. Practice section: Detection of cells from microscopic images of" href="Blood_Cell_Detection.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,33 +98,31 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. 1. basis of the mathematics required to machine learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 2. Basics of machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. Basis of the mathematics required to machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. Basics of machine learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. 6. Practice section: Detection of cells from microscopic images of</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. 7. practical part: sequence analysis using deep learning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#7.1.-Environment">7.1. 7.1. Environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#7.2.-For-the-sequence-analysis">7.2. 7.2. For the sequence analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#7.3.">7.3. 7.3.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#7.4.-Dilated-Convolution-analysis-using">7.4. 7.4. Dilated Convolution analysis using</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#7.4.1.-Strategy-of-sequence-analysis">7.4.1. 7.4.1. Strategy of sequence analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#7.4.2.-Dilated-Convolution">7.4.2. 7.4.2. Dilated Convolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#7.4.3.">7.4.3. 7.4.3.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Practical part: sequence analysis using deep learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Environment">7.1. Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#For-the-sequence-analysis">7.2. For the sequence analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Dilated-Convolution-analysis-using">7.3. Dilated Convolution analysis using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Strategy-of-sequence-analysis">7.3.1. Strategy of sequence analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Dilated-Convolution">7.3.2. Dilated Convolution</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.2.-Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. 8.2. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.3.-Data-sets">10. 8.3. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.4.-Data-pre-processing">11. 8.4. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.-Series-data-analysis-when-using-the-deep-learning">12. 8.5. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.2.-Evaluation">13. 8.5.2. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.6.-Towards-the-accuracy">14. 8.6. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.7.-Conclusion">15. 8.7. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.8.-References">16. 8.8. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
 </ul>
 
             
@@ -176,7 +174,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>7. 7. practical part: sequence analysis using deep learning</li>
+      <li>7. Practical part: sequence analysis using deep learning</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -418,12 +416,12 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/DNA_Sequence_Data_Analysis.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<div class="section" id="7.-practical-part:-sequence-analysis-using-deep-learning">
-<h1>7. 7. practical part: sequence analysis using deep learning<a class="headerlink" href="#7.-practical-part:-sequence-analysis-using-deep-learning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Practical-part:-sequence-analysis-using-deep-learning">
+<h1>7. Practical part: sequence analysis using deep learning<a class="headerlink" href="#Practical-part:-sequence-analysis-using-deep-learning" title="Permalink to this headline">¶</a></h1>
 <p>In recent years, with the development of the Next Generation Sequencer (NGS), nucleotide sequences of genes have been read at high speed, in large amounts, and at low cost.</p>
 <p>Here we will address the issue of predicting epigenetic effects and transcriptional control from DNA sequences using deep learning. Deep learning can express a complicated model, it can also take into account the effects of long distances and it can be expected to predict with higher accuracy.</p>
-<div class="section" id="7.1.-Environment">
-<h2>7.1. 7.1. Environment<a class="headerlink" href="#7.1.-Environment" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Environment">
+<h2>7.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
 <p>The library used here is</p>
 <ul class="simple">
 <li>Chainer</li>
@@ -492,8 +490,8 @@ matplotlib: 2.1.2
 </pre></div>
 </div>
 </div>
-<div class="section" id="7.2.-For-the-sequence-analysis">
-<h2>7.2. 7.2. For the sequence analysis<a class="headerlink" href="#7.2.-For-the-sequence-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="For-the-sequence-analysis">
+<h2>7.2. For the sequence analysis<a class="headerlink" href="#For-the-sequence-analysis" title="Permalink to this headline">¶</a></h2>
 <p>Along with the development and popularization of next-generation sequencers, a large number of gene sequences have been read. Under such circumstances, GWAS (Genome Wide Association Study; genome wide association study) that estimates the relationship between the genotype expressed in the base sequence and the phenotype such as disease and morphology has been performed, I have learned that mutation alone can not explain all phenotypic changes. In particular, various experimental results have
 shown that untranslated regions influence gene expression and cause phenotypic changes. Various methods have been proposed to investigate how the surrounding area affects gene expression.</p>
 <p><img alt="エピゲノム解析概略図（Encode Projectより引用）" src="https://www.encodeproject.org/images/c45f4d8c-0340-4fcb-abe3-e4ff0bb919be/download/attachment/EncodeDatatypes2013-7.png" /></p>
@@ -504,9 +502,6 @@ region and gives useful insights.</p>
 <p>One of the technical difficulties in dealing with this task with machine learning is a phenomenon called long-distance interaction of DNA base sequence. This is because DNA in the nucleus exists in a complicated folded manner, and as far as the sequence on the base sequence two distant regions are spatially close to each other, and the binding of the transcriptional regulatory factor It may have an impact. Therefore, we constructed an efficient model that enables learning with this long distance
 interaction taken into account, and inputs a DNA base sequence having a length exceeding 100,000 bp (base pair: a unit that counts bases constituting DNA) We will expect to predict if a region in the DNA base sequence can be the binding site for the transcriptional regulatory factor.</p>
 <p>In this case, we input DNA base sequence obtained from dataset of thousands of ChIP-Seq, DNase-seq (one method of comprehensive analysis of open chromatin region) obtained from hundreds of human cell types as input Result of CAGE (Cap Analysis of Gene Expression) Consider the problem of estimating the expression level of mRNA measured [1].</p>
-</div>
-<div class="section" id="7.3.">
-<h2>7.3. 7.3.<a class="headerlink" href="#7.3." title="Permalink to this headline">¶</a></h2>
 <p>Here we use some of the experimental data set used in Basenji [1], which is a data set obtained by performing sequence analysis such as CAGE.</p>
 <p>Please execute the cell below and download the data.</p>
 <p>Each of these arrays consists of 131072 bp in length, and its coverage value is recorded every 128 bp. The array length of this coverage value is 131072/128 = 1024.</p>
@@ -637,10 +632,10 @@ valid_out (500, 1024, 10) float16
 </div>
 </div>
 </div>
-<div class="section" id="7.4.-Dilated-Convolution-analysis-using">
-<h2>7.4. 7.4. Dilated Convolution analysis using<a class="headerlink" href="#7.4.-Dilated-Convolution-analysis-using" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="7.4.1.-Strategy-of-sequence-analysis">
-<h3>7.4.1. 7.4.1. Strategy of sequence analysis<a class="headerlink" href="#7.4.1.-Strategy-of-sequence-analysis" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Dilated-Convolution-analysis-using">
+<h2>7.3. Dilated Convolution analysis using<a class="headerlink" href="#Dilated-Convolution-analysis-using" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Strategy-of-sequence-analysis">
+<h3>7.3.1. Strategy of sequence analysis<a class="headerlink" href="#Strategy-of-sequence-analysis" title="Permalink to this headline">¶</a></h3>
 <p>This time it is a problem that array data is input.</p>
 <p>There are three major strategies to handle array data.</p>
 <p>The first is to discard the sequence information in the array and to consider the array as a set of its features. This is called Bag of Words (BoW) expression. This BoW expression is a powerful technique if enough information is included in the feature, but it is difficult to capture its features only with an array of four kinds of characters such as a DNA sequence or a partial sequence thereof.</p>
@@ -649,8 +644,8 @@ calculation. Another problem is that it is difficult to capture relationships be
 <p>The third method is to analyze array data as one dimensional image and analyze it using CNN as in the case of image processing. Unlike the case of RNN, CNN can process each position independently, so it can process in parallel.</p>
 <p>In this time we will adopt this third strategy, a method to analyze using CNN. In addition, by using Dilated Convolution, processing at each position can directly read information at a long distance. In the next chapter we will look at Dilated Convolution in detail.</p>
 </div>
-<div class="section" id="7.4.2.-Dilated-Convolution">
-<h3>7.4.2. 7.4.2. Dilated Convolution<a class="headerlink" href="#7.4.2.-Dilated-Convolution" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Dilated-Convolution">
+<h3>7.3.2. Dilated Convolution<a class="headerlink" href="#Dilated-Convolution" title="Permalink to this headline">¶</a></h3>
 <p>Consider the case of sequence analysis using the conventional convolutional layer. As shown in the figure below, the input information of a certain position is read only from the adjacent position in each layer. The kernel size determines how much information is acquired from the distance, and if the kernel size is K, the D / K layer is required to acquire the information that is at a distance D from the kernel size. In the case of this problem D is hundreds to tens of thousands and K is the
 value of 3 or 5 so it is not realistic that the number of necessary layers will also be from one hundred to ten thousand.</p>
 <p><img alt="従来の畳み込み層の計算イメージ" src="http://musyoku.github.io/images/post/2016-09-17/naive_conv.png" /></p>
@@ -659,9 +654,6 @@ value of 3 or 5 so it is not realistic that the number of necessary layers will 
 <p>In this time, I will create a model that can consider information in long distance by using this Dilated Convolution.</p>
 <p><img alt="Dilated Convolutionの計算イメージ" src="https://storage.googleapis.com/deepmind-live-cms/documents/BlogPost-Fig2-Anim-160908-r01.gif" /></p>
 <p><a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WAVENET: A GENERATIVE MODEL FOR RAW AUDIO, blog</a> blogpost</p>
-</div>
-<div class="section" id="7.4.3.">
-<h3>7.4.3. 7.4.3.<a class="headerlink" href="#7.4.3." title="Permalink to this headline">¶</a></h3>
 <p>Let’s start by designing the whole network. This network consists of two blocks.</p>
 <p>The first block is of length217From the array as input length210The vector is output. This makes the input 128=217/210) bp corresponds to one position of the output. This is realized by SqueezeBlock. That is, SqueezeBlock accepts the base sequence of the DNA consisting of the length 131072 bp as an input and performs convolution processing so that the information of every 128 bp corresponding to the length of each fragment becomes one value. As a result, a vector sequence with length of
 131072/128 = 1024 is output. This vector sequence can be regarded as the feature of each fragment compressed into one vector.</p>
@@ -1205,7 +1197,7 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
         <a href="Sequential_Data_Analysis_with_Deep_Learning.html" class="btn btn-neutral float-right" title="8. Environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Blood_Cell_Detection.html" class="btn btn-neutral" title="6. 6. Practice section: Detection of cells from microscopic images of" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Blood_Cell_Detection.html" class="btn btn-neutral" title="6. Practice section: Detection of cells from microscopic images of" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

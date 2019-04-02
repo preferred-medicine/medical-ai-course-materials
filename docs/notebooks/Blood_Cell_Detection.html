@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6. 6. Practice section: Detection of cells from microscopic images of &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  <title>6. Practice section: Detection of cells from microscopic images of &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. 7. practical part: sequence analysis using deep learning" href="DNA_Sequence_Data_Analysis.html" />
-    <link rel="prev" title="5. 5. Practice: Segmentation of MRI" href="Image_Segmentation.html" /> 
+    <link rel="next" title="7. Practical part: sequence analysis using deep learning" href="DNA_Sequence_Data_Analysis.html" />
+    <link rel="prev" title="5. Practice: Segmentation of MRI" href="Image_Segmentation.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,40 +98,40 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. 1. basis of the mathematics required to machine learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. 2. Basics of machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. Basis of the mathematics required to machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. Basics of machine learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. 5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. 6. Practice section: Detection of cells from microscopic images of</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#6.1.-Environment">6.1. 6.1. Environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.2.-Object-Detection-(Object-detection)">6.2. 6.2. Object Detection (Object detection)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.3.-Preparing-the-data">6.3. 6.3. Preparing the data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#6.3.1.-Data-set-download">6.3.1. 6.3.1. Data set download</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#6.3.2.-Creating-Dataset">6.3.2. 6.3.2. Creating Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Practice section: Detection of cells from microscopic images of</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Environment">6.1. Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Object-Detection-(Object-detection)">6.2. Object Detection (Object detection)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Preparing-the-data">6.3. Preparing the data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Data-set-download">6.3.1. Data set download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Creating-Dataset">6.3.2. Creating Dataset</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#6.4.-Single-Shot-Multibox-Detector-(SSD)">6.4. 6.4. Single Shot Multibox Detector (SSD)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.5.-Model-of-definition">6.5. 6.5. Model of definition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.6.-Data-augmentation-of-implementation">6.6. 6.6. Data augmentation of implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.7.-The-start-of-the-learning">6.7. 6.7. The start of the learning</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#6.7.1.-Evaluation">6.7.1. 6.7.1. Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Single-Shot-Multibox-Detector-(SSD)">6.4. Single Shot Multibox Detector (SSD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Model-of-definition">6.5. Model of definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Data-augmentation-of-implementation">6.6. Data augmentation of implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#The-start-of-the-learning">6.7. The start of the learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Evaluation">6.7.1. Evaluation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#6.8.-Inference-using-learning">6.8. 6.8. Inference using learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.9.-Evaluating-learned">6.9. 6.9. Evaluating learned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Inference-using-learning">6.8. Inference using learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Evaluating-learned">6.9. Evaluating learned</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. 7. practical part: sequence analysis using deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.2.-Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. 8.2. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.3.-Data-sets">10. 8.3. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.4.-Data-pre-processing">11. 8.4. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.-Series-data-analysis-when-using-the-deep-learning">12. 8.5. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.5.2.-Evaluation">13. 8.5.2. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.6.-Towards-the-accuracy">14. 8.6. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.7.-Conclusion">15. 8.7. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#8.8.-References">16. 8.8. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
 </ul>
 
             
@@ -183,7 +183,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>6. 6. Practice section: Detection of cells from microscopic images of</li>
+      <li>6. Practice section: Detection of cells from microscopic images of</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -425,8 +425,8 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Blood_Cell_Detection.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<div class="section" id="6.-Practice-section:-Detection-of-cells-from-microscopic-images-of">
-<h1>6. 6. Practice section: Detection of cells from microscopic images of<a class="headerlink" href="#6.-Practice-section:-Detection-of-cells-from-microscopic-images-of" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Practice-section:-Detection-of-cells-from-microscopic-images-of">
+<h1>6. Practice section: Detection of cells from microscopic images of<a class="headerlink" href="#Practice-section:-Detection-of-cells-from-microscopic-images-of" title="Permalink to this headline">¶</a></h1>
 <p>Here we are working on the task of detecting blood cells. When a microscope image of human blood is given,</p>
 <ul class="simple">
 <li>Red Blood Cell (RBC)</li>
@@ -444,8 +444,8 @@ correspondence to be allocated such as 0 for RBC, 1 for WBC and 2 for Platelet.<
 <p>Below, we show an example from the data set of the cell image used in this article, and show the bbox given as correct answer on the image and the name of the corresponding class visualized.</p>
 <p>The red rectangle is what is called bbox. You can see that different rectangles surround each target blood cell one by one. A white label is displayed so as to overlap the upper side of this rectangle. It represents the type (class) of the object inside the rectangle.</p>
 <p><img alt="血液の顕微鏡画像からRBC, WBC, Plateletを検出している例" src="https://github.com/mitmul/medical-ai-course-materials/raw/master/notebooks/images/detection_samples.png" /></p>
-<div class="section" id="6.1.-Environment">
-<h2>6.1. 6.1. Environment<a class="headerlink" href="#6.1.-Environment" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Environment">
+<h2>6.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
 <p>First of all, let’s finish installing Python package such as Chainer, CuPy, ChainerCV, matplotlib by executing the following cell on Colab for environment building. These steps are the same as before.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -490,8 +490,8 @@ iDeep: 2.0.0.post3
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="6.2.-Object-Detection-(Object-detection)">
-<h2>6.2. 6.2. Object Detection (Object detection)<a class="headerlink" href="#6.2.-Object-Detection-(Object-detection)" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Object-Detection-(Object-detection)">
+<h2>6.2. Object Detection (Object detection)<a class="headerlink" href="#Object-Detection-(Object-detection)" title="Permalink to this headline">¶</a></h2>
 <p>Object detection is one of the tasks that is still being actively studied in Computer Vision application field, and it plays an important role in a wide range of fields such as automatic driving and robotics. Unlike Semantic Segmentation, we do not recognize the shape (contour) of the object, but we will output the type and position of the object separately for each object .</p>
 <p>When we call a “kind of thing” a class, we can call an individual object belonging to that class as an instance. Then, when there are pictures of two dogs, it can be said that there are two instances belonging to the class “dog”. In other words, the previous is task of Semantic Segmentation learned by chapter did not mean area for each instance is output are distinguished on the one hand, the output of the object detection becomes each instance (separate bbox each instance the output It will be
 different ) There is a difference. Sometimes we express the form of such output with the word “instance - wise”.</p>
@@ -501,10 +501,10 @@ each candidate I will. This is called a <strong>two stage</strong> type .</p>
 stage type, while the accuracy is said to be lower. However, recently the boundaries of these methods have become ambiguous, and performance differences are almost gone.</p>
 <p>In this case, we will challenge the task of extracting the position and type of three types of cells from cell images using SSD, one of single stage type object detection methods.</p>
 </div>
-<div class="section" id="6.3.-Preparing-the-data">
-<h2>6.3. 6.3. Preparing the data<a class="headerlink" href="#6.3.-Preparing-the-data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="6.3.1.-Data-set-download">
-<h3>6.3.1. 6.3.1. Data set download<a class="headerlink" href="#6.3.1.-Data-set-download" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Preparing-the-data">
+<h2>6.3. Preparing the data<a class="headerlink" href="#Preparing-the-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Data-set-download">
+<h3>6.3.1. Data set download<a class="headerlink" href="#Data-set-download" title="Permalink to this headline">¶</a></h3>
 <p>First , prepare a data set of blood microscopic images called <a class="reference external" href="https://github.com/Shenggan/BCCD_Dataset">BCCD Dataset</a> . This data set contains 364 images and XML files with file names corresponding to each image. In the XML file, the coordinate information of the bounding box surrounding one of three cells, RBC, WBC, Platelet, which appeared in the corresponding image, is stored. Because there are cases where multiple images are contained in one image, the XML file may contain descriptions
 about multiple cells.</p>
 <p>The BCCD Dataset is very small compared to the benchmark dataset widely used for object detection research, and it is distributed on Github. Let’s download the dataset by executing the following cell.</p>
@@ -557,8 +557,8 @@ completed.</li>
 <li><strong>JPEGImages directory:</strong> Contains all image data included in this data set.</li>
 </ul>
 </div>
-<div class="section" id="6.3.2.-Creating-Dataset">
-<h3>6.3.2. 6.3.2. Creating Dataset<a class="headerlink" href="#6.3.2.-Creating-Dataset" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Creating-Dataset">
+<h3>6.3.2. Creating Dataset<a class="headerlink" href="#Creating-Dataset" title="Permalink to this headline">¶</a></h3>
 <p>ChainerCV has convenient classes for easily reading Pascal VOC dataset. We inherit this and <code class="docutils literal notranslate"><span class="pre">_get_annotations</span></code> override the method so that we can read the dataset we will use this time. Only one line needs to be changed. Let’s copy the corresponding code ( method part) from <a class="reference external" href="https://github.com/chainer/chainercv/blob/v0.10.0/chainercv/datasets/voc/voc_bbox_dataset.py#L90-L115">here</a>,<code class="docutils literal notranslate"><span class="pre">_get_annotations</span></code> make the following changes, and add it as a method method of the
 <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code>inheriting <code class="docutils literal notranslate"><span class="pre">BCCDDataset</span></code>class. (This means that it is called diff format - it deletes the line that begins with - and adds the line that starts with +)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">voc_utils</span><span class="o">.</span><span class="n">voc_bbox_label_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
@@ -842,8 +842,8 @@ Number of images in &#34;test&#34; dataset: 72
 </div>
 </div>
 </div>
-<div class="section" id="6.4.-Single-Shot-Multibox-Detector-(SSD)">
-<h2>6.4. 6.4. Single Shot Multibox Detector (SSD)<a class="headerlink" href="#6.4.-Single-Shot-Multibox-Detector-(SSD)" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Single-Shot-Multibox-Detector-(SSD)">
+<h2>6.4. Single Shot Multibox Detector (SSD)<a class="headerlink" href="#Single-Shot-Multibox-Detector-(SSD)" title="Permalink to this headline">¶</a></h2>
 <p>Data preparation is completed.</p>
 <p>Next, I will briefly explain the model to train this time. For this time we will use the technique called <a class="reference external" href="https://arxiv.org/abs/1512.02325">Single Shot MultiBox Detector (SSD)</a></p>
 <p>SSD is a kind of object detection method called single stage type as mentioned above. First, <strong>feature maps</strong> are extracted from images by using a network structure which has achieved great results with image classification like VGG or ResNet . We prepare candidates for each position of feature maps (SSD paper is called default box, but anchor is more commonly used). Each candidate region has a different form (square, portrait, landscape, different sizes, etc.). For example, we prepare 16 x 16
@@ -858,8 +858,8 @@ region</strong>, that Take a structure.</p>
 <p>The VGG-16 network that performs feature extraction is constructed by stacking many convolutional layers, and the pooling process is applied to each of a group of several convolutional layers to lower the resolution of the feature map, and the layer It is designed to acquire more abstract expressions as they accumulate. Therefore, by holding the intermediate output at the time when the data passed through each block, by finally utilizing the intermediate output (the feature map of different
 size) taken out from a plurality of different depths, It is a feature of SSD that it enables consideration of multiple scales.</p>
 </div>
-<div class="section" id="6.5.-Model-of-definition">
-<h2>6.5. 6.5. Model of definition<a class="headerlink" href="#6.5.-Model-of-definition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Model-of-definition">
+<h2>6.5. Model of definition<a class="headerlink" href="#Model-of-definition" title="Permalink to this headline">¶</a></h2>
 <p>Implementation of the network part of SSD is provided by ChainerCV. <code class="docutils literal notranslate"><span class="pre">chainercv.links.SSD300</span></code> The class called ChainerCV represents a model of SSD with input of 300 pixels vertically and horizontally, and by default the feature extractor uses 16 layers of network structure called <a class="reference external" href="https://arxiv.org/abs/1409.1556">VGG16</a>.</p>
 <p>Let’s prepare a class to calculate the loss function necessary for learning.</p>
 <p>Class that defined below, and the object of the first SSD model, is a hyper-parameters for the loss calculation <code class="docutils literal notranslate"><span class="pre">alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span></code> has received a constructor. <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is a coefficient that weights between error for position prediction and error for class prediction, respectively. <code class="docutils literal notranslate"><span class="pre">k</span></code> is a parameter for hard negative mining. At learning, for one correct bounding box, the model outputs at least one close (positive) prediction and many false (negative) predictions. Sort this many wrong
@@ -919,8 +919,8 @@ To: /root/.chainer/dataset/_dl_cache/b4130ae0aa259c095b50ff95d81c32ee
 expected that the pre-trained model already has the ability to extract most of the various image features in the real world, so the same task or data set , There is a possibility of obtaining high accuracy even with less learning.</p>
 <p>ChainerCV provides several pre-trained models in such a way that they can start using it very easily. Various pre-trained models are listed here: <a class="reference external" href="https://chainercv.readthedocs.io/en/latest/license.html#pretrained-models">Pretrained Models</a></p>
 </div>
-<div class="section" id="6.6.-Data-augmentation-of-implementation">
-<h2>6.6. 6.6. Data augmentation of implementation<a class="headerlink" href="#6.6.-Data-augmentation-of-implementation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Data-augmentation-of-implementation">
+<h2>6.6. Data augmentation of implementation<a class="headerlink" href="#Data-augmentation-of-implementation" title="Permalink to this headline">¶</a></h2>
 <p>In deep learning, whether the large amount of data can be prepared greatly affects the generalization performance of the model. A <strong>technique (data augmentation) that applies various transformations to images and accompanying labels without changing the meaning of the data so as to increase data in a pseudo manner</strong> is a method to inflate learning data.</p>
 <p>In the following, you define a class describing the conversion process you want to apply to each data point in the training data set. The conversion to be done <code class="docutils literal notranslate"><span class="pre">__call__</span></code> is five described in the method. For example, you can change the color, flip it horizontally, enlarge, or shrink as long as the meaning of the image does not change much. Please note that correct answer labels need to be converted properly in those cases. For example, if you invert it in the horizontal direction, the correct
 solution is the one with the correct answer label inverted in the horizontal direction. Also, it is an effective technique to mask and hide part of the image. This makes it possible to recognize based on various information without relying on only one information in recognition.</p>
@@ -998,8 +998,8 @@ solution is the one with the correct answer label inverted in the horizontal dir
 </div>
 </div>
 </div>
-<div class="section" id="6.7.-The-start-of-the-learning">
-<h2>6.7. 6.7. The start of the learning<a class="headerlink" href="#6.7.-The-start-of-the-learning" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="The-start-of-the-learning">
+<h2>6.7. The start of the learning<a class="headerlink" href="#The-start-of-the-learning" title="Permalink to this headline">¶</a></h2>
 <p>In the following, <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> we will use the dataset class provided by Chainer <code class="docutils literal notranslate"><span class="pre">Transform</span></code> to apply the transformation we just defined for each data.</p>
 <p>Since the basic flow is common to many of the network training methods which do image classification and segmentation already learned, detailed explanation is omitted here.</p>
 <p>First, import the necessary modules. I will adopt it in the neural network which learns SSD 300 provided by ChainerCV and will use its implementation.</p>
@@ -1111,8 +1111,8 @@ at the time of 200 epochs and 250 epochs, ExponentialShift is invoked, doubling 
 </pre></div>
 </div>
 </div>
-<div class="section" id="6.7.1.-Evaluation">
-<h3>6.7.1. 6.7.1. Evaluation<a class="headerlink" href="#6.7.1.-Evaluation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Evaluation">
+<h3>6.7.1. Evaluation<a class="headerlink" href="#Evaluation" title="Permalink to this headline">¶</a></h3>
 <p>For object detection, the <strong>case where the bbox (bbox to which confidence exceeding a certain value was judged) that the model judged to be “detected” is actually true bbox and IoU&gt; 0.5 or more is regarded as True Positive</strong>, and the <strong>average conformity rate Average precision (AP)</strong> is generally used for evaluation. In addition, Mean average precision (mAP) which calculates this for each class and takes an average as a whole is also used. IoU is described in the explanation about the semantic
 segmentation in the previous chapter, but the IoU in object detection is the same as well, and the size of the region enclosed by either or both of the predicted rectangle and the correct rectangle is common The size of the enclosing area is divided by the size.</p>
 <p>The extension provided by ChainerCV <code class="docutils literal notranslate"><span class="pre">DetectionVOCEvaluator</span></code> calculates the AP and the whole mAP for each class while learning, using the passed iterator (an iterator val_iter created for the validation dataset here). Again we will use this Extension.</p>
@@ -1254,8 +1254,8 @@ epoch       iteration   lr          main/loss   main/loss/loc  main/loss/conf  v
 <p>Learning is completed. From the next section we try <strong>to infer</strong> the <strong>unknown data</strong> using the new snapshot obtained as a result of this learning .</p>
 </div>
 </div>
-<div class="section" id="6.8.-Inference-using-learning">
-<h2>6.8. 6.8. Inference using learning<a class="headerlink" href="#6.8.-Inference-using-learning" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Inference-using-learning">
+<h2>6.8. Inference using learning<a class="headerlink" href="#Inference-using-learning" title="Permalink to this headline">¶</a></h2>
 <p>The parameters of the model obtained as a result of learning are <code class="docutils literal notranslate"><span class="pre">extensions.snapshot()</span></code> saved in the file by the Trainer extension called. By default, the save destination is <code class="docutils literal notranslate"><span class="pre">out</span></code> less than or equal to the directory specified by the argument that it was passed at the time of Trainer object initialization . This time <code class="docutils literal notranslate"><span class="pre">results</span></code> it should be below.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
@@ -1521,8 +1521,8 @@ BloodImage_00021
 </div>
 </div>
 </div>
-<div class="section" id="6.9.-Evaluating-learned">
-<h2>6.9. 6.9. Evaluating learned<a class="headerlink" href="#6.9.-Evaluating-learned" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Evaluating-learned">
+<h2>6.9. Evaluating learned<a class="headerlink" href="#Evaluating-learned" title="Permalink to this headline">¶</a></h2>
 <p>After learning, evaluate the obtained model with the test dataset. Validation data set (validation dataset) is not used directly to calculate parameter update amount during learning, but in order to <strong>adjust</strong> hyperparameter such as learning rate and ratio / timing of learning rate attenuation <strong>It is used</strong> for, <strong>not what you would call strictly speaking, not using at the time of learning data</strong>. Therefore, in order to obtain an indication of the extent of the generalization performance of the
 finally obtained model, it is necessary to <strong>evaluate using the third data set not included in any of the learning / verification data set You need to do.</strong></p>
 <p>Evaluator, one of Chainer ’s Trainer Extensions, can actually be used alone, not with Trainer. It is <code class="docutils literal notranslate"><span class="pre">DetectionVOCEvaluatoran</span></code> extension version Evaluator which ChainerCV provides but inherited Chainer’s Evaluator, so it can be used for evaluation only, irrespective of Trainer as well.</p>
@@ -1583,10 +1583,10 @@ way to handle learning by treating them completely (without distinction).</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="DNA_Sequence_Data_Analysis.html" class="btn btn-neutral float-right" title="7. 7. practical part: sequence analysis using deep learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="DNA_Sequence_Data_Analysis.html" class="btn btn-neutral float-right" title="7. Practical part: sequence analysis using deep learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Image_Segmentation.html" class="btn btn-neutral" title="5. 5. Practice: Segmentation of MRI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Image_Segmentation.html" class="btn btn-neutral" title="5. Practice: Segmentation of MRI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

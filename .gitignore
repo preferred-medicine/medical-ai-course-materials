@@ -126,3 +126,5 @@ docs/.doctrees
 
 # vim temp files
 *.sw[poe]
+docs/_images/notebooks_.*
+docs/.doctrees/*

@@ -28,7 +28,7 @@
     "id": "LICMyO4rKUX9"
    },
    "source": [
-    "## 3.1. Structure of neural network\n",
+    "## Structure of neural network\n",
     "\n",
     "First, let's look at the structure of the neural network graphically. The input variables are 4 variables of {years, alcohol content, color, smell}, and the output variables are 2 variables of {white wine, red wine}.\n",
     "\n",
@@ -64,7 +64,7 @@
     "id": "X9-RYTlXNzNQ"
    },
    "source": [
-    "### 3.1.1. Linear transformation \n",
+    "### Linear transformation \n",
     "\n",
     "Here we describe the linear transformations that occur in each layer of the neural network.\n",
     "\n",
@@ -118,7 +118,7 @@
     "id": "JmlTx1YF4xMD"
    },
    "source": [
-    "### 3.1.2. Nonlinear transformation/Conversion\n",
+    "### Nonlinear transformation/Conversion\n",
     "\n",
     "Next, I will explain nonlinear conversion. Linear transformations alone can not properly represent the relationship between inputs and outputs if they are nonlinear as shown in the right of the figure.\n",
     "![入力と出力の関係](https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/04.png)\n",
@@ -149,7 +149,7 @@
     "id": "s-eFDAuJ-Cse"
    },
    "source": [
-    "### 3.1.3. Check the flow of calculation while watching the numerical \n",
+    "###  Check the flow of calculation while watching the numerical \n",
     "\n",
     "Here, input using the specific numbers written in the figure below $x_1, x_2, x_3$ Output from $y$ Let's check the process of calculating. Now bias to simplify the calculations ${\\bf b}$ The calculation of is omitted (assuming the bias is all zeros). As a numerical example, ${\\bf x} = \\begin{bmatrix} 2 & 3 & 1 \\end{bmatrix}^T$ Output when given $y$  Let's follow the calculation procedure of\n",
     "\n",
@@ -194,7 +194,7 @@
     "id": "ivVppUOibSHy"
    },
    "source": [
-    "## 3.2. The objective function \n",
+    "## The objective function \n",
     "\n",
     "Even in neural networks, as long as they are differentiable, you can use various objective functions according to the task you want to solve.\n",
     "\n"
@@ -207,7 +207,7 @@
     "id": "BCGZbTKcbUpe"
    },
    "source": [
-    "### 3.2.1. Mean squared \n",
+    "### Mean squared \n",
     "For example, in the output layer $N$ Consider the case of solving a regression problem with a neural network with discrete values.$N$ Each of the $y_n (n=1, 2, \\dots, N)$）Desired output $t_n (n=1, 2, \\dots, N)$）When the objective function is given,（$y_n$）And the corresponding correct answer $t_n$）The regression problem can be solved by using the **mean squared error** between) .\n",
     "\n",
     "$$\n",
@@ -232,7 +232,7 @@
     "id": "WqFc0jYJFLYz"
    },
    "source": [
-    "### 3.2.2. Cross entropy \n",
+    "### Cross entropy \n",
     "In the case of classification problems, on the other hand, **cross entropy** is often used as an objective function.\n",
     "\n",
     "\n",
@@ -254,7 +254,7 @@
     "id": "kxqfo4Yrekaw"
    },
    "source": [
-    "#### 3.2.2.1 Note: for cross-entropy \n",
+    "#### Note: for cross-entropy \n",
     "\n",
     "The following is for reference only if you want to know about the definition of cross entropy. If you know the definition of cross entropy in information theory etc., it may appear that what is expressed by the above equation is different from cross entropy. But this can be explained as follows. now, $q(y|x)$ Let be the conditional probability defined by the model of the neural network, $p(y|x)$ Let be the conditional probability of real data. here, $p(y|x)$ Instead the empirical distribution of learning data, since\n",
     "\n",
@@ -278,7 +278,7 @@
     "id": "Drh35j_lCYiy"
    },
    "source": [
-    "## 3.3. Optimization of neural \n",
+    "## Optimization of neural \n",
     "\n",
     "Determining the value of the parameter that minimizes the value of the objective function proved to be the purpose of learning of the neural network. So how do you find that parameter? Determining the parameters of a neural network so that the objective function takes a desired value, given an objective function, is called neural network optimization.\n",
     "\n",
@@ -322,7 +322,7 @@
     "id": "gtJOsYWkKPDj"
    },
    "source": [
-    "### 3.3.1. Calculation of parameter update \n",
+    "### Calculation of parameter update \n",
     "\n",
     "Now, consider a three-layer fully connected neural network as shown in the figure below, and a linear transformation between the first and second layers. ${\\bf w}_1, {\\bf b}_1$ The linear transformation between the second and third layers is ${\\bf w}_2, {\\bf b}_2$  Is represented by the parameter ${\\bf b}_1, {\\bf b}_2$ Is omitted). Also, put these together $\\boldsymbol{\\Theta}$  I will represent it as.\n",
     "\n",
@@ -369,7 +369,7 @@
     "id": "k1L6xptUs3l4"
    },
    "source": [
-    "#### 3.3.1.1. Parameters 𝐰2 Of the update amount \n",
+    "#### Parameters 𝐰2 Of the update amount \n",
     "So first, the parameters closer to the output layer,${\\bf w}_2$ about $\\mathcal{L}$ Find the slope of. Since this is a partial derivative of the composite function, it can be expanded as follows using the chain rule.\n",
     "\n",
     "\n",
@@ -428,7 +428,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 1,
    "metadata": {
     "colab": {},
     "colab_type": "code",
@@ -457,7 +457,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 2,
    "metadata": {
     "colab": {},
     "colab_type": "code",
@@ -500,7 +500,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 3,
    "metadata": {
     "colab": {
      "base_uri": "https://localhost:8080/",
@@ -550,7 +550,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 4,
    "metadata": {
     "colab": {},
     "colab_type": "code",
@@ -630,7 +630,7 @@
     "id": "HLAwYypPshj8"
    },
    "source": [
-    "#### 3.3.1.2. Learning rate for the (Learning Rate) \n",
+    "####  Learning rate for the (Learning Rate) \n",
     "If the learning rate is too high, the value of the objective function may oscillate or diverge while updating parameters repeatedly. If it is too small, convergence will take time. Therefore, it is very important in neural network learning to determine this learning rate properly. In many cases, empirically searching for the largest value that learning proceeds properly is done. For simple image recognition tasks etc., usually 0.1 to 0.01 etc. are relatively often seen first.\n"
    ]
   },
@@ -641,7 +641,7 @@
     "id": "SC0RoRpucZh9"
    },
    "source": [
-    "####  3.3.1.3. Parameters ${\\bf w}_1$ Of the update amount \n",
+    "####  Parameters ${\\bf w}_1$ Of the update amount \n",
     "\n",
     "next, ${\\bf w}_1$ Let's also calculate the update amount of. for that purpose, ${\\bf w}_1$ Objective function at $\\mathcal{L}$ You need a value that is a partial derivative of. This can be calculated as follows.\n",
     "\n",
@@ -746,7 +746,7 @@
     "id": "zIv_rP32uH1y"
    },
    "source": [
-    "## 3.4. Back propagation method (back propagation) \n",
+    "## Back propagation method (back propagation) \n",
     "Up to this point, I have experienced that the derivative of the objective function for each parameter is derived by hand calculation and the numerical calculation of the gradient is actually performed. So what happens if the neural network has more layers? Similarly, it is of course possible to obtain the derivative by hand calculation, but it is possible to derive a function which gives a gradient automatically by a computer by using the property that a neural network applies a differentiable function repeatedly. is. Recall that partial derivatives of composite functions can be transformed into the product of multiple partial derivatives by the chain law.\n",
     "\n",
     "The figure below shows the calculation for obtaining the output of the 3-layer fully connected neural network used in the explanation so far, and the process of calculating the value of the objective function using that value with blue arrows, and the hand in the previous section. It is an animation that expresses the process of calculating the partial derivatives of the objective function by each parameter by the calculation with red arrows.\n",
@@ -777,7 +777,7 @@
     "id": "uHGp6qIBcKOI"
    },
    "source": [
-    "## 3.5. Slope \n",
+    "## Slope \n",
     "\n",
     "When I first mentioned the activation function, the sigmoid function has a problem that the phenomenon of gradient disappearance is likely to occur, and explained that it is not used so much at present. Let's look more closely at the reasons.\n",
     "\n",
@@ -811,7 +811,7 @@
     "id": "IRvZlChZ9Qna"
    },
    "source": [
-    "## 3.6. What \"layer\" points \n",
+    "## What \"layer\" points \n",
     "In the explanation up to this point, the number of round nodes (values such as intermediate output) in the graph as shown in the explanation of the error back propagation method of the last two clauses indicates the neural network of ○ layer (○ -layer), It has been said that. However, in some cases, the square nodes (functions) in this graph are referred to as layers. And in frameworks used to implement neural networks, various functions are often organized as layer types. So, be careful to use the words \"layer\" or \"layer\" for this function below."
    ]
   },
@@ -822,7 +822,7 @@
     "id": "7dD2mgCOTvdW"
    },
    "source": [
-    "## 3.7. Various layer \n",
+    "## Various layer \n",
     "\n",
     "Up to this point, it is explained that the neural network includes two kinds of functions, roughly divided into a function that performs linear transformation and a function that performs nonlinear transformation, and as a linear transformation example, only **fully-connected layer** I used it.\n",
     "\n",
@@ -912,7 +912,7 @@
     "id": "SUEmd9pOKe2D"
    },
    "source": [
-    "### 3.7.2. Pooling layer \n",
+    "### Pooling layer \n",
     "\n",
     "Pooling is an operation mainly performed on the feature map to reduce the size of the spatial dimension of the feature map (spatial dimension, the dimension corresponding to the width and height in the input image), and reduce the amount of calculation, It is used to improve robustness in image recognition tasks etc. by making the output invariant for minute translation.\n",
     "\n",
