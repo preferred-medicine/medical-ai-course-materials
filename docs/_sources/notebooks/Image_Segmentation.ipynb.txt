@@ -15,7 +15,7 @@
     "Object detection can be said to be a technology to recognize the \"type\" and \"position\" of the target object .\n",
     "\n",
     "![Object Detection Example](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/FasterRCNN-result.png)\n",
-    "(Above figure: example of object detection.Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.\n",
+    "(Above figure: example of object detection. Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.\n",
     "\n",
     "There are two types of image segmentation . One is an Instance - aware Segmentation that distinguishes individual objects. The other is Semantic Segmentation which does not distinguish individuals if they are of the same class. This time we will deal with the latter.\n",
     "\n",
@@ -281,7 +281,7 @@
     "id": "v_Fv_HaoSprH"
    },
    "source": [
-    "When describing network learning using Chainer, you would start training by defining them in order from the inside of the above figure, and create a `Trainer` object with all at the end, as in` trainer.run ()`.\n",
+    "When describing network to be trained using Chainer, you will be defining them in order from the inside of the above figure, and create a `Trainer` object that includes all at the end, then start the training as by `trainer.run ()`.\n",
     "\n",
     "(You can write your own training loop without using `Trainer`, but this time, we assume that you use` Trainer`. If you want to know how to write your own training loop, see Chapter 4.)\n"
    ]
@@ -293,9 +293,9 @@
     "id": "-5yuQ_VBSprI"
    },
    "source": [
-    "## Segmentation by all interconnected neural network \n",
+    "## Segmentation by fully-connected neural network \n",
     "\n",
-    "Let's begin with a simple model. Let's learn a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of all three coupling layers."
+    "Let's begin with a simple model. Let's train a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of three fully-connected layers."
    ]
   },
   {
@@ -305,21 +305,33 @@
     "id": "FScZCHDrSprJ"
    },
    "source": [
-    "### Preparing the data \n",
-    "First we prepare the data set. Chainer has classes around several useful data sets. `ImageDataset` Is a data set class that will initialize a list of file paths to an image file and then read the image in that path from disk when training and return it. `TupleDataset` Is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It `zip` is the same as in Python .)\n",
+    "### Preparing the data set\n",
+    "First we prepare the data set. Chainer provide some useful classes for data sets. `ImageDataset` Is a data set class that will read the image in the disk and return them for you by initializing it with a list of file paths to an image file. `TupleDataset` Is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It is the same as `zip` in Python.)\n",
     "\n",
-    "This time is Semantic Segmentation, so both input and output are images. So `ImageDataset` create two objects. Execute the following cell."
+    "We will be working on Semantic Segmentation this time, so both input and output are images. So we are going to create two `ImageDataset` objects. Run the following cell."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 3,
    "metadata": {
     "colab": {},
     "colab_type": "code",
     "id": "wL7MAXtNSprK"
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'chainer'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-3-504bab2f5f87>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mglob\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mdatasets\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0mcreate_dataset\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mimg_filenames\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mlabel_filenames\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m     \u001b[0mimg\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mdatasets\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mImageDataset\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mimg_filenames\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'chainer'"
+     ]
+    }
+   ],
    "source": [
     "import glob\n",
     "from chainer import datasets\n",
@@ -339,20 +351,21 @@
     "id": "Xucn9Z1LSprN"
    },
    "source": [
-    "The above function gives a list of file paths of input images `img_filenames` and a list of file paths of correct label images (binary images having pixel values ​​of 0 or 1) `label_filenames`, `TupleDataset` and bundles and returns two data set objects together It is becoming.\n",
+    "The above function gives a list of file paths of input images `img_filenames`, and a list of file paths of correct label images (binary images having pixel values of 0 or 1) `label_filenames`, and returns two data set objects bundled together as `TupleDataset`.\n",
     "\n",
-    "`img` Is a data set of the input image, behaves like a list that contains like input image, `img[i]` is `i`th returns the image (`[i]` for the first time images from the disk when in access will be loaded).\n",
+    "`img` is a data set of the input image, behaves like a list that contains input images. `img[i]` returns the `i`th image (an image is loaded for the first time when accessed with `[i]`).\n",
     "\n",
-    "`label` Likewise, it acts like a list of label images. These `TupleDataset` were made by bundling out `dataset` is, `dataset[i]` in and access will be something that returns a tuple (two or more of the collection of value) that. (This is the same as the result of when and is a list of the same length .)(`img[i]`, `label[i]`)`img``label` `zip(img, label`)\n",
+    "`label` also acts like a list of label images. If you access `dataset` created and bundled these with `TupleDataset` like `dataset[i]`, it will return a tuple (two or more of the collection of value). \n",
+    "(If the `image` and `label` are the lists of the same size, it has the same result of `zip(img, label)`.)\n",
     "\n",
-    "Next, in the second line in this function, `ImageDataset` we create a `TransformDataset` new data set based on the input data set created in. `TransformDataset` Is a class that can be returned after applying the function given to the second argument when accessing the data set given to the first argument and it is sometimes a process to convert the data by giving an arbitrary function I can do it. In this case, you give a function that performs conversion `lambda`using a function,[0,1]We are doing just the process of converting. Besides this, for example, by passing a function that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), as an argument, Data You can easily implement augmentation.\n",
+    "Next, in the second line in this function, based on the input data set created using`ImageDataset`, we create a new data set, `TransformDataset`. `TransformDataset` is a class that can **return a data after applying the function given to the second argument** when accessing the data set given to the first argument, allows us to convert the data by giving an arbitrary function. In this case, you give a function that performs conversion using a `lamba` function, simply coverting value range to [0,1]. In addition, for example, by passing a function, as an argument, that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), You can easily enable `Data augmentation`.\n",
     "\n",
-    "`create_dataset` Let's create each data set object for training and verification using this function. Please execute the cell below."
+    "Let's create each data set object for training and verification using `create_dataset` function. Please run the cell below."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 2,
    "metadata": {
     "colab": {},
     "colab_type": "code",
@@ -361,14 +374,14 @@
    "outputs": [],
    "source": [
     "def create_datasets():\n",
-    "    # Python標準のglobを使ってMRI画像ファイル名/ラベル画像ファイル名の一覧を取得\n",
+    "    # Using python standard glob, obtain a list of MRI image files / label image files\n",
     "    train_img_filenames = sorted(glob.glob('train/image/*.png'))\n",
     "    train_label_filenames = sorted(glob.glob('train/label/*.png'))\n",
     "\n",
-    "    # リストを渡して，データセットオブジェクト train を作成\n",
+    "    # Create a data set object, train\n",
     "    train = create_dataset(train_img_filenames, train_label_filenames)\n",
     "\n",
-    "    # 同様のことをvalidationデータに対しても行う\n",
+    "    # Do the same for the validation data\n",
     "    val_img_filenames = sorted(glob.glob('val/image/*.png'))\n",
     "    val_label_filenames = sorted(glob.glob('val/label/*.png'))\n",
     "    val = create_dataset(val_img_filenames, val_label_filenames)\n",
@@ -383,7 +396,7 @@
     "id": "7fMFbheJSprR"
    },
    "source": [
-    "This function `create_datasets()` in, first is equipped with the Python standard globusing, `.png` I have been looking for from the following directory in which you specify the image file with the extension, create a list of file path is stored. Next, `sorted` the file names are sorted by using , so that the input image and the file list of the label image point to the corresponding data with the same index (the `glob` file list enumerated by the function is not necessarily sorted There is no limit. After that, `create_dataset` we pass these file name lists to the previous function to create a dataset object. Do the same for the image file for verification, `train` and `val` create and return two dataset objects.\n",
+    "In the function `create_datasets()`, first it uses a Python built-in module `glob`, looks for files with `.png`  extension from the specified directory, then creates a list that stores the file paths. Next, sort the file names by using `sorted`, so that the input image and the file list of the label image point to the corresponding data with the same index (the file list enumerated by the function `glob` is not necessarily sorted). After that, we pass these file name lists to the previous function `create_dataset` to create a dataset object. Do the same for the image file for verification, and create and return two dataset objects, `train` and `val`.\n",
     "\n",
     "Let's call this function. Please execute the cell below."
    ]
@@ -424,7 +437,7 @@
     "id": "p8d5DHntSprU"
    },
    "source": [
-    "You can call this function to create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, `len()` you can use the built-in function to find out how many data it contains."
+    "By calling this function, you can create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, you can use `len()` the built-in function to find out how many data it contains."
    ]
   },
   {
@@ -434,8 +447,8 @@
     "id": "EawmNqfnSprU"
    },
    "source": [
-    "### Model of definition \n",
-    "Next is the definition of the model to train. In this section we will use a fully coupled neural network dealt with in Chapter 4."
+    "### Defining Model \n",
+    "Next is the definition of the model to train. In this section we will use a fully-connected neural network that we used in Chapter 4."
    ]
   },
   {
@@ -479,7 +492,7 @@
     "id": "aYdKpLRHSprY"
    },
    "source": [
-    "In this example, we use three total tie layers and connect them using the ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as it is, reshape it to the form of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.\n",
+    "In this example, we use three full-connected layers and connect them using the ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as is, reshape it to the shape of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.\n",
     "\n",
     "Here, the number of output channels is 1, which represents the probability that each pixel is a left ventricle."
    ]
@@ -491,15 +504,15 @@
     "id": "usGCNgiRSprY"
    },
    "source": [
-    "### Trainer definition \n",
+    "### Defining Trainer \n",
     "\n",
-    "Let's define Trainer next. Let's define `Trainer` a `create_trainer` function that creates and returns an object . The definition of each argument is as follows\n",
+    "Let's define Trainer next. Let's define a `create_trainer` function that creates and returns a `Trainer` object. The definition of each argument is as follows\n",
     "\n",
     "- Mini batch size (batch size)\n",
     "- Training data set (train)\n",
     "- Verification data set (val)\n",
     "- Timing to stop training (stop)\n",
-    "- If the device to be used (device) ← is selected `-1`, it is CPU, `>=0` GPU with its ID\n",
+    "- If the device to be used (device) ← set to `-1` if CPU i used, `>=0` a GPU ID when GPU is used.\n",
     "\n",
     "\n",
     "Execute the following cell."
@@ -507,13 +520,25 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 4,
    "metadata": {
     "colab": {},
     "colab_type": "code",
     "id": "tnzh7wZySpra"
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'chainer'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-4-48cf38435d74>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0miterators\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mtraining\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0moptimizers\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtraining\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mextensions\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'chainer'"
+     ]
+    }
+   ],
    "source": [
     "from chainer import iterators\n",
     "from chainer import training\n",
@@ -521,27 +546,30 @@
     "from chainer.training import extensions\n",
     "\n",
     "def create_trainer(batchsize, train, val, stop, device=-1):\n",
-    "    # 先程定義したモデルを使用\n",
+    "    # Use the mode we defined earlier\n",
     "    model = MultiLayerPerceptron(out_h=256, out_w=256)\n",
     "    \n",
-    "    # ピクセルごとの二値分類なので，目的関数にSigmoid cross entropyを，\n",
-    "    # 精度をはかる関数としてBinary accuracyを指定しています\n",
+    "    # Since it is a binary classification for each pixel, Sigmoid cross entropy\n",
+    "    # is specified as the objective function, and Binary accuracy is specified as\n",
+    "    # the function to measure accuracy.\n",
     "    train_model = L.Classifier(\n",
     "        model, lossfun=F.sigmoid_cross_entropy, accfun=F.binary_accuracy)\n",
     "\n",
-    "    # 最適化手法にAdamを使います\n",
+    "    # Use Adam as an optimizer\n",
     "    optimizer = optimizers.Adam()\n",
     "    optimizer.setup(train_model)\n",
     "\n",
-    "    # データセットから，指定したバッチサイズ数のデータ点をまとめて取り出して返すイテレータを定義します\n",
+    "    # Defines an iterator to retrieve data points of specified number of batch sizes\n",
+    "    # collectively from the data set\n",
     "    train_iter = iterators.MultiprocessIterator(train, batchsize)\n",
     "    val_iter = iterators.MultiprocessIterator(val, batchsize, repeat=False, shuffle=False)\n",
     "    \n",
-    "    # イテレータからデータを引き出し，モデルに渡して，目的関数の値を計算し，backwardしてパラメータを更新，\n",
-    "    # までの一連の処理を行う updater を定義します\n",
+    "    # Define an updater that pulls data from the iterator, passes it to the model,\n",
+    "    # calculates the value of the objective function, and performs backward and\n",
+    "    # updates parameters\n",
     "    updater = training.StandardUpdater(train_iter, optimizer, device=device)\n",
     "    \n",
-    "    # 様々な付加機能をExtensionとして与えられるTrainerを使います\n",
+    "    # Use Trainer which gives various additional functions as Extension\n",
     "    trainer = training.trainer.Trainer(updater, stop)\n",
     "    \n",
     "    logging_attributes = [\n",
@@ -562,9 +590,9 @@
     "id": "Zw7vdytqSpre"
    },
    "source": [
-    "At the end of this function definition, **multiple Extensions are added**. These are automatic saving of logs to files ( `LogReport`) and display on their standard output (`PrintReport`), automatic creation of plots of objective function values and precision (`PlotReport`), evaluation (`Evaluator`) with validation data every specified timing It is an extended function.\n",
+    "At the end of this function definition, **multiple Extensions are added**. These are extend functions which does automatic saving of logs to files (`LogReport`) and display on their standard output (`PrintReport`), automatic creation of plots of objective function values and precision (`PlotReport`), evaluation (`Evaluator`) with validation data every specified timing.\n",
     "\n",
-    "In addition to this, various extended functions can be used. `Extension` You can find out how to use and what you can do from the list here : [Trainer extensions](https://docs.chainer.org/en/v2.0.2/reference/extensions.html)"
+    "In addition to this, various extended functions can be used. You can find out how to use and what you can do from the `Extension` list here: [Trainer extensions](https://docs.chainer.org/en/v2.0.2/reference/extensions.html)"
    ]
   },
   {
@@ -576,9 +604,9 @@
    "source": [
     "### Training \n",
     "\n",
-    "I am ready for training. After that `trainer` we just call the run () function.\n",
+    "We are ready for training. What we need to do is just call the run() function on the `trainer` we created.\n",
     "\n",
-    "Please execute the cell below."
+    "Please run the cell below."
    ]
   },
   {
@@ -619,9 +647,9 @@
     "id": "BQY_JoQsSprj"
    },
    "source": [
-    "In general, I think that it will take about 40 seconds for training.The information displayed at this time is `PrintReport` the log information output by Extension. Current number of epoch, (those with respect to the training data set value, accuracy of the objective function `main/loss`, `main/accuracy` those with respect to the validation data set `val/main/loss`, `val/main/accuracy`) is displayed.\n",
+    "It may take about 40 seconds for training. The information displayed at this time is the log information output by Extension called `PrintReport`. Current number of epoch, (those with respect to the training data set value, accuracy of the objective function are `main/loss`, `main/accuracy`, those with respect to the validation data set are `val/main/loss`, `val/main/accuracy`) are displayed.\n",
     "\n",
-    "`PlotReport` Let's see the graph output by the extension next . When training is over, try running the following two cells."
+    "Let's see the graph output by the `PlotReport` extension next. When training is over, try running the following two cells."
    ]
   },
   {
@@ -694,9 +722,9 @@
     "id": "2RPUAqyqSpro"
    },
    "source": [
-    "Training is progressing well. Both Training loss and Validation loss have decreased to nearly 0, and Accuracy for both datasets also approaches the maximum one.\n",
+    "Training is progressing well. Both Training loss and Validation loss have decreased to nearly 0, and Accuracy for both datasets also approaches the maximum 1.\n",
     "\n",
-    "These plots are `out` saved as images in the location specified by the argument to pass at the initialization of the Trainer . Since this is being updated sequentially, you can actually check the plot at that point even during training. It is useful for visually confirming the progress of training.\n"
+    "These plots are saved as images in the location specified by the argument `out` to pass at the initialization of the Trainer. Since this is being updated sequentially, you can actually check the plot at that point even during training. It is useful for visually confirming the progress of training."
    ]
   },
   {
@@ -707,11 +735,11 @@
    },
    "source": [
     "### Evaluation \n",
-    "Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1 of the maximum value. But what index is this indicator? What was it saying \"Accuracy\"?\n",
+    "Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1 of the maximum value. But what is this performance indicator? What defines the \"Accuracy\"?\n",
     "\n",
-    "In general, the result of Semantic Segmentation will be evaluated with values such as **Pixel accuracy** indicated as \"accuracy\" above and **Mean Intersection over Union (mIoU)** which is a different indicator . Each definition is as follows.\n",
+    "In general, the result of Semantic Segmentation will be evaluated with values such as **Pixel accuracy** indicated as \"accuracy\" above and **Mean Intersection over Union (mIoU)** which is a different indicator. Each definition is as follows.\n",
     "\n",
-    "The correct class is $i$ If the model is class $j$ Number classified into $N_{ij}$ Then, if the number of classes is $k$ When\n",
+    "When the number of pixcels, with the correct class $i$ and classified as $j$, is $N_{ij}$, where the number of classes is $k$, then:\n",
     "\n",
     "$$\n",
     "{\\rm Pixel\\ Accuracy} = \\frac{\\sum_{i=1}^k N_{ii}}{\\sum_{i=1}^k \\sum_{j=1}^k N_{ij}}\n",
@@ -721,18 +749,18 @@
     "{\\rm mIoU} = \\frac{1}{k} \\sum_{i=1}^k \\frac{N_{ii}}{\\sum_{j=1}^k N_{ij} + \\sum_{j=1}^k N_{ji} - N_{ii}}\n",
     "$$\n",
     "\n",
-    "is. Let's try to calculate these two values again for Validation dataset **using the model learned now**.\n",
+    "Let's try to calculate these two values again for Validation dataset **using the model we just trained**.\n",
     "\n",
-    "For this time, we use [ChainerCV](https://github.com/chainer/chainercv) [11] to calculate these values . ChainerCV is an additional package of Chainer that can unify the handling of frequent calculations, model data, etc. in computer vision tasks. In order to calculate the above two indices again, let's use a function for evaluation index calculation for Semantic Segmentation task provided by ChainerCV.\n",
+    "This time, we use [ChainerCV](https://github.com/chainer/chainercv) [11] to calculate these values. ChainerCV is an additional package of Chainer that can unify the handling of frequent calculations, model data, etc. in computer vision tasks. In order to calculate the above two metrics again, let's use a function for evaluation metrics calculation for Semantic Segmentation task provided by ChainerCV.\n",
     "\n",
-    "Execute the following cell.\n",
+    "Run the following cell.\n",
     "\n",
     "[11] Yusuke Niitani, Toru Ogawa, Shunta Saito, Masaki Saito, \"ChainerCV: a Library for Deep Learning in Computer Vision\", ACM Multimedia (ACMMM), Open Source Software Competition, 2017"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 5,
    "metadata": {
     "colab": {
      "base_uri": "https://localhost:8080/",
@@ -745,11 +773,14 @@
    },
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Pixel Accuracy: 0.9872430654672476\n",
-      "mIoU: 0.6810346076820649\n"
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'chainer'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-5-4034be62edc7>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mcuda\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mchainercv\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mevaluations\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0mevaluate\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtrainer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mval\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdevice\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m     \u001b[0;31m# Retrieve a trained model from a Trainer object\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'chainer'"
      ]
     }
    ],
@@ -758,10 +789,10 @@
     "from chainercv import evaluations\n",
     "\n",
     "def evaluate(trainer, val, device=-1):\n",
-    "    # Trainerオブジェクトから学習済みモデルを取り出す\n",
+    "    # Retrieve a trained model from a Trainer object\n",
     "    model = trainer.updater.get_optimizer('main').target.predictor\n",
     "\n",
-    "    # validationデータ全部に対して予測を行う\n",
+    "    # Make predictions for all validation data\n",
     "    preds = []\n",
     "    for img, label in val:\n",
     "        img = cuda.to_gpu(img[np.newaxis], device)\n",
@@ -770,7 +801,7 @@
     "        preds.append((pred, label[0]))\n",
     "    pred_labels, gt_labels = zip(*preds)\n",
     "\n",
-    "    # 評価をして結果を表示\n",
+    "    # Evaluate and show results\n",
     "    evals = evaluations.eval_semantic_segmentation(pred_labels, gt_labels)\n",
     "    print('Pixel Accuracy:', evals['pixel_accuracy'])\n",
     "    print('mIoU:', evals['miou'])\n",
@@ -787,13 +818,13 @@
    "source": [
     "Two numbers are displayed.\n",
     "\n",
-    "The value of Pixel Accuracy has the `PrintReport` same value as val / main / accuracy displayed. What was displayed as \"accuracy\" during training was the same as Pixel Accuracy. Here, it shows a very high value. Since the maximum value is 1, 0.98 is a high number.\n",
+    "The value of Pixel Accuracy has the same value as val/main/accuracy displayed by `PrintReport`. What was displayed as \"accuracy\" during training was the same as Pixel Accuracy. This shows a very high value. Since the maximum value is 1, 0.98 is a high number.\n",
     "\n",
-    "On the other hand, we see that mIoU (`miou`) which is the index of the same maximum value 1 is lower than I expected. Why.\n",
+    "On the other hand, we see that mIoU (`miou`) which is the index for which the maximum value being 1 also, is lower than expected. Why?\n",
     "\n",
-    "Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of black and white plus white) with respect to the number of pixels of the entire image, so that negative (black) If there are many positive true (white dotted number) is small but true negative is large, Pixel Accuracy will be high as a result. In other words, when the **class imbalance (the number of white and black is very different) is occurring, the influence of prediction error on a small class becomes relatively small**.\n",
+    "Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of \"true positive\" (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when the **class imbalance (the number of white and black is very different) is occurring, the influence of prediction error on a small class becomes relatively small**.\n",
     "\n",
-    "On the other hand, in the case of mIoU, \"true positive\" (the prediction of white is correct for the sum region of positive and true (the sum of regions where white is predicted and the region where white is correct) in both predicted and correct images It is not influenced by the size of the whole image because we see the proportion of the area). In a diagram that is easy to understand, it looks like the following.\n",
+    "On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction of white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here's a diagram to make it easy to understand.\n",
     "\n",
     "\n",
     "\n",
@@ -803,14 +834,14 @@
     "\n",
     "$$IoU = \\frac{\\rm true\\_positive}{{\\rm positive} + {\\rm true} - {\\rm true\\_positive}}$$\n",
     "\n",
-    ". true_positive is the number of pixels of True Positive, positive is the number of pixels in the predicted image that has a value of 1, and true is the number of pixels in the correct image that take a value of 1.\n",
+    "The true_positive is the number of pixels of True Positive, the positive is the number of pixels in the predicted image that has a value of 1, and true is the number of pixels in the correct image that take a value of 1.\n",
     "\n",
-    "Let's see the problem of \"**Pixel Accuracy is high but mIoU is low**\" by visualizing the result of predicting validation data using the actually obtained model . Execute the following cell.\n"
+    "Let's see the problem of \"**Pixel Accuracy is high but mIoU is low**\" by visualizing the result of predicting validation data using the actually obtained model. Run the following cell.\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 6,
    "metadata": {
     "colab": {
      "base_uri": "https://localhost:8080/",
@@ -822,45 +853,20 @@
    },
    "outputs": [
     {
-     "data": {
-      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAXUAAAC7CAYAAACaaA64AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\nAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4yLCBo\ndHRwOi8vbWF0cGxvdGxpYi5vcmcvNQv5yAAAA5lJREFUeJzt3Ety2lAUQMG8lPe/5ZcR5TguFAzo\nd9Q9xoUGV4eLkDXmnL8AaPi99wEA8D6iDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4Q8rHn\nm48xPKOAVc05xx7va7ZZ273ZtqkDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOE\niDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SI\nOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6\nQIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkDIx94HAFzb\nnPO/rxljbHAkDTZ1YBdzzoeCfnstj7GpA5t6NtC3v7O1L7OpA5t5x8Zta18m6sAmxHgbog6czk+u\nx1+NqAOrWyvAwv6dqAOEiPrJ2EyAJW5pPKl7cb/d7jXndOsXl2DWv7Kpn8gt5Evbunt5ORrfLrcl\n6gd3+5X/JyeGk4irMfOfRP3AXhlUQw7XJOrAqlwK3JaoH5RNGx7ng+OTqAOrWzO6gv6VqB+QLR0e\nI+jfifoBvXNQfUBwFAK8DVEP808ZHM275nGMYbbvEPUwQ88RvRpkc71M1IFdiPM6PPvloMYYL10P\nd8JwBktz+vf8m+fHifqBPRt2JwAF5vg5Lr8EueMFrsumfnD/PkrXV1JgiU39JG4BF3JgiU39hIQd\nuMemDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoA\nIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAh\nog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGi\nDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIO\nECLqACFjzrn3MQDwJjZ1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1\ngBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAkD/25YF2QZfojwAAAABJRU5ErkJg\ngg==\n",
-      "text/plain": [
-       "<matplotlib.figure.Figure at 0x7f5cdb035978>"
-      ]
-     },
-     "metadata": {
-      "tags": []
-     },
-     "output_type": "display_data"
-    },
-    {
-     "data": {
-      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAXUAAAC7CAYAAACaaA64AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\nAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4yLCBo\ndHRwOi8vbWF0cGxvdGxpYi5vcmcvNQv5yAAAA39JREFUeJzt3Mtu4kAQQNH0KP//yz2riZhIhIdN\n3L6cs2KBhBfFVZlHjznnBwANf46+AAD2I+oAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGf\nR774GMMZBbzUnHMc8bpmm1e7Nts2dYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1\ngBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWA\nEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQ\nUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBR\nBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgR9ZOZcx59CcDCPo++AO4z5/wYY3w9/m6M8d9z4EyuLSvm\n+XE29ZP4F+1rBJ2zujXX7k4fY1Nf3CMDfflcgWd1j862mb6PTX1hWzYU2w0re2Y+zfR9RB34VZaV\n1xL1RRle4BmiDhAi6gvaa0u37bOaPWbSXP9M1Be017f8fi0A70fUgV9j0Xg9UQcIEXXgVGz7PxP1\nRW0dXIMP70nUFzbGeCrOt86JgSNtWTgsK7eJ+uKe/Tu14Wdl5vN1HOi1uMvjdr8fveuNwZk9ckdp\n1u9nUz8JQ03Rrbl+9iPId2ZTPyFDTsnlPLsL3U7UgWWI+XY+fgEIEXWAEFEHCBF1gBBRBwgRdYAQ\nUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBR\nBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEH\nCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgRdYAQUQcI\nEXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gBBRBwgZc86jrwGAndjUAUJEHSBE1AFCRB0g\nRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE\n1AFCRB0gRNQBQv4CuwJvgYOlX5wAAAAASUVORK5CYII=\n",
-      "text/plain": [
-       "<matplotlib.figure.Figure at 0x7f5cdada3f28>"
-      ]
-     },
-     "metadata": {
-      "tags": []
-     },
-     "output_type": "display_data"
-    },
-    {
-     "data": {
-      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAXUAAAC7CAYAAACaaA64AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\nAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4yLCBo\ndHRwOi8vbWF0cGxvdGxpYi5vcmcvNQv5yAAAA75JREFUeJzt3MFu4jAUQFE86v//smeFFHWGtkBC\nzO05q6pCJYvnGzeEjDnnBYCGP2cfAAD7EXWAEFEHCBF1gBBRBwgRdYAQUQcIEXWAEFEHCBF1gJCP\nM998jOEZBRxqzjnOeF+zzdFuzbadOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6\nQIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpA\niKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCI\nqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIioA4SIOkCIqAOEiDpAiKgDhIg6QIio\nA4SIOkCIqAMvM+e8zDnPPoy0j7MPAOi6FfDPvx9jvOJwfgVRB3Z37258+3qBf46oA7vZ49LK9W+I\n+2NcUweW5Nr7Y0T9zRl8VnHELJrv+4n6m7kO+fYuguvP2wVgMfBKR86bWb6PqL+RbcS/e80Yw2Ig\nwyz/nA9KF/fIMM85L2MMHzTxEoK7Fjv1hT2zWCw0asz0z4j6ogww/Mu6+J6oAw8T2fWIOvBWnEi+\nJuoAIaK+mD13IZ6Ix5HM1ppEfTF734botkaOYrbWJOphFh1V/ku4TdQBQkR9Uc/ssn2bFH4vUV+Y\nMLM6M7oeUV+Y64bwf04mt3mg18K2g3t9SNfnpzAabmDLTv1NXOMt4qzGTK5F1N+QwAO3iDrwtFdu\nMGxmvibqwC6Ojq1bdX9G1IHdiO753P0C7Ooa9r1uyXWiuI+dOnCIZ2Pscstj7NSBwzyyaxfy54g6\ncDihfh2XXwBCRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQB\nQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE1AFC\nRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAUJE\nHSBE1AFCRB0gRNQBQkQdIETUAUJEHSBE1AFCRB0gRNQBQkQdIETUAULGnPPsYwBgJ3bqACGiDhAi\n6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLqACGiDhAi6gAhog4QIuoAIaIOECLq\nACGiDhAi6gAhog4QIuoAIX8BqvicaeYJeWgAAAAASUVORK5CYII=\n",
-      "text/plain": [
-       "<matplotlib.figure.Figure at 0x7f5cdffd7518>"
-      ]
-     },
-     "metadata": {
-      "tags": []
-     },
-     "output_type": "display_data"
+     "ename": "NameError",
+     "evalue": "name 'trainer' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-6-6ee24907b2fc>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m     18\u001b[0m         \u001b[0mplt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mshow\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     19\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 20\u001b[0;31m \u001b[0mshow_predicts\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtrainer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mval\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdevice\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m: name 'trainer' is not defined"
+     ]
     }
    ],
    "source": [
     "def show_predicts(trainer, val, device=-1, n_sample=3):\n",
-    "    # Trainerオブジェクトから学習済みモデルを取り出す\n",
+    "    # Retrieve a trained model from a Trainer object\n",
     "    model = trainer.updater.get_optimizer('main').target.predictor\n",
     "\n",
     "    for i in range(n_sample):\n",
@@ -902,7 +908,7 @@
    "source": [
     "## Segmentation using convolution \n",
     "\n",
-    "In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, from a model consisting only of all tie layers. In addition to that, let's change to a deeper (more layery) model. Use this time Link is, `Convolution2D`and `Deconvolution2D` only two. You can specify kernel size (`ksize`), stride (`stride`), padding (`pad`) respectively. First, let's summarize how these change the output."
+    "In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, from a model consisting only of fully-connected layers. In addition to that, let's change to a deeper (more layers) model. Links used this time are `Convolution2D`and `Deconvolution2D` only. You can specify kernel size (`ksize`), stride (`stride`), padding (`pad`) respectively. First, let's summarize how these change the output."
    ]
   },
   {
@@ -914,11 +920,11 @@
    "source": [
     "### Convolution \n",
     "\n",
-    "`Convolution2D` Link is a general convolution layer implementation. I explained in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.\n",
+    "The Link `Convolution2D` is a general convolution layer implementation. I explained in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.\n",
     "\n",
-    "- To make it easier to maintain the output size after calculation using padding, make it an odd kernel size (⌊ksize/2⌋Is specified as pad, the image size will not change when stride = 1)\n",
-    "- If you want to reduce the output feature map, give a value of> 1 to stride (if stride = n, the aspect ratio of the converted image will be 1 / n of the original)\n",
-    "- Output size,(input_size−ksize+pad×2)/stride+1 become. That is, increasing the stride decreases the output feature map."
+    "- To make it easier to maintain the output size after calculation using padding, make it an odd kernel size (If ⌊ksize/2⌋ is specified as pad, the image size will not change when stride = 1)\n",
+    "- If you want to reduce the output feature map, give a value of >1 to stride (if stride = n, the aspect ratio of the converted image will be 1 / n of the original)\n",
+    "- Output size becomes (input_size−ksize+pad×2)/stride+1. That is, increasing the stride decreases the output feature map."
    ]
   },
   {
@@ -930,19 +936,19 @@
    "source": [
     "### Deconvolution layer \n",
     "\n",
-    "`Deconvolution2D` Is not a deconvolution in a mathematical sense unlike its name from historical circumstances. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution 2D, the way of applying the filter is the same as that of Convolution, but the processing such as disposing the values of the input feature map in different parts is different. `Deconvolution2D` When setting layer parameters, it is useful to know the following points.\n",
+    "`Deconvolution2D` is not a deconvolution in a mathematical sense unlike its name from historical reasons. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution2D, the way of applying the filter is the same as that of Convolution, but the part where processing such as arranging the values of the input feature map to skip is different. When setting `Deconvolution2D` layer parameters, it is useful to know the following points.\n",
     "\n",
     "- Make the kernel size divisible by stride (to prevent checker board artifact. For reference: [Deconvolution and Checkerboard Artifacts](https://distill.pub/2016/deconv-checkerboard/)）\n",
-    "- Output size,${\\rm stride} \\times ({\\rm input\\_size} - 1) + {\\rm ksize} - 2 \\times {\\rm pad}$ Therefore, adjust the parameters so that it becomes the size after the target expansion\n",
+    "- Since output size becomes ${\\rm stride} \\times ({\\rm input\\_size} - 1) + {\\rm ksize} - 2 \\times {\\rm pad}$, adjust the parameters so that it becomes the target expansion size.\n",
     "\n",
-    "In Deconvolution 2 D, the meaning of pad is not a bit intuitive, so we prepare a diagram that explains the actual operation.\n",
+    "As the meaning of pad is not a bit intuitive in Deconvolution2D, a diagram is provided below that explains the actual operation.\n",
     "\n",
     "\n",
-    "![Deconvolution2Dの計算(pad=0の場合)](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-0.png)\n",
+    "![Calculation of Deconvolution2D(when pad=0)](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-0.png)\n",
     "\n",
-    "![Deconvolution2Dの計算(pad=1の場合)](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-1.png)\n",
+    "![Calculation of Deconvolution2Dの(when pad=1)](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-1.png)\n",
     "\n",
-    "The point to be noticed is that the \"amount to shave\" around the feature map arranged / extended according to ksize and stride is pad. The subsequent operation itself is the same as Convolution with stride = 1, pad = 0.\n",
+    "The point to be careful is that the \"amount to cut\" around the feature map arranged / extended according to ksize and stride becomes pad. The subsequent operation itself is the same as Convolution with stride = 1, pad = 0.\n",
     "\n",
     "Here is a very easy-to-understand GIF animation that shows the calculation of Convolution / Deconvolution, so please refer to: [Convolution arithmetic](https://github.com/vdumoulin/conv_arithmetic)"
    ]
@@ -954,11 +960,11 @@
     "id": "7toHJo-ySprx"
    },
    "source": [
-    "### Full convolution \n",
+    "### Fully Convolutional Network \n",
     "\n",
     "Let's write a network consisting of Convolution layer and Deconvolution layer with Chainer. The following model is similar to a network called Fully Convolutional Network. Please refer to this document for details [4], [5], [6].\n",
     "\n",
-    "The following FullyConvolutionalNetwork model definition includes five constants from FIXME_1 to FIXME_5, but no value is given. Each is the number of channels on the output side of Convolution. Try this,\n",
+    "The following FullyConvolutionalNetwork model definition includes five constants from FIXME_1 to FIXME_5, but no value is given. Each is the number of channels on the output side of Convolution. Let's rewrite these;\n",
     "\n",
     "- FIXME_1 = 64\n",
     "- FIXME_2 = 128\n",
@@ -966,7 +972,7 @@
     "- FIXME_4 = 128\n",
     "- FIXME_5 = 128\n",
     "\n",
-    "Let's rewrite it and run the cell below. If `None` you give the number of input channels , it will automatically decide at run time.\n",
+    "and run the cell below. If you give `None` to the number of input channels, it will automatically decide at run time.\n",
     "\n",
     "[4] http://fcn.berkeleyvision.org/\n",
     "\n",
@@ -977,7 +983,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 7,
    "metadata": {
     "colab": {
      "base_uri": "https://localhost:8080/",
@@ -989,10 +995,14 @@
    },
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "(256, 256)\n"
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'chainer'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-7-fc62a0897060>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mreporter\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mchainer\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mcuda\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mchainercv\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mevaluations\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'chainer'"
      ]
     }
    ],
@@ -1008,18 +1018,16 @@
     "        super().__init__()\n",
     "        with self.init_scope():\n",
     "            # L.Convolution2D(in_ch, out_ch, ksize, stride, pad)\n",
-    "            # in_chは省略することができるので，\n",
+    "            # You can omit in_ch like this: \n",
     "            # L.Convolution2D(out_ch, ksize, stride, pad)\n",
-    "            # とかくこともできます．\n",
     "            self.conv1 = L.Convolution2D(None, FIXME_1, ksize=5, stride=2, pad=2)\n",
     "            self.conv2 = L.Convolution2D(None, FIXME_2, ksize=5, stride=2, pad=2)\n",
     "            self.conv3 = L.Convolution2D(None, FIXME_3, ksize=3, stride=1, pad=1)\n",
     "            self.conv4 = L.Convolution2D(None, FIXME_4, ksize=3, stride=1, pad=1)\n",
     "            self.conv5 = L.Convolution2D(None, FIXME_5, ksize=1, stride=1, pad=0)\n",
     "            # L.Deconvolution2D(in_ch, out_ch, ksize, stride, pad)\n",
-    "            # in_chは省略することができるので，\n",
+    "            # You can omit in_ch like this: \n",
     "            # L.Deconvolution2D(out_ch, ksize, stride, pad)\n",
-    "            # と書くこともできます．\n",
     "            self.deconv6 = L.Deconvolution2D(None, n_class, ksize=32, stride=16, pad=8)\n",
     "        self.out_h = out_h\n",
     "        self.out_w = out_w\n",
@@ -1048,7 +1056,7 @@
     "id": "j7-WbsG8Spry"
    },
    "source": [
-    "After rewriting FIXME_1 to FIXME_5 as a constant and executing the above cell, the output size of the network is displayed. Since the input image of this time is (256, 256) size image, it works properly if the output is the same size as 256 x 256."
+    "After rewriting FIXME_1 to FIXME_5 as a constant and running the above cell, the output size of the network is displayed. Since the input image here is (256, 256) size image, if the output is the same size as 256 x 256, it is working properly."
    ]
   },
   {
@@ -1060,43 +1068,56 @@
    "source": [
     "### Improvement of the Classifier class \n",
     "\n",
-    "Next, in order to check not only Pixel Accuracy but also mIOU as checking during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let's execute the following cell."
+    "Next, in order to check not only Pixel Accuracy but also mIOU as items to be checked during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let's run the following cell."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 8,
    "metadata": {
     "colab": {},
     "colab_type": "code",
     "id": "ycDjvqQtSprz"
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'chainer' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-8-4cb52a3374e8>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mclass\u001b[0m \u001b[0mPixelwiseSigmoidClassifier\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mchainer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mChain\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0m__init__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpredictor\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m         \u001b[0msuper\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__init__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m         \u001b[0;32mwith\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0minit_scope\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'chainer' is not defined"
+     ]
+    }
+   ],
    "source": [
     "class PixelwiseSigmoidClassifier(chainer.Chain):\n",
     "    \n",
     "    def __init__(self, predictor):\n",
     "        super().__init__()\n",
     "        with self.init_scope():\n",
-    "            # 学習対象のモデルをpredictorとして保持しておく\n",
+    "            # Store the target training model as predictor\n",
     "            self.predictor = predictor\n",
     "    \n",
     "    def __call__(self, x, t):\n",
-    "        # 学習対象のモデルでまず推論を行う\n",
+    "        # First, make prediction with the model to be trained\n",
     "        y = self.predictor(x)\n",
     "        \n",
-    "        # 2クラス分類の誤差を計算\n",
+    "        # Calculate loss from 2-class classification\n",
     "        loss = F.sigmoid_cross_entropy(y, t)\n",
     "\n",
-    "        # 予測結果（0~1の連続値を持つグレースケール画像）を二値化し，\n",
-    "        # ChainerCVのeval_semantic_segmentation関数に正解ラベルと\n",
-    "        # 共に渡して各種スコアを計算\n",
+    "        # Binaryize the prediction result (grayscale image with continuous\n",
+    "        # value between 0 and 1), pass it along with the correct answer label to\n",
+    "        # eval_semantic_segmentation function of ChainerCV and calculate\n",
+    "        # various scores\n",
     "        y, t = cuda.to_cpu(F.sigmoid(y).data), cuda.to_cpu(t)\n",
     "        y = np.asarray(y > 0.5, dtype=np.int32)\n",
     "        y, t = y[:, 0, ...], t[:, 0, ...]\n",
     "        evals = evaluations.eval_semantic_segmentation(y, t)\n",
     "\n",
-    "        # 学習中のログに出力\n",
+    "        # Output log during the training\n",
     "        reporter.report({'loss': loss,\n",
     "                         'miou': evals['miou'],\n",
     "                         'pa': evals['pixel_accuracy']}, self)\n",
@@ -1110,9 +1131,9 @@
     "id": "xc_ZaQbnSpr1"
    },
    "source": [
-    "Trainer considers the model passed as an argument to the Optimizer to be a \"return objective function value\" function. In the first model, the model returned the output result, but `L.Classifier` passed it to the object called it and passed it to Optimizer. This Chainer is available `L.Classifier` is also calculated Accuracy not only the value of the objective function inside, `reporter.report` in the form of passing a dictionary to `LogReport` Extension, such as does the report of value to be able to supplement. However, L.Classifierdoes not calculate mIoU.\n",
+    "Trainer assumes the model passed as an argument to the Optimizer to be a function that \"returns the value of objective function\". In the first model, the model returned the output result, but passed it to the object called `L.Classifier` and passed it to Optimizer. This `L.Classifier` Chainer provides calculates not only the value of the objective function internally, but also calculates Accuracy, then reports the value in the form of passing a dictionary to `reporter.report` so that Extension, such as `LogReport`, can be supplemented. However, `L.Classifier` does not calculate mIoU.\n",
     "\n",
-    "So, `L.Classifier` we `PixelwiseSigmoidClassifier` will replace it with ourselves, calculate both the Pixel Accuracy and the mIoU for the `F.sigmoid_cross_entropy`prediction (in the above code `y`) while writing the calculation of the actual objective function yourself, and report it . `__call__`It is expected to return the value (scalar) of the objective function itself, so `F.sigmoid_cross_entropy`it is `loss`only the return value of `return`."
+    "Therefore, we will replace `L.Classifier` with our own `PixelwiseSigmoidClassifier`, writing calculation of `F.sigmoid_cross_entropy` that will be an actual objective functions by ourselves, calculating both the Pixel Accuracy and the mIoU for the prediction (in the above code `y`), then report it. `__call__` itself is expected to return the value (scalar) of the objective function, so it only returns `loss` which is the return value of `F.sigmoid_cross_entropy`."
    ]
   },
   {
@@ -1122,8 +1143,8 @@
     "id": "4o7iJhNZSpr1"
    },
    "source": [
-    "### Training with the new \n",
-    "Let's learn by Trainer using these models and custom classifier. Execute the following cell."
+    "### Training with the new model\n",
+    "Let's perform training with Trainer using these models and custom classifier. Run the following cell."
    ]
   },
   {
@@ -1170,11 +1191,11 @@
     "id": "cy11SO2WSpr4"
    },
    "source": [
-    "This is a function to create a Trainer object used this time. Where different from the first case, the log is recorded in the file `LogReport`to output the specified logs and to standard output items `PrintReport`, and outputs the graph `PlotReport`in the extended `loss`and `accuracy`(in this case, `pa` != Pixel Accuracy) only `miou`place which is also output is.\n",
+    "This is the function to create a Trainer object used this time. The differences from the first case are `LogReport` that records logs to a file, and `PrintReport` that outputs to the standard output, and also the extension of `PlotReport` which outputs the graph, not only `loss`and `accuracy` (in this case, `pa` != Pixel Accuracy) but also `miou`.\n",
     "\n",
-    "Let's start training. In the first model, let's see the process while recalling that miou only got over 0.68. This time the model grows and the number of parameters is also increasing, so it takes time to learn a bit (it takes over 6 minutes)\n",
+    "Let's start training. remebering that miou only got over 0.68 with the first model, let's observe the progress. This time the model grows and the number of parameters is also increasing, so the training may take time to train a bit (it would take over 6 minutes)\n",
     "\n",
-    "Execute the following cell."
+    "Run the following cell."
    ]
   },
   {
@@ -1244,7 +1265,7 @@
    },
    "source": [
     "### Let's take a look at the training result \n",
-    "`PlotReport` Let's take a look at the graph output by the extension in this training . Execute the following three cells."
+    "Let's take a look at the graph output by the `PlotReport` extension in this training. Run the following three cells."
    ]
   },
   {
@@ -1372,7 +1393,7 @@
     "id": "CnVA6KwQSpr_"
    },
    "source": [
-    "In addition to Pixel Accuracy being 0.99 or more, mIoU has also increased to nearly 0.90. Focusing on mIoU, I think that you can see that the accuracy is improved considerably compared with the first model (about 0.68). Let's check the results by looking at the predicted label image when actually inferring validation data. Execute the following cell."
+    "Not only Pixel Accuracy is 0.99 or more, mIoU has also increased to nearly 0.90. Focusing on mIoU, you will notice that you can see that the accuracy is improved considerably compared with the first model (was about 0.68). Let's check the results by looking at the predicted label image used when actually inferring validation data. Run the following cell."
    ]
   },
   {
@@ -1445,7 +1466,7 @@
     "id": "NKs1onagSpsB"
    },
    "source": [
-    "Three images are displayed that are the same as when checking the results of the first model. Noticeing the first line, especially focusing on the third line, we can see that it is possible to estimate a mask that is close to the correct answer label.\n",
+    "Three images are displayed that are the same as when checking the results of the first model. Notice that, compaired to the first result, especially on the third row, we can see that it is possible to estimate a mask that is close to the correct answer label.\n",
     "\n",
     "By using a deeper model consisting only of the convolution layer for training, we were able to greatly improve the results."
    ]
@@ -1458,13 +1479,13 @@
    },
    "source": [
     "## Tips for further improvement \n",
-    "It seems to be working well in this model, but there is still room for improvement.Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to predict the results at multiple resolutions Consideration, etc., are important issues consciousness. Also, in neural networks, it is generally said that the more features overlap, the higher the abstraction level of features. However, since Semantic Segmentation wishes to output a mask image accurately representing the outline of the target object, considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) You want to make predictive results. For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.\n",
+    "It seems to be working well in this model, but there is still room for improvement. Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to handle prediction results at multiple resolutions, etc., are important problems. Also, in neural networks, it is generally known that the more layers are used, the higher the abstraction level of features will become. However, since Semantic Segmentation wishes to output a mask image accurately representing the outline of the target object, you would want to make a final prediction result considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.\n",
     "\n",
     "Several new models have been proposed from these perspectives. Typical examples are listed below, for example.\n",
     "\n",
     "\n",
     "### SegNet [8] \n",
-    "When Max Pooling is applied in each layer, it is a method to keep information of \"which pixel is the maximum value (pooling indices)\" and upsampling it using the pooling indices recorded when enlarging the image later . Code including [ChainerCV](https://github.com/chainer/chainercv) model implemented by Chainer and complete reproduction experiment is released.\n",
+    "When Max Pooling is applied in each layer, it is a method to keep information of \"which pixel is the maximum value (pooling indices)\" and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at [ChainerCV](https://github.com/chainer/chainercv).\n",
     "\n",
     "![SegNet](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/SegNet.png)\n",
     "\n",
@@ -1481,9 +1502,9 @@
     "\n",
     "![PSPNet](https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/PSPNet.png)\n",
     "\n",
-    "In addition to this, various methods have been proposed, such as not only the size of the number of samples between classes but also the performance can be raised by using a loss function that takes them into account when there are difficult classes and simple classes I will.\n",
+    "In addition to the above, various methods have been proposed. For instance, the performance can be raised not only by the size of the number of samples between classes but also by using a loss function that takes them into account when there are difficult classes and simple classes.\n",
     "\n",
-    "In addition, for the sake of simplicity, we used a data set with training split and validation split only for the sake of simplicity, but after adjusting the hyper parameter using the validation result with validation split and then evaluating the final performance You should use test split.\n",
+    "Also, we used a data set with training split then evaluating the final performance and validation split only for the sake of simplicity earlier, but  we should use test split at the phase of evaluating the final performance after adjusting the hyper parameter using the validation result with validation split.\n",
     "\n",
     "[8] Vijay Badrinarayanan, Alex Kendall and Roberto Cipolla \"SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation.\" PAMI, 2017\n",
     "\n",
@@ -1546,7 +1567,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.7.2"
+   "version": "3.7.3"
   },
   "latex_envs": {
    "LaTeX_envs_menu_present": true,

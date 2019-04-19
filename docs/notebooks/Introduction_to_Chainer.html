@@ -182,15 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
 
             
@@ -486,7 +478,7 @@ div.rendered_html tbody tr:hover {
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Introduction_to_Chainer.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <div class="section" id="Introduction-to-Deep-Learning-Framework">
 <h1>4. Introduction to Deep Learning Framework<a class="headerlink" href="#Introduction-to-Deep-Learning-Framework" title="Permalink to this headline">¶</a></h1>
-<p>Chainer is a deep learning framework which uses the methodology called <strong>Define-by-Run</strong> among popular deep learning frameworks for the first time. Preferred Network, Inc.&nbsp;has been developing Chainer since 2015. Define-by-Run is a way to define structure of a neural network by using a code that performs calculations inside the neural network, which has been adopted widely by other popular deep learning frameworks, such as TensorFlow and PyTorch. The other way is to define the neural network
+<p>Chainer is a deep learning framework which uses the methodology called <strong>Define-by-Run</strong> among popular deep learning frameworks for the first time. Preferred Network, Inc. has been developing Chainer since 2015. Define-by-Run is a way to define structure of a neural network by using a code that performs calculations inside the neural network, which has been adopted widely by other popular deep learning frameworks, such as TensorFlow and PyTorch. The other way is to define the neural network
 structure before the training which requires us to add a code to take data necessary for training as input. Such approach is known as Define-and-Run. Since Define-by-Run enables definition of the neural network structure at run-time, it makes it easy to write a dynamic neural network. Int this section, we will explain the fundamental usage of this framework called Chainer which is characterized by its <strong>flexibility</strong> and <strong>intuitiveness</strong>.</p>
 <div class="section" id="Preparing-Environment">
 <h2>4.1. Preparing Environment<a class="headerlink" href="#Preparing-Environment" title="Permalink to this headline">¶</a></h2>
@@ -760,7 +752,7 @@ t: ()
 <p>One of the iterators that is provided by Chainer is <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code>, the simplest iterator that fetches the data in the dataset in order. It takes dataset object and batch size as an argument of <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code> constructor (method called at the time of instantiating class). At this time, if data needs to be repeatedly read out from the passed dataset object, set <code class="docutils literal notranslate"><span class="pre">repeat</span></code> to t<code class="docutils literal notranslate"><span class="pre">True</span></code>, and if it does not want to retrieve more data after one lap, set it to <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is mainly used
 for datasets for validation. By default, it is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Also, if you pass <code class="docutils literal notranslate"><span class="pre">True</span></code> in an <code class="docutils literal notranslate"><span class="pre">shuffle</span></code> argument, it randomly changes the order of data retrieved from the dataset for each epoch. In addition to <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code>, multiple iterators, such as <code class="docutils literal notranslate"><span class="pre">MultiprocessIterator</span></code> and <code class="docutils literal notranslate"><span class="pre">MultithreadIterator</span></code> that allow data to be processed at high speed with multiple processes, are provided. See the follwing for more details.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.chainer.org/en/stable/reference/iterators.html">Iterators provided by Chainer</a></li>
+<li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/iterators.html">Iterators provided by Chainer</a></p></li>
 </ul>
 </div>
 </div>
@@ -772,8 +764,8 @@ for datasets for validation. By default, it is set to <code class="docutils lite
 <h4>4.2.4.1. Link and Function<a class="headerlink" href="#Link-and-Function" title="Permalink to this headline">¶</a></h4>
 <p>Chainer distinguishes each layer of the neural network into <code class="docutils literal notranslate"><span class="pre">Link</span></code> and <code class="docutils literal notranslate"><span class="pre">Function</span></code>.</p>
 <ul class="simple">
-<li>Link is a function which <strong>has parameters</strong>.</li>
-<li>Function is a function which <strong>does not have parameters</strong>.</li>
+<li><p>Link is a function which <strong>has parameters</strong>.</p></li>
+<li><p>Function is a function which <strong>does not have parameters</strong>.</p></li>
 </ul>
 <p>We will combine these to describe the network. Layers with parameters are sprovidedthe module, <code class="docutils literal notranslate"><span class="pre">chainer.link</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">chainer.links.Linear</span></code> corresponds to the fully-connected layer described in the previous chapter, <code class="docutils literal notranslate"><span class="pre">W</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, that are trainable parameters, are stored inside it. Layers without parameters are provided below the module, <code class="docutils literal notranslate"><span class="pre">chainer.functions</span></code>. We typically import these modules to make it easy to access them like;</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
@@ -852,8 +844,8 @@ for datasets for validation. By default, it is set to <code class="docutils lite
 <p>Also, as indicated by the name of the function <code class="docutils literal notranslate"><span class="pre">forward</span></code>, it describes the forward propagation of the network. By taking <code class="docutils literal notranslate"><span class="pre">x</span></code> as an argument for <code class="docutils literal notranslate"><span class="pre">forward</span></code>, and returning the result of forward propagation as output, it becomes possible to use an object created by instantiating the <code class="docutils literal notranslate"><span class="pre">MLP</span></code> class like a function. (Example: <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">=</span> <span class="pre">net(data)</span></code>)</p>
 <p>Chainer provides many kinds of <code class="docutils literal notranslate"><span class="pre">Function</span></code> and <code class="docutils literal notranslate"><span class="pre">Link</span></code>. Please take a look at the following links. Chainerには数多くの <code class="docutils literal notranslate"><span class="pre">Function</span></code> や <code class="docutils literal notranslate"><span class="pre">Link</span></code> が用意されています．ぜひ一度以下の一覧のページを見てみてください．</p>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.chainer.org/en/stable/reference/functions.html">List of functions available in Chainer</a></li>
-<li><a class="reference external" href="https://docs.chainer.org/en/stable/reference/links.html">List of layers (Link) available in Chainer</a></li>
+<li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/functions.html">List of functions available in Chainer</a></p></li>
+<li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/links.html">List of layers (Link) available in Chainer</a></p></li>
 </ul>
 <p>In <code class="docutils literal notranslate"><span class="pre">Link</span></code>, Well-known network structures such as ResNet and VGG are provided in addition to fully-connecgted layer, convolution layer, LSTM etc. commonly used for neural networks. In <code class="docutils literal notranslate"><span class="pre">Function</span></code>, functions such as ReLU activation functions, functions to resize the images, functions such as sine and cosine, and functions that can be used as elements of the network are provided. It is necessary to connect and use those provided in <code class="docutils literal notranslate"><span class="pre">chainer.functions</span></code> even for functions with no parameters
 because, in <code class="docutils literal notranslate"><span class="pre">Define-by-Run</span></code>, as it acquires the path that calculates gradient with back propagation, by first performing forward propagation calculation with inputting data to the network, then tracing the history of the function (with and without parameters) that were applied to the data.</p>
@@ -873,7 +865,7 @@ fully-connected layers later.</p>
 <h3>4.2.5. Selection of Optimizers<a class="headerlink" href="#Selection-of-Optimizers" title="Permalink to this headline">¶</a></h3>
 <p>Let’s train the network defined above with the MNIST dataset. Although many methods of optimization used at the time of training have been proposed, Chainer offers them by the function <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> to make many methods avaiable to you with the same interface. <code class="docutils literal notranslate"><span class="pre">chainer.optimizers</span></code> module is defined below. Here is the list:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.chainer.org/en/stable/reference/optimizers.html">List of optimizers available in Chainer</a></li>
+<li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/optimizers.html">List of optimizers available in Chainer</a></p></li>
 </ul>
 <p>Here we use the simplest method of gradient descent method, <code class="docutils literal notranslate"><span class="pre">optimizers.SGD</span></code>. We will pass the model (<code class="docutils literal notranslate"><span class="pre">Chain</span></code> object) to the object of <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> using <code class="docutils literal notranslate"><span class="pre">setup</span></code> method. By doing this, you can let <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> know what it should optimize.</p>
 <p>Since you can easilty try out various optimization methods, please try them and see how the result would change. For example, the <code class="docutils literal notranslate"><span class="pre">Optimizers</span></code> listed as <code class="docutils literal notranslate"><span class="pre">chainer.optimizers.SGD</span></code> etc, for instance, by simply replacing <code class="docutils literal notranslate"><span class="pre">SGD</span></code> part with <code class="docutils literal notranslate"><span class="pre">MomentumSGD</span></code>, <code class="docutils literal notranslate"><span class="pre">RMSprop</span></code>, <code class="docutils literal notranslate"><span class="pre">Adamsimply</span></code>, you can check how the learning curve (also known as loss curve - the plots of the value of the objective function) changes by using different optimization techniques. Depending on the optimization method, there are
@@ -908,17 +900,17 @@ Technology</a> (written in Japanese).)</p>
 <p>Finally, updating (= training) of network parameters is performed by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>, using the gradient for each parameter calculated.</p>
 <p>In summary, the following four items are performed in the series of update processing.</p>
 <ol class="arabic simple">
-<li>Pass data to the network to calculate forward propagation and get output <code class="docutils literal notranslate"><span class="pre">y</span></code></li>
-<li>Calculate the loss to be minimized with a function <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code> using the output <code class="docutils literal notranslate"><span class="pre">y</span></code> and the correct answer label <code class="docutils literal notranslate"><span class="pre">t</span></code></li>
-<li>Call the <code class="docutils literal notranslate"><span class="pre">backward</span></code> method of ouput (<code class="docutils literal notranslate"><span class="pre">Variable</span></code>) of function <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code> and calculate the gradient of all parameters of the network by error back propagation method</li>
-<li>Call <code class="docutils literal notranslate"><span class="pre">update</span></code> method of the Optimizer to update all the parameters using the gradient calculated in 3.</li>
+<li><p>Pass data to the network to calculate forward propagation and get output <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+<li><p>Calculate the loss to be minimized with a function <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code> using the output <code class="docutils literal notranslate"><span class="pre">y</span></code> and the correct answer label <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
+<li><p>Call the <code class="docutils literal notranslate"><span class="pre">backward</span></code> method of ouput (<code class="docutils literal notranslate"><span class="pre">Variable</span></code>) of function <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code> and calculate the gradient of all parameters of the network by error back propagation method</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">update</span></code> method of the Optimizer to update all the parameters using the gradient calculated in 3.</p></li>
 </ol>
 <p>Parameters are updated by repeating the above steps. The data used for one parameter update is only data entered into the network, bundled as mini batch. Training is done by using the whole data set by inputting new mini batches one after another and repeating the above steps. This process is called <strong>a training loop</strong>.</p>
 <div class="section" id="Objective-Function">
 <h4>4.2.6.1. Objective Function<a class="headerlink" href="#Objective-Function" title="Permalink to this headline">¶</a></h4>
 <p>As an objective function, if you want to solve a regression problem rather than a classification problem, for example, you can use <code class="docutils literal notranslate"><span class="pre">F.mean_squared_error</span></code> instead of <code class="docutils literal notranslate"><span class="pre">F.softmax_cross_entropy</span></code>. In addition, Chainer provides various loss functions to deal with various problems. You can see the list here:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://docs.chainer.org/en/stable/reference/functions.html#loss-functions">List of objective (loss functions) functions available in Chainer</a></li>
+<li><p><a class="reference external" href="http://docs.chainer.org/en/stable/reference/functions.html#loss-functions">List of objective (loss functions) functions available in Chainer</a></p></li>
 </ul>
 </div>
 <div class="section" id="The-Code-of-the-Traning-Loop">
@@ -1225,7 +1217,7 @@ an <code class="docutils literal notranslate"><span class="pre">Updater</span></
 <div class="section" id="Chain-for-the-loss-calculation">
 <h4>4.3.2.1. Chain for the loss calculation<a class="headerlink" href="#Chain-for-the-loss-calculation" title="Permalink to this headline">¶</a></h4>
 <p>Here, we wrap the network with <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>. <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> has the network passed as <code class="docutils literal notranslate"><span class="pre">predictoran</span></code> attribute and <strong>adds a function to perform loss calculation</strong>. By doing this , <code class="docutils literal notranslate"><span class="pre">net()</span></code> will take not only the data <code class="docutils literal notranslate"><span class="pre">x</span></code> but also the labels <code class="docutils literal notranslate"><span class="pre">t</span></code>, calculate the predicted value by passing the received data to <code class="docutils literal notranslate"><span class="pre">predictor</span></code>, and <strong>return the Variable of loss</strong> by comparing with the correct label <code class="docutils literal notranslate"><span class="pre">t</span></code>. What is used as a loss function by default is <code class="docutils literal notranslate"><span class="pre">F.softmax_cross_entropy</span></code>, but you can
-change it by passing the function that performs the loss calculation to lossfunc argument of <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>, and (despite the name being <code class="docutils literal notranslate"><span class="pre">Classfier</span></code>) you can use it to add loss calculation functions, such as regression problem. (e.g.&nbsp;you can do: <code class="docutils literal notranslate"><span class="pre">L.Classifier(net,</span> <span class="pre">lossfun=L.mean_squared_error,</span> <span class="pre">compute_accuracy=False)</span></code>)</p>
+change it by passing the function that performs the loss calculation to lossfunc argument of <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>, and (despite the name being <code class="docutils literal notranslate"><span class="pre">Classfier</span></code>) you can use it to add loss calculation functions, such as regression problem. (e.g. you can do: <code class="docutils literal notranslate"><span class="pre">L.Classifier(net,</span> <span class="pre">lossfun=L.mean_squared_error,</span> <span class="pre">compute_accuracy=False)</span></code>)</p>
 <p><code class="docutils literal notranslate"><span class="pre">StandardUpdater</span></code> is the simplest class to carry out the processing of the above mentioned <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. Besides this, <code class="docutils literal notranslate"><span class="pre">ParallelUpdateretc</span></code> is provided to use multiple GPUs.</p>
 </div>
 </div>
@@ -1257,13 +1249,13 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <h3>4.3.4. Add Extension to Trainer<a class="headerlink" href="#Add-Extension-to-Trainer" title="Permalink to this headline">¶</a></h3>
 <p>Advantages of using <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>:</p>
 <ul class="simple">
-<li>Automatically save logs to file（<code class="docutils literal notranslate"><span class="pre">LogReport</span></code>)</li>
-<li>Display information such as loss regularly on the terminal（<code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>）</li>
-<li>Visualize the loss regularly as a graph and save it as an image（<code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>)</li>
-<li>Automatic serialization of model and Optimizer status regularly（<code class="docutils literal notranslate"><span class="pre">snapshot</span></code>）</li>
-<li>Display a progress bar indicating the progress of learning（<code class="docutils literal notranslate"><span class="pre">ProgressBar</span></code>）</li>
-<li>Save network structure in Graphviz dot format（<code class="docutils literal notranslate"><span class="pre">dump_graph</span></code>）</li>
-<li>Output statistical information such as average and variance of network parameters（<code class="docutils literal notranslate"><span class="pre">ParameterStatistics</span></code>）</li>
+<li><p>Automatically save logs to file（<code class="docutils literal notranslate"><span class="pre">LogReport</span></code>)</p></li>
+<li><p>Display information such as loss regularly on the terminal（<code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>）</p></li>
+<li><p>Visualize the loss regularly as a graph and save it as an image（<code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>)</p></li>
+<li><p>Automatic serialization of model and Optimizer status regularly（<code class="docutils literal notranslate"><span class="pre">snapshot</span></code>）</p></li>
+<li><p>Display a progress bar indicating the progress of learning（<code class="docutils literal notranslate"><span class="pre">ProgressBar</span></code>）</p></li>
+<li><p>Save network structure in Graphviz dot format（<code class="docutils literal notranslate"><span class="pre">dump_graph</span></code>）</p></li>
+<li><p>Output statistical information such as average and variance of network parameters（<code class="docutils literal notranslate"><span class="pre">ParameterStatistics</span></code>）</p></li>
 </ul>
 <p>These are easily achieved with the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. You would ony need to pass <code class="docutils literal notranslate"><span class="pre">Extention</span></code> you want to add, using <code class="docutils literal notranslate"><span class="pre">extend</span></code> method, to <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. Let’s actually add some.</p>
 <div class="nbinput docutils container">
@@ -1332,7 +1324,7 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <hr class="docutils" />
 <p>The <code class="docutils literal notranslate"><span class="pre">Extension</span></code>, in addition to ones introduced here, has other several options, such as the ability to specify the timing to operate individually by the <code class="docutils literal notranslate"><span class="pre">trigger</span></code>, and the options can remove flexibly be combined. See the official documentation for details.</p>
 <ul class="simple">
-<li><a class="reference external" href="http://docs.chainer.org/en/stable/reference/extensions.html">List of Trainer extensions in Chainer</a></li>
+<li><p><a class="reference external" href="http://docs.chainer.org/en/stable/reference/extensions.html">List of Trainer extensions in Chainer</a></p></li>
 </ul>
 </div>
 </div>
@@ -1512,43 +1504,43 @@ Test accuracy: 0.92494065
 <div class="section" id="Use-of-new-network">
 <h2>4.4. Use of new network<a class="headerlink" href="#Use-of-new-network" title="Permalink to this headline">¶</a></h2>
 <p>Here, instead of using the MNIST data set, we will try to write various models ourselves and experience a trial-and-error flow, using a data set with one of 10 classes labeled with a small 32x32 color image called CIFAR10.</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="14%" />
-<col width="17%" />
-<col width="9%" />
-<col width="7%" />
-<col width="9%" />
-<col width="7%" />
-<col width="9%" />
-<col width="10%" />
-<col width="9%" />
-<col width="10%" />
+<col style="width: 14%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">airplane</th>
-<th class="head">automobile</th>
-<th class="head">bird</th>
-<th class="head">cat</th>
-<th class="head">deer</th>
-<th class="head">dog</th>
-<th class="head">frog</th>
-<th class="head">horse</th>
-<th class="head">ship</th>
-<th class="head">truck</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>airplane</p></th>
+<th class="head"><p>automobile</p></th>
+<th class="head"><p>bird</p></th>
+<th class="head"><p>cat</p></th>
+<th class="head"><p>deer</p></th>
+<th class="head"><p>dog</p></th>
+<th class="head"><p>frog</p></th>
+<th class="head"><p>horse</p></th>
+<th class="head"><p>ship</p></th>
+<th class="head"><p>truck</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><img alt="Airplane" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/airplane4.png" /></td>
-<td><img alt="Automobile" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile4.png" /></td>
-<td><img alt="Bird" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/bird4.png" /></td>
-<td><img alt="Cat" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/cat4.png" /></td>
-<td><img alt="Deer" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/deer4.png" /></td>
-<td><img alt="Dog" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/dog4.png" /></td>
-<td><img alt="Frog" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/frog4.png" /></td>
-<td><img alt="Horse" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/horse4.png" /></td>
-<td><img alt="Ship" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/ship4.png" /></td>
-<td><img alt="Truck" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/truck4.png" /></td>
+<tbody>
+<tr class="row-even"><td><p><img alt="Airplane" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/airplane4.png" /></p></td>
+<td><p><img alt="Automobile" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile4.png" /></p></td>
+<td><p><img alt="Bird" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/bird4.png" /></p></td>
+<td><p><img alt="Cat" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/cat4.png" /></p></td>
+<td><p><img alt="Deer" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/deer4.png" /></p></td>
+<td><p><img alt="Dog" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/dog4.png" /></p></td>
+<td><p><img alt="Frog" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/frog4.png" /></p></td>
+<td><p><img alt="Horse" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/horse4.png" /></p></td>
+<td><p><img alt="Ship" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/ship4.png" /></p></td>
+<td><p><img alt="Truck" src="https://www.cs.toronto.edu/~kriz/cifar-10-sample/truck4.png" /></p></td>
 </tr>
 </tbody>
 </table>
@@ -1586,13 +1578,13 @@ Test accuracy: 0.92494065
 <h3>4.4.2. Training<a class="headerlink" href="#Training" title="Permalink to this headline">¶</a></h3>
 <p>Here, we will create a function <code class="docutils literal notranslate"><span class="pre">train</span></code> so that you can easily train other networks later with the same settings . It is a function, created with the following settings, that trains the network using the passed dataset internally using <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, and returns the network in the state where the training is complete.</p>
 <ul class="simple">
-<li>Network object</li>
-<li>Batch size</li>
-<li>GPU ID used</li>
-<li>Number of epochs to complete</li>
-<li>Dataset object</li>
-<li>Initial learning rate</li>
-<li>Timing of learning rate decay</li>
+<li><p>Network object</p></li>
+<li><p>Batch size</p></li>
+<li><p>GPU ID used</p></li>
+<li><p>Number of epochs to complete</p></li>
+<li><p>Dataset object</p></li>
+<li><p>Initial learning rate</p></li>
+<li><p>Timing of learning rate decay</p></li>
 </ul>
 <p>After completion of <code class="docutils literal notranslate"><span class="pre">Trainer.run()</span></code>, it will use the test dataset for evaluation. Unlike the example in the previous MNIST, it uses the MomentumSGD as the optimization technique, <code class="docutils literal notranslate"><span class="pre">Extention</span></code> called <code class="docutils literal notranslate"><span class="pre">ExponentialShift</span></code> to attenuate the learning rate for each specified timing.</p>
 <p>Also, in this case, 90% of the training data set returned by <code class="docutils literal notranslate"><span class="pre">cifar.get_cifar10()</span></code> is used for <code class="docutils literal notranslate"><span class="pre">train</span></code>, remaining 10% for <code class="docutils literal notranslate"><span class="pre">valid</span></code>.</p>
@@ -2140,8 +2132,8 @@ output, and there would be other various techniques, such as (Ensemble).</p>
 <h2>4.5. Using Dataset Class<a class="headerlink" href="#Using-Dataset-Class" title="Permalink to this headline">¶</a></h2>
 <p>Here, let’s write the data set class by using the function to acquire CIFAR10 data already provided by Chainer. In Chainer, a class representing a dataset needs to have the following functions.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">__len__</span></code> that returns the number of data in the dataset</li>
-<li><code class="docutils literal notranslate"><span class="pre">get_example</span></code> method that returns data or data / label pairs corresponding to <code class="docutils literal notranslate"><span class="pre">i</span></code> passed as an argument.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__len__</span></code> that returns the number of data in the dataset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_example</span></code> method that returns data or data / label pairs corresponding to <code class="docutils literal notranslate"><span class="pre">i</span></code> passed as an argument.</p></li>
 </ul>
 <p>The functions required for other datasets can be prepared by inheriting <code class="docutils literal notranslate"><span class="pre">chainer.dataset.DatasetMixin</span></code> class. Here, let’s create a dataset class, by inheriting the class <code class="docutils literal notranslate"><span class="pre">DatasetMixin</span></code>, that has a Data augmentation function which converts the training data during the training to increase the variation of data which are received by the model.</p>
 <div class="section" id="CIFAR10-Dataset-Class">
@@ -2191,8 +2183,8 @@ output, and there would be other various techniques, such as (Ensemble).</p>
 </div>
 <p>This class does the following conversion for each of the CIFAR10 data.</p>
 <ul class="simple">
-<li>Crop 28x28 area randomly from 32x32 size</li>
-<li>Flip the image horizontally at a probability of 1/2</li>
+<li><p>Crop 28x28 area randomly from 32x32 size</p></li>
+<li><p>Flip the image horizontally at a probability of 1/2</p></li>
 </ul>
 <p>It is known that adding such operations and artificially increasing the variation of training data contributes to the reduction of overfitting. Besides these operations, various ideas have been proposed to artificially increase the number of training data by various processes such as conversion that changes the color of an image, random rotation, and affine conversion.</p>
 </div>
@@ -2453,7 +2445,7 @@ Successfully installed chainercv-0.12.0
 </div>
 <p><a class="reference external" href="http://chainercv.readthedocs.io/en/stable">ChainerCV</a> comes with various transformations for images．</p>
 <ul class="simple">
-<li><a class="reference external" href="http://chainercv.readthedocs.io/en/stable/reference/transforms.html#image">List of image conversions available in ChainerCV</a></li>
+<li><p><a class="reference external" href="http://chainercv.readthedocs.io/en/stable/reference/transforms.html#image">List of image conversions available in ChainerCV</a></p></li>
 </ul>
 <p>For example, random cropping and random left / right flipping, which were written using NumPy above, can be written in one line as follows using modules <code class="docutils literal notranslate"><span class="pre">chainercv.transforms</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_crop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>  <span class="c1"># Random crop</span>
@@ -2462,11 +2454,11 @@ Successfully installed chainercv-0.12.0
 </div>
 <p>Lets update <code class="docutils literal notranslate"><span class="pre">transform</span></code> function using <code class="docutils literal notranslate"><span class="pre">chainercv.transforms</span></code>. By the way, in the dataset obtained by <code class="docutils literal notranslate"><span class="pre">get_cifar10()</span></code>, the range of pixel values of the image is scaled to <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> by default. you keep the same range as <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">255]</span></code> by passing <code class="docutils literal notranslate"><span class="pre">scale=255.</span></code> to <code class="docutils literal notranslate"><span class="pre">get_cifar10()</span></code>. The following five processes are performed here:</p>
 <ol class="arabic simple">
-<li>PCA lighting: Performs conversion processing to change colors in the method used for training in the previous research (AlexNet).</li>
-<li>Standardization: Standardizes the mean and standard deviation of pixel values ​​per channel from the entire training data set</li>
-<li>Random flip: Randomly flip image horizontally</li>
-<li>Random expand: Create a black canvas of a randomly determined size from <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1.5]</span></code> and place the image at a random location within it</li>
-<li>Random crop: Randomuly crop the area with the size of <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code></li>
+<li><p>PCA lighting: Performs conversion processing to change colors in the method used for training in the previous research (AlexNet).</p></li>
+<li><p>Standardization: Standardizes the mean and standard deviation of pixel values ​​per channel from the entire training data set</p></li>
+<li><p>Random flip: Randomly flip image horizontally</p></li>
+<li><p>Random expand: Create a black canvas of a randomly determined size from <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1.5]</span></code> and place the image at a random location within it</p></li>
+<li><p>Random crop: Randomuly crop the area with the size of <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code></p></li>
 </ol>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

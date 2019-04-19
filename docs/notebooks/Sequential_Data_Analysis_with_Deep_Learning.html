@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8. Environment &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  <title>8. Practical part: Time series analysis of monitoring data using the deep learning &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
   
 
   
@@ -104,27 +104,30 @@
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Data-sets">10. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Data-pre-processing">11. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Learning">12.1. Learning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Practical part: Time series analysis of monitoring data using the deep learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Environment">8.1. Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">8.2. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Data-sets">8.3. Data sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Data-pre-processing">8.4. Data pre-processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Series-data-analysis-when-using-the-deep-learning">8.5. Series data analysis when using the deep learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Learning">8.5.1. Learning</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#Evaluation">13. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Towards-the-accuracy">14. Towards the accuracy</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Corresponds-to-the-class-imbalance-data">14.1. Corresponds to the class imbalance data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Sampling">14.1.1. Sampling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Changing-the-loss-function">14.1.2. Changing the loss function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Evaluation">8.6. Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Towards-the-accuracy">8.7. Towards the accuracy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Corresponds-to-the-class-imbalance-data">8.7.1. Corresponds to the class imbalance data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Sampling">8.7.1.1. Sampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Changing-the-loss-function">8.7.1.2. Changing the loss function</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#Changing-the-network-structure">14.2. Changing the network structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Validating-the-effect-of-noise">14.3. Validating the effect of noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Changing-the-network-structure">8.7.2. Changing the network structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Validating-the-effect-of-noise">8.7.3. Validating the effect of noise</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#Conclusion">15. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#References">16. References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Conclusion">8.8. Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#References">8.9. References</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -176,7 +179,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>8. Environment</li>
+      <li>8. Practical part: Time series analysis of monitoring data using the deep learning</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -417,70 +420,34 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Sequential_Data_Analysis_with_Deep_Learning.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> # Practical part: time series analysis of monitoring data using the deep learning</p>
-<p>As the health consciousness rises and the exercise population increases, wearable devices such as activity meter are beginning to spread. In recent years, cases of utilization in the healthcare field are also increasing, as it is possible to monitor health status in real time by acquiring information such as heart rate from sensor devices. In February 2018, Cardiogram Inc.&nbsp;and the University of California announced the results of joint research and reported that it is possible to predict
-diabetes preliminary group with high accuracy by applying Deep Learning to heart rate data , Attracted a lot of attention. In addition, the sensor device is also progressing, such as the ECG creation function is installed in the Apple Watch Series 4, and more detailed information can be acquired. Against this backdrop, it is thought that efforts to collect and analyze monitoring data and lead to health management will become more and more popular in the future.</p>
-<p>In this section, we will address the problem of detecting arrhythmias for signal waveform data of electrocardiogram.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Sequential_Data_Analysis_with_Deep_Learning.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="section" id="Practical-part:-Time-series-analysis-of-monitoring-data-using-the-deep-learning">
+<h1>8. Practical part: Time series analysis of monitoring data using the deep learning<a class="headerlink" href="#Practical-part:-Time-series-analysis-of-monitoring-data-using-the-deep-learning" title="Permalink to this headline">¶</a></h1>
+<p>As health consciousness rises and the number of exercising individuals increases, wearable devices such as activity meters are on the rise. Recently, cases of utilization of these devices in the healthcare field is increasing. It is now possible to monitor health status in real time by acquiring data from sensor devices eg. Heart Rate. In February 2018, a joint research study by Cardiogram Inc. and the University of California, San Francisco reported that it was possible to predict diabetes with
+fairly high accuracy by applying Deep Learning to heart rate data. In addition, the development of sensor devices with features such as Electrocardiogram is now available in products such as the Apple Watch Series 4, where more detailed information can be acquired. Against this backdrop, it is clear that efforts to collect and analyze health monitoring data leading towards better health management, will become more and more popular in the future.</p>
+<p>In this section, we will address the problem of detecting cardiac arrhythmias from signal waveform data of the electrocardiogram.</p>
 <div class="section" id="Environment">
-<h1>8. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h1>
+<h2>8.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
 <p>In this chapter, we use the following library.</p>
 <ul class="simple">
-<li>Cupy</li>
-<li>Chainer</li>
-<li>Scipy</li>
-<li>Matplotlib</li>
-<li>Seaborn</li>
-<li>Pandas</li>
-<li>WFDB</li>
-<li>Scikit-learn</li>
-<li>Imbalanced-learn</li>
+<li><p>Cupy</p></li>
+<li><p>Chainer</p></li>
+<li><p>Scipy</p></li>
+<li><p>Matplotlib</p></li>
+<li><p>Seaborn</p></li>
+<li><p>Pandas</p></li>
+<li><p>WFDB</p></li>
+<li><p>Scikit-learn</p></li>
+<li><p>Imbalanced-learn</p></li>
 </ul>
 <p>Please execute (Shift + Enter) the following cells and install what you need.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>apt -y -q install tree
 <span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">2</span>.2.1 imbalanced-learn<span class="o">==</span><span class="m">0</span>.4.3
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
-</pre></div>
-</div>
-</div>
-<p>When installation is completed, execute the following cell, import each library, and check the version.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sn</span>
-<span class="kn">import</span> <span class="nn">wfdb</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">import</span> <span class="nn">imblearn</span>
-
-<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Scipy: &quot;</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Pandas: &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Matplotlib: &quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Seaborn: &quot;</span><span class="p">,</span> <span class="n">sn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;WFDB: &quot;</span><span class="p">,</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Scikit-learn: &quot;</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Imbalanced-learn: &quot;</span><span class="p">,</span> <span class="n">imblearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -489,35 +456,112 @@ diabetes preliminary group with high accuracy by applying Deep Learning to heart
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Platform: Linux-4.14.65+-x86_64-with-Ubuntu-18.04-bionic
+Unable to locate an executable at &#34;/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/bin/apt&#34; (-1)
+<span class="ansi-yellow-fg">DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won&#39;t be maintained after that date. A future version of pip will drop support for Python 2.7.</span>
+Requirement already satisfied: wfdb==2.2.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (2.2.1)
+Requirement already satisfied: imbalanced-learn==0.4.3 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (0.4.3)
+Requirement already satisfied: pandas&gt;=0.19.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (0.23.4)
+Requirement already satisfied: numpy&gt;=1.11.0 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (1.15.4)
+Requirement already satisfied: nose&gt;=1.3.7 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (1.3.7)
+Requirement already satisfied: matplotlib&gt;=1.5.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (2.2.3)
+Requirement already satisfied: scipy&gt;=0.19.0 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (1.1.0)
+Requirement already satisfied: requests&gt;=2.10.0 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (2.20.0)
+Requirement already satisfied: sklearn&gt;=0.0 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from wfdb==2.2.1) (0.0)
+Requirement already satisfied: scikit-learn&gt;=0.20 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from imbalanced-learn==0.4.3) (0.20.3)
+Requirement already satisfied: python-dateutil&gt;=2.5.0 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from pandas&gt;=0.19.1-&gt;wfdb==2.2.1) (2.7.5)
+Requirement already satisfied: pytz&gt;=2011k in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from pandas&gt;=0.19.1-&gt;wfdb==2.2.1) (2018.7)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (1.0.1)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (0.10.0)
+Requirement already satisfied: subprocess32 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (3.5.3)
+Requirement already satisfied: six&gt;=1.10 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (1.11.0)
+Requirement already satisfied: backports.functools-lru-cache in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (1.5)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (2.3.0)
+Requirement already satisfied: urllib3&lt;1.25,&gt;=1.21.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from requests&gt;=2.10.0-&gt;wfdb==2.2.1) (1.24.1)
+Requirement already satisfied: chardet&lt;3.1.0,&gt;=3.0.2 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from requests&gt;=2.10.0-&gt;wfdb==2.2.1) (3.0.4)
+Requirement already satisfied: idna&lt;2.8,&gt;=2.5 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from requests&gt;=2.10.0-&gt;wfdb==2.2.1) (2.7)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from requests&gt;=2.10.0-&gt;wfdb==2.2.1) (2018.10.15)
+Requirement already satisfied: setuptools in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from kiwisolver&gt;=1.0.1-&gt;matplotlib&gt;=1.5.1-&gt;wfdb==2.2.1) (40.6.3)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1580  100  1580    0     0   6930      0 --:--:-- --:--:-- --:--:--  6929
+sh: line 9: nvidia-smi: command not found
+********************************************************************************
+GPU is not enabled!
+Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware accelerator&#34; to &#34;GPU&#34;.
+********************************************************************************
+</pre></div></div>
+</div>
+<p>When installation is completed, execute the following cell, import each library, and check the version.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sn</span>
+<span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">imblearn</span>
+
+<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scipy: &quot;</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas: &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matplotlib: &quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seaborn: &quot;</span><span class="p">,</span> <span class="n">sn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WFDB: &quot;</span><span class="p">,</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scikit-learn: &quot;</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imbalanced-learn: &quot;</span><span class="p">,</span> <span class="n">imblearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Platform: Darwin-17.7.0-x86_64-i386-64bit
 Chainer: 5.1.0
-NumPy: 1.14.6
-CuPy:
-  CuPy Version          : 5.1.0
-  CUDA Root             : /usr/local/cuda
-  CUDA Build Version    : 9020
-  CUDA Driver Version   : 9020
-  CUDA Runtime Version  : 9020
-  cuDNN Build Version   : 7301
-  cuDNN Version         : 7301
-  NCCL Build Version    : 2307
-iDeep: 2.0.0.post3
-Scipy:  1.1.0
-Pandas:  0.22.0
-Matplotlib:  2.1.2
-Seaborn:  0.7.1
-WFDB:  2.2.1
-Scikit-learn:  0.20.1
-Imbalanced-learn:  0.4.3
+NumPy: 1.15.4
+CuPy: Not Available
+iDeep: Not Available
+(&#39;Scipy: &#39;, &#39;1.1.0&#39;)
+(&#39;Pandas: &#39;, u&#39;0.23.4&#39;)
+(&#39;Matplotlib: &#39;, &#39;2.2.3&#39;)
+(&#39;Seaborn: &#39;, &#39;0.9.0&#39;)
+(&#39;WFDB: &#39;, &#39;2.2.1&#39;)
+(&#39;Scikit-learn: &#39;, &#39;0.20.3&#39;)
+(&#39;Imbalanced-learn: &#39;, &#39;0.4.3&#39;)
 </pre></div></div>
 </div>
 <p>Also, in order to reproduce the execution result of this chapter, fix the random number seed introduced in Chapter 4 (4.2.4.4).</p>
 <p>(This setting is not necessarily required for subsequent calculations.)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">reset_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
@@ -530,15 +574,18 @@ Imbalanced-learn:  0.4.3
 </div>
 </div>
 <div class="section" id="Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">
-<h1>9. Electrocardiogram (ECG) and arrhythmia diagnosis<a class="headerlink" href="#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis" title="Permalink to this headline">¶</a></h1>
-<p>Electrocardiogram (ECG) is an electronic signal transmitted from the body surface transmitted in the stimulation conduction system in order to move the myocardium cooperatively and rhythmically, and the electrocardiogram is used for diagnosis of arrhythmia and ischemic heart disease It is a widely used inspection [<a class="reference external" href="https://en.wikipedia.org/wiki/Electrocardiography">Reference 1</a>, <a class="reference external" href="https://www.ningen-dock.jp/wp/wp-content/uploads/2013/09/d4bb55fcf01494e251d315b76738ab40.pdf">Reference 2</a>]．</p>
-<p>As a standard electrocardiogram, as an electrocardiogram (limb lead) taken from limbs, bipolar inductionⅠ,Ⅱ,Ⅲ), And unipolar induction (𝑎𝑉𝑅,𝑎𝑉𝐿,𝑎𝑉𝐹), As the electrocardiogram taken from the chest (chest lead)𝑉1,𝑉2,𝑉3,𝑉4,𝑉5,𝑉66 leads, consisting of 12 guides in total. Among them, particularly when screening arrhythmia,ⅡWith induction𝑉1It is generally considered that diagnosis is carried out focusing on induction.</p>
+<h2>8.2. Electrocardiogram (ECG) and arrhythmia diagnosis<a class="headerlink" href="#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Electrocardiogram (ECG) is an electronic signal transmitted from the body surface in the stimulation conduction system in order to move the myocardium cooperatively and rhythmically. The electrocardiogram is widely used for inspection/diagnosis of arrhythmia and ischemic heart disease.</div>
+<div class="line">[<a class="reference external" href="https://en.wikipedia.org/wiki/Electrocardiography">Reference 1</a>, <a class="reference external" href="https://www.ningen-dock.jp/wp/wp-content/uploads/2013/09/d4bb55fcf01494e251d315b76738ab40.pdf">Reference 2</a>]．</div>
+</div>
+<p>As a standard electrocardiogram, as an electrocardiogram (limb lead) taken from limbs, bipolar induction Ⅰ, Ⅱ, Ⅲ), And unipolar induction (𝑎𝑉𝑅, 𝑎𝑉𝐿, 𝑎𝑉𝐹), As the electrocardiogram taken from the chest (chest lead) 𝑉1, 𝑉2, 𝑉3, 𝑉4, 𝑉5, 𝑉6 leads, consisting of 12 guides in total. Among them, particularly when screening arrhythmia, Ⅱ With induction 𝑉1 It is generally considered that diagnosis is carried out focusing on induction.</p>
 <p>In the normal state of the heart, regular waveforms are observed in ECG, and this is called normal sinus rhythm (NSR)</p>
 <p>Specifically, it consists of the following three main waveforms</p>
 <ol class="arabic simple">
-<li><strong>P wave</strong> : depolarization of atrium (excitement of atrium)</li>
-<li><strong>QRS wave</strong> : ventricular depolarization (ventricular excitation)</li>
-<li><strong>T wave</strong> : ventricular repolarization (ventricular excitation constriction)</li>
+<li><p><strong>P wave</strong> : depolarization of atrium (excitement of atrium)</p></li>
+<li><p><strong>QRS wave</strong> : ventricular depolarization (ventricular excitation)</p></li>
+<li><p><strong>T wave</strong> : ventricular repolarization (ventricular excitation constriction)</p></li>
 </ol>
 <p>In this order, the waveforms shown below are observed.</p>
 <p><img alt="Schematic diagram of normal electrocardiogram" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/sinus_rhythm.png" /></p>
@@ -546,27 +593,26 @@ Imbalanced-learn:  0.4.3
 <p>If these regular waveforms are disturbed and it is judged that there is abnormality in the tuning, diagnosis will be performed because there is a doubt such as arrhythmia.</p>
 </div>
 <div class="section" id="Data-sets">
-<h1>10. Data sets<a class="headerlink" href="#Data-sets" title="Permalink to this headline">¶</a></h1>
-<p>Here, we use the<a class="reference external" href="https://www.physionet.org/physiobank/database/mitdb/">MIT-BIH Arrhythmia Database (mitdb)</a>famous as the published data of ECG</p>
-<p>48 records collected from 47 patients are registered, and each record file contains two leads in about 30 minutes (𝐼𝐼,𝑉1) Signal data is stored. Annotation is given to the peak position of each R wave. ( Please see [こちら] for details on data and annotations .)(<a class="reference external" href="https://www.physionet.org/physiobank/database/html/mitdbdir/intro.htm">https://www.physionet.org/physiobank/database/html/mitdbdir/intro.htm</a>)</p>
-<p>The database is managed by <a class="reference external" href="https://www.physionet.org/">PhysioNet</a>and since Python package for downloading and reading is provided, this time we will use it to obtain the data.</p>
+<h2>8.3. Data sets<a class="headerlink" href="#Data-sets" title="Permalink to this headline">¶</a></h2>
+<p>Here, we use the ECG data set from <a class="reference external" href="https://www.physionet.org/physiobank/database/mitdb/">MIT-BIH Arrhythmia Database (mitdb)</a> published by Beth Israel Hospital and MIT.</p>
+<p>The data set includes 48 records collected from 47 patients, and each record file contains two leads in about 30 minutes (𝐼𝐼,𝑉1) Signal data is stored. Annotation is given to the peak position of each R wave. (Please refer <a class="reference external" href="https://www.physionet.org/physiobank/database/html/mitdbdir/intro.htm">here</a> for details on data and annotations).</p>
+<p>The database is managed by <a class="reference external" href="https://www.physionet.org/">PhysioNet</a> and we will use the Python package provided for downloading and reading the data is provided.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">dataset_root</span> <span class="o">=</span> <span class="s1">&#39;./dataset&#39;</span>
 <span class="n">download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;download&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>First let’s download the mitdb database. * If an error occurs during execution, please execute again.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">dl_database</span><span class="p">(</span><span class="s1">&#39;mitdb&#39;</span><span class="p">,</span> <span class="n">dl_dir</span><span class="o">=</span><span class="n">download_dir</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">dl_database</span><span class="p">(</span><span class="s1">&#39;mitdb&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">,</span> <span class="s1">&#39;mitdb&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -575,18 +621,38 @@ Imbalanced-learn:  0.4.3
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Created local base download directory: ./dataset/download
-Downloading files...
-Finished downloading files
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-29-e254183268f9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>wfdb<span class="ansi-blue-fg">.</span>dl_database<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;mitdb&#39;</span><span class="ansi-blue-fg">,</span> os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span>os<span class="ansi-blue-fg">.</span>getcwd<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;mitdb&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/Users/sandeepayyar/Documents/.env/lib/python2.7/posixpath.pyc</span> in <span class="ansi-cyan-fg">join</span><span class="ansi-blue-fg">(a, *p)</span>
+<span class="ansi-green-intense-fg ansi-bold">     68</span>         <span class="ansi-green-fg">if</span> b<span class="ansi-blue-fg">.</span>startswith<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;/&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     69</span>             path <span class="ansi-blue-fg">=</span> b
+<span class="ansi-green-fg">---&gt; 70</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">elif</span> path <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;&#39;</span> <span class="ansi-green-fg">or</span> path<span class="ansi-blue-fg">.</span>endswith<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;/&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     71</span>             path <span class="ansi-blue-fg">+=</span>  b
+<span class="ansi-green-intense-fg ansi-bold">     72</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;builtin_function_or_method&#39; object has no attribute &#39;endswith&#39;
 </pre></div></div>
+</div>
+<p>First let’s download the mitdb database. * If an error occurs during execution, please execute again.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#wfdb.dl_database(&#39;mitdb&#39;, dl_dir=download_dir)</span>
+</pre></div>
+</div>
 </div>
 <p>When the download is completed successfully, a message will be displayed. <code class="docutils literal notranslate"><span class="pre">Finished</span> <span class="pre">downloading</span> <span class="pre">files</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">download_dir</span><span class="p">)))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">download_dir</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -595,75 +661,87 @@ Finished downloading files
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;100.atr&#39;, &#39;100.dat&#39;, &#39;100.hea&#39;, &#39;101.atr&#39;, &#39;101.dat&#39;, &#39;101.hea&#39;, &#39;102.atr&#39;, &#39;102.dat&#39;, &#39;102.hea&#39;, &#39;103.atr&#39;, &#39;103.dat&#39;, &#39;103.hea&#39;, &#39;104.atr&#39;, &#39;104.dat&#39;, &#39;104.hea&#39;, &#39;105.atr&#39;, &#39;105.dat&#39;, &#39;105.hea&#39;, &#39;106.atr&#39;, &#39;106.dat&#39;, &#39;106.hea&#39;, &#39;107.atr&#39;, &#39;107.dat&#39;, &#39;107.hea&#39;, &#39;108.atr&#39;, &#39;108.dat&#39;, &#39;108.hea&#39;, &#39;109.atr&#39;, &#39;109.dat&#39;, &#39;109.hea&#39;, &#39;111.atr&#39;, &#39;111.dat&#39;, &#39;111.hea&#39;, &#39;112.atr&#39;, &#39;112.dat&#39;, &#39;112.hea&#39;, &#39;113.atr&#39;, &#39;113.dat&#39;, &#39;113.hea&#39;, &#39;114.atr&#39;, &#39;114.dat&#39;, &#39;114.hea&#39;, &#39;115.atr&#39;, &#39;115.dat&#39;, &#39;115.hea&#39;, &#39;116.atr&#39;, &#39;116.dat&#39;, &#39;116.hea&#39;, &#39;117.atr&#39;, &#39;117.dat&#39;, &#39;117.hea&#39;, &#39;118.atr&#39;, &#39;118.dat&#39;, &#39;118.hea&#39;, &#39;119.atr&#39;, &#39;119.dat&#39;, &#39;119.hea&#39;, &#39;121.atr&#39;, &#39;121.dat&#39;, &#39;121.hea&#39;, &#39;122.atr&#39;, &#39;122.dat&#39;, &#39;122.hea&#39;, &#39;123.atr&#39;, &#39;123.dat&#39;, &#39;123.hea&#39;, &#39;124.atr&#39;, &#39;124.dat&#39;, &#39;124.hea&#39;, &#39;200.atr&#39;, &#39;200.dat&#39;, &#39;200.hea&#39;, &#39;201.atr&#39;, &#39;201.dat&#39;, &#39;201.hea&#39;, &#39;202.atr&#39;, &#39;202.dat&#39;, &#39;202.hea&#39;, &#39;203.atr&#39;, &#39;203.dat&#39;, &#39;203.hea&#39;, &#39;205.atr&#39;, &#39;205.dat&#39;, &#39;205.hea&#39;, &#39;207.atr&#39;, &#39;207.dat&#39;, &#39;207.hea&#39;, &#39;208.atr&#39;, &#39;208.dat&#39;, &#39;208.hea&#39;, &#39;209.atr&#39;, &#39;209.dat&#39;, &#39;209.hea&#39;, &#39;210.atr&#39;, &#39;210.dat&#39;, &#39;210.hea&#39;, &#39;212.atr&#39;, &#39;212.dat&#39;, &#39;212.hea&#39;, &#39;213.atr&#39;, &#39;213.dat&#39;, &#39;213.hea&#39;, &#39;214.atr&#39;, &#39;214.dat&#39;, &#39;214.hea&#39;, &#39;215.atr&#39;, &#39;215.dat&#39;, &#39;215.hea&#39;, &#39;217.atr&#39;, &#39;217.dat&#39;, &#39;217.hea&#39;, &#39;219.atr&#39;, &#39;219.dat&#39;, &#39;219.hea&#39;, &#39;220.atr&#39;, &#39;220.dat&#39;, &#39;220.hea&#39;, &#39;221.atr&#39;, &#39;221.dat&#39;, &#39;221.hea&#39;, &#39;222.atr&#39;, &#39;222.dat&#39;, &#39;222.hea&#39;, &#39;223.atr&#39;, &#39;223.dat&#39;, &#39;223.hea&#39;, &#39;228.atr&#39;, &#39;228.dat&#39;, &#39;228.hea&#39;, &#39;230.atr&#39;, &#39;230.dat&#39;, &#39;230.hea&#39;, &#39;231.atr&#39;, &#39;231.dat&#39;, &#39;231.hea&#39;, &#39;232.atr&#39;, &#39;232.dat&#39;, &#39;232.hea&#39;, &#39;233.atr&#39;, &#39;233.dat&#39;, &#39;233.hea&#39;, &#39;234.atr&#39;, &#39;234.dat&#39;, &#39;234.hea&#39;]
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">OSError</span>                                   Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-26-de07a81672ba&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>sorted<span class="ansi-blue-fg">(</span>os<span class="ansi-blue-fg">.</span>listdir<span class="ansi-blue-fg">(</span>download_dir<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">OSError</span>: [Errno 2] No such file or directory: &#39;./dataset/download&#39;
 </pre></div></div>
 </div>
 <p>The number in the file name represents the record ID. Each record has three kinds of files,</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">.dat</span></code> : Signal (binary format)</li>
-<li><code class="docutils literal notranslate"><span class="pre">.atr</span></code> : Annotation (binary format)</li>
-<li><code class="docutils literal notranslate"><span class="pre">.hea</span></code> : Header (required for loading binary file)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.dat</span></code> : Signal (binary format)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.atr</span></code> : Annotation (binary format)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.hea</span></code> : Header (required for loading binary file)</p></li>
 </ul>
 <p>It has become．</p>
 </div>
 <div class="section" id="Data-pre-processing">
-<h1>11. Data pre-processing<a class="headerlink" href="#Data-pre-processing" title="Permalink to this headline">¶</a></h1>
+<h2>8.4. Data pre-processing<a class="headerlink" href="#Data-pre-processing" title="Permalink to this headline">¶</a></h2>
 <p>This section explains data preprocessing that reads the downloaded file and converts it to the input form to the machine learning model .</p>
 <p>In this section, preprocessing is performed by the following procedure.</p>
 <ol class="arabic simple">
-<li>Split record ID in advance for study / evaluation<ul>
-<li>Out of 48 records,<ul>
-<li>The signal of ID = (102, 104, 107, 217) is excluded because it contains the pace of the pacemaker.</li>
-<li>The signal with ID = 114 is excluded this time because part of the waveform is inverted.</li>
-<li>ID = (201, 202) excludes 202 because it is data obtained from the same patient.</li>
+<li><p>Split record ID in advance for study / evaluation</p>
+<ul class="simple">
+<li><p>Out of 48 records,</p>
+<ul>
+<li><p>The signal of ID = (102, 104, 107, 217) is excluded because it contains the pace of the pacemaker.</p></li>
+<li><p>The signal with ID = 114 is excluded this time because part of the waveform is inverted.</p></li>
+<li><p>ID = (201, 202) excludes 202 because it is data obtained from the same patient.</p></li>
 </ul>
 </li>
-<li>We divide 42 records in total excluding the above for learning and testing (see <a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Reference 3</a> for the division method).]</li>
+<li><p>We divide 42 records in total excluding the above for learning and testing (see <a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Reference 3</a> for the division method).]</p></li>
 </ul>
 </li>
-<li>Read signal file (.dat)<ul>
-<li><span class="math notranslate nohighlight">\(Ⅱ\)</span> Induced signal and <span class="math notranslate nohighlight">\(V_1\)</span> Induced signals are stored, but this time <span class="math notranslate nohighlight">\(Ⅱ\)</span> We only use guidance.．</li>
-<li>Since the sampling frequency is 360 Hz, it means that the number is recorded at 360 paces per second.</li>
+<li><p>Read signal file (.dat)</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Ⅱ\)</span> Induced signal and <span class="math notranslate nohighlight">\(V_1\)</span> Induced signals are stored, but this time <span class="math notranslate nohighlight">\(Ⅱ\)</span> We only use guidance.．</p></li>
+<li><p>Since the sampling frequency is 360 Hz, it means that the number is recorded at 360 paces per second.</p></li>
 </ul>
 </li>
-<li>Reading annotation file (.atr)<ul>
-<li>Obtain the position (positions) of each R wave peak and its label (symbols).</li>
+<li><p>Reading annotation file (.atr)</p>
+<ul class="simple">
+<li><p>Obtain the position (positions) of each R wave peak and its label (symbols).</p></li>
 </ul>
 </li>
-<li>Normalization of signals<ul>
-<li>We convert so that it becomes average 0 and dispersion 1.</li>
+<li><p>Normalization of signals</p>
+<ul class="simple">
+<li><p>We convert so that it becomes average 0 and dispersion 1.</p></li>
 </ul>
 </li>
-<li>Signal segmentation<ul>
-<li>We cut out fragments of 2 seconds (around 1 second before and after) around each R wave peak.</li>
+<li><p>Signal segmentation</p>
+<ul class="simple">
+<li><p>We cut out fragments of 2 seconds (around 1 second before and after) around each R wave peak.</p></li>
 </ul>
 </li>
-<li>Labeling of split signals<ul>
-<li>The labels attached to each R wave peak are aggregated according to the following table (*), labels corresponding to normal beat (Normal) and ventricular ectopic beat (VEB) are given in this analysis Only the divided signal is used for learning and evaluation.</li>
+<li><p>Labeling of split signals</p>
+<ul class="simple">
+<li><p>The labels attached to each R wave peak are aggregated according to the following table (*), labels corresponding to normal beat (Normal) and ventricular ectopic beat (VEB) are given in this analysis Only the divided signal is used for learning and evaluation.</p></li>
 </ul>
 </li>
 </ol>
 <p>※ The standards recommended by the Association for the Advancement of Medical Instrumentation (AAMI) (<a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Reference 3</a>]) are roughly classified into five categories.</p>
-<p><img alt="AAMIの分類基準" src="https://github.com/preferred-medicine/medical-ai-coursematerials/raw/master/notebooks/images/monitoring/aami_standard.png" /></p>
+<p><img alt="AAMIの分類基準" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/aami_standard.png" /></p>
 <p>(Quoted from <a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>])</p>
 <p>Let’s first define the data preprocessing class by executing the following cells.</p>
 <p>In the preprocessing class, the following member functions are defined.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">__init__()</span></code> (Constructor): Initialization of variables, division rules for learning and testing, aggregation rules of labels to be used</li>
-<li><code class="docutils literal notranslate"><span class="pre">_load_data()</span></code> :Reading of signals and annotations</li>
-<li><code class="docutils literal notranslate"><span class="pre">_normalize_signal()</span></code> : <code class="docutils literal notranslate"><span class="pre">method</span></code>Scale signal according to option</li>
-<li><code class="docutils literal notranslate"><span class="pre">_segment_data()</span></code> : (<code class="docutils literal notranslate"><span class="pre">window_size</span></code>) Cut the read signal and annotation with constant width ()</li>
-<li><code class="docutils literal notranslate"><span class="pre">preprocess_dataset()</span></code> : Create learning data and test data</li>
-<li><code class="docutils literal notranslate"><span class="pre">_preprocess_dataset_core()</span></code> : <code class="docutils literal notranslate"><span class="pre">preprocess_datataset()</span></code>Main process called within.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__()</span></code> (Constructor): Initialization of variables, division rules for learning and testing, aggregation rules of labels to be used</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_load_data()</span></code> :Reading of signals and annotations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_normalize_signal()</span></code> : <code class="docutils literal notranslate"><span class="pre">method</span></code>Scale signal according to option</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_segment_data()</span></code> : (<code class="docutils literal notranslate"><span class="pre">window_size</span></code>) Cut the read signal and annotation with constant width ()</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess_dataset()</span></code> : Create learning data and test data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_preprocess_dataset_core()</span></code> : <code class="docutils literal notranslate"><span class="pre">preprocess_datataset()</span></code>Main process called within.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">BaseECGDatasetPreprocessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">dataset_root</span><span class="p">,</span>
             <span class="n">window_size</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span>  <span class="c1"># 2 seconds</span>
@@ -719,7 +797,7 @@ Finished downloading files
             <span class="n">signal</span> <span class="o">=</span> <span class="p">(</span><span class="n">signal</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">signal</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">signal</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid method: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid method: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_segment_data</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -742,7 +820,7 @@ Finished downloading files
 
     <span class="k">def</span> <span class="nf">preprocess_dataset</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">):</span>
         <span class="c1"># preprocess training dataset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset_core</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_record_list</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">normalize</span><span class="p">)</span>
@@ -753,7 +831,7 @@ Finished downloading files
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">record_list</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
-            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">):</span>
         <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
@@ -764,7 +842,7 @@ Finished downloading files
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segment_data</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span><span class="p">)</span>
             <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
             <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;X.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xs</span><span class="p">))</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;y.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span>
 
@@ -776,23 +854,23 @@ Finished downloading files
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">BaseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_dataset</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <p>After execution, make sure that the following files are saved.</p>
 <ul class="simple">
-<li>train/X.npy : Signal for learning</li>
-<li>train/y.npy : Label for learning</li>
-<li>test/X.npy : signal for evaluation</li>
-<li>test/y.npy : Evaluation label</li>
+<li><p>train/X.npy : Signal for learning</p></li>
+<li><p>train/y.npy : Label for learning</p></li>
+<li><p>test/X.npy : signal for evaluation</p></li>
+<li><p>test/y.npy : Evaluation label</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>tree ./dataset/preprocessed
 </pre></div>
 </div>
@@ -818,7 +896,7 @@ Finished downloading files
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">))</span>
 <span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
@@ -828,17 +906,17 @@ Finished downloading files
 </div>
 <p>The number of samples in the data set are as follows.</p>
 <ul class="simple">
-<li>For learning: : 47738 pieces</li>
-<li>For evaluation: 45349 pieces</li>
+<li><p>For learning: : 47738 pieces</p></li>
+<li><p>For evaluation: 45349 pieces</p></li>
 </ul>
 <p>Each signal data is expressed as 2 (sec) * 360 (Hz) = 720 dimensional vector.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;X_train.shape = &quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> y_train.shape = &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;X_test.shape = &quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> y_test.shape = &quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X_train.shape = &quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> y_train.shape = &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X_test.shape = &quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> y_test.shape = &quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -859,9 +937,9 @@ X_test.shape =  (45349, 720)     y_test.shape =  (45349,)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">uniq_train</span><span class="p">,</span> <span class="n">counts_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;y_train count each labels: &quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">uniq_train</span><span class="p">,</span> <span class="n">counts_train</span><span class="p">)))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">uniq_train</span><span class="p">,</span> <span class="n">counts_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y_train count each labels: &quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">uniq_train</span><span class="p">,</span> <span class="n">counts_train</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -878,9 +956,9 @@ y_train count each labels:  {0: 43995, 1: 3743}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">uniq_test</span><span class="p">,</span> <span class="n">counts_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;y_test count each labels: &quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">uniq_test</span><span class="p">,</span> <span class="n">counts_test</span><span class="p">)))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">uniq_test</span><span class="p">,</span> <span class="n">counts_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y_test count each labels: &quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">uniq_test</span><span class="p">,</span> <span class="n">counts_test</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -898,9 +976,9 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
@@ -910,7 +988,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">idx_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
 </pre></div>
@@ -928,7 +1006,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_42_1.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_42_1.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_43_1.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_43_1.png" />
 </div>
 </div>
 <p>On the other hand, the waveform of VEB is disordered regularity, and the shape of the R wave peak and the distance between peaks are also different from the normal example.</p>
@@ -936,7 +1014,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">idx_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx_s</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
 </pre></div>
@@ -954,42 +1032,42 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_44_1.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_44_1.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_45_1.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_45_1.png" />
 </div>
 </div>
 <p>The purpose of this chapter is to grasp ECG signal features well and construct a model that predicts normality / abnormality with high accuracy even for new waveform samples.</p>
 <p>In the next section, we will explain the model construction using deep learning.</p>
 </div>
 <div class="section" id="Series-data-analysis-when-using-the-deep-learning">
-<h1>12. Series data analysis when using the deep learning<a class="headerlink" href="#Series-data-analysis-when-using-the-deep-learning" title="Permalink to this headline">¶</a></h1>
+<h2>8.5. Series data analysis when using the deep learning<a class="headerlink" href="#Series-data-analysis-when-using-the-deep-learning" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Learning">
-<h2>12.1. Learning<a class="headerlink" href="#Learning" title="Permalink to this headline">¶</a></h2>
+<h3>8.5.1. Learning<a class="headerlink" href="#Learning" title="Permalink to this headline">¶</a></h3>
 <p>First, we define a dataset class to read pre-processed data prepared in the previous section with Chainer.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">ECGDataset</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">path</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;{}/X.npy not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/X.npy not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;{}/y.npy not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/y.npy not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
 </pre></div>
 </div>
@@ -1001,16 +1079,16 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
-<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">reporter</span>
-<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">Variable</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">reporter</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">Variable</span>
 
 
 <span class="k">class</span> <span class="nc">BaseBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">channels</span><span class="p">,</span>
             <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1019,14 +1097,14 @@ y_test count each labels:  {0: 42149, 1: 3200}
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BaseBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">c1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">c2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cd</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cd</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -1038,7 +1116,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 
 <span class="k">class</span> <span class="nc">ResBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">channels</span><span class="p">,</span>
             <span class="n">n_block</span><span class="p">,</span>
@@ -1050,33 +1128,33 @@ y_test count each labels:  {0: 42149, 1: 3200}
             <span class="bp">self</span><span class="o">.</span><span class="n">b0</span> <span class="o">=</span> <span class="n">BaseBlock</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dilate</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_block</span><span class="p">):</span>
                 <span class="n">bx</span> <span class="o">=</span> <span class="n">BaseBlock</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dilate</span><span class="p">)</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;b{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">bx</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;b</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">bx</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_block</span><span class="p">):</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;b{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;b</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">h</span>
 
 
 <span class="k">class</span> <span class="nc">ResNet34</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ResNet34</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock0</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock1</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock2</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock3</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pooling_nd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;resblock{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;resblock</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">h</span>
@@ -1084,7 +1162,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 
 <span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">predictor</span><span class="p">,</span>
             <span class="n">lossfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span>
@@ -1094,7 +1172,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
             <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span> <span class="o">=</span> <span class="n">predictor</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lossfun</span> <span class="o">=</span> <span class="n">lossfun</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1112,7 +1190,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
         <span class="k">return</span> <span class="n">loss</span>
 
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">(),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">(),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
             <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">y</span>
@@ -1121,21 +1199,21 @@ y_test count each labels:  {0: 42149, 1: 3200}
 </div>
 <p>Prepare the following functions as preparations for executing learning.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">create_train_dataset()</span></code>：<code class="docutils literal notranslate"><span class="pre">ECGDataset</span></code> Pass the learning data set to the class</li>
-<li><code class="docutils literal notranslate"><span class="pre">create_trainer()</span></code>：Make necessary settings for learning, create a Trainer object</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_train_dataset()</span></code>：<code class="docutils literal notranslate"><span class="pre">ECGDataset</span></code> Pass the learning data set to the class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_trainer()</span></code>：Make necessary settings for learning, create a Trainer object</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">optimizers</span>
-<span class="kn">from</span> <span class="nn">chainer.optimizer</span> <span class="kn">import</span> <span class="n">WeightDecay</span>
-<span class="kn">from</span> <span class="nn">chainer.iterators</span> <span class="kn">import</span> <span class="n">MultiprocessIterator</span>
-<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
-<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">extensions</span>
-<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">triggers</span>
-<span class="kn">from</span> <span class="nn">chainer.backends.cuda</span> <span class="kn">import</span> <span class="n">get_device_from_id</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">optimizers</span>
+<span class="kn">from</span> <span class="nn">chainer.optimizer</span> <span class="k">import</span> <span class="n">WeightDecay</span>
+<span class="kn">from</span> <span class="nn">chainer.iterators</span> <span class="k">import</span> <span class="n">MultiprocessIterator</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">extensions</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">triggers</span>
+<span class="kn">from</span> <span class="nn">chainer.backends.cuda</span> <span class="k">import</span> <span class="n">get_device_from_id</span>
 
 
 <span class="k">def</span> <span class="nf">create_train_dataset</span><span class="p">(</span><span class="n">root_path</span><span class="p">):</span>
@@ -1191,7 +1269,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1200,7 +1278,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1210,7 +1288,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
@@ -1255,23 +1333,23 @@ Wall time: 1min 27s
 </div>
 </div>
 <div class="section" id="Evaluation">
-<h1>13. Evaluation<a class="headerlink" href="#Evaluation" title="Permalink to this headline">¶</a></h1>
+<h2>8.6. Evaluation<a class="headerlink" href="#Evaluation" title="Permalink to this headline">¶</a></h2>
 <p>In order to confirm the discrimination performance by applying the learned model to the evaluation data, prepare the following function.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">create_test_dataset()</span></code> : Read evaluation data</li>
-<li><code class="docutils literal notranslate"><span class="pre">predict()</span></code> : Perform inference and output result array (correct answer label and predictive label)</li>
-<li><code class="docutils literal notranslate"><span class="pre">print_confusion_matrix()</span></code> : Output a table called a confusion matrix from the prediction result</li>
-<li><code class="docutils literal notranslate"><span class="pre">print_scores()</span></code> : Output evaluation index of prediction accuracy from prediction result</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_test_dataset()</span></code> : Read evaluation data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict()</span></code> : Perform inference and output result array (correct answer label and predictive label)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print_confusion_matrix()</span></code> : Output a table called a confusion matrix from the prediction result</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print_scores()</span></code> : Output evaluation index of prediction accuracy from prediction result</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">cuda</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">cuda</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">confusion_matrix</span>
 
 
 <span class="k">def</span> <span class="nf">create_test_dataset</span><span class="p">(</span><span class="n">root_path</span><span class="p">):</span>
@@ -1303,14 +1381,14 @@ Wall time: 1min 27s
     <span class="n">cmx</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
     <span class="n">df_cmx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cmx</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">target_names</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">target_names</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-    <span class="n">sn</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_cmx</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">},</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+    <span class="n">sn</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_cmx</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">},</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">print_scores</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
     <span class="n">target_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;VEB&#39;</span><span class="p">]</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;accuracy: &quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;accuracy: &quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
 </pre></div>
 </div>
@@ -1320,7 +1398,7 @@ Wall time: 1min 27s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">create_test_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1343,7 +1421,7 @@ Wall time: 1min 27s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
@@ -1360,16 +1438,16 @@ Wall time: 18.3 s
 <p>Let’s confirm the prediction result.</p>
 <p>First, we create a table that summarizes the classification results of predictions, called <strong>confusion matrices</strong> . With the row direction (front side) as the correct solution label and the column direction (front side) as the prediction label, the following summary values are obtained for each item.</p>
 <ul class="simple">
-<li>Upper left: Number of samples that are actually normal beating, normal beat</li>
-<li>Upper right: Number of samples that are actually normal beats and VEB</li>
-<li>Bottom left: Samples that are actually VEBs are predicted to be normal</li>
-<li>Bottom right: Samples that are actually VEB are predicted as VEB</li>
+<li><p>Upper left: Number of samples that are actually normal beating, normal beat</p></li>
+<li><p>Upper right: Number of samples that are actually normal beats and VEB</p></li>
+<li><p>Bottom left: Samples that are actually VEBs are predicted to be normal</p></li>
+<li><p>Bottom right: Samples that are actually VEB are predicted as VEB</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1378,22 +1456,22 @@ Wall time: 18.3 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_68_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_68_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_69_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_69_0.png" />
 </div>
 </div>
 <p>Next, let’s display the evaluation index score of prediction accuracy calculated from the prediction result.</p>
 <p>In particular, please pay attention to the following scores.</p>
 <ul class="simple">
-<li>Rate of conformity (Precision): Percentage (Normal or VEB) of each expected diagnosis (correct answer was the same diagnosis result)</li>
-<li>Recall (Recall): Percentage of each correct diagnosis result (Normal or VEB) that was correctly predicted (prediction was the same diagnostic result)</li>
-<li>F1 value (F1-score): Harmonic mean of precision and recall</li>
-<li>Accuracy: The percentage of all diagnostic results (Normal and VEB) that was correctly predicted (prediction was the same diagnostic result)</li>
+<li><p>Rate of conformity (Precision): Percentage (Normal or VEB) of each expected diagnosis (correct answer was the same diagnosis result)</p></li>
+<li><p>Recall (Recall): Percentage of each correct diagnosis result (Normal or VEB) that was correctly predicted (prediction was the same diagnostic result)</p></li>
+<li><p>F1 value (F1-score): Harmonic mean of precision and recall</p></li>
+<li><p>Accuracy: The percentage of all diagnostic results (Normal and VEB) that was correctly predicted (prediction was the same diagnostic result)</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1419,52 +1497,59 @@ accuracy:  0.9351694634942336
 <p>In the next section, we will introduce some trial and error for improving prediction model, including response to such class imbalance problem.</p>
 </div>
 <div class="section" id="Towards-the-accuracy">
-<h1>14. Towards the accuracy<a class="headerlink" href="#Towards-the-accuracy" title="Permalink to this headline">¶</a></h1>
+<h2>8.7. Towards the accuracy<a class="headerlink" href="#Towards-the-accuracy" title="Permalink to this headline">¶</a></h2>
 <p>In this section, we devise a method to contribute to accuracy improvement by devising the learning device constructed in the previous section from various viewpoints such as “data set”, “objective function”, “learning model”, “preprocessing” I will continue.</p>
 <p>When analyzing using machine learning, it is often unknown beforehand which devises are effective for accuracy improvement, so trial and error is necessary. However, it is not a good idea to try random methods, so it is important to consider means that can be effective based on the nature of the target dataset.</p>
 <p>First of all, let’s consider how to cope with the problem of class imbalance, which was mentioned as a challenge in the previous section.</p>
 <div class="section" id="Corresponds-to-the-class-imbalance-data">
-<h2>14.1. Corresponds to the class imbalance data<a class="headerlink" href="#Corresponds-to-the-class-imbalance-data" title="Permalink to this headline">¶</a></h2>
+<h3>8.7.1. Corresponds to the class imbalance data<a class="headerlink" href="#Corresponds-to-the-class-imbalance-data" title="Permalink to this headline">¶</a></h3>
 <p>As mentioned in the previous section, when constructing a learning device using class imbalance data , prediction results biased towards the majority of classes may be predicted, and the precision may be lowered for a small number of classes in some cases It is generally known. On the other hand, in real-world tasks (including this dataset), it is often the case that it is important to accurately detect a few abnormal samples contained in the majority of normal samples. Under these
 circumstances, there are several strategies to learn the model focusing on the detection of a few classes.</p>
 <p>In particular,</p>
 <ol class="arabic simple">
-<li><strong>sampling</strong><ul>
-<li>Sampling is performed from the imbalance data set, and a data set with a balanced class ratio is created.<ul>
-<li><strong>Undersampling</strong> : Reduce the majority of normal samples.</li>
-<li><strong>Oversampling</strong> : Inflate a few abnormal samples.</li>
+<li><p><strong>sampling</strong></p>
+<ul class="simple">
+<li><p>Sampling is performed from the imbalance data set, and a data set with a balanced class ratio is created.</p>
+<ul>
+<li><p><strong>Undersampling</strong> : Reduce the majority of normal samples.</p></li>
+<li><p><strong>Oversampling</strong> : Inflate a few abnormal samples.</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>Weight adjustment of loss function</strong><ul>
-<li>The penalty for misclassifying normal samples as abnormal is small, and the penalty for misclassifying abnormal samples as normal is increased.</li>
-<li>For example, use reciprocal of the existence ratio of sample number as a weight.</li>
+<li><p><strong>Weight adjustment of loss function</strong></p>
+<ul class="simple">
+<li><p>The penalty for misclassifying normal samples as abnormal is small, and the penalty for misclassifying abnormal samples as normal is increased.</p></li>
+<li><p>For example, use reciprocal of the existence ratio of sample number as a weight.</p></li>
 </ul>
 </li>
-<li><strong>Change of objective function (loss function)</strong><ul>
-<li>Introduction of an objective function that improves prediction score for abnormal samples．</li>
+<li><p><strong>Change of objective function (loss function)</strong></p>
+<ul class="simple">
+<li><p>Introduction of an objective function that improves prediction score for abnormal samples．</p></li>
 </ul>
 </li>
-<li><strong>Abnormality detection</strong><ul>
-<li>Data distribution of normal samples is assumed, and samples deviating sufficiently therefrom are regarded as abnormal.</li>
+<li><p><strong>Abnormality detection</strong></p>
+<ul class="simple">
+<li><p>Data distribution of normal samples is assumed, and samples deviating sufficiently therefrom are regarded as abnormal.</p></li>
 </ul>
 </li>
 </ol>
 <p>There are methods such as. In this section, we will introduce examples of “1. sampling” and “3. Change of objective function”.</p>
 <div class="section" id="Sampling">
-<h3>14.1.1. Sampling<a class="headerlink" href="#Sampling" title="Permalink to this headline">¶</a></h3>
+<h4>8.7.1.1. Sampling<a class="headerlink" href="#Sampling" title="Permalink to this headline">¶</a></h4>
 <p>Consider combining <strong>Undersampling</strong> and <strong>Oversampling</strong> to eliminate dataset imbalance.</p>
 <p>In this time we will perform the sampling with the following steps.</p>
 <ol class="arabic simple">
-<li>By Undersampling, only normal beat samples are reduced to 1/4 (all VEB samples are left)<ul>
-<li>Here we adopt simple random sampling. Due to the random nature, it is possible to delete samples that are important for classification (near the identification boundary with the VEB sample).</li>
-<li>There are some methods to alleviate the problem of random sampling, but this time it is not used.</li>
+<li><p>By Undersampling, only normal beat samples are reduced to 1/4 (all VEB samples are left)</p>
+<ul class="simple">
+<li><p>Here we adopt simple random sampling. Due to the random nature, it is possible to delete samples that are important for classification (near the identification boundary with the VEB sample).</p></li>
+<li><p>There are some methods to alleviate the problem of random sampling, but this time it is not used.</p></li>
 </ul>
 </li>
-<li>By Oversampling, VEB samples are inflated to the same number as normal beat samples after Undersampling<ul>
-<li>SMOTE (Synthetic Minority Over-sampling TEchnique) is adopted.</li>
-<li>If it is the simplest way to inflate data randomly, it tends to cause over learning. In SMOTE, the data points between the VEB sample and its neighboring VEB sample are randomly generated and added to the data to ease the influence of over learning.</li>
+<li><p>By Oversampling, VEB samples are inflated to the same number as normal beat samples after Undersampling</p>
+<ul class="simple">
+<li><p>SMOTE (Synthetic Minority Over-sampling TEchnique) is adopted.</p></li>
+<li><p>If it is the simplest way to inflate data randomly, it tends to cause over learning. In SMOTE, the data points between the VEB sample and its neighboring VEB sample are randomly generated and added to the data to ease the influence of over learning.</p></li>
 </ul>
 </li>
 </ol>
@@ -1474,19 +1559,19 @@ circumstances, there are several strategies to learn the model focusing on the d
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">imblearn.datasets</span> <span class="kn">import</span> <span class="n">make_imbalance</span>
-<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">SMOTE</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">imblearn.datasets</span> <span class="k">import</span> <span class="n">make_imbalance</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="k">import</span> <span class="n">SMOTE</span>
 
 
 <span class="k">class</span> <span class="nc">SampledECGDataset</span><span class="p">(</span><span class="n">ECGDataset</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">path</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">SampledECGDataset</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_imbalance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
             <span class="n">sampling_strategy</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
@@ -1507,7 +1592,7 @@ circumstances, there are several strategies to learn the model focusing on the d
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_sampled_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1517,7 +1602,7 @@ circumstances, there are several strategies to learn the model focusing on the d
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
@@ -1562,7 +1647,7 @@ Wall time: 1min 8s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
@@ -1580,7 +1665,7 @@ Wall time: 18 s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1589,14 +1674,14 @@ Wall time: 18 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_84_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_84_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_85_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_85_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1622,7 +1707,7 @@ accuracy:  0.9144854351804891
 <p>(Please note that precision will not necessarily be improved because of influences such as randomness of sampling and initial value dependency of learning.)</p>
 </div>
 <div class="section" id="Changing-the-loss-function">
-<h3>14.1.2. Changing the loss function<a class="headerlink" href="#Changing-the-loss-function" title="Permalink to this headline">¶</a></h3>
+<h4>8.7.1.2. Changing the loss function<a class="headerlink" href="#Changing-the-loss-function" title="Permalink to this headline">¶</a></h4>
 <p>Next, by changing the loss function, we will consider a method to improve accuracy on a few abnormal samples. Several loss functions focusing on improving prediction accuracy of minority classes have been proposed so far, but this time we will use the loss function called <strong>Focal loss</strong> .</p>
 <p>Focal loss is the loss function proposed in the research paper [<a class="reference external" href="https://arxiv.org/abs/1708.02002">Reference 6</a>] of the object detection method of images . In the One-stage object detection method, there are many cases where the object actually exists in a large number of candidate regions, and in many cases there are at most several, it is a class imbalance task, and the problem that learning does not progress well There is. To deal with these problems, focal loss was proposed and is
 described by the following equation.</p>
@@ -1637,8 +1722,8 @@ described by the following equation.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.backends.cuda</span> <span class="kn">import</span> <span class="n">get_array_module</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.backends.cuda</span> <span class="k">import</span> <span class="n">get_array_module</span>
 
 <span class="k">def</span> <span class="nf">focal_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">class_num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
     <span class="n">xp</span> <span class="o">=</span> <span class="n">get_array_module</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
@@ -1660,7 +1745,7 @@ described by the following equation.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1669,7 +1754,7 @@ described by the following equation.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">focal_loss</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1679,7 +1764,7 @@ described by the following equation.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
@@ -1725,7 +1810,7 @@ Wall time: 1min 17s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
@@ -1743,7 +1828,7 @@ Wall time: 17.9 s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1752,14 +1837,14 @@ Wall time: 17.9 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_97_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_97_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_98_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_98_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1786,17 +1871,19 @@ accuracy:  0.9456437848684646
 </div>
 </div>
 <div class="section" id="Changing-the-network-structure">
-<h2>14.2. Changing the network structure<a class="headerlink" href="#Changing-the-network-structure" title="Permalink to this headline">¶</a></h2>
+<h3>8.7.2. Changing the network structure<a class="headerlink" href="#Changing-the-network-structure" title="Permalink to this headline">¶</a></h3>
 <p>Next, consider <strong>changing</strong> the <strong>network structure</strong> used for learning .</p>
 <p>Here we extend the following for the ResNet 34 structure we used first</p>
 <ol class="arabic simple">
-<li>Change 1D Convolution to，<strong>1D Dilated Convolution</strong><ul>
-<li>By using Dilated Convolution, it is expected that a wider range of features can be extracted while suppressing the increase of parameter number (same motivation as in genetic analysis).．</li>
-<li>In tasks where a wide range of features are not important, there is a possibility that accuracy does not improve (or in some cases, accuracy deteriorates).</li>
+<li><p>Change 1D Convolution to，<strong>1D Dilated Convolution</strong></p>
+<ul class="simple">
+<li><p>By using Dilated Convolution, it is expected that a wider range of features can be extracted while suppressing the increase of parameter number (same motivation as in genetic analysis).．</p></li>
+<li><p>In tasks where a wide range of features are not important, there is a possibility that accuracy does not improve (or in some cases, accuracy deteriorates).</p></li>
 </ul>
 </li>
-<li>Add the entire bonding layer before the final layer and apply <strong>Dropout</strong><ul>
-<li>We expect that generalization performance of learning equipment will be improved by doing dropout. However, in several previous studies [<a class="reference external" href="https://arxiv.org/abs/1506.02158v6">Ref. 7</a>] etc.), it is reported that simply improving generalization performance can not be expected by merely applying Dropout immediately after the convolution layer, I will apply it.</li>
+<li><p>Add the entire bonding layer before the final layer and apply <strong>Dropout</strong></p>
+<ul class="simple">
+<li><p>We expect that generalization performance of learning equipment will be improved by doing dropout. However, in several previous studies [<a class="reference external" href="https://arxiv.org/abs/1506.02158v6">Ref. 7</a>] etc.), it is reported that simply improving generalization performance can not be expected by merely applying Dropout immediately after the convolution layer, I will apply it.</p></li>
 </ul>
 </li>
 </ol>
@@ -1805,26 +1892,26 @@ accuracy:  0.9456437848684646
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">DilatedResNet34</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DilatedResNet34</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock0</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock1</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock2</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resblock3</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pooling_nd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;resblock{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;resblock</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
@@ -1837,7 +1924,7 @@ accuracy:  0.9456437848684646
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">create_trainer</span><span class="p">(</span>
     <span class="n">batchsize</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span>
@@ -1883,7 +1970,7 @@ accuracy:  0.9456437848684646
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">create_test_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
@@ -1893,7 +1980,7 @@ accuracy:  0.9456437848684646
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1903,7 +1990,7 @@ accuracy:  0.9456437848684646
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
@@ -1949,7 +2036,7 @@ Wall time: 1min 14s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
@@ -1967,7 +2054,7 @@ Wall time: 17.9 s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1976,14 +2063,14 @@ Wall time: 17.9 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_112_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_112_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_113_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_113_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2008,29 +2095,35 @@ accuracy:  0.9553683653443296
 <p>Please compare the prediction result of the initial model with the prediction result of this time.</p>
 </div>
 <div class="section" id="Validating-the-effect-of-noise">
-<h2>14.3. Validating the effect of noise<a class="headerlink" href="#Validating-the-effect-of-noise" title="Permalink to this headline">¶</a></h2>
+<h3>8.7.3. Validating the effect of noise<a class="headerlink" href="#Validating-the-effect-of-noise" title="Permalink to this headline">¶</a></h3>
 <p>Finally, we will examine the <strong>removal of noise</strong> contained in electrocardiogram .</p>
 <p>External noise such as the following may be included in the electrocardiogram waveform.[<a class="reference external" href="http://www.iosrjournals.org/iosr-jece/papers/ICETEM/Vol.%201%20Issue%201/ECE%2006-40-44.pdf">Reference 8</a>]</p>
 <ul class="simple">
-<li>high frequency<ul>
-<li><strong>EMG noise</strong> (Electromyogram noise)<ul>
-<li>Due to body movements, electrical activity of the muscles may get mixed in the electrocardiogram.</li>
+<li><p>high frequency</p>
+<ul>
+<li><p><strong>EMG noise</strong> (Electromyogram noise)</p>
+<ul>
+<li><p>Due to body movements, electrical activity of the muscles may get mixed in the electrocardiogram.</p></li>
 </ul>
 </li>
-<li><strong>Power line</strong> induction failure (Power line interference)<ul>
-<li>An alternating current may flow due to electrostatic induction and it may get mixed in the electrocardiogram.</li>
-<li>Magnetic lines of force are generated by current flowing in the power supply wiring, and alternating current may flow due to electromagnetic induction action.</li>
+<li><p><strong>Power line</strong> induction failure (Power line interference)</p>
+<ul>
+<li><p>An alternating current may flow due to electrostatic induction and it may get mixed in the electrocardiogram.</p></li>
+<li><p>Magnetic lines of force are generated by current flowing in the power supply wiring, and alternating current may flow due to electromagnetic induction action.</p></li>
 </ul>
 </li>
-<li><strong>Additive white Gaussian noise</strong> (Additive white Gaussian noise)<ul>
-<li>White noise comes in due to various factors derived from the external environment.</li>
+<li><p><strong>Additive white Gaussian noise</strong> (Additive white Gaussian noise)</p>
+<ul>
+<li><p>White noise comes in due to various factors derived from the external environment.</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Low-frequency<ul>
-<li><strong>Baseline drift</strong> (Baseline wandering)<ul>
-<li>Baseline may fluctuate slowly due to insufficient attachment of electrode, perspiration, body movement and so on.</li>
+<li><p>Low-frequency</p>
+<ul>
+<li><p><strong>Baseline drift</strong> (Baseline wandering)</p>
+<ul>
+<li><p>Baseline may fluctuate slowly due to insufficient attachment of electrode, perspiration, body movement and so on.</p></li>
 </ul>
 </li>
 </ul>
@@ -2043,13 +2136,13 @@ accuracy:  0.9553683653443296
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">lfilter</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">lfilter</span>
 
 
 <span class="k">class</span> <span class="nc">DenoiseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">BaseECGDatasetPreprocessor</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">dataset_root</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
             <span class="n">window_size</span><span class="o">=</span><span class="mi">720</span>
@@ -2074,7 +2167,7 @@ accuracy:  0.9553683653443296
             <span class="n">cut_off</span> <span class="o">=</span> <span class="n">cutoff_high</span> <span class="o">/</span> <span class="n">nyquist</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">signal</span>
-        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">butter</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">cut_off</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="n">btype</span><span class="p">)</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">butter</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">cut_off</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="n">btype</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_segment_data</span><span class="p">(</span>
@@ -2098,8 +2191,8 @@ accuracy:  0.9553683653443296
 
     <span class="k">def</span> <span class="nf">prepare_dataset</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">denoise</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+            <span class="n">denoise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">download_dir</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">download_data</span><span class="p">()</span>
@@ -2113,8 +2206,8 @@ accuracy:  0.9553683653443296
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">record_list</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
-            <span class="n">denoise</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+            <span class="n">denoise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">):</span>
         <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
@@ -2127,7 +2220,7 @@ accuracy:  0.9553683653443296
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segment_data</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span><span class="p">)</span>
             <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
             <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;X.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xs</span><span class="p">))</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;y.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span>
 
@@ -2137,9 +2230,9 @@ accuracy:  0.9553683653443296
 <p>Applying a linear filter may make it easier for the learning model to capture the abnormal beat pattern as a feature. On the other hand, please be aware that important information may be removed when detecting abnormal beats.</p>
 <p>There are some rough classifications in linear filters, depending on their frequency characteristics (frequency band components in which bands are blocked). For example, there are the following.</p>
 <ul class="simple">
-<li><strong>Low-pass filter</strong> : Only low-frequency components pass (high-frequency components are blocked)</li>
-<li><strong>High-pass filter</strong> : Only high-frequency components pass (low-frequency components are blocked)</li>
-<li><strong>Band-pass filter</strong> : Only certain band components pass (low frequency, high frequency components are blocked)</li>
+<li><p><strong>Low-pass filter</strong> : Only low-frequency components pass (high-frequency components are blocked)</p></li>
+<li><p><strong>High-pass filter</strong> : Only high-frequency components pass (low-frequency components are blocked)</p></li>
+<li><p><strong>Band-pass filter</strong> : Only certain band components pass (low frequency, high frequency components are blocked)</p></li>
 </ul>
 <p><img alt="Classification by frequency characteristic of linear filter" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/band_form.png" /></p>
 <p>(Cited from [<a class="reference external" href="https://en.wikipedia.org/wiki/Filter_%28signal_processing%29">Reference 9</a>])</p>
@@ -2149,8 +2242,8 @@ accuracy:  0.9553683653443296
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">DenoiseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span><span class="o">.</span><span class="n">prepare_dataset</span><span class="p">(</span><span class="n">denoise</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">DenoiseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span><span class="o">.</span><span class="n">prepare_dataset</span><span class="p">(</span><span class="n">denoise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2159,7 +2252,7 @@ accuracy:  0.9553683653443296
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X_train_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -2168,7 +2261,7 @@ accuracy:  0.9553683653443296
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
@@ -2182,7 +2275,7 @@ accuracy:  0.9553683653443296
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_124_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_124_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_125_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_125_0.png" />
 </div>
 </div>
 <p>The left figure shows the waveform before filtering and the right figure shows the waveform after filtering. I think that it can be confirmed that fine vibration has been removed.</p>
@@ -2191,7 +2284,7 @@ accuracy:  0.9553683653443296
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">create_test_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
@@ -2201,7 +2294,7 @@ accuracy:  0.9553683653443296
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
@@ -2248,7 +2341,7 @@ Wall time: 1min 13s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
@@ -2266,7 +2359,7 @@ Wall time: 18 s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2275,14 +2368,14 @@ Wall time: 18 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_130_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_130_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_131_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_131_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2308,84 +2401,93 @@ accuracy:  0.9632185935742795
 </div>
 </div>
 <div class="section" id="Conclusion">
-<h1>15. Conclusion<a class="headerlink" href="#Conclusion" title="Permalink to this headline">¶</a></h1>
+<h2>8.8. Conclusion<a class="headerlink" href="#Conclusion" title="Permalink to this headline">¶</a></h2>
 <p>In this chapter, we addressed the problem of arrhythmia detection using ECG’s public data set.</p>
 <p>The things I wanted to tell through this lecture are as follows.</p>
 <ol class="arabic simple">
-<li>Minimum knowledge necessary for analyzing electrocardiogram</li>
-<li>Basic preprocessing procedure for analyzing monitoring data</li>
-<li>Construction of learning device using CNN-based model</li>
-<li>Learning method considering the nature of data set and ingenuity of preprocessing</li>
+<li><p>Minimum knowledge necessary for analyzing electrocardiogram</p></li>
+<li><p>Basic preprocessing procedure for analyzing monitoring data</p></li>
+<li><p>Construction of learning device using CNN-based model</p></li>
+<li><p>Learning method considering the nature of data set and ingenuity of preprocessing</p></li>
 </ol>
 <p>Also, I have tried various methods to improve accuracy, but in real world tasks it is almost impossible to find out what kind of idea works effectively. Therefore, while doing trial and error, we need to find ways to adapt to that problem setting.</p>
 <p>As further efforts, there is room to consider the following contents, for example.</p>
 <ul class="simple">
-<li>Add information<ul>
-<li><span class="math notranslate nohighlight">\(Ⅱ\)</span> In addition to induction signals,<span class="math notranslate nohighlight">\(V_1\)</span>Induction signals are given as input at the same time. [<a class="reference external" href="https://www.kdd.org/kdd2018/files/deep-learning-day/DLDay18_paper_16.pdf">Reference10</a></li>
+<li><p>Add information</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(Ⅱ\)</span> In addition to induction signals,<span class="math notranslate nohighlight">\(V_1\)</span>Induction signals are given as input at the same time. [<a class="reference external" href="https://www.kdd.org/kdd2018/files/deep-learning-day/DLDay18_paper_16.pdf">Reference10</a></p></li>
 </ul>
 </li>
-<li>Devices for pretreatment<ul>
-<li>Change of segment length<ul>
-<li>Long-term waveform information is extracted by inputting longer segment. (<a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>] uses a segment of 10 seconds for analysis)</li>
-<li>入力情報が増えることで，却って学習が難しくなってしまう可能性あり．</li>
+<li><p>Devices for pretreatment</p>
+<ul>
+<li><p>Change of segment length</p>
+<ul>
+<li><p>Long-term waveform information is extracted by inputting longer segment. (<a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>] uses a segment of 10 seconds for analysis)</p></li>
+<li><p>入力情報が増えることで，却って学習が難しくなってしまう可能性あり．</p></li>
 </ul>
 </li>
-<li>Resampling<ul>
-<li>By lowering the sampling frequency, long-term waveform information is extracted.(Downsampling to 180 Hz in [<a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>]<ul>
-<li>There is a possibility that learning may be affected by rough waveform.．</li>
-<li>Without proper pretreatment, distortion called loopback noise occurs.</li>
-<li>(The process of reducing the information before inputting to the model is common in fields such as image analysis)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Add label<ul>
-<li>In addition to Normal, VEB, SVEB (supraventricular ectopic beat) etc. was also added.</li>
-</ul>
-</li>
-<li>Changing the way labels are given<ul>
-<li>If a segment label contains a peak label other than normal, give that label preferentially, etc.</li>
+<li><p>Resampling</p>
+<ul>
+<li><p>By lowering the sampling frequency, long-term waveform information is extracted.(Downsampling to 180 Hz in [<a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>]</p>
+<ul>
+<li><p>There is a possibility that learning may be affected by rough waveform.．</p></li>
+<li><p>Without proper pretreatment, distortion called loopback noise occurs.</p></li>
+<li><p>(The process of reducing the information before inputting to the model is common in fields such as image analysis)</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Change model<ul>
-<li>In order to extract long-term features, incorporate RNN-based structure (such as LSTM) in the latter part of CNN (<a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>]etc)．</li>
+<li><p>Add label</p>
+<ul>
+<li><p>In addition to Normal, VEB, SVEB (supraventricular ectopic beat) etc. was also added.</p></li>
+</ul>
+</li>
+<li><p>Changing the way labels are given</p>
+<ul>
+<li><p>If a segment label contains a peak label other than normal, give that label preferentially, etc.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Change model</p>
+<ul>
+<li><p>In order to extract long-term features, incorporate RNN-based structure (such as LSTM) in the latter part of CNN (<a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>]etc)．</p></li>
 </ul>
 </li>
 </ul>
 <p>If you have enough resources, please try to challenge.</p>
 <p>Recently, several cases of publishing research results have been issued for large-scale monitoring data gathered independently.．</p>
 <ul class="simple">
-<li>In collaboration with Cardiogram Corporation and the University of California, Heart Rate data was collected from the activity meter and Deep Heart which predicts diabetes preliminary group using deep learning was announced [<a class="reference external" href="https://arxiv.org/abs/1802.02511">Reference 11</a>]．</li>
-<li>In the laboratory of Andrew Ng. Of Stanford University, from the ECG record independently collected14We built a model to predict the type of waveform classification, and conducted a comparative experiment with a doctor [<a class="reference external" href="https://arxiv.org/abs/1707.01836">Reference 12</a>]．</li>
+<li><p>In collaboration with Cardiogram Corporation and the University of California, Heart Rate data was collected from the activity meter and Deep Heart which predicts diabetes preliminary group using deep learning was announced [<a class="reference external" href="https://arxiv.org/abs/1802.02511">Reference 11</a>]．</p></li>
+<li><p>In the laboratory of Andrew Ng. Of Stanford University, from the ECG record independently collected14We built a model to predict the type of waveform classification, and conducted a comparative experiment with a doctor [<a class="reference external" href="https://arxiv.org/abs/1707.01836">Reference 12</a>]．</p></li>
 </ul>
 <p>Because advances in devices have made it easier to gather precise information, we believe that such research will become increasingly popular in the future.</p>
 <p>This completes the chapter on time series analysis of monitoring data. Thank you for your hard work.</p>
 </div>
 <div class="section" id="References">
-<h1>16. References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h1>
+<h2>8.9. References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li><strong>Electrocardiography</strong> Wikipedia: The Free Encyclopedia. Wikimedia Foundation, Inc.&nbsp;22 July 2004. Web. 10 Aug.&nbsp;2004, [<a class="reference external" href="https://en.wikipedia.org/wiki/Electrocardiography">Link</a>]</li>
-<li><strong>ECG Evaluation Manual</strong> , Japan Society of Human Dogs, April, Heisei 20, [<a class="reference external" href="https://www.ningen-dock.jp/wp/wpcontent/uploads/2013/09/d4bb55fcf01494e251d315b76738ab40.pdf">Link</a>]</li>
-<li><strong>Automatic classification of heartbeats using ECG morphology and heartbeat interval features</strong> , Phillip de Chazal et al., June 2004, [<a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Link</a>]</li>
-<li><strong>Inter-Patient ECG Classification with Convolutional and Recurrent Neural Networks</strong> , Li Guo et al., Sep 2018, [<a class="reference external" href="https://arxiv.org/abs/1810.04121">Link</a>]</li>
-<li><strong>Deep Residual Learning for Image Recognition</strong> , Kaiming He et al., Dec 2015, [<a class="reference external" href="https://arxiv.org/abs/1512.03385">Link</a>]</li>
-<li><strong>Focal Loss for Dense Object Detection</strong> , Tsung-Yi Lin et al., Aug 2017, [<a class="reference external" href="https://arxiv.org/abs/1708.02002">Link</a>]</li>
-<li><strong>Bayesian Convolutional Neural Networks with Bernoulli Approximate Variational Inference</strong> , Yarin Gal et al., Jun 2015, [<a class="reference external" href="https://arxiv.org/abs/1506.02158v6">Link</a>]</li>
-<li><strong>Noise Analysis and Different Denoising Techniques of ECG Signal - A Survey</strong> , Aswathy Velayudhan et al., ICETEM 2016, [<a class="reference external" href="http://www.iosrjournals.org/iosr-jece/papers/ICETEM/Vol.%201%20Issue%201/ECE%2006-40-44.pdf">Link</a>]</li>
-<li><strong>Filter (signal processing)</strong> , Wikipedia: The Free Encyclopedia. Wikimedia Foundation, Inc.&nbsp;22 July 2004. Web. 10 Aug.&nbsp;2004, [<a class="reference external" href="https://en.wikipedia.org/wiki/Filter_%28signal_processing%29">Link</a>]</li>
-<li><strong>Arrhythmia Detection from 2-lead ECG using Convolutional Denoising Autoencoders</strong> , Keiichi Ochiai et al., KDD2018, [<a class="reference external" href="https://www.kdd.org/kdd2018/files/deep-learning-day/DLDay18_paper_16.pdf">Link</a>]</li>
-<li><strong>DeepHeart: Semi-Supervised Sequence Learning for Cardiovascular Risk Prediction</strong> , Brandon Ballinger et al., Feb 2018, [<a class="reference external" href="https://arxiv.org/abs/1802.02511">Link</a>]</li>
-<li><strong>Cardiologist-Level Arrhythmia Detection with Convolutional Neural Networks</strong> , Pranav Rajpurkar et al., Jul 2017, [<a class="reference external" href="https://arxiv.org/abs/1707.01836">Link</a>]</li>
+<li><p><strong>Electrocardiography</strong> Wikipedia: The Free Encyclopedia. Wikimedia Foundation, Inc. 22 July 2004. Web. 10 Aug. 2004, [<a class="reference external" href="https://en.wikipedia.org/wiki/Electrocardiography">Link</a>]</p></li>
+<li><p><strong>ECG Evaluation Manual</strong> , Japan Society of Human Dogs, April, Heisei 20, [<a class="reference external" href="https://www.ningen-dock.jp/wp/wpcontent/uploads/2013/09/d4bb55fcf01494e251d315b76738ab40.pdf">Link</a>]</p></li>
+<li><p><strong>Automatic classification of heartbeats using ECG morphology and heartbeat interval features</strong> , Phillip de Chazal et al., June 2004, [<a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Link</a>]</p></li>
+<li><p><strong>Inter-Patient ECG Classification with Convolutional and Recurrent Neural Networks</strong> , Li Guo et al., Sep 2018, [<a class="reference external" href="https://arxiv.org/abs/1810.04121">Link</a>]</p></li>
+<li><p><strong>Deep Residual Learning for Image Recognition</strong> , Kaiming He et al., Dec 2015, [<a class="reference external" href="https://arxiv.org/abs/1512.03385">Link</a>]</p></li>
+<li><p><strong>Focal Loss for Dense Object Detection</strong> , Tsung-Yi Lin et al., Aug 2017, [<a class="reference external" href="https://arxiv.org/abs/1708.02002">Link</a>]</p></li>
+<li><p><strong>Bayesian Convolutional Neural Networks with Bernoulli Approximate Variational Inference</strong> , Yarin Gal et al., Jun 2015, [<a class="reference external" href="https://arxiv.org/abs/1506.02158v6">Link</a>]</p></li>
+<li><p><strong>Noise Analysis and Different Denoising Techniques of ECG Signal - A Survey</strong> , Aswathy Velayudhan et al., ICETEM 2016, [<a class="reference external" href="http://www.iosrjournals.org/iosr-jece/papers/ICETEM/Vol.%201%20Issue%201/ECE%2006-40-44.pdf">Link</a>]</p></li>
+<li><p><strong>Filter (signal processing)</strong> , Wikipedia: The Free Encyclopedia. Wikimedia Foundation, Inc. 22 July 2004. Web. 10 Aug. 2004, [<a class="reference external" href="https://en.wikipedia.org/wiki/Filter_%28signal_processing%29">Link</a>]</p></li>
+<li><p><strong>Arrhythmia Detection from 2-lead ECG using Convolutional Denoising Autoencoders</strong> , Keiichi Ochiai et al., KDD2018, [<a class="reference external" href="https://www.kdd.org/kdd2018/files/deep-learning-day/DLDay18_paper_16.pdf">Link</a>]</p></li>
+<li><p><strong>DeepHeart: Semi-Supervised Sequence Learning for Cardiovascular Risk Prediction</strong> , Brandon Ballinger et al., Feb 2018, [<a class="reference external" href="https://arxiv.org/abs/1802.02511">Link</a>]</p></li>
+<li><p><strong>Cardiologist-Level Arrhythmia Detection with Convolutional Neural Networks</strong> , Pranav Rajpurkar et al., Jul 2017, [<a class="reference external" href="https://arxiv.org/abs/1707.01836">Link</a>]</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

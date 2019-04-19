@@ -109,10 +109,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#Training-flow-using-the-Chainer">5.3.1. Training flow using the Chainer</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#Segmentation-by-all-interconnected-neural-network">5.4. Segmentation by all interconnected neural network</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Preparing-the-data">5.4.1. Preparing the data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Model-of-definition">5.4.2. Model of definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Trainer-definition">5.4.3. Trainer definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Segmentation-by-fully-connected-neural-network">5.4. Segmentation by fully-connected neural network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Preparing-the-data-set">5.4.1. Preparing the data set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Defining-Model">5.4.2. Defining Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Defining-Trainer">5.4.3. Defining Trainer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Training">5.4.4. Training</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Evaluation">5.4.5. Evaluation</a></li>
 </ul>
@@ -120,9 +120,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#Segmentation-using-convolution">5.5. Segmentation using convolution</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Convolution">5.5.1. Convolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Deconvolution-layer">5.5.2. Deconvolution layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Full-convolution">5.5.3. Full convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Fully-Convolutional-Network">5.5.3. Fully Convolutional Network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Improvement-of-the-Classifier-class">5.5.4. Improvement of the Classifier class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Training-with-the-new">5.5.5. Training with the new</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Training-with-the-new-model">5.5.5. Training with the new model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Let’s-take-a-look-at-the-training-result">5.5.6. Let’s take a look at the training result</a></li>
 </ul>
 </li>
@@ -137,15 +137,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
 
             
@@ -443,7 +435,7 @@ div.rendered_html tbody tr:hover {
 <h1>5. Practice: Segmentation of MRI<a class="headerlink" href="#Practice:-Segmentation-of-MRI" title="Permalink to this headline">¶</a></h1>
 <p>There are various application technologies of deep learning for images. For example, there are <strong>object detection</strong> that detects by surrounding an individual object in a rectangle around an image, and <strong>image segmentation</strong> that recognizes an area occupied by individual objects in the image .</p>
 <p>Object detection can be said to be a technology to recognize the “type” and “position” of the target object .</p>
-<p><img alt="Object Detection Example" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection.Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
+<p><img alt="Object Detection Example" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection. Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
 <p>There are two types of image segmentation . One is an Instance - aware Segmentation that distinguishes individual objects. The other is Semantic Segmentation which does not distinguish individuals if they are of the same class. This time we will deal with the latter.</p>
 <p><img alt="Imesage Segmentation Example" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/PSPNet-result.png" /> (Above figure: Semantic Segmentation example, a task of classifying pixels by pixel.It is painting an image with a predetermined number of colors.The figure shows a certain segmentation model learned using the Cityscapes dataset Example of output result.)</p>
 <p>In image segmentation, unlike the classification problem that assigns one class to the whole image dealt with in Chapter 4, we classify all the pixels in the image by pixel. Therefore, it is also called Pixel labeling task. This can be said to be a technology to recognize the “type”, “position” and “shape” of the target object .</p>
@@ -452,10 +444,10 @@ div.rendered_html tbody tr:hover {
 <h2>5.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
 <p>The library used here,</p>
 <ul class="simple">
-<li>Chainer</li>
-<li>CuPy</li>
-<li>ChainerCV</li>
-<li>matplotlib is. On Google Colab, you can install as follows. Execute the following cell.</li>
+<li><p>Chainer</p></li>
+<li><p>CuPy</p></li>
+<li><p>ChainerCV</p></li>
+<li><p>matplotlib is. On Google Colab, you can install as follows. Execute the following cell.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -576,32 +568,32 @@ time consists of 234 pairs of images (a pair of gray scale MRI images and corres
 <h3>5.3.1. Training flow using the Chainer<a class="headerlink" href="#Training-flow-using-the-Chainer" title="Permalink to this headline">¶</a></h3>
 <p>This time, We will work on Semantic Segmentation using the Chainer described in Chapter 4. Describes a network that outputs an image from an image. As mentioned in Chapter 4, Chainer comes with <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, a class for training loop abstraction. This is used to address the Semantic Segmentation task, which classifies all pixels into two classes, the left atrium and others. Let’s review again the preparation the user needs to do when training with <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>.</p>
 <ol class="arabic simple">
-<li>Preparation of Dataset object (It returns data one by one for training)</li>
-<li>Wrap the Dataset object in the Iterator (it returns the data in Dataset bundled in batch size)</li>
-<li>Model definition (neural network to be learned. Inherited from <code class="docutils literal notranslate"><span class="pre">chainer.Chain</span></code> class)</li>
-<li>Selection of optimization method (select from optimization methods under <code class="docutils literal notranslate"><span class="pre">chainer.optimizers</span></code>)</li>
-<li>Preparation of <code class="docutils literal notranslate"><span class="pre">Updater</span></code> object (takes``Iterator`` and <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>, and performs actual learning part (parameter update))</li>
-<li><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> Object creation (management of training loop)</li>
+<li><p>Preparation of Dataset object (It returns data one by one for training)</p></li>
+<li><p>Wrap the Dataset object in the Iterator (it returns the data in Dataset bundled in batch size)</p></li>
+<li><p>Model definition (neural network to be learned. Inherited from <code class="docutils literal notranslate"><span class="pre">chainer.Chain</span></code> class)</p></li>
+<li><p>Selection of optimization method (select from optimization methods under <code class="docutils literal notranslate"><span class="pre">chainer.optimizers</span></code>)</p></li>
+<li><p>Preparation of <code class="docutils literal notranslate"><span class="pre">Updater</span></code> object (takes``Iterator`` and <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>, and performs actual learning part (parameter update))</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> Object creation (management of training loop)</p></li>
 </ol>
 <p>The components included in <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> have the following relationship:</p>
 <p><img alt="relationship between Trainer related components" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/trainer.png" /></p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">Updater</span></code> takes a specified batch size number of data from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, supplies it to<code class="docutils literal notranslate"><span class="pre">Model</span></code>, calculates the value of objective function, and updates parameters by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>. It hides the work (which makes it 1 iteration).</li>
-<li><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> can use an extension function<code class="docutils literal notranslate"><span class="pre">Extension</span></code>, and you can do automatically such as, log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Updater</span></code> takes a specified batch size number of data from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, supplies it to<code class="docutils literal notranslate"><span class="pre">Model</span></code>, calculates the value of objective function, and updates parameters by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>. It hides the work (which makes it 1 iteration).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> can use an extension function<code class="docutils literal notranslate"><span class="pre">Extension</span></code>, and you can do automatically such as, log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc.</p></li>
 </ul>
-<p>When describing network learning using Chainer, you would start training by defining them in order from the inside of the above figure, and create a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object with all at the end, as in<code class="docutils literal notranslate"><span class="pre">trainer.run</span> <span class="pre">()</span></code>.</p>
+<p>When describing network to be trained using Chainer, you will be defining them in order from the inside of the above figure, and create a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object that includes all at the end, then start the training as by <code class="docutils literal notranslate"><span class="pre">trainer.run</span> <span class="pre">()</span></code>.</p>
 <p>(You can write your own training loop without using <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, but this time, we assume that you use<code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. If you want to know how to write your own training loop, see Chapter 4.)</p>
 </div>
 </div>
-<div class="section" id="Segmentation-by-all-interconnected-neural-network">
-<h2>5.4. Segmentation by all interconnected neural network<a class="headerlink" href="#Segmentation-by-all-interconnected-neural-network" title="Permalink to this headline">¶</a></h2>
-<p>Let’s begin with a simple model. Let’s learn a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of all three coupling layers.</p>
-<div class="section" id="Preparing-the-data">
-<h3>5.4.1. Preparing the data<a class="headerlink" href="#Preparing-the-data" title="Permalink to this headline">¶</a></h3>
-<p>First we prepare the data set. Chainer has classes around several useful data sets. <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> Is a data set class that will initialize a list of file paths to an image file and then read the image in that path from disk when training and return it. <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> Is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It <code class="docutils literal notranslate"><span class="pre">zip</span></code> is the same as in Python .)</p>
-<p>This time is Semantic Segmentation, so both input and output are images. So <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> create two objects. Execute the following cell.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="section" id="Segmentation-by-fully-connected-neural-network">
+<h2>5.4. Segmentation by fully-connected neural network<a class="headerlink" href="#Segmentation-by-fully-connected-neural-network" title="Permalink to this headline">¶</a></h2>
+<p>Let’s begin with a simple model. Let’s train a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of three fully-connected layers.</p>
+<div class="section" id="Preparing-the-data-set">
+<h3>5.4.1. Preparing the data set<a class="headerlink" href="#Preparing-the-data-set" title="Permalink to this headline">¶</a></h3>
+<p>First we prepare the data set. Chainer provide some useful classes for data sets. <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> Is a data set class that will read the image in the disk and return them for you by initializing it with a list of file paths to an image file. <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> Is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It is the same as <code class="docutils literal notranslate"><span class="pre">zip</span></code> in Python.)</p>
+<p>We will be working on Semantic Segmentation this time, so both input and output are images. So we are going to create two <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> objects. Run the following cell.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -617,26 +609,43 @@ time consists of 234 pairs of images (a pair of gray scale MRI images and corres
 </pre></div>
 </div>
 </div>
-<p>The above function gives a list of file paths of input images <code class="docutils literal notranslate"><span class="pre">img_filenames</span></code> and a list of file paths of correct label images (binary images having pixel values ​​of 0 or 1) <code class="docutils literal notranslate"><span class="pre">label_filenames</span></code>, <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> and bundles and returns two data set objects together It is becoming.</p>
-<p><code class="docutils literal notranslate"><span class="pre">img</span></code> Is a data set of the input image, behaves like a list that contains like input image, <code class="docutils literal notranslate"><span class="pre">img[i]</span></code> is <code class="docutils literal notranslate"><span class="pre">i</span></code>th returns the image (<code class="docutils literal notranslate"><span class="pre">[i]</span></code> for the first time images from the disk when in access will be loaded).</p>
-<p><code class="docutils literal notranslate"><span class="pre">label</span></code> Likewise, it acts like a list of label images. These <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> were made by bundling out <code class="docutils literal notranslate"><span class="pre">dataset</span></code> is, <code class="docutils literal notranslate"><span class="pre">dataset[i]</span></code> in and access will be something that returns a tuple (two or more of the collection of value) that. (This is the same as the result of when and is a list of the same length .)(<code class="docutils literal notranslate"><span class="pre">img[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">label[i]</span></code>)<code class="docutils literal notranslate"><span class="pre">img``label</span></code> <code class="docutils literal notranslate"><span class="pre">zip(img,</span> <span class="pre">label</span></code>)</p>
-<p>Next, in the second line in this function, <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> we create a <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> new data set based on the input data set created in. <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> Is a class that can be returned after applying the function given to the second argument when accessing the data set given to the first argument and it is sometimes a process to convert the data by giving an arbitrary function I can do it. In this case, you give a function that performs conversion <code class="docutils literal notranslate"><span class="pre">lambda</span></code>using a
-function,[0,1]We are doing just the process of converting. Besides this, for example, by passing a function that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), as an argument, Data You can easily implement augmentation.</p>
-<p><code class="docutils literal notranslate"><span class="pre">create_dataset</span></code> Let’s create each data set object for training and verification using this function. Please execute the cell below.</p>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-504bab2f5f87&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">import</span> glob
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> datasets
+<span class="ansi-green-intense-fg ansi-bold">      3</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">def</span> create_dataset<span class="ansi-blue-fg">(</span>img_filenames<span class="ansi-blue-fg">,</span> label_filenames<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     img <span class="ansi-blue-fg">=</span> datasets<span class="ansi-blue-fg">.</span>ImageDataset<span class="ansi-blue-fg">(</span>img_filenames<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;chainer&#39;
+</pre></div></div>
+</div>
+<p>The above function gives a list of file paths of input images <code class="docutils literal notranslate"><span class="pre">img_filenames</span></code>, and a list of file paths of correct label images (binary images having pixel values of 0 or 1) <code class="docutils literal notranslate"><span class="pre">label_filenames</span></code>, and returns two data set objects bundled together as <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">img</span></code> is a data set of the input image, behaves like a list that contains input images. <code class="docutils literal notranslate"><span class="pre">img[i]</span></code> returns the <code class="docutils literal notranslate"><span class="pre">i</span></code>th image (an image is loaded for the first time when accessed with <code class="docutils literal notranslate"><span class="pre">[i]</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">label</span></code> also acts like a list of label images. If you access <code class="docutils literal notranslate"><span class="pre">dataset</span></code> created and bundled these with <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> like <code class="docutils literal notranslate"><span class="pre">dataset[i]</span></code>, it will return a tuple (two or more of the collection of value). (If the <code class="docutils literal notranslate"><span class="pre">image</span></code> and <code class="docutils literal notranslate"><span class="pre">label</span></code> are the lists of the same size, it has the same result of <code class="docutils literal notranslate"><span class="pre">zip(img,</span> <span class="pre">label)</span></code>.)</p>
+<p>Next, in the second line in this function, based on the input data set created using<code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code>, we create a new data set, <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code>. <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> is a class that can <strong>return a data after applying the function given to the second argument</strong> when accessing the data set given to the first argument, allows us to convert the data by giving an arbitrary function. In this case, you give a function that performs conversion using a <code class="docutils literal notranslate"><span class="pre">lamba</span></code> function, simply coverting value
+range to [0,1]. In addition, for example, by passing a function, as an argument, that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), You can easily enable <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">augmentation</span></code>.</p>
+<p>Let’s create each data set object for training and verification using <code class="docutils literal notranslate"><span class="pre">create_dataset</span></code> function. Please run the cell below.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">create_datasets</span><span class="p">():</span>
-    <span class="c1"># Python標準のglobを使ってMRI画像ファイル名/ラベル画像ファイル名の一覧を取得</span>
+    <span class="c1"># Using python standard glob, obtain a list of MRI image files / label image files</span>
     <span class="n">train_img_filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;train/image/*.png&#39;</span><span class="p">))</span>
     <span class="n">train_label_filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;train/label/*.png&#39;</span><span class="p">))</span>
 
-    <span class="c1"># リストを渡して，データセットオブジェクト train を作成</span>
+    <span class="c1"># Create a data set object, train</span>
     <span class="n">train</span> <span class="o">=</span> <span class="n">create_dataset</span><span class="p">(</span><span class="n">train_img_filenames</span><span class="p">,</span> <span class="n">train_label_filenames</span><span class="p">)</span>
 
-    <span class="c1"># 同様のことをvalidationデータに対しても行う</span>
+    <span class="c1"># Do the same for the validation data</span>
     <span class="n">val_img_filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;val/image/*.png&#39;</span><span class="p">))</span>
     <span class="n">val_label_filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;val/label/*.png&#39;</span><span class="p">))</span>
     <span class="n">val</span> <span class="o">=</span> <span class="n">create_dataset</span><span class="p">(</span><span class="n">val_img_filenames</span><span class="p">,</span> <span class="n">val_label_filenames</span><span class="p">)</span>
@@ -645,8 +654,8 @@ function,[0,1]We are doing just the process of converting. Besides this, for exa
 </pre></div>
 </div>
 </div>
-<p>This function <code class="docutils literal notranslate"><span class="pre">create_datasets()</span></code> in, first is equipped with the Python standard globusing, <code class="docutils literal notranslate"><span class="pre">.png</span></code> I have been looking for from the following directory in which you specify the image file with the extension, create a list of file path is stored. Next, <code class="docutils literal notranslate"><span class="pre">sorted</span></code> the file names are sorted by using , so that the input image and the file list of the label image point to the corresponding data with the same index (the <code class="docutils literal notranslate"><span class="pre">glob</span></code> file list enumerated by the function is not necessarily sorted There
-is no limit. After that, <code class="docutils literal notranslate"><span class="pre">create_dataset</span></code> we pass these file name lists to the previous function to create a dataset object. Do the same for the image file for verification, <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">val</span></code> create and return two dataset objects.</p>
+<p>In the function <code class="docutils literal notranslate"><span class="pre">create_datasets()</span></code>, first it uses a Python built-in module <code class="docutils literal notranslate"><span class="pre">glob</span></code>, looks for files with <code class="docutils literal notranslate"><span class="pre">.png</span></code> extension from the specified directory, then creates a list that stores the file paths. Next, sort the file names by using <code class="docutils literal notranslate"><span class="pre">sorted</span></code>, so that the input image and the file list of the label image point to the corresponding data with the same index (the file list enumerated by the function <code class="docutils literal notranslate"><span class="pre">glob</span></code> is not necessarily sorted). After that, we pass these file name lists to the
+previous function <code class="docutils literal notranslate"><span class="pre">create_dataset</span></code> to create a dataset object. Do the same for the image file for verification, and create and return two dataset objects, <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">val</span></code>.</p>
 <p>Let’s call this function. Please execute the cell below.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -669,11 +678,11 @@ Dataset size:
         valid:  26
 </pre></div></div>
 </div>
-<p>You can call this function to create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, <code class="docutils literal notranslate"><span class="pre">len()</span></code> you can use the built-in function to find out how many data it contains.</p>
+<p>By calling this function, you can create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, you can use <code class="docutils literal notranslate"><span class="pre">len()</span></code> the built-in function to find out how many data it contains.</p>
 </div>
-<div class="section" id="Model-of-definition">
-<h3>5.4.2. Model of definition<a class="headerlink" href="#Model-of-definition" title="Permalink to this headline">¶</a></h3>
-<p>Next is the definition of the model to train. In this section we will use a fully coupled neural network dealt with in Chapter 4.</p>
+<div class="section" id="Defining-Model">
+<h3>5.4.2. Defining Model<a class="headerlink" href="#Defining-Model" title="Permalink to this headline">¶</a></h3>
+<p>Next is the definition of the model to train. In this section we will use a fully-connected neural network that we used in Chapter 4.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -704,22 +713,22 @@ Dataset size:
 </pre></div>
 </div>
 </div>
-<p>In this example, we use three total tie layers and connect them using the ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as it is, reshape it to the form of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.</p>
+<p>In this example, we use three full-connected layers and connect them using the ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as is, reshape it to the shape of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.</p>
 <p>Here, the number of output channels is 1, which represents the probability that each pixel is a left ventricle.</p>
 </div>
-<div class="section" id="Trainer-definition">
-<h3>5.4.3. Trainer definition<a class="headerlink" href="#Trainer-definition" title="Permalink to this headline">¶</a></h3>
-<p>Let’s define Trainer next. Let’s define <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> a <code class="docutils literal notranslate"><span class="pre">create_trainer</span></code> function that creates and returns an object . The definition of each argument is as follows</p>
+<div class="section" id="Defining-Trainer">
+<h3>5.4.3. Defining Trainer<a class="headerlink" href="#Defining-Trainer" title="Permalink to this headline">¶</a></h3>
+<p>Let’s define Trainer next. Let’s define a <code class="docutils literal notranslate"><span class="pre">create_trainer</span></code> function that creates and returns a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. The definition of each argument is as follows</p>
 <ul class="simple">
-<li>Mini batch size (batch size)</li>
-<li>Training data set (train)</li>
-<li>Verification data set (val)</li>
-<li>Timing to stop training (stop)</li>
-<li>If the device to be used (device) ← is selected <code class="docutils literal notranslate"><span class="pre">-1</span></code>, it is CPU, <code class="docutils literal notranslate"><span class="pre">&gt;=0</span></code> GPU with its ID</li>
+<li><p>Mini batch size (batch size)</p></li>
+<li><p>Training data set (train)</p></li>
+<li><p>Verification data set (val)</p></li>
+<li><p>Timing to stop training (stop)</p></li>
+<li><p>If the device to be used (device) ← set to <code class="docutils literal notranslate"><span class="pre">-1</span></code> if CPU i used, <code class="docutils literal notranslate"><span class="pre">&gt;=0</span></code> a GPU ID when GPU is used.</p></li>
 </ul>
 <p>Execute the following cell.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -729,27 +738,30 @@ Dataset size:
 <span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">extensions</span>
 
 <span class="k">def</span> <span class="nf">create_trainer</span><span class="p">(</span><span class="n">batchsize</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="c1"># 先程定義したモデルを使用</span>
+    <span class="c1"># Use the mode we defined earlier</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">MultiLayerPerceptron</span><span class="p">(</span><span class="n">out_h</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">out_w</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
 
-    <span class="c1"># ピクセルごとの二値分類なので，目的関数にSigmoid cross entropyを，</span>
-    <span class="c1"># 精度をはかる関数としてBinary accuracyを指定しています</span>
+    <span class="c1"># Since it is a binary classification for each pixel, Sigmoid cross entropy</span>
+    <span class="c1"># is specified as the objective function, and Binary accuracy is specified as</span>
+    <span class="c1"># the function to measure accuracy.</span>
     <span class="n">train_model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span>
         <span class="n">model</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">sigmoid_cross_entropy</span><span class="p">,</span> <span class="n">accfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">binary_accuracy</span><span class="p">)</span>
 
-    <span class="c1"># 最適化手法にAdamを使います</span>
+    <span class="c1"># Use Adam as an optimizer</span>
     <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">train_model</span><span class="p">)</span>
 
-    <span class="c1"># データセットから，指定したバッチサイズ数のデータ点をまとめて取り出して返すイテレータを定義します</span>
+    <span class="c1"># Defines an iterator to retrieve data points of specified number of batch sizes</span>
+    <span class="c1"># collectively from the data set</span>
     <span class="n">train_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
     <span class="n">val_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="c1"># イテレータからデータを引き出し，モデルに渡して，目的関数の値を計算し，backwardしてパラメータを更新，</span>
-    <span class="c1"># までの一連の処理を行う updater を定義します</span>
+    <span class="c1"># Define an updater that pulls data from the iterator, passes it to the model,</span>
+    <span class="c1"># calculates the value of the objective function, and performs backward and</span>
+    <span class="c1"># updates parameters</span>
     <span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span><span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
 
-    <span class="c1"># 様々な付加機能をExtensionとして与えられるTrainerを使います</span>
+    <span class="c1"># Use Trainer which gives various additional functions as Extension</span>
     <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 
     <span class="n">logging_attributes</span> <span class="o">=</span> <span class="p">[</span>
@@ -764,13 +776,30 @@ Dataset size:
 </pre></div>
 </div>
 </div>
-<p>At the end of this function definition, <strong>multiple Extensions are added</strong>. These are automatic saving of logs to files ( <code class="docutils literal notranslate"><span class="pre">LogReport</span></code>) and display on their standard output (<code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>), automatic creation of plots of objective function values and precision (<code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>), evaluation (<code class="docutils literal notranslate"><span class="pre">Evaluator</span></code>) with validation data every specified timing It is an extended function.</p>
-<p>In addition to this, various extended functions can be used. <code class="docutils literal notranslate"><span class="pre">Extension</span></code> You can find out how to use and what you can do from the list here : <a class="reference external" href="https://docs.chainer.org/en/v2.0.2/reference/extensions.html">Trainer extensions</a></p>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-48cf38435d74&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> iterators
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> training
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> optimizers
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">from</span> chainer<span class="ansi-blue-fg">.</span>training <span class="ansi-green-fg">import</span> extensions
+<span class="ansi-green-intense-fg ansi-bold">      5</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;chainer&#39;
+</pre></div></div>
+</div>
+<p>At the end of this function definition, <strong>multiple Extensions are added</strong>. These are extend functions which does automatic saving of logs to files (<code class="docutils literal notranslate"><span class="pre">LogReport</span></code>) and display on their standard output (<code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>), automatic creation of plots of objective function values and precision (<code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>), evaluation (<code class="docutils literal notranslate"><span class="pre">Evaluator</span></code>) with validation data every specified timing.</p>
+<p>In addition to this, various extended functions can be used. You can find out how to use and what you can do from the <code class="docutils literal notranslate"><span class="pre">Extension</span></code> list here: <a class="reference external" href="https://docs.chainer.org/en/v2.0.2/reference/extensions.html">Trainer extensions</a></p>
 </div>
 <div class="section" id="Training">
 <h3>5.4.4. Training<a class="headerlink" href="#Training" title="Permalink to this headline">¶</a></h3>
-<p>I am ready for training. After that <code class="docutils literal notranslate"><span class="pre">trainer</span></code> we just call the run () function.</p>
-<p>Please execute the cell below.</p>
+<p>We are ready for training. What we need to do is just call the run() function on the <code class="docutils literal notranslate"><span class="pre">trainer</span></code> we created.</p>
+<p>Please run the cell below.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -794,8 +823,8 @@ Dataset size:
 <span class="ansi-red-fg">NameError</span>: name &#39;create_trainer&#39; is not defined
 </pre></div></div>
 </div>
-<p>In general, I think that it will take about 40 seconds for training.The information displayed at this time is <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code> the log information output by Extension. Current number of epoch, (those with respect to the training data set value, accuracy of the objective function <code class="docutils literal notranslate"><span class="pre">main/loss</span></code>, <code class="docutils literal notranslate"><span class="pre">main/accuracy</span></code> those with respect to the validation data set <code class="docutils literal notranslate"><span class="pre">val/main/loss</span></code>, <code class="docutils literal notranslate"><span class="pre">val/main/accuracy</span></code>) is displayed.</p>
-<p><code class="docutils literal notranslate"><span class="pre">PlotReport</span></code> Let’s see the graph output by the extension next . When training is over, try running the following two cells.</p>
+<p>It may take about 40 seconds for training. The information displayed at this time is the log information output by Extension called <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>. Current number of epoch, (those with respect to the training data set value, accuracy of the objective function are <code class="docutils literal notranslate"><span class="pre">main/loss</span></code>, <code class="docutils literal notranslate"><span class="pre">main/accuracy</span></code>, those with respect to the validation data set are <code class="docutils literal notranslate"><span class="pre">val/main/loss</span></code>, <code class="docutils literal notranslate"><span class="pre">val/main/accuracy</span></code>) are displayed.</p>
+<p>Let’s see the graph output by the <code class="docutils literal notranslate"><span class="pre">PlotReport</span></code> extension next. When training is over, try running the following two cells.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -831,24 +860,24 @@ Dataset size:
 <img alt="../_images/notebooks_Image_Segmentation_32_0.png" src="../_images/notebooks_Image_Segmentation_32_0.png" />
 </div>
 </div>
-<p>Training is progressing well. Both Training loss and Validation loss have decreased to nearly 0, and Accuracy for both datasets also approaches the maximum one.</p>
-<p>These plots are <code class="docutils literal notranslate"><span class="pre">out</span></code> saved as images in the location specified by the argument to pass at the initialization of the Trainer . Since this is being updated sequentially, you can actually check the plot at that point even during training. It is useful for visually confirming the progress of training.</p>
+<p>Training is progressing well. Both Training loss and Validation loss have decreased to nearly 0, and Accuracy for both datasets also approaches the maximum 1.</p>
+<p>These plots are saved as images in the location specified by the argument <code class="docutils literal notranslate"><span class="pre">out</span></code> to pass at the initialization of the Trainer. Since this is being updated sequentially, you can actually check the plot at that point even during training. It is useful for visually confirming the progress of training.</p>
 </div>
 <div class="section" id="Evaluation">
 <h3>5.4.5. Evaluation<a class="headerlink" href="#Evaluation" title="Permalink to this headline">¶</a></h3>
-<p>Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1 of the maximum value. But what index is this indicator? What was it saying “Accuracy”?</p>
-<p>In general, the result of Semantic Segmentation will be evaluated with values such as <strong>Pixel accuracy</strong> indicated as “accuracy” above and <strong>Mean Intersection over Union (mIoU)</strong> which is a different indicator . Each definition is as follows.</p>
-<p>The correct class is <span class="math notranslate nohighlight">\(i\)</span> If the model is class <span class="math notranslate nohighlight">\(j\)</span> Number classified into <span class="math notranslate nohighlight">\(N_{ij}\)</span> Then, if the number of classes is <span class="math notranslate nohighlight">\(k\)</span> When</p>
+<p>Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1 of the maximum value. But what is this performance indicator? What defines the “Accuracy”?</p>
+<p>In general, the result of Semantic Segmentation will be evaluated with values such as <strong>Pixel accuracy</strong> indicated as “accuracy” above and <strong>Mean Intersection over Union (mIoU)</strong> which is a different indicator. Each definition is as follows.</p>
+<p>When the number of pixcels, with the correct class <span class="math notranslate nohighlight">\(i\)</span> and classified as <span class="math notranslate nohighlight">\(j\)</span>, is <span class="math notranslate nohighlight">\(N_{ij}\)</span>, where the number of classes is <span class="math notranslate nohighlight">\(k\)</span>, then:</p>
 <div class="math notranslate nohighlight">
 \[{\rm Pixel\ Accuracy} = \frac{\sum_{i=1}^k N_{ii}}{\sum_{i=1}^k \sum_{j=1}^k N_{ij}}\]</div>
 <div class="math notranslate nohighlight">
 \[{\rm mIoU} = \frac{1}{k} \sum_{i=1}^k \frac{N_{ii}}{\sum_{j=1}^k N_{ij} + \sum_{j=1}^k N_{ji} - N_{ii}}\]</div>
-<p>is. Let’s try to calculate these two values again for Validation dataset <strong>using the model learned now</strong>.</p>
-<p>For this time, we use <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a> [11] to calculate these values . ChainerCV is an additional package of Chainer that can unify the handling of frequent calculations, model data, etc. in computer vision tasks. In order to calculate the above two indices again, let’s use a function for evaluation index calculation for Semantic Segmentation task provided by ChainerCV.</p>
-<p>Execute the following cell.</p>
+<p>Let’s try to calculate these two values again for Validation dataset <strong>using the model we just trained</strong>.</p>
+<p>This time, we use <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a> [11] to calculate these values. ChainerCV is an additional package of Chainer that can unify the handling of frequent calculations, model data, etc. in computer vision tasks. In order to calculate the above two metrics again, let’s use a function for evaluation metrics calculation for Semantic Segmentation task provided by ChainerCV.</p>
+<p>Run the following cell.</p>
 <p>[11] Yusuke Niitani, Toru Ogawa, Shunta Saito, Masaki Saito, “ChainerCV: a Library for Deep Learning in Computer Vision”, ACM Multimedia (ACMMM), Open Source Software Competition, 2017</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -856,10 +885,10 @@ Dataset size:
 <span class="kn">from</span> <span class="nn">chainercv</span> <span class="k">import</span> <span class="n">evaluations</span>
 
 <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="c1"># Trainerオブジェクトから学習済みモデルを取り出す</span>
+    <span class="c1"># Retrieve a trained model from a Trainer object</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">get_optimizer</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">predictor</span>
 
-    <span class="c1"># validationデータ全部に対して予測を行う</span>
+    <span class="c1"># Make predictions for all validation data</span>
     <span class="n">preds</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">device</span><span class="p">)</span>
@@ -868,7 +897,7 @@ Dataset size:
         <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">pred_labels</span><span class="p">,</span> <span class="n">gt_labels</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">preds</span><span class="p">)</span>
 
-    <span class="c1"># 評価をして結果を表示</span>
+    <span class="c1"># Evaluate and show results</span>
     <span class="n">evals</span> <span class="o">=</span> <span class="n">evaluations</span><span class="o">.</span><span class="n">eval_semantic_segmentation</span><span class="p">(</span><span class="n">pred_labels</span><span class="p">,</span> <span class="n">gt_labels</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Pixel Accuracy:&#39;</span><span class="p">,</span> <span class="n">evals</span><span class="p">[</span><span class="s1">&#39;pixel_accuracy&#39;</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mIoU:&#39;</span><span class="p">,</span> <span class="n">evals</span><span class="p">[</span><span class="s1">&#39;miou&#39;</span><span class="p">])</span>
@@ -882,29 +911,37 @@ Dataset size:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pixel Accuracy: 0.9872430654672476
-mIoU: 0.6810346076820649
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-4034be62edc7&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> cuda
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">from</span> chainercv <span class="ansi-green-fg">import</span> evaluations
+<span class="ansi-green-intense-fg ansi-bold">      3</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">def</span> evaluate<span class="ansi-blue-fg">(</span>trainer<span class="ansi-blue-fg">,</span> val<span class="ansi-blue-fg">,</span> device<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     <span class="ansi-red-fg"># Retrieve a trained model from a Trainer object</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;chainer&#39;
 </pre></div></div>
 </div>
 <p>Two numbers are displayed.</p>
-<p>The value of Pixel Accuracy has the <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code> same value as val / main / accuracy displayed. What was displayed as “accuracy” during training was the same as Pixel Accuracy. Here, it shows a very high value. Since the maximum value is 1, 0.98 is a high number.</p>
-<p>On the other hand, we see that mIoU (<code class="docutils literal notranslate"><span class="pre">miou</span></code>) which is the index of the same maximum value 1 is lower than I expected. Why.</p>
-<p>Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of black and white plus white) with respect to the number of pixels of the entire image, so that negative (black) If there are many positive true (white dotted number) is small but true negative is large, Pixel Accuracy will be high as a result. In other words, when the <strong>class imbalance (the number of white and black is very different) is occurring, the influence of prediction error on a small class
-becomes relatively small</strong>.</p>
-<p>On the other hand, in the case of mIoU, “true positive” (the prediction of white is correct for the sum region of positive and true (the sum of regions where white is predicted and the region where white is correct) in both predicted and correct images It is not influenced by the size of the whole image because we see the proportion of the area). In a diagram that is easy to understand, it looks like the following.</p>
+<p>The value of Pixel Accuracy has the same value as val/main/accuracy displayed by <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>. What was displayed as “accuracy” during training was the same as Pixel Accuracy. This shows a very high value. Since the maximum value is 1, 0.98 is a high number.</p>
+<p>On the other hand, we see that mIoU (<code class="docutils literal notranslate"><span class="pre">miou</span></code>) which is the index for which the maximum value being 1 also, is lower than expected. Why?</p>
+<p>Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of “true positive” (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when the <strong>class imbalance (the number of white and black is very
+different) is occurring, the influence of prediction error on a small class becomes relatively small</strong>.</p>
+<p>On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction of white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here’s a diagram to make it easy to understand.</p>
 <p><img alt="Area to seek with IoU" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/miou.png" /></p>
 <p>In the words of this figure, IoU,</p>
 <div class="math notranslate nohighlight">
 \[IoU = \frac{\rm true\_positive}{{\rm positive} + {\rm true} - {\rm true\_positive}}\]</div>
-<p>. true_positive is the number of pixels of True Positive, positive is the number of pixels in the predicted image that has a value of 1, and true is the number of pixels in the correct image that take a value of 1.</p>
-<p>Let’s see the problem of “<strong>Pixel Accuracy is high but mIoU is low</strong>” by visualizing the result of predicting validation data using the actually obtained model . Execute the following cell.</p>
+<p>The true_positive is the number of pixels of True Positive, the positive is the number of pixels in the predicted image that has a value of 1, and true is the number of pixels in the correct image that take a value of 1.</p>
+<p>Let’s see the problem of “<strong>Pixel Accuracy is high but mIoU is low</strong>” by visualizing the result of predicting validation data using the actually obtained model. Run the following cell.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">show_predicts</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_sample</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="c1"># Trainerオブジェクトから学習済みモデルを取り出す</span>
+    <span class="c1"># Retrieve a trained model from a Trainer object</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">get_optimizer</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">predictor</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">):</span>
@@ -926,26 +963,20 @@ becomes relatively small</strong>.</p>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_37_0.png" src="../_images/notebooks_Image_Segmentation_37_0.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_37_1.png" src="../_images/notebooks_Image_Segmentation_37_1.png" />
-</div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_37_2.png" src="../_images/notebooks_Image_Segmentation_37_2.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-6ee24907b2fc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">     18</span>         plt<span class="ansi-blue-fg">.</span>show<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     19</span>
+<span class="ansi-green-fg">---&gt; 20</span><span class="ansi-red-fg"> </span>show_predicts<span class="ansi-blue-fg">(</span>trainer<span class="ansi-blue-fg">,</span> val<span class="ansi-blue-fg">,</span> device<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;trainer&#39; is not defined
+</pre></div></div>
 </div>
 <p>The left column is the predicted label and the right column is the correct label. As is evident in the third line, the predicted positive area (white area) is smaller than the correct area. Since Pixel Accuracy is the correct answer rate including the black portion which accounts for the majority, Pixel Accuracy may not fit the dataset as much as the evaluation index. On the other hand, it <code class="docutils literal notranslate"><span class="pre">mIoU</span></code>is an effective index when the ratio of the prediction target area in the image like this time is
 small.</p>
@@ -954,47 +985,47 @@ small.</p>
 </div>
 <div class="section" id="Segmentation-using-convolution">
 <h2>5.5. Segmentation using convolution<a class="headerlink" href="#Segmentation-using-convolution" title="Permalink to this headline">¶</a></h2>
-<p>In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, from a model consisting only of all tie layers. In addition to that, let’s change to a deeper (more layery) model. Use this time Link is, <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code>and <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> only two. You can specify kernel size (<code class="docutils literal notranslate"><span class="pre">ksize</span></code>), stride (<code class="docutils literal notranslate"><span class="pre">stride</span></code>), padding (<code class="docutils literal notranslate"><span class="pre">pad</span></code>) respectively. First, let’s summarize how these change the output.</p>
+<p>In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, from a model consisting only of fully-connected layers. In addition to that, let’s change to a deeper (more layers) model. Links used this time are <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code>and <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> only. You can specify kernel size (<code class="docutils literal notranslate"><span class="pre">ksize</span></code>), stride (<code class="docutils literal notranslate"><span class="pre">stride</span></code>), padding (<code class="docutils literal notranslate"><span class="pre">pad</span></code>) respectively. First, let’s summarize how these change the output.</p>
 <div class="section" id="Convolution">
 <h3>5.5.1. Convolution<a class="headerlink" href="#Convolution" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code> Link is a general convolution layer implementation. I explained in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.</p>
+<p>The Link <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code> is a general convolution layer implementation. I explained in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.</p>
 <ul class="simple">
-<li>To make it easier to maintain the output size after calculation using padding, make it an odd kernel size (⌊ksize/2⌋Is specified as pad, the image size will not change when stride = 1)</li>
-<li>If you want to reduce the output feature map, give a value of&gt; 1 to stride (if stride = n, the aspect ratio of the converted image will be 1 / n of the original)</li>
-<li>Output size,(input_size−ksize+pad×2)/stride+1 become. That is, increasing the stride decreases the output feature map.</li>
+<li><p>To make it easier to maintain the output size after calculation using padding, make it an odd kernel size (If ⌊ksize/2⌋ is specified as pad, the image size will not change when stride = 1)</p></li>
+<li><p>If you want to reduce the output feature map, give a value of &gt;1 to stride (if stride = n, the aspect ratio of the converted image will be 1 / n of the original)</p></li>
+<li><p>Output size becomes (input_size−ksize+pad×2)/stride+1. That is, increasing the stride decreases the output feature map.</p></li>
 </ul>
 </div>
 <div class="section" id="Deconvolution-layer">
 <h3>5.5.2. Deconvolution layer<a class="headerlink" href="#Deconvolution-layer" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> Is not a deconvolution in a mathematical sense unlike its name from historical circumstances. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution 2D, the way of applying the filter is the same as that of Convolution, but the processing such as disposing the values of the input feature map in different parts is different. <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> When setting layer parameters, it is useful to know the following
+<p><code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> is not a deconvolution in a mathematical sense unlike its name from historical reasons. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution2D, the way of applying the filter is the same as that of Convolution, but the part where processing such as arranging the values of the input feature map to skip is different. When setting <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> layer parameters, it is useful to know the following
 points.</p>
 <ul class="simple">
-<li>Make the kernel size divisible by stride (to prevent checker board artifact. For reference: <a class="reference external" href="https://distill.pub/2016/deconv-checkerboard/">Deconvolution and Checkerboard Artifacts</a>）</li>
-<li>Output size,<span class="math notranslate nohighlight">\({\rm stride} \times ({\rm input\_size} - 1) + {\rm ksize} - 2 \times {\rm pad}\)</span> Therefore, adjust the parameters so that it becomes the size after the target expansion</li>
+<li><p>Make the kernel size divisible by stride (to prevent checker board artifact. For reference: <a class="reference external" href="https://distill.pub/2016/deconv-checkerboard/">Deconvolution and Checkerboard Artifacts</a>）</p></li>
+<li><p>Since output size becomes <span class="math notranslate nohighlight">\({\rm stride} \times ({\rm input\_size} - 1) + {\rm ksize} - 2 \times {\rm pad}\)</span>, adjust the parameters so that it becomes the target expansion size.</p></li>
 </ul>
-<p>In Deconvolution 2 D, the meaning of pad is not a bit intuitive, so we prepare a diagram that explains the actual operation.</p>
-<p><img alt="Deconvolution2Dの計算(pad=0の場合)" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-0.png" /></p>
-<p><img alt="Deconvolution2Dの計算(pad=1の場合)" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-1.png" /></p>
-<p>The point to be noticed is that the “amount to shave” around the feature map arranged / extended according to ksize and stride is pad. The subsequent operation itself is the same as Convolution with stride = 1, pad = 0.</p>
+<p>As the meaning of pad is not a bit intuitive in Deconvolution2D, a diagram is provided below that explains the actual operation.</p>
+<p><img alt="Calculation of Deconvolution2D(when pad=0)" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-0.png" /></p>
+<p><img alt="Calculation of Deconvolution2Dの(when pad=1)" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-1.png" /></p>
+<p>The point to be careful is that the “amount to cut” around the feature map arranged / extended according to ksize and stride becomes pad. The subsequent operation itself is the same as Convolution with stride = 1, pad = 0.</p>
 <p>Here is a very easy-to-understand GIF animation that shows the calculation of Convolution / Deconvolution, so please refer to: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">Convolution arithmetic</a></p>
 </div>
-<div class="section" id="Full-convolution">
-<h3>5.5.3. Full convolution<a class="headerlink" href="#Full-convolution" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Fully-Convolutional-Network">
+<h3>5.5.3. Fully Convolutional Network<a class="headerlink" href="#Fully-Convolutional-Network" title="Permalink to this headline">¶</a></h3>
 <p>Let’s write a network consisting of Convolution layer and Deconvolution layer with Chainer. The following model is similar to a network called Fully Convolutional Network. Please refer to this document for details [4], [5], [6].</p>
-<p>The following FullyConvolutionalNetwork model definition includes five constants from FIXME_1 to FIXME_5, but no value is given. Each is the number of channels on the output side of Convolution. Try this,</p>
+<p>The following FullyConvolutionalNetwork model definition includes five constants from FIXME_1 to FIXME_5, but no value is given. Each is the number of channels on the output side of Convolution. Let’s rewrite these;</p>
 <ul class="simple">
-<li>FIXME_1 = 64</li>
-<li>FIXME_2 = 128</li>
-<li>FIXME_3 = 128</li>
-<li>FIXME_4 = 128</li>
-<li>FIXME_5 = 128</li>
+<li><p>FIXME_1 = 64</p></li>
+<li><p>FIXME_2 = 128</p></li>
+<li><p>FIXME_3 = 128</p></li>
+<li><p>FIXME_4 = 128</p></li>
+<li><p>FIXME_5 = 128</p></li>
 </ul>
-<p>Let’s rewrite it and run the cell below. If <code class="docutils literal notranslate"><span class="pre">None</span></code> you give the number of input channels , it will automatically decide at run time.</p>
+<p>and run the cell below. If you give <code class="docutils literal notranslate"><span class="pre">None</span></code> to the number of input channels, it will automatically decide at run time.</p>
 <p>[4] <a class="reference external" href="http://fcn.berkeleyvision.org/">http://fcn.berkeleyvision.org/</a></p>
 <p>[5] Long, Shelhamer, Darrell; “Fully Convoutional Networks for Semantic Segmentation”, CVPR 2015.</p>
 <p>[6] Zeiler, Krishnan, Taylor, Fergus; “Deconvolutional Networks”, CVPR 2010.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1009,18 +1040,16 @@ points.</p>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
             <span class="c1"># L.Convolution2D(in_ch, out_ch, ksize, stride, pad)</span>
-            <span class="c1"># in_chは省略することができるので，</span>
+            <span class="c1"># You can omit in_ch like this:</span>
             <span class="c1"># L.Convolution2D(out_ch, ksize, stride, pad)</span>
-            <span class="c1"># とかくこともできます．</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">FIXME_1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">FIXME_2</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">FIXME_3</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv4</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">FIXME_4</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv5</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">FIXME_5</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="c1"># L.Deconvolution2D(in_ch, out_ch, ksize, stride, pad)</span>
-            <span class="c1"># in_chは省略することができるので，</span>
+            <span class="c1"># You can omit in_ch like this:</span>
             <span class="c1"># L.Deconvolution2D(out_ch, ksize, stride, pad)</span>
-            <span class="c1"># と書くこともできます．</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">deconv6</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Deconvolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_class</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_h</span> <span class="o">=</span> <span class="n">out_h</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_w</span> <span class="o">=</span> <span class="n">out_w</span>
@@ -1049,16 +1078,25 @@ points.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(256, 256)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-fc62a0897060&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> reporter
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">from</span> chainer <span class="ansi-green-fg">import</span> cuda
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">from</span> chainercv <span class="ansi-green-fg">import</span> evaluations
+<span class="ansi-green-intense-fg ansi-bold">      4</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;chainer&#39;
 </pre></div></div>
 </div>
-<p>After rewriting FIXME_1 to FIXME_5 as a constant and executing the above cell, the output size of the network is displayed. Since the input image of this time is (256, 256) size image, it works properly if the output is the same size as 256 x 256.</p>
+<p>After rewriting FIXME_1 to FIXME_5 as a constant and running the above cell, the output size of the network is displayed. Since the input image here is (256, 256) size image, if the output is the same size as 256 x 256, it is working properly.</p>
 </div>
 <div class="section" id="Improvement-of-the-Classifier-class">
 <h3>5.5.4. Improvement of the Classifier class<a class="headerlink" href="#Improvement-of-the-Classifier-class" title="Permalink to this headline">¶</a></h3>
-<p>Next, in order to check not only Pixel Accuracy but also mIOU as checking during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let’s execute the following cell.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<p>Next, in order to check not only Pixel Accuracy but also mIOU as items to be checked during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let’s run the following cell.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1067,25 +1105,26 @@ points.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predictor</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="c1"># 学習対象のモデルをpredictorとして保持しておく</span>
+            <span class="c1"># Store the target training model as predictor</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span> <span class="o">=</span> <span class="n">predictor</span>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-        <span class="c1"># 学習対象のモデルでまず推論を行う</span>
+        <span class="c1"># First, make prediction with the model to be trained</span>
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-        <span class="c1"># 2クラス分類の誤差を計算</span>
+        <span class="c1"># Calculate loss from 2-class classification</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid_cross_entropy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
-        <span class="c1"># 予測結果（0~1の連続値を持つグレースケール画像）を二値化し，</span>
-        <span class="c1"># ChainerCVのeval_semantic_segmentation関数に正解ラベルと</span>
-        <span class="c1"># 共に渡して各種スコアを計算</span>
+        <span class="c1"># Binaryize the prediction result (grayscale image with continuous</span>
+        <span class="c1"># value between 0 and 1), pass it along with the correct answer label to</span>
+        <span class="c1"># eval_semantic_segmentation function of ChainerCV and calculate</span>
+        <span class="c1"># various scores</span>
         <span class="n">y</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">cuda</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
         <span class="n">y</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">t</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
         <span class="n">evals</span> <span class="o">=</span> <span class="n">evaluations</span><span class="o">.</span><span class="n">eval_semantic_segmentation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
-        <span class="c1"># 学習中のログに出力</span>
+        <span class="c1"># Output log during the training</span>
         <span class="n">reporter</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span>
                          <span class="s1">&#39;miou&#39;</span><span class="p">:</span> <span class="n">evals</span><span class="p">[</span><span class="s1">&#39;miou&#39;</span><span class="p">],</span>
                          <span class="s1">&#39;pa&#39;</span><span class="p">:</span> <span class="n">evals</span><span class="p">[</span><span class="s1">&#39;pixel_accuracy&#39;</span><span class="p">]},</span> <span class="bp">self</span><span class="p">)</span>
@@ -1093,13 +1132,30 @@ points.</p>
 </pre></div>
 </div>
 </div>
-<p>Trainer considers the model passed as an argument to the Optimizer to be a “return objective function value” function. In the first model, the model returned the output result, but <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> passed it to the object called it and passed it to Optimizer. This Chainer is available <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> is also calculated Accuracy not only the value of the objective function inside, <code class="docutils literal notranslate"><span class="pre">reporter.report</span></code> in the form of passing a dictionary to <code class="docutils literal notranslate"><span class="pre">LogReport</span></code> Extension, such as does the report of value
-to be able to supplement. However, L.Classifierdoes not calculate mIoU.</p>
-<p>So, <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> we <code class="docutils literal notranslate"><span class="pre">PixelwiseSigmoidClassifier</span></code> will replace it with ourselves, calculate both the Pixel Accuracy and the mIoU for the <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code>prediction (in the above code <code class="docutils literal notranslate"><span class="pre">y</span></code>) while writing the calculation of the actual objective function yourself, and report it . <code class="docutils literal notranslate"><span class="pre">__call__</span></code>It is expected to return the value (scalar) of the objective function itself, so <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code>it is <code class="docutils literal notranslate"><span class="pre">loss</span></code>only the return value of <code class="docutils literal notranslate"><span class="pre">return</span></code>.</p>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="section" id="Training-with-the-new">
-<h3>5.5.5. Training with the new<a class="headerlink" href="#Training-with-the-new" title="Permalink to this headline">¶</a></h3>
-<p>Let’s learn by Trainer using these models and custom classifier. Execute the following cell.</p>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-4cb52a3374e8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">class</span> PixelwiseSigmoidClassifier<span class="ansi-blue-fg">(</span>chainer<span class="ansi-blue-fg">.</span>Chain<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> predictor<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>         <span class="ansi-green-fg">with</span> self<span class="ansi-blue-fg">.</span>init_scope<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;chainer&#39; is not defined
+</pre></div></div>
+</div>
+<p>Trainer assumes the model passed as an argument to the Optimizer to be a function that “returns the value of objective function”. In the first model, the model returned the output result, but passed it to the object called <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> and passed it to Optimizer. This <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> Chainer provides calculates not only the value of the objective function internally, but also calculates Accuracy, then reports the value in the form of passing a dictionary to <code class="docutils literal notranslate"><span class="pre">reporter.report</span></code> so that
+Extension, such as <code class="docutils literal notranslate"><span class="pre">LogReport</span></code>, can be supplemented. However, <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> does not calculate mIoU.</p>
+<p>Therefore, we will replace <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> with our own <code class="docutils literal notranslate"><span class="pre">PixelwiseSigmoidClassifier</span></code>, writing calculation of <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code> that will be an actual objective functions by ourselves, calculating both the Pixel Accuracy and the mIoU for the prediction (in the above code <code class="docutils literal notranslate"><span class="pre">y</span></code>), then report it. <code class="docutils literal notranslate"><span class="pre">__call__</span></code> itself is expected to return the value (scalar) of the objective function, so it only returns <code class="docutils literal notranslate"><span class="pre">loss</span></code> which is the return value of <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code>.</p>
+</div>
+<div class="section" id="Training-with-the-new-model">
+<h3>5.5.5. Training with the new model<a class="headerlink" href="#Training-with-the-new-model" title="Permalink to this headline">¶</a></h3>
+<p>Let’s perform training with Trainer using these models and custom classifier. Run the following cell.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1133,9 +1189,9 @@ to be able to supplement. However, L.Classifierdoes not calculate mIoU.</p>
 </pre></div>
 </div>
 </div>
-<p>This is a function to create a Trainer object used this time. Where different from the first case, the log is recorded in the file <code class="docutils literal notranslate"><span class="pre">LogReport</span></code>to output the specified logs and to standard output items <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>, and outputs the graph <code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>in the extended <code class="docutils literal notranslate"><span class="pre">loss</span></code>and <code class="docutils literal notranslate"><span class="pre">accuracy</span></code>(in this case, <code class="docutils literal notranslate"><span class="pre">pa</span></code> != Pixel Accuracy) only <code class="docutils literal notranslate"><span class="pre">miou</span></code>place which is also output is.</p>
-<p>Let’s start training. In the first model, let’s see the process while recalling that miou only got over 0.68. This time the model grows and the number of parameters is also increasing, so it takes time to learn a bit (it takes over 6 minutes)</p>
-<p>Execute the following cell.</p>
+<p>This is the function to create a Trainer object used this time. The differences from the first case are <code class="docutils literal notranslate"><span class="pre">LogReport</span></code> that records logs to a file, and <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code> that outputs to the standard output, and also the extension of <code class="docutils literal notranslate"><span class="pre">PlotReport</span></code> which outputs the graph, not only <code class="docutils literal notranslate"><span class="pre">loss</span></code>and <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> (in this case, <code class="docutils literal notranslate"><span class="pre">pa</span></code> != Pixel Accuracy) but also <code class="docutils literal notranslate"><span class="pre">miou</span></code>.</p>
+<p>Let’s start training. remebering that miou only got over 0.68 with the first model, let’s observe the progress. This time the model grows and the number of parameters is also increasing, so the training may take time to train a bit (it would take over 6 minutes)</p>
+<p>Run the following cell.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -1181,7 +1237,7 @@ Wall time: 5min 37s
 </div>
 <div class="section" id="Let’s-take-a-look-at-the-training-result">
 <h3>5.5.6. Let’s take a look at the training result<a class="headerlink" href="#Let’s-take-a-look-at-the-training-result" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">PlotReport</span></code> Let’s take a look at the graph output by the extension in this training . Execute the following three cells.</p>
+<p>Let’s take a look at the graph output by the <code class="docutils literal notranslate"><span class="pre">PlotReport</span></code> extension in this training. Run the following three cells.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -1261,7 +1317,7 @@ Pixel Accuracy
 <img alt="../_images/notebooks_Image_Segmentation_56_1.png" src="../_images/notebooks_Image_Segmentation_56_1.png" />
 </div>
 </div>
-<p>In addition to Pixel Accuracy being 0.99 or more, mIoU has also increased to nearly 0.90. Focusing on mIoU, I think that you can see that the accuracy is improved considerably compared with the first model (about 0.68). Let’s check the results by looking at the predicted label image when actually inferring validation data. Execute the following cell.</p>
+<p>Not only Pixel Accuracy is 0.99 or more, mIoU has also increased to nearly 0.90. Focusing on mIoU, you will notice that you can see that the accuracy is improved considerably compared with the first model (was about 0.68). Let’s check the results by looking at the predicted label image used when actually inferring validation data. Run the following cell.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
@@ -1302,18 +1358,18 @@ mIoU: 0.8948934203314065
 <img alt="../_images/notebooks_Image_Segmentation_58_3.png" src="../_images/notebooks_Image_Segmentation_58_3.png" />
 </div>
 </div>
-<p>Three images are displayed that are the same as when checking the results of the first model. Noticeing the first line, especially focusing on the third line, we can see that it is possible to estimate a mask that is close to the correct answer label.</p>
+<p>Three images are displayed that are the same as when checking the results of the first model. Notice that, compaired to the first result, especially on the third row, we can see that it is possible to estimate a mask that is close to the correct answer label.</p>
 <p>By using a deeper model consisting only of the convolution layer for training, we were able to greatly improve the results.</p>
 </div>
 </div>
 <div class="section" id="Tips-for-further-improvement">
 <h2>5.6. Tips for further improvement<a class="headerlink" href="#Tips-for-further-improvement" title="Permalink to this headline">¶</a></h2>
-<p>It seems to be working well in this model, but there is still room for improvement.Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to predict the results at multiple resolutions Consideration, etc., are important issues consciousness. Also, in neural networks, it is generally said that the more features overlap, the higher the abstraction level of features. However, since Semantic Segmentation wishes to output a mask image
-accurately representing the outline of the target object, considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) You want to make predictive results. For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.</p>
+<p>It seems to be working well in this model, but there is still room for improvement. Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to handle prediction results at multiple resolutions, etc., are important problems. Also, in neural networks, it is generally known that the more layers are used, the higher the abstraction level of features will become. However, since Semantic Segmentation wishes to output a mask image accurately
+representing the outline of the target object, you would want to make a final prediction result considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.</p>
 <p>Several new models have been proposed from these perspectives. Typical examples are listed below, for example.</p>
 <div class="section" id="SegNet-[8]">
 <h3>5.6.1. SegNet [8]<a class="headerlink" href="#SegNet-[8]" title="Permalink to this headline">¶</a></h3>
-<p>When Max Pooling is applied in each layer, it is a method to keep information of “which pixel is the maximum value (pooling indices)” and upsampling it using the pooling indices recorded when enlarging the image later . Code including <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a> model implemented by Chainer and complete reproduction experiment is released.</p>
+<p>When Max Pooling is applied in each layer, it is a method to keep information of “which pixel is the maximum value (pooling indices)” and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a>.</p>
 <p><img alt="SegNet" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/SegNet.png" /></p>
 </div>
 <div class="section" id="U-Net-[9]">
@@ -1325,8 +1381,8 @@ accurately representing the outline of the target object, considering low level 
 <h3>5.6.3. PSPNet [10]<a class="headerlink" href="#PSPNet-[10]" title="Permalink to this headline">¶</a></h3>
 <p>5.6.3. PSPNet [10] It is a model that won the ImageNet 2017 Scene Parsing Challenge by exploiting features of different size for each sub-region to take global context into account.</p>
 <p><img alt="PSPNet" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/PSPNet.png" /></p>
-<p>In addition to this, various methods have been proposed, such as not only the size of the number of samples between classes but also the performance can be raised by using a loss function that takes them into account when there are difficult classes and simple classes I will.</p>
-<p>In addition, for the sake of simplicity, we used a data set with training split and validation split only for the sake of simplicity, but after adjusting the hyper parameter using the validation result with validation split and then evaluating the final performance You should use test split.</p>
+<p>In addition to the above, various methods have been proposed. For instance, the performance can be raised not only by the size of the number of samples between classes but also by using a loss function that takes them into account when there are difficult classes and simple classes.</p>
+<p>Also, we used a data set with training split then evaluating the final performance and validation split only for the sake of simplicity earlier, but we should use test split at the phase of evaluating the final performance after adjusting the hyper parameter using the validation result with validation split.</p>
 <p>[8] Vijay Badrinarayanan, Alex Kendall and Roberto Cipolla “SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation.” PAMI, 2017</p>
 <p>[9] Olaf Ronneberger, Philipp Fischer, Thomas Brox, “U-Net: Convolutional Networks for Biomedical Image Segmentation”, MICCAI 2015</p>
 <p>[10] Hengshuang Zhao, Jianping Shi, Xiaojuan Qi, Xiaogang Wang and Jiaya Jia, “Pyramid Scene Parsing Network”, CVPR 2017</p>
@@ -1336,12 +1392,12 @@ accurately representing the outline of the target object, considering low level 
 <h2>5.7. Additional References<a class="headerlink" href="#Additional-References" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we will post some segmen- tation materials from this author’s creator here.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods">Brief introduction of recent segmentation method</a></li>
-<li><a class="reference external" href="https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods">Introduction of Pyramid Scene Parsing Network (CVPR 2017)</a></li>
+<li><p><a class="reference external" href="https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods">Brief introduction of recent segmentation method</a></p></li>
+<li><p><a class="reference external" href="https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods">Introduction of Pyramid Scene Parsing Network (CVPR 2017)</a></p></li>
 </ul>
 <p>In addition, the following review articles are well organized on the segmentation method utilizing the recent Deep learning, which is helpful.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://arxiv.org/abs/1704.06857">A Review on Deep Learning Techniques Applied to Semantic Segmentation</a></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1704.06857">A Review on Deep Learning Techniques Applied to Semantic Segmentation</a></p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

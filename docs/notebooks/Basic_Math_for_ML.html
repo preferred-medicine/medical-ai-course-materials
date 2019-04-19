@@ -141,15 +141,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
 
             
@@ -404,26 +396,26 @@ x_{31} &amp; x_{32}
 In order to specify one value, it is represented by the tensor on the third floor. When including this course, if it is expressed simply as a tensor, it often points to the tensor of the third floor or more, so please be careful.</p>
 <p><img alt="image5" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/07.png" /></p>
 <p>In linear algebra <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> Ya <span class="math notranslate nohighlight">\(\boldsymbol{X}\)</span> It is easy to understand what type of numerical value is handled because it deforms expressions with only letters like this, but be careful not to lose sight of its shape by always keeping aware of vectors etc Let’s see.</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="18%" />
-<col width="41%" />
-<col width="41%" />
+<col style="width: 18%" />
+<col style="width: 41%" />
+<col style="width: 41%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"></th>
-<th class="head">小文字</th>
-<th class="head">大文字</th>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>小文字</p></th>
+<th class="head"><p>大文字</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>細文字</td>
-<td>スカラーの変数</td>
-<td>スカラーの定数</td>
+<tbody>
+<tr class="row-even"><td><p>細文字</p></td>
+<td><p>スカラーの変数</p></td>
+<td><p>スカラーの定数</p></td>
 </tr>
-<tr class="row-odd"><td>太文字</td>
-<td>ベクトル</td>
-<td>行列，テンソル</td>
+<tr class="row-odd"><td><p>太文字</p></td>
+<td><p>ベクトル</p></td>
+<td><p>行列，テンソル</p></td>
 </tr>
 </tbody>
 </table>
@@ -596,7 +588,7 @@ In order to specify one value, it is represented by the tensor on the third floo
 <p>After matrix multiplication, matrix size will change. size is <span class="math notranslate nohighlight">\((L, M)\)</span> With a matrix of <span class="math notranslate nohighlight">\((M ,N)\)</span> The matrix multiplication result of <span class="math notranslate nohighlight">\((L, N)\)</span>. For example, when summarizing how the sizes of the three exercise problems changed,</p>
 <p><img alt="image8" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/10.png" /></p>
 <ol class="arabic simple" start="3">
-<li>Note that the result of the first vector and matrix are horizontal vectors and result in (1). Also, if the size of a dimension becomes 1, the dimension may be deleted, the vector may be a scalar, and the matrix may be a vector.</li>
+<li><p>Note that the result of the first vector and matrix are horizontal vectors and result in (1). Also, if the size of a dimension becomes 1, the dimension may be deleted, the vector may be a scalar, and the matrix may be a vector.</p></li>
 </ol>
 </div>
 <div class="section" id="Unit-matrix">
@@ -937,8 +929,8 @@ scale by using variance.</p>
 <p><img alt="image11" src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/1/14.png" /></p>
 <p>Why does this normal distribution appear frequently? There are the following physical and mathematical background as the reason.</p>
 <ul class="simple">
-<li>A random variable expressed as a sum of independent and numerous factors approximates a normal distribution</li>
-<li>Easy to handle formulas</li>
+<li><p>A random variable expressed as a sum of independent and numerous factors approximates a normal distribution</p></li>
+<li><p>Easy to handle formulas</p></li>
 </ul>
 <p>Many data seen in the world are known to follow the normal distribution (eg height according to gender age, points of examination, measurement error of physical experiments, etc.). On the other hand, the data does not always obey the normal distribution. In many cases there are many cases where wrong conclusions are derived by applying it to a normal distribution for distribution that is not a normal distribution. Always think whether distributing the data can be handled as a normal distribution
 by making it diagrammatic.</p>

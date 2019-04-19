@@ -131,15 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
 
             
@@ -448,9 +440,9 @@ or white wine . Simple regression analysis, as the name implies, is a method tha
 <p>Then, the <strong>input variables</strong> consider what should be adopted as. For rent forecasting, for example, the room size, the distance from the station, and the crime rate can be considered as input variables. Here we input the size of the room variable <span class="math notranslate nohighlight">\(x\)</span> Let’s adopt as. In practice, when there are multiple input variable candidates, modeling that can handle all of them is generally used, but this will be introduced later in the multiple regression analysis.</p>
 <p>In the machine learning algorithm, each method is roughly divided into the following three steps.</p>
 <ul class="simple">
-<li>Step 1: Determine the model</li>
-<li>Step 2: Determine the objective function</li>
-<li>Step 3: Find the optimal parameters</li>
+<li><p>Step 1: Determine the model</p></li>
+<li><p>Step 2: Determine the objective function</p></li>
+<li><p>Step 3: Find the optimal parameters</p></li>
 </ul>
 <p>We will explain the above three steps in order.</p>
 </div>
@@ -597,16 +589,16 @@ y_{q} - \bar{t} &amp;= w(x_{q}-\bar{x}) \\
 reduced to the problem of single regression analysis).</p>
 <p>Similar to single regression analysis, learning is performed in the following three steps.</p>
 <ul class="simple">
-<li>Determine the model</li>
-<li>Determine the objective function</li>
-<li>Find the optimal parameter</li>
+<li><p>Determine the model</p></li>
+<li><p>Determine the objective function</p></li>
+<li><p>Find the optimal parameter</p></li>
 </ul>
 <p>ここでは単回帰分析の場合と同様に家賃を予測する問題を考え，家賃を出力変数 <span class="math notranslate nohighlight">\(y\)</span> とします．入力変数としては，単回帰分析では考慮しきれていなかった駅からの距離や犯罪発生率なども考慮していきます．例えば，部屋の広さ <span class="math notranslate nohighlight">\(x_{1}\)</span>, 駅からの距離 <span class="math notranslate nohighlight">\(x_{2}\)</span>, …, 犯罪発生率 <span class="math notranslate nohighlight">\(x_{M}\)</span> のように <span class="math notranslate nohighlight">\(M\)</span> 個の入力変数があるとします（<span class="math notranslate nohighlight">\(M=1\)</span>の場合，単回帰分析の問題に帰着されます）．</p>
 <p>単回帰分析と同様，以下の3ステップで学習していきます．</p>
 <ul class="simple">
-<li>モデルを決める</li>
-<li>目的関数を決める</li>
-<li>最適なパラメータを求める</li>
+<li><p>モデルを決める</p></li>
+<li><p>目的関数を決める</p></li>
+<li><p>最適なパラメータを求める</p></li>
 </ul>
 </div>
 <div class="section" id="Step-1.-Determine-the-model-(multiple-regression-analysis)">
@@ -903,11 +895,11 @@ w_{1} + 2w_{2} \\
 \[\boldsymbol{w}=\left( \boldsymbol{X}^{T}\boldsymbol{X}\right)^{-1}\boldsymbol{X}^{T}\boldsymbol{t}\]</div>
 <p>It turned out that it is represented by. We will deal with the following five to calculate this optimal parameter.</p>
 <ul class="simple">
-<li>Definition of vector</li>
-<li>Matrix definition</li>
-<li>Transposition</li>
-<li>Matrix product</li>
-<li>Inverse matrix</li>
+<li><p>Definition of vector</p></li>
+<li><p>Matrix definition</p></li>
+<li><p>Transposition</p></li>
+<li><p>Matrix product</p></li>
+<li><p>Inverse matrix</p></li>
 </ul>
 <p>Specifically, let’s assume the case where the following data set is given. In this example, the number of data samples <span class="math notranslate nohighlight">\(N\)</span> Is <span class="math notranslate nohighlight">\(4\)</span> And the input data <span class="math notranslate nohighlight">\(X\)</span> The number of variables of <span class="math notranslate nohighlight">\(2\)</span> is. And <span class="math notranslate nohighlight">\(t\)</span> Is teacher data.</p>
 <div class="math notranslate nohighlight">
@@ -1279,19 +1271,19 @@ w_{1} + 2w_{2} \\
 <p>In this data set <span class="math notranslate nohighlight">\(506\)</span> Data is registered, and the average property price of the target area in each sample and the average property information of the target area as information linked to it (the number of rooms per unit, age, distance from the employment facility, etc. This includes demographic information (proportion of low-income earners, number of students per teacher, etc.), information on living environment (such as crime incidence), etc. The purpose of using this data set is to
 build a model that predicts the average property price, which is an output variable, using information such as property and demographics as an input variable. There are 13 kinds of input variables in total, and the details are as follows.</p>
 <ul class="simple">
-<li>CRIM: Population1Per capita crime rate</li>
-<li>ZN: 25,000Percentage of residential areas over square feet</li>
-<li>INDUS: Percentage of area occupied by non-retail industry</li>
-<li>CHAS: Dummy variables on the Charles River (1: Along the river, 0: otherwise)</li>
-<li>NOX: concentration of nitrogen oxides</li>
-<li>RM: Average number of rooms per residence</li>
-<li>AGE: Percentage of properties built before 1940</li>
-<li>DIS: Weighted distance from five Boston employment facilities</li>
-<li>RAD: Access Index to Urban Main Roads</li>
-<li>TAX: $ $10,000Property tax rate per</li>
-<li>PTRATIO: Number of students per teacher</li>
-<li>B: Index that represents the proportion of blacks</li>
-<li>LSTAT: Percentage of low-income people</li>
+<li><p>CRIM: Population1Per capita crime rate</p></li>
+<li><p>ZN: 25,000Percentage of residential areas over square feet</p></li>
+<li><p>INDUS: Percentage of area occupied by non-retail industry</p></li>
+<li><p>CHAS: Dummy variables on the Charles River (1: Along the river, 0: otherwise)</p></li>
+<li><p>NOX: concentration of nitrogen oxides</p></li>
+<li><p>RM: Average number of rooms per residence</p></li>
+<li><p>AGE: Percentage of properties built before 1940</p></li>
+<li><p>DIS: Weighted distance from five Boston employment facilities</p></li>
+<li><p>RAD: Access Index to Urban Main Roads</p></li>
+<li><p>TAX: $ $10,000Property tax rate per</p></li>
+<li><p>PTRATIO: Number of students per teacher</p></li>
+<li><p>B: Index that represents the proportion of blacks</p></li>
+<li><p>LSTAT: Percentage of low-income people</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">load_boston()</span></code> Let’s execute the function and read the data set.</p>
 <div class="nbinput nblast docutils container">

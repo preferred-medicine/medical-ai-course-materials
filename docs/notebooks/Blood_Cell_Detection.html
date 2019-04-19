@@ -123,15 +123,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">9. Electrocardiogram (ECG) and arrhythmia diagnosis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-sets">10. Data sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Data-pre-processing">11. Data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Series-data-analysis-when-using-the-deep-learning">12. Series data analysis when using the deep learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Evaluation">13. Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Towards-the-accuracy">14. Towards the accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#Conclusion">15. Conclusion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html#References">16. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
 
             
@@ -429,14 +421,14 @@ div.rendered_html tbody tr:hover {
 <h1>6. Practice section: Detection of cells from microscopic images of<a class="headerlink" href="#Practice-section:-Detection-of-cells-from-microscopic-images-of" title="Permalink to this headline">¶</a></h1>
 <p>Here we are working on the task of detecting blood cells. When a microscope image of human blood is given,</p>
 <ul class="simple">
-<li>Red Blood Cell (RBC)</li>
-<li>White Blood Cell (WBC)</li>
-<li>Platelet For each of the three types of cells, think about a method to recognize individually what each position is in . When this is possible, you can see how many of those cells are in a given image, and how they are located .</li>
+<li><p>Red Blood Cell (RBC)</p></li>
+<li><p>White Blood Cell (WBC)</p></li>
+<li><p>Platelet For each of the three types of cells, think about a method to recognize individually what each position is in . When this is possible, you can see how many of those cells are in a given image, and how they are located .</p></li>
 </ul>
 <p>Such tasks are commonly referred to as object detection . By inputting the image as an input, for each object of interest (here, for example, the above three kinds of cells), individually</p>
 <ol class="arabic simple">
-<li>The smallest area rectangle (called Bounding box)</li>
-<li>“What is inside object” = class label</li>
+<li><p>The smallest area rectangle (called Bounding box)</p></li>
+<li><p>“What is inside object” = class label</p></li>
 </ol>
 <p>The purpose is to estimate. However, since it is not known beforehand how many objects are included in the image, it is necessary to be a method capable of outputting a set of predicted values ​​of a bounding box of an arbitrary number (or a sufficient number) of objects and a class label There is</p>
 <p>Bounding box (hereinafter bbox) is <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">y</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">upper</span> <span class="pre">left</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>, <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">x</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">upper</span> <span class="pre">left</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>, <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">y</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">lower</span> <span class="pre">right</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>, <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">x</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">lower</span> <span class="pre">right</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code> form is the often defined as the class seems often represented by ID assigned to each type of object (hereinafter class label) . For example, it is common for non-negative integers corresponding to one-to-one
@@ -551,10 +543,10 @@ Resolving deltas: 100% (367/367), done.
 <p>This configuration is consistent with the format of the <strong>Pascal VOC dataset</strong> that has been used as a standard benchmark dataset for object detection for many years . Therefore, it is possible to divert classes that make it easy to handle Pascal VOC data set prepared by ChainerCV.</p>
 <p>Actually there are other directories, but this time it is only included in the above file tree. I will explain what is included in each directory.</p>
 <ul class="simple">
-<li><strong>Annotations directory:</strong> In the same format as the Pascal VOC data set, correct answer information on <strong>what position is present</strong> for each cell image is stored. Correct information is stored as an XML file, and it is saved with the same file name except the extension so that correspondence with the image file is easy to understand.</li>
-<li><strong>ImageSets directory:</strong> A text file containing a list of images to be used for each of the learning data set (train), the verification data set (val), and the test data set (test). According to these lists, divided into three parts data sets, respectively <code class="docutils literal notranslate"><span class="pre">train.txt</span></code> learning listed image, <code class="docutils literal notranslate"><span class="pre">val.txt</span></code> the validation listed image (data set split used to examine the generalization performance roughly in learning) , For <code class="docutils literal notranslate"><span class="pre">test.txt</span></code> the final performance evaluation after learning is
-completed.</li>
-<li><strong>JPEGImages directory:</strong> Contains all image data included in this data set.</li>
+<li><p><strong>Annotations directory:</strong> In the same format as the Pascal VOC data set, correct answer information on <strong>what position is present</strong> for each cell image is stored. Correct information is stored as an XML file, and it is saved with the same file name except the extension so that correspondence with the image file is easy to understand.</p></li>
+<li><p><strong>ImageSets directory:</strong> A text file containing a list of images to be used for each of the learning data set (train), the verification data set (val), and the test data set (test). According to these lists, divided into three parts data sets, respectively <code class="docutils literal notranslate"><span class="pre">train.txt</span></code> learning listed image, <code class="docutils literal notranslate"><span class="pre">val.txt</span></code> the validation listed image (data set split used to examine the generalization performance roughly in learning) , For <code class="docutils literal notranslate"><span class="pre">test.txt</span></code> the final performance evaluation after learning is
+completed.</p></li>
+<li><p><strong>JPEGImages directory:</strong> Contains all image data included in this data set.</p></li>
 </ul>
 </div>
 <div class="section" id="Creating-Dataset">
@@ -673,46 +665,46 @@ Number of images in &#34;test&#34; dataset: 72
 </div>
 <p>Well, <code class="docutils literal notranslate"><span class="pre">train_dataset</span></code> teeth <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code> inherited <code class="docutils literal notranslate"><span class="pre">BCCDDataset</span></code> was the object of the class. Therefore, <code class="docutils literal notranslate"><span class="pre">_get_annotations</span></code> except for the methods overridden above, <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code> you should inherit the functionality provided by the class. <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code> Let’s see what kind of function is provided , see the class documentation: <a class="reference external" href="https://chainercv.readthedocs.io/en/stable/reference/datasets.html?highlight=VOCBboxDataset#vocbboxdataset">VOCBboxDataset</a></p>
 <p>The following table is stated. This dataset looks like a list with the following in each element:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="39%" />
-<col width="12%" />
-<col width="12%" />
-<col width="37%" />
+<col style="width: 39%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 37%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">shape</th>
-<th class="head">dtype</th>
-<th class="head">format</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>shape</p></th>
+<th class="head"><p>dtype</p></th>
+<th class="head"><p>format</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>img</td>
-<td>(3,H,W)</td>
-<td>float32</td>
-<td>RGB, [0,255]</td>
+<tbody>
+<tr class="row-even"><td><p>img</p></td>
+<td><p>(3,H,W)</p></td>
+<td><p>float32</p></td>
+<td><p>RGB, [0,255]</p></td>
 </tr>
-<tr class="row-odd"><td>bbox</td>
-<td>(R,4)</td>
-<td>float32</td>
-<td>(ymin,xmin,ymax,xmax)</td>
+<tr class="row-odd"><td><p>bbox</p></td>
+<td><p>(R,4)</p></td>
+<td><p>float32</p></td>
+<td><p>(ymin,xmin,ymax,xmax)</p></td>
 </tr>
-<tr class="row-even"><td>label</td>
-<td>(R,)</td>
-<td>int32</td>
-<td>[0,#fg_class−1]</td>
+<tr class="row-even"><td><p>label</p></td>
+<td><p>(R,)</p></td>
+<td><p>int32</p></td>
+<td><p>[0,#fg_class−1]</p></td>
 </tr>
-<tr class="row-odd"><td>difficult (optional)*</td>
-<td>(R,)</td>
-<td>bool</td>
-<td>–</td>
+<tr class="row-odd"><td><p>difficult (optional)*</p></td>
+<td><p>(R,)</p></td>
+<td><p>bool</p></td>
+<td><p>–</p></td>
 </tr>
 </tbody>
 </table>
 <ul class="simple">
-<li>#fg_class is the number of classes in foreground (foreground)</li>
-<li>Difficult only when <code class="docutils literal notranslate"><span class="pre">return_difficult</span> <span class="pre">=</span> <span class="pre">True</span></code></li>
+<li><p>#fg_class is the number of classes in foreground (foreground)</p></li>
+<li><p>Difficult only when <code class="docutils literal notranslate"><span class="pre">return_difficult</span> <span class="pre">=</span> <span class="pre">True</span></code></p></li>
 </ul>
 <p>However, since the <code class="docutils literal notranslate"><span class="pre">return_difficult</span></code> option <code class="docutils literal notranslate"><span class="pre">True</span></code> has not been specified explicitly when creating the dataset object this time , the default value <code class="docutils literal notranslate"><span class="pre">False</span></code>is used. Therefore <code class="docutils literal notranslate"><span class="pre">difficult</span></code> we will not return the element which is in the last row of the above table .</p>
 <p>All of the three dataset objects created this time are three arrays of each element <code class="docutils literal notranslate"><span class="pre">Image</span> <span class="pre">data</span></code>,<code class="docutils literal notranslate"><span class="pre">correct</span> <span class="pre">bbox</span> <span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">bbox</span></code></p>
@@ -1024,11 +1016,11 @@ solution is the one with the correct answer label inverted in the horizontal dir
 </div>
 <p>Next, assign the following setting items to variables here for easy change later.</p>
 <ul class="simple">
-<li>Batch size</li>
-<li>ID of the GPU to be used</li>
-<li>Result output directory name</li>
-<li>Initial value of learning rate</li>
-<li>Number of epochs to be learned</li>
+<li><p>Batch size</p></li>
+<li><p>ID of the GPU to be used</p></li>
+<li><p>Result output directory name</p></li>
+<li><p>Initial value of learning rate</p></li>
+<li><p>Number of epochs to be learned</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
