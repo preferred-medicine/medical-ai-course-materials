@@ -136,7 +136,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscope images of blood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
@@ -441,11 +441,11 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Structure-of-neural-network">
 <h2>3.1. Structure of neural network<a class="headerlink" href="#Structure-of-neural-network" title="Permalink to this headline">¶</a></h2>
 <p>First, let’s look at the structure of the neural network graphically. The input variables are 4 variables of {years, alcohol content, color, smell}, and the output variables are 2 variables of {white wine, red wine}.</p>
-<p><img alt="ニューラルネットワークの基本構造" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/01.png" /></p>
+<p><img alt="ニューラルネットワークの基本構造" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/01.png" /></p>
 <p>Each round part of this figure is called a <strong>node</strong> or <strong>unit</strong>, and its vertical collection is called a <strong>layer</strong> . The first layer is called the <strong>input layer</strong> , the last layer is the <strong>output layer</strong> , and the <strong>middle layer</strong> is called the <strong>intermediate layer</strong> or <strong>hidden layer</strong> . This model has a three-layer structure with an input layer, an intermediate layer, and an output layer, but it is possible to define a multi-layered neural network by increasing the number of intermediate
 layers. In this example, all nodes between each layer are connected to each other, so it is also called a <strong>fully connected</strong> neural network, which is the most basic structure of neural networks.</p>
 <p>Input variables are the same as in the previous chapters, but the handling of output variables is different. For example, in the figure above, each node in the output layer corresponds to white wine and red wine, and there are as many output variables as there are categories. Why is this structure?</p>
-<p><img alt="ニューラルネットワークの出力値" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/02.png" /></p>
+<p><img alt="ニューラルネットワークの出力値" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/02.png" /></p>
 <p>First, let’s look at a concrete example of what kind of value is in the final layer. For example, let’s say you have a wine whose age is three years and whose alcohol content is 14 degrees, color is 0.2, and smell is 0.8. The internal calculation will be described later, so let’s focus on the values obtained when such data are given to the neural network. Above, white wine <span class="math notranslate nohighlight">\(y_{1} = 0.15\)</span>,, Red wine <span class="math notranslate nohighlight">\(y_{2}= 0.85\)</span> It is At this time, the class corresponding to the variable with the
 largest value among the output values, that is, “red wine” in this example can be used as the <strong>prediction result</strong> of this neural network in this classification problem .</p>
 <p>Here, when we add up all the values of the output layer, we notice that it is 1. This is not a coincidence, because it calculates the value of the output layer to be so*. In other words, the numerical values possessed by each node of the output layer represent the probability that the input belongs to each class. Therefore, the output layer needs nodes as many as the number of categories.</p>
@@ -454,7 +454,7 @@ largest value among the output values, that is, “red wine” in this example c
 <div class="section" id="Linear-transformation">
 <h3>3.1.1. Linear transformation<a class="headerlink" href="#Linear-transformation" title="Permalink to this headline">¶</a></h3>
 <p>Here we describe the linear transformations that occur in each layer of the neural network.</p>
-<p><img alt="ニューラルネットワークの線形変換" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/linear_transformation.png" /></p>
+<p><img alt="ニューラルネットワークの線形変換" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/linear_transformation.png" /></p>
 <p>Linear transformation * said here is weight matrix (<span class="math notranslate nohighlight">\(w\)</span>) <span class="math notranslate nohighlight">\(\times\)</span> Input vector (<span class="math notranslate nohighlight">\(h\)</span>) <span class="math notranslate nohighlight">\(+\)</span> Bias vector (<span class="math notranslate nohighlight">\(b\)</span>) It refers to the calculation like). At this time, the input of this conversion is <span class="math notranslate nohighlight">\(h\)</span>, Parameter is <span class="math notranslate nohighlight">\(w\)</span> When <span class="math notranslate nohighlight">\(b\)</span>. Multiplication here (<span class="math notranslate nohighlight">\(\times\)</span> Note that) is matrix multiplication. Also from now on, <span class="math notranslate nohighlight">\(h\)</span> Often appear as letters, but this is the first letter of the hidden layer<span class="math notranslate nohighlight">\(h\)</span> I’m from. However, in order to simplify the
 notation, in the following, the input layer𝑥 <span class="math notranslate nohighlight">\(x_1, x_2, x_3, x_4\)</span> Think of ) as the 0 hidden layer , <span class="math notranslate nohighlight">\(h_{01}, h_{02}, h_{03}, h_{04}\)</span> It is written as Now let’s describe the calculation shown in the above figure with a formula.</p>
 <p>(* In linear mathematics, in linear mathematics <span class="math notranslate nohighlight">\({\bf w} \times {\bf h}\)</span> This transformation is strictly called “affine transformation (or affine transformation)”. However, in the context of deep learning, this transformation is also often referred to as a linear transformation.)</p>
@@ -491,21 +491,21 @@ b_{3}
 </div>
 <div class="section" id="Nonlinear-transformation/Conversion">
 <h3>3.1.2. Nonlinear transformation/Conversion<a class="headerlink" href="#Nonlinear-transformation/Conversion" title="Permalink to this headline">¶</a></h3>
-<p>Next, I will explain nonlinear conversion. Linear transformations alone can not properly represent the relationship between inputs and outputs if they are nonlinear as shown in the right of the figure. <img alt="入力と出力の関係" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/04.png" /></p>
+<p>Next, I will explain nonlinear conversion. Linear transformations alone can not properly represent the relationship between inputs and outputs if they are nonlinear as shown in the right of the figure. <img alt="入力と出力の関係" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/04.png" /></p>
 <p>Therefore, in the neural network, the linear transformation is followed by the nonlinear transformation in each layer so that the whole function has nonlinearity. The function that performs this non-linear transformation is called an activation function in the context of neural networks .</p>
 <p>The result of the linear transformation above <span class="math notranslate nohighlight">\(u_{11}, u_{12}, u_{13}\)</span> Result of nonlinear conversion using the activation function <span class="math notranslate nohighlight">\(h_{11}, h_{12}, h_{13}\)</span> These are called activation values (see the figure below). This is the input to the next layer.</p>
-<p><img alt="活性値" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/activation.png" /></p>
+<p><img alt="活性値" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/activation.png" /></p>
 <p>As a specific example of the activation function, the logistic sigmoid function (hereinafter referred to as sigmoid function) shown in the figure below</p>
-<p><img alt="シグモイド関数" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/05.png" /></p>
+<p><img alt="シグモイド関数" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/05.png" /></p>
 <p>Has been used in the past. However, in recent years, sigmoid functions are hardly used as activation functions in neural networks with many layers. One of the reasons is that adopting a sigmoid function as an activation function makes the phenomenon of gradient disappearance more likely to occur, which may cause a problem that learning does not progress. This will be detailed later. To avoid this, a function called “ Rectified Linear Unit (ReLU) ” is often used. This is a function of the form</p>
-<p><img alt="ReLU関数" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/06.png" /></p>
+<p><img alt="ReLU関数" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/06.png" /></p>
 <p>here, <span class="math notranslate nohighlight">\({\rm max}(0, u)\)</span> ,<span class="math notranslate nohighlight">\(0\)</span> When <span class="math notranslate nohighlight">\(u\)</span> It is a function that compares the and returns the larger one. That is, ReLU is a function that the output is constant at 0 when the input is a negative value, and outputs the input as it is when it is a positive value. In the sigmoid function, it can also be seen from the plot that the slope will become smaller and smaller when the input takes small or large values. On the other hand, ReLU function generates a constant gradient no matter
 how large the input value. This works well for the problem of gradient loss that we will introduce later.</p>
 </div>
 <div class="section" id="Check-the-flow-of-calculation-while-watching-the-numerical">
 <h3>3.1.3. Check the flow of calculation while watching the numerical<a class="headerlink" href="#Check-the-flow-of-calculation-while-watching-the-numerical" title="Permalink to this headline">¶</a></h3>
 <p>Here, input using the specific numbers written in the figure below <span class="math notranslate nohighlight">\(x_1, x_2, x_3\)</span> Output from <span class="math notranslate nohighlight">\(y\)</span> Let’s check the process of calculating. Now bias to simplify the calculations <span class="math notranslate nohighlight">\({\bf b}\)</span> The calculation of is omitted (assuming the bias is all zeros). As a numerical example, <span class="math notranslate nohighlight">\({\bf x} = \begin{bmatrix} 2 &amp; 3 &amp; 1 \end{bmatrix}^T\)</span> Output when given <span class="math notranslate nohighlight">\(y\)</span> Let’s follow the calculation procedure of</p>
-<p><img alt="出力までの計算例" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/output.png" /></p>
+<p><img alt="出力までの計算例" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/output.png" /></p>
 <p>In the multiple regression analysis described in the previous chapter, although it was possible to calculate analytically optimal parameters by setting the derivative of the objective function parameters to 0, it is generally impossible to solve analytically parameters in neural networks . Instead, we will optimize the parameters sequentially in another way using the value of this derivative (slope).</p>
 <p>For this reason, in the case of a neural network, <strong>parameters are first initialized with random numbers, and data are first input to calculate the value of the objective function</strong>. Next, calculate the gradient of the function, use it to update the parameter, process the input data again using the updated new parameter, calculate the value of the objective function, and so on repeatedly. It will be taken care of.</p>
 <p>Now, let’s consider the case where the linear transformation is applied to the values ​​of the input layer with the numerical values ​​given to the branches of the graph in the above figure as a result of initializing the parameters. This calculation is as follows.</p>
@@ -569,16 +569,16 @@ empirical distribution of learning data, since</p>
 gradually using this gradient. Let’s think about this method in order.</p>
 <p>First, please look at the following figure. The dotted line in the figure is the parameter <span class="math notranslate nohighlight">\(w\)</span> Objective function when changing <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Represents the value of. In this example, although it is in the form of a quadratic function for simplicity, the objective function of the neural network is in fact almost multidimensional and more complicated. However, let’s imagine a simple form like this for explanation here. Well, this objective function gives the minimum value <span class="math notranslate nohighlight">\(w\)</span>
 How can you discover</p>
-<p><img alt="パラメータと目的関数の関係（イメージ）" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/13.png" /></p>
+<p><img alt="パラメータと目的関数の関係（イメージ）" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/13.png" /></p>
 <p>As described in the previous section, the neural network parameters are first initialized with random numbers. Here, as an example <span class="math notranslate nohighlight">\(w=3\)</span> Let’s think that initialization has been done. Then, <span class="math notranslate nohighlight">\(w=3\)</span> In <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Slope of <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> Can be obtained. The objective function of neural networks is * differentiable * for all parameters. Well, let’s say here temporarily <span class="math notranslate nohighlight">\(w=3\)</span> In <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> But 3 Let’s
 say that <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w} |_{w=3} = 3\)</span>)). Then, as shown in the following figure,<span class="math notranslate nohighlight">\(3\)</span> The value is <span class="math notranslate nohighlight">\(w=3\)</span> In <span class="math notranslate nohighlight">\(\mathcal{L}(w)\)</span> Represents the slope of the tangent of the function (gradient).</p>
 <p>(* Strictly speaking, loss functions may have indifferentiable points. For example, ReLU <span class="math notranslate nohighlight">\(x=0\)</span> There is a non-differentiable point in the neural network including ReLU because it is non-differentiable in terms of. However, in the case of commonly used neural networks, there are only a few such non-differentiable points, so they can be ignored in the optimization method described below.)</p>
-<p><img alt="目的関数の接線の傾き" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/11.png" /></p>
+<p><img alt="目的関数の接線の傾き" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/11.png" /></p>
 <p>With inclination, <span class="math notranslate nohighlight">\(w\)</span> When you increase <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Now means that the direction of <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Because we want to decrease the value of, <span class="math notranslate nohighlight">\(w\)</span> Change the <span class="math notranslate nohighlight">\(w\)</span> <strong>From :math:`partial mathcal{L} / partial w` It is good to pull the</strong> .</p>
 <p>This is the basic idea when updating the parameters of the neural network using the gradient of the objective function. At this time <span class="math notranslate nohighlight">\(w\)</span> It is common to multiply the gradient by a value called the <strong>learning rate</strong> to adjust the scale of the step size (the amount of updates) of .</p>
 <p>For example, now learning rate <span class="math notranslate nohighlight">\(0.5\)</span> Let’s set it to. Then, <span class="math notranslate nohighlight">\(w\)</span> Update rate is the <strong>learning rate</strong> <span class="math notranslate nohighlight">\(\times\)</span> Because it depends on the <strong>gradient</strong> , <span class="math notranslate nohighlight">\(0.5 \times 3 = 1.5\)</span>. Current <span class="math notranslate nohighlight">\(w=3\)</span> So, <strong>subtract this value</strong> <span class="math notranslate nohighlight">\(w \leftarrow w - 1.5\)</span> And after updating <span class="math notranslate nohighlight">\(w=1.5\)</span>. The figure above shows the state after this one-time update.</p>
 <p>Perform the first update,<span class="math notranslate nohighlight">\(w\)</span> But <span class="math notranslate nohighlight">\(w = 1.5\)</span> It moved to the position of. So, I will try to find the slope again at this point. Next time <span class="math notranslate nohighlight">\(-1\)</span> Let’s say it was Then the <strong>learning rate :math:`times` The slope</strong> is <span class="math notranslate nohighlight">\(0.5 \times -1 = -0.5\)</span>. Using this again, <span class="math notranslate nohighlight">\(w \leftarrow w - (-0.5)\)</span> With the second update, this time <span class="math notranslate nohighlight">\(w = 2\)</span> It will come to the position of After updating twice in this way, it looks like the following figure.</p>
-<p><img alt="パラメータの更新" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/12.png" /></p>
+<p><img alt="パラメータの更新" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/12.png" /></p>
 <p>gradually <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Is the minimum value𝑤You can see that it is approaching the value of.</p>
 <p>Thus, the learning rate <span class="math notranslate nohighlight">\(\times\)</span> When changing the parameter with the gradient as the update amount, the parameter <span class="math notranslate nohighlight">\(w\)</span> I want to ask for <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> Give the minimum value of 𝑤You can get closer to The objective function minimization method using such a gradient is called gradient descent method . Since neural networks are basically designed using only differentiable functions as functions between layers, all appearing functions are differentiable, and parameters are
 optimized by gradient descent using a training data set The method is applicable.</p>
@@ -586,11 +586,11 @@ optimized by gradient descent using a training data set The method is applicable
 <span class="math notranslate nohighlight">\(k\)</span> It is a method to repeat for the combination of the data As a result, all data included in the data set will be used, but the data used for one update is <span class="math notranslate nohighlight">\(k\)</span> It becomes one by one. In the actual implementation, the indices of the samples in the data set are randomly shuffled first to form an array, and <span class="math notranslate nohighlight">\(k\)</span> Fetch the index one by one and construct a mini-batch using the corresponding data. Thus, using up all the indexes, that is, finishing using the data in the data set one
 time each, for updating parameters is called 1 epoch learning . And this <span class="math notranslate nohighlight">\(k\)</span> We refer to as batch size or mini-batch size, and the name Stochastic Gradient Descent (SGD) is used to indicate such a learning method . Currently, almost all neural network optimization methods are based on this SGD. With SGD, not only can the overall computation time be dramatically reduced, but as in the figure below, even if the objective function is not a convex function, it converges to the “almost certain”
 local optimal solution under appropriate conditions It is known to do.</p>
-<p><img alt="局所最適解と大域最適解" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/14.png" /></p>
+<p><img alt="局所最適解と大域最適解" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/14.png" /></p>
 <div class="section" id="Calculation-of-parameter-update">
 <h3>3.3.1. Calculation of parameter update<a class="headerlink" href="#Calculation-of-parameter-update" title="Permalink to this headline">¶</a></h3>
 <p>Now, consider a three-layer fully connected neural network as shown in the figure below, and a linear transformation between the first and second layers. <span class="math notranslate nohighlight">\({\bf w}_1, {\bf b}_1\)</span> The linear transformation between the second and third layers is <span class="math notranslate nohighlight">\({\bf w}_2, {\bf b}_2\)</span> Is represented by the parameter <span class="math notranslate nohighlight">\({\bf b}_1, {\bf b}_2\)</span> Is omitted). Also, put these together <span class="math notranslate nohighlight">\(\boldsymbol{\Theta}\)</span> I will represent it as.</p>
-<p><img alt="パラメータ更新の例" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/08.png" /></p>
+<p><img alt="パラメータ更新の例" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/08.png" /></p>
 <p>The input vector is <span class="math notranslate nohighlight">\({\bf x}\)</span>, The output of the neural network is <span class="math notranslate nohighlight">\({\bf y} \in \mathbb{R}^N\)</span> (<span class="math notranslate nohighlight">\(N\)</span> (Meaning real dimensional vector) and input <span class="math notranslate nohighlight">\({\bf x}\)</span> Is the “desired output” corresponding to <span class="math notranslate nohighlight">\({\bf t}\)</span> will do. Let’s use the mean squared error function described above as the objective function.</p>
 <p>Now, after initializing the parameters with appropriate random numbers, input 𝐱<span class="math notranslate nohighlight">\({\bf x}\)</span> Let’s calculate the gradient for each parameter of the objective function given, and calculate the update amount for each parameter.</p>
 <p>First, the objective function is rewritten using vector notation as follows. ．</p>
@@ -652,8 +652,8 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># 入力</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
@@ -668,7 +668,7 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># 1-2層間のパラメータ</span>
 <span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
 <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
@@ -691,7 +691,7 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># 中間層の計算</span>
 <span class="n">u1</span> <span class="o">=</span> <span class="n">w1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>
 <span class="n">h1</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u1</span><span class="p">))</span>
@@ -700,7 +700,7 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <span class="n">u2</span> <span class="o">=</span> <span class="n">w2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
 <span class="n">y</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u2</span><span class="p">))</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -721,7 +721,7 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># dL / dy</span>
 <span class="n">g_Ly</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
 
@@ -738,11 +738,11 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># dL / dw_2: 求めたい勾配</span>
 <span class="n">g_Lw2</span> <span class="o">=</span> <span class="n">g_Ly</span> <span class="o">*</span> <span class="n">g_yu2</span> <span class="o">*</span> <span class="n">g_u2w2</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">g_Lw2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g_Lw2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -803,7 +803,7 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">g_yu2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">g_u2h1</span> <span class="o">=</span> <span class="n">w2</span>
 <span class="n">g_h1u1</span> <span class="o">=</span> <span class="n">h1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h1</span><span class="p">)</span>
@@ -813,12 +813,12 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <span class="n">g_Lu1</span> <span class="o">=</span> <span class="n">g_Ly</span> <span class="o">*</span> <span class="n">g_yu2</span> <span class="o">*</span> <span class="n">g_u2h1</span> <span class="o">*</span> <span class="n">g_h1u1</span>
 
 <span class="c1"># g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形</span>
-<span class="n">g_u1w1</span> <span class="o">=</span> <span class="n">g_u1w1</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span>
+<span class="n">g_u1w1</span> <span class="o">=</span> <span class="n">g_u1w1</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
 
 <span class="c1"># dL / dw_1: 求めたい勾配</span>
 <span class="n">g_Lw1</span> <span class="o">=</span> <span class="n">g_Lu1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_u1w1</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">g_Lw1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g_Lw1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -842,7 +842,7 @@ local optimal solution under appropriate conditions It is known to do.</p>
 <p>Up to this point, I have experienced that the derivative of the objective function for each parameter is derived by hand calculation and the numerical calculation of the gradient is actually performed. So what happens if the neural network has more layers? Similarly, it is of course possible to obtain the derivative by hand calculation, but it is possible to derive a function which gives a gradient automatically by a computer by using the property that a neural network applies a differentiable
 function repeatedly. is. Recall that partial derivatives of composite functions can be transformed into the product of multiple partial derivatives by the chain law.</p>
 <p>The figure below shows the calculation for obtaining the output of the 3-layer fully connected neural network used in the explanation so far, and the process of calculating the value of the objective function using that value with blue arrows, and the hand in the previous section. It is an animation that expresses the process of calculating the partial derivatives of the objective function by each parameter by the calculation with red arrows.</p>
-<p><img alt="誤差逆伝播法(Backpropagation)の計算過程" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/backpropagation.gif" /></p>
+<p><img alt="誤差逆伝播法(Backpropagation)の計算過程" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/backpropagation.gif" /></p>
 <p>First, the output of the objective function <span class="math notranslate nohighlight">\(l = \mathcal{L}({\bf y}, {\bf t})\)</span> will do. The round nodes in this figure represent variables, and the square nodes represent functions. Now, the whole neural network that can be seen as one huge synthetic function <span class="math notranslate nohighlight">\(f\)</span> In which the function used for the linear transformation between each layer is <span class="math notranslate nohighlight">\(f_1\)</span>, <span class="math notranslate nohighlight">\(f_2\)</span>, Non-linear transformation 𝑎1, 𝑎2It is expressed as. In this case, how can the calculation of the update amount
 performed in the previous section be understood?</p>
 <p>Now, as represented by the blue arrow above, a new input <span class="math notranslate nohighlight">\({\bf x}\)</span> Is given to the neural network and transmitted to the output side in order, and finally the value of the objective function <span class="math notranslate nohighlight">\(l\)</span> Suppose that the calculation is finished. This is called <strong>forward propagation</strong>.</p>
@@ -860,7 +860,7 @@ f\left( u\right) &amp;=\dfrac {1}{1+e^{-u}} \\
 f'\left( u\right) &amp;= f\left( u\right) \left( 1-f\left( u\right) \right)
 \end{aligned}\end{split}\]</div>
 <p>Now, when plotting the value of this derivative with respect to the input variable, it becomes as follows.</p>
-<p><img alt="シグモイド関数の導関数" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/09.png" /></p>
+<p><img alt="シグモイド関数の導関数" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/09.png" /></p>
 <p>The top two in this figure are the two parts that make up the derivative <span class="math notranslate nohighlight">\(f(u)\)</span> When <span class="math notranslate nohighlight">\(1 - f(u)\)</span> Plotted separately for the values of, the lower middle figure is the actual derivative value. If you look at the shape of the derivative in the lower center of the upper figure, you can see that the value of the gradient decreases gradually as the input goes away from the origin and asymptotically approaches 0.</p>
 <p>In order to obtain the update amount of each parameter, it was necessary <strong>to multiply the gradients of all functions ahead of that parameter</strong> , as described in the previous section . At this time, if a sigmoid function is used for the activation function, the gradient must have a value of <strong>at most 0.25</strong> at most. Then, each time a linear transformation appears in the computation graph, the slope of the objective function is multiplied by at most 0.25. This is because as the number of layers
 increases, the maximum value of 0.25 is repeatedly multiplied, so the gradient flowing to the layer closer to the input approaches 0 more and more.</p>
@@ -887,7 +887,7 @@ transformation in the neural network instead of the full connection layer.</p>
 <p>On the other hand, in the convolutional layer, unlike in the all coupling layer described above, the coupling between parameters and input data is local, and each parameter is coupled to all elements of the input data. There is no limit. Specifically, in the case of a two-dimensional convolutional layer, the parameters are prepared as a set of small image patches or the like called kernels (or filters), and for each patch, an operation between part of the input data and It is in the form of
 being done.</p>
 <p>Using the figure below, <span class="math notranslate nohighlight">\(3 \times 3\)</span> Let’s examine the actual calculation process of a convolution layer with two convolution kernels such as small image patches of size.</p>
-<p><img alt="畳み込み層の計算過程" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/convolution.gif" /></p>
+<p><img alt="畳み込み層の計算過程" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/convolution.gif" /></p>
 <p>（Figure is taken from <a class="reference external" href="http://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition</a>）</p>
 <p>The leftmost row of blue blocks represents the input image. Input width and height <span class="math notranslate nohighlight">\(5 \times 5\)</span> It is a 3-channel image of the size of. In the figure above, first, processing called padding is performed to add an area with a value of 0 around the input image. This time we pad the area of width 1.</p>
 <p>The middle two columns each represent one convolution kernel per column. One convolution kernel has as many channels as the input image (or the output of the previous layer called feature map) has. Since the input image is 3 channels here, each kernel has a value for 3 channels. Three reds, which are arranged vertically <span class="math notranslate nohighlight">\(3 \times 3\)</span>It is represented by a block of size. Each channel in each kernel performs calculations in a manner that slides itself to the corresponding input channel. The
@@ -931,13 +931,13 @@ transformation using the same weight matrix for each input dimension. For exampl
 <p>The pooling calculation is similar to convolution. However, there is no parameter, and the part of the calculation performed using the convolution kernel has been replaced with the calculation of the average or the maximum value for the corresponding input subregion. The pooling that calculates the average value for each partial area is called average pooling (average pooling), and the pooling that calculates the maximum value is called maximum pooling (max pooling).</p>
 <p>In the left part of the figure below, downsampling (reducing the resolution) using the pooling layer <span class="math notranslate nohighlight">\(224 \times 224\)</span> Of size,<span class="math notranslate nohighlight">\(64\)</span> Apply to the channel’s feature map, and <span class="math notranslate nohighlight">\(112 \times 112\)</span> Size map). At this time, the number of channels (also called depth) is maintained.</p>
 <p>The right part of this figure is one of the 64 channels on the left side of the rectangular solid, the dark <span class="math notranslate nohighlight">\(4 \times 4\)</span> In the partial representation of the part of <span class="math notranslate nohighlight">\(2 \times 2\)</span> The figure shows the result when the maximum value is calculated for each area and maximum value pooling, which is the representative value of the area, is performed while shifting the area by two (with stride 2).</p>
-<p><img alt="プーリング層の計算過程" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/3/pooling.png" /></p>
+<p><img alt="プーリング層の計算過程" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/3/pooling.png" /></p>
 <p>（Figure is taken from <a class="reference external" href="http://cs231n.github.io/convolutional-networks/">CS231n Convolutional Neural Networks for Visual Recognition</a>）</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
 </div>

@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="8. Practical part: Time series analysis of monitoring data using the deep learning" href="Sequential_Data_Analysis_with_Deep_Learning.html" />
-    <link rel="prev" title="6. Practice section: Detection of cells from microscopic images of" href="Blood_Cell_Detection.html" /> 
+    <link rel="prev" title="6. Practice section: Detection of cells from microscope images of blood" href="Blood_Cell_Detection.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -103,13 +103,14 @@
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscope images of blood</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">7. Practical part: sequence analysis using deep learning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Environment">7.1. Environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#For-the-sequence-analysis">7.2. For the sequence analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Dilated-Convolution-analysis-using">7.3. Dilated Convolution analysis using</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Strategy-of-sequence-analysis">7.3.1. Strategy of sequence analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Dilated-Convolution">7.3.2. Dilated Convolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Data-Set">7.3. Data Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Dilated-Convolution-analysis-using">7.4. Dilated Convolution analysis using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Strategy-of-sequence-analysis">7.4.1. Strategy of sequence analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Dilated-Convolution">7.4.2. Dilated Convolution</a></li>
 </ul>
 </li>
 </ul>
@@ -414,33 +415,19 @@ div.rendered_html tbody tr:hover {
 <p>Here we will address the issue of predicting epigenetic effects and transcriptional control from DNA sequences using deep learning. Deep learning can express a complicated model, it can also take into account the effects of long distances and it can be expected to predict with higher accuracy.</p>
 <div class="section" id="Environment">
 <h2>7.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
-<p>The library used here is</p>
+<p>The library used here are:</p>
 <ul class="simple">
 <li><p>Chainer</p></li>
 <li><p>Cupy</p></li>
-<li><p>matplotlib is. On Google Colab, you can install as follows. Execute the following cell (Shit + Enter).</p></li>
+<li><p>matplotlib</p></li>
 </ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
-</pre></div>
-</div>
-</div>
-<p>When installation is completed, run the following cell and check the version of each library.</p>
+<p>On Google Colab, you can install as follows. Execute the following cell (Shit + Enter).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">cupy</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-
-<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;matplotlib:&#39;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
 </pre></div>
 </div>
 </div>
@@ -449,20 +436,62 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Platform: Linux-4.14.65+-x86_64-with-Ubuntu-18.04-bionic
-Chainer: 5.0.0
-NumPy: 1.14.6
-CuPy:
-  CuPy Version          : 5.0.0
-  CUDA Root             : /usr/local/cuda
-  CUDA Build Version    : 9020
-  CUDA Driver Version   : 9020
-  CUDA Runtime Version  : 9020
-  cuDNN Build Version   : 7201
-  cuDNN Version         : 7201
-  NCCL Build Version    : 2213
-iDeep: 2.0.0.post3
-matplotlib: 2.1.2
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1580  100  1580    0     0   6531      0 --:--:-- --:--:-- --:--:--  6556
+sh: line 9: nvidia-smi: command not found
+********************************************************************************
+GPU is not enabled!
+Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware accelerator&#34; to &#34;GPU&#34;.
+********************************************************************************
+</pre></div></div>
+</div>
+<p>When installation is completed, run the following cell and check the version of each library.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">cupy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;matplotlib:&#39;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/ytakeda/venvs/py37/lib/python3.7/site-packages/chainer/_environment_check.py:37: UserWarning: Accelerate has been detected as a NumPy backend library.
+vecLib, which is a part of Accelerate, is known not to work correctly with Chainer.
+We recommend using other BLAS libraries such as OpenBLAS.
+For details of the issue, please see
+https://docs.chainer.org/en/stable/tips.html#mnist-example-does-not-converge-in-cpu-mode-on-mac-os-x.
+
+Please be aware that Mac OS X is not an officially supported OS.
+
+  &#39;&#39;&#39;)  # NOQA
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-e4d91d41dbf0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">import</span> chainer
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> cupy
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">import</span> matplotlib
+<span class="ansi-green-intense-fg ansi-bold">      4</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> chainer<span class="ansi-blue-fg">.</span>print_runtime_info<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;cupy&#39;
 </pre></div></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Platform</span><span class="p">:</span> <span class="n">Linux</span><span class="o">-</span><span class="mf">4.14</span><span class="o">.</span><span class="mi">65</span><span class="o">+-</span><span class="n">x86_64</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">Ubuntu</span><span class="o">-</span><span class="mf">18.04</span><span class="o">-</span><span class="n">bionic</span>
@@ -484,26 +513,29 @@ matplotlib: 2.1.2
 </div>
 <div class="section" id="For-the-sequence-analysis">
 <h2>7.2. For the sequence analysis<a class="headerlink" href="#For-the-sequence-analysis" title="Permalink to this headline">¶</a></h2>
-<p>Along with the development and popularization of next-generation sequencers, a large number of gene sequences have been read. Under such circumstances, GWAS (Genome Wide Association Study; genome wide association study) that estimates the relationship between the genotype expressed in the base sequence and the phenotype such as disease and morphology has been performed, I have learned that mutation alone can not explain all phenotypic changes. In particular, various experimental results have
-shown that untranslated regions influence gene expression and cause phenotypic changes. Various methods have been proposed to investigate how the surrounding area affects gene expression.</p>
-<p><img alt="エピゲノム解析概略図（Encode Projectより引用）" src="https://www.encodeproject.org/images/c45f4d8c-0340-4fcb-abe3-e4ff0bb919be/download/attachment/EncodeDatatypes2013-7.png" /></p>
-<p>For example, ChIP-Seq (chromatin immunoprecipitation sequence) is a method to identify histone modification status and the binding site of transcriptional regulatory elements exhaustively (genome-wide) by combining ChIP (chromatin immunoprecipitation) and high-speed DNA sequence . As a result, it is possible to identify the binding site of histone modification and DNA binding protein which controls the transcriptional regulatory function throughout the genome, enabling the acquisition of vast
-amounts of information related to cellular phenotype which can not be fully explained by gene mutation alone Become.</p>
-<p>Therefore, in this section, learning patterns of DNA base sequences corresponding to binding sites of transcriptional regulatory factors obtained by ChIP-Seq by deep learning can identify the possibility of binding to an arbitrary DNA base sequence with a specific transcriptional regulatory factor We will make predictions. This method can deal with a wide range of biological phenomena such as prediction of the histone modification site of the whole genome and prediction of the open chromatin
-region and gives useful insights.</p>
-<p>One of the technical difficulties in dealing with this task with machine learning is a phenomenon called long-distance interaction of DNA base sequence. This is because DNA in the nucleus exists in a complicated folded manner, and as far as the sequence on the base sequence two distant regions are spatially close to each other, and the binding of the transcriptional regulatory factor It may have an impact. Therefore, we constructed an efficient model that enables learning with this long distance
-interaction taken into account, and inputs a DNA base sequence having a length exceeding 100,000 bp (base pair: a unit that counts bases constituting DNA) We will expect to predict if a region in the DNA base sequence can be the binding site for the transcriptional regulatory factor.</p>
-<p>In this case, we input DNA base sequence obtained from dataset of thousands of ChIP-Seq, DNase-seq (one method of comprehensive analysis of open chromatin region) obtained from hundreds of human cell types as input Result of CAGE (Cap Analysis of Gene Expression) Consider the problem of estimating the expression level of mRNA measured [1].</p>
+<p>Along with the development and popularization of next-generation sequencers, a large number of gene sequences have been read. Under such circumstances, GWAS (Genome Wide Association Study) that estimates the relationship between the genotype expressed in the base sequence and the phenotype such as disease and morphology has been performed, It has been learned that mutation alone can not explain all phenotypic changes. In particular, various experimental results have shown that untranslated
+regions influence gene expression and cause phenotypic changes. Various methods have been proposed to investigate how the surrounding area affects gene expression.</p>
+<p><img alt="Epigenome analysis schematic（cited in Encode Project）" src="https://www.encodeproject.org/images/c45f4d8c-0340-4fcb-abe3-e4ff0bb919be/download/attachment/EncodeDatatypes2013-7.png" /></p>
+<p>For example, ChIP-Seq (chromatin immunoprecipitation sequence) is a method to identify histone modification status and the binding site of transcriptional regulatory elements exhaustively (genome-wide) by combining ChIP (chromatin immunoprecipitation) and high-speed DNA sequence. As a result, it is possible to identify the binding site of histone modification and DNA binding protein which controls the transcriptional regulatory function throughout the genome, it becomes possible to obtain vast
+amounts of information related to cellular phenotype which can not be fully explained by gene mutation alone.</p>
+<p>Therefore, in this section, by learning patterns of DNA base sequences corresponding to binding sites of transcriptional regulatory factors obtained by ChIP-Seq by deep learning, we will predict the possibility of binding to an arbitrary DNA base sequence with a specific transcriptional regulatory factor. This method can deal with a wide range of biological phenomena such as prediction of the histone modification site of the whole genome and prediction of the open chromatin region and gives
+useful insights.</p>
+<p>One of the technical difficulties in dealing with this task with machine learning is a phenomenon called long-distance interaction of DNA base sequence. This is because DNA in the nucleus exists in a complicated folded manner, two distant regions as a sequence on the base sequence are spatially close to each other, and it may affect the binding of the transcriptional regulatory factor. Therefore, we will construct an efficient model that enables training with this long distance interaction taken
+into account, and receive a DNA base sequence having a length exceeding 100,000 bp (base pair: a unit that counts bases constituting DNA) as an input, then we will try to predict if a certain region in the DNA base sequence can be the binding site for the transcriptional regulatory factor.</p>
+<p>In this case, we will take DNA base sequence, obtained from dataset of thousands of ChIP-Seq, DNase-seq (one method of comprehensive analysis of open chromatin region) obtained from hundreds of human cell types, as input, then examine the problem of estimating the expression level of mRNA measured from the result of CAGE (Cap Analysis of Gene Expression)[1].</p>
+</div>
+<div class="section" id="Data-Set">
+<h2>7.3. Data Set<a class="headerlink" href="#Data-Set" title="Permalink to this headline">¶</a></h2>
 <p>Here we use some of the experimental data set used in Basenji [1], which is a data set obtained by performing sequence analysis such as CAGE.</p>
-<p>Please execute the cell below and download the data.</p>
+<p>Please run the cell below and download the data.</p>
 <p>Each of these arrays consists of 131072 bp in length, and its coverage value is recorded every 128 bp. The array length of this coverage value is 131072/128 = 1024.</p>
 <p>The goal of this problem is to estimate the coverage value every 128 bp when receiving an array of length 131072 bp as input.</p>
-<p>This time we will deal with the problem of simultaneously predicting coverage values ​​of 10 different experiments.</p>
+<p>This time we will deal with the problem of simultaneously predicting coverage values of 10 different experiments.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
 </pre></div>
 </div>
@@ -513,29 +545,29 @@ interaction taken into account, and inputs a DNA base sequence having a length e
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
---2018-12-16 04:41:34--  https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
-Resolving github.com (github.com)... 192.30.253.113, 192.30.253.112
-Connecting to github.com (github.com)|192.30.253.113|:443... connected.
+--2019-05-06 10:49:35--  https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
+Resolving github.com (github.com)... 192.30.255.113
+Connecting to github.com (github.com)|192.30.255.113|:443... connected.
 HTTP request sent, awaiting response... 302 Found
-Location: https://github-production-release-asset-2e65be.s3.amazonaws.com/153412006/c79a0800-f713-11e8-8d6c-255563d45b1b?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20181216%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20181216T044134Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=df390bc2ed4392cbdd65444198dcec236c19532e06158d89cda5c2fe4e17f5db&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;response-content-disposition=attachment%3B%20filename%3Dseq.h5&amp;response-content-type=application%2Foctet-stream [following]
---2018-12-16 04:41:34--  https://github-production-release-asset-2e65be.s3.amazonaws.com/153412006/c79a0800-f713-11e8-8d6c-255563d45b1b?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20181216%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20181216T044134Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=df390bc2ed4392cbdd65444198dcec236c19532e06158d89cda5c2fe4e17f5db&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;response-content-disposition=attachment%3B%20filename%3Dseq.h5&amp;response-content-type=application%2Foctet-stream
-Resolving github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)... 52.216.137.212
-Connecting to github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)|52.216.137.212|:443... connected.
+Location: https://github-production-release-asset-2e65be.s3.amazonaws.com/153412006/c79a0800-f713-11e8-8d6c-255563d45b1b?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20190506%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190506T174936Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7b95541ce0c07323709274af077569f3e5cbd0883349be7025703fa5f0de3c21&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;response-content-disposition=attachment%3B%20filename%3Dseq.h5&amp;response-content-type=application%2Foctet-stream [following]
+--2019-05-06 10:49:35--  https://github-production-release-asset-2e65be.s3.amazonaws.com/153412006/c79a0800-f713-11e8-8d6c-255563d45b1b?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20190506%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190506T174936Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7b95541ce0c07323709274af077569f3e5cbd0883349be7025703fa5f0de3c21&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;response-content-disposition=attachment%3B%20filename%3Dseq.h5&amp;response-content-type=application%2Foctet-stream
+Resolving github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)... 52.216.233.35
+Connecting to github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)|52.216.233.35|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 594118876 (567M) [application/octet-stream]
-Saving to: ‘seq.h5’
+Saving to: ‘seq.h5.1’
 
-seq.h5              100%[===================&gt;] 566.60M  71.1MB/s    in 8.5s
+seq.h5.1            100%[===================&gt;] 566.60M  21.1MB/s    in 44s
 
-2018-12-16 04:41:43 (66.7 MB/s) - ‘seq.h5’ saved [594118876/594118876]
+2019-05-06 10:50:19 (13.0 MB/s) - ‘seq.h5.1’ saved [594118876/594118876]
 
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>ls -lh
 </pre></div>
 </div>
@@ -545,30 +577,39 @@ seq.h5              100%[===================&gt;] 566.60M  71.1MB/s    in 8.5s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-total 567M
-drwxr-xr-x 1 root root 4.0K Dec 10 17:34 sample_data
--rw-r--r-- 1 root root 567M Dec  3 06:54 seq.h5
+total 2363288
+-rw-r--r--   1 ytakeda  staff    62K Apr  1 18:10 Basic_Math_for_ML.ipynb
+-rw-r--r--   1 ytakeda  staff   442K Apr 24 19:03 Blood_Cell_Detection.ipynb
+-rw-r--r--   1 ytakeda  staff    80K May  1 16:10 DNA_Sequence_Data_Analysis.ipynb
+-rw-r--r--   1 ytakeda  staff   221K Apr 19 10:47 Image_Segmentation.ipynb
+-rw-r--r--   1 ytakeda  staff   503K Apr 30 14:41 Introduction_to_Chainer.ipynb
+-rw-r--r--   1 ytakeda  staff    73K Apr  1 18:10 Introduction_to_ML_libs.ipynb
+-rw-r--r--   1 ytakeda  staff    57K Apr  8 12:46 Introduction_to_Neural_Network.ipynb
+-rw-r--r--   1 ytakeda  staff   246K Apr 24 19:03 Sequential_Data_Analysis_with_Deep_Learning.ipynb
+drwxr-xr-x  15 ytakeda  staff   480B Apr 19 11:07 <span class="ansi-cyan-intense-fg ansi-bold">images</span>
+-rw-r--r--   1 ytakeda  staff   567M Dec  2 22:54 seq.h5
+-rw-r--r--   1 ytakeda  staff   567M Dec  2 22:54 seq.h5.1
 </pre></div></div>
 </div>
 <p>Please check that the file seq.h5 is downloaded correctly. The size is 567 MB.</p>
-<p>seq.h 5 is a file that stores data in HDF 5 format. Like the file system, the HDF5 file can store data hierarchically, and can store matrix and tensor data named at each position.</p>
-<p>There is a library called h5py to manipulate HDF5 format files. Open the file with h5py’s File () function and enumerate the keys contained in it with the keys () function. By specifying the acquired key within ‘[]’, you can refer to each stored data linked to that key.</p>
-<p>Like the numpy tensor data, you can get its size with the attribute shape.</p>
-<p>Execute the following cell and check the stored data.</p>
-<p>A prefix of train (learning), validate (verification), test (test) is attached to the name of each data, in corresponds to the base sequence of the input, and out corresponds to the coverage value of the output.</p>
-<p>For example, ‘train_in’ is input data for learning and has a size of (5000, 131072, 4). This is an array with 5000 arrays of length 130172, where the corresponding dimension values ​​of A, T, C and G are 1 and the others are 0.</p>
-<p>‘Train_out’ is output data for learning and has a size of ‘(5000, 1024, 10’), which has 5000 arrays of length 1024, each with 10 different ChIP - The result coverage value of Seq is stored.</p>
+<p>seq.h 5 is a file that stores data in HDF5 format. Like the file system, the HDF5 file can store data hierarchically, and can store matrix and tensor data named at each position.</p>
+<p>There is a library called h5py to manipulate HDF5 format files. Open the file with h5py’s File() function and enumerate the keys contained in it with the keys() function. By specifying the acquired key within ‘[]’, you can refer to each stored data linked to that key.</p>
+<p>Like the numpy, you can get size of tensor data with the attribute called shape.</p>
+<p>Run the following cell and check the stored data.</p>
+<p>A prefix of train (training), validate (validation), test (test) is attached to the name of each data, in corresponds to the base sequence of the input, and out corresponds to the coverage value of the output.</p>
+<p>For example, ‘train_in’ is input data for training and has a size of (5000, 131072, 4). This is an array with 5000 arrays of length 130172, where the corresponding dimension values of A, T, C and G are 1 and the others are 0.</p>
+<p>‘Train_out’ is output data for training and has a size of ‘(5000, 1024, 10’). There are 5000 arrays of length 1024, and each contains the coverage value of 10 different ChIP-Seq results.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">h5py</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -577,13 +618,16 @@ drwxr-xr-x 1 root root 4.0K Dec 10 17:34 sample_data
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-target_labels (10,) |S29
-test_in (500, 131072, 4) bool
-test_out (500, 1024, 10) float16
-train_in (5000, 131072, 4) bool
-train_out (5000, 1024, 10) float16
-valid_in (500, 131072, 4) bool
-valid_out (500, 1024, 10) float16
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-3c26f0ebd2c1&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> h5py
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">import</span> numpy <span class="ansi-green-fg">as</span> np
+<span class="ansi-green-intense-fg ansi-bold">      3</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">with</span> h5py<span class="ansi-blue-fg">.</span>File<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;seq.h5&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;r&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> hf<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     <span class="ansi-green-fg">for</span> key <span class="ansi-green-fg">in</span> hf<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;h5py&#39;
 </pre></div></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;target_labels&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,),</span> <span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;S29&#39;</span><span class="p">))</span>
@@ -596,15 +640,15 @@ valid_out (500, 1024, 10) float16
 </pre></div>
 </div>
 <p>To handle h5py format files as numpy data, you need to copy them. The following code reads the tensor data corresponding to the key ‘train_in’ as numpy data and displays part of that data.</p>
-<p>Try to extract the first data and display the output value of it.</p>
-<p>Please try running the cell below. We output three values ​​of the first data output as a line graph. (Please run the cells so far).</p>
+<p>Let’s try to extract the first data and display the output value of it.</p>
+<p>Please run the cell below. It outputs three values of the first data output as a line graph. (Please run the cells up to here).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;train_out&#39;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span>
@@ -625,42 +669,42 @@ valid_out (500, 1024, 10) float16
 </div>
 </div>
 <div class="section" id="Dilated-Convolution-analysis-using">
-<h2>7.3. Dilated Convolution analysis using<a class="headerlink" href="#Dilated-Convolution-analysis-using" title="Permalink to this headline">¶</a></h2>
+<h2>7.4. Dilated Convolution analysis using<a class="headerlink" href="#Dilated-Convolution-analysis-using" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Strategy-of-sequence-analysis">
-<h3>7.3.1. Strategy of sequence analysis<a class="headerlink" href="#Strategy-of-sequence-analysis" title="Permalink to this headline">¶</a></h3>
-<p>This time it is a problem that array data is input.</p>
+<h3>7.4.1. Strategy of sequence analysis<a class="headerlink" href="#Strategy-of-sequence-analysis" title="Permalink to this headline">¶</a></h3>
+<p>Let’s handle the problem that array data is input.</p>
 <p>There are three major strategies to handle array data.</p>
 <p>The first is to discard the sequence information in the array and to consider the array as a set of its features. This is called Bag of Words (BoW) expression. This BoW expression is a powerful technique if enough information is included in the feature, but it is difficult to capture its features only with an array of four kinds of characters such as a DNA sequence or a partial sequence thereof.</p>
 <p>The second method is to read elements in the array from left to right in order and calculate. This is analyzed using RNN which I mentioned a little in Chapter 4 as well. RNN reads input one by one at each time and updates the internal state. The problem with RNN is that its calculation is sequential and the amount of calculation is proportional to the length of the array. The current computer achieves high speed by parallelizing the calculation, but it is difficult for RNN to parallelize the
-calculation. Another problem is that it is difficult to capture relationships between long distances. From RNN, it is necessary to store all intermediate results of calculation in fixed length internal state vector from the calculation method. When trying to capture relationships between long distances, we need to remember a lot of information, but since state vector size is finite, it becomes difficult to capture relationships between long distances.</p>
+calculation. Another problem is that it is difficult to capture relationships between long distances. Because of the calculation method, RNN needs to store all intermediate results in a fixed-length internal state vector. When trying to capture relationships between long distances, we need to remember a lot of information, but since state vector size is finite, it becomes difficult to capture relationships between long distances.</p>
 <p>The third method is to analyze array data as one dimensional image and analyze it using CNN as in the case of image processing. Unlike the case of RNN, CNN can process each position independently, so it can process in parallel.</p>
 <p>In this time we will adopt this third strategy, a method to analyze using CNN. In addition, by using Dilated Convolution, processing at each position can directly read information at a long distance. In the next chapter we will look at Dilated Convolution in detail.</p>
 </div>
 <div class="section" id="Dilated-Convolution">
-<h3>7.3.2. Dilated Convolution<a class="headerlink" href="#Dilated-Convolution" title="Permalink to this headline">¶</a></h3>
+<h3>7.4.2. Dilated Convolution<a class="headerlink" href="#Dilated-Convolution" title="Permalink to this headline">¶</a></h3>
 <p>Consider the case of sequence analysis using the conventional convolutional layer. As shown in the figure below, the input information of a certain position is read only from the adjacent position in each layer. The kernel size determines how much information is acquired from the distance, and if the kernel size is K, the D / K layer is required to acquire the information that is at a distance D from the kernel size. In the case of this problem D is hundreds to tens of thousands and K is the
 value of 3 or 5 so it is not realistic that the number of necessary layers will also be from one hundred to ten thousand.</p>
-<p><img alt="従来の畳み込み層の計算イメージ" src="http://musyoku.github.io/images/post/2016-09-17/naive_conv.png" /></p>
-<p><a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WaveNet: A Generative Model for Raw Audio</a>より引用</p>
-<p>On the other hand, Dilated Convolution (also called atrous convolution and convolution weith holes) receives from the place where the reading place shifts. For example, if Dilation = 4, we will receive information from a distance of 4. If we double this Dilated and set the kernel size to 2, in order to receive information at a position separated by Dlog2𝐷Only layers are required. If this time D is hundreds to tens of thousands, only about 10 to 20 layers will be enough.</p>
-<p>In this time, I will create a model that can consider information in long distance by using this Dilated Convolution.</p>
-<p><img alt="Dilated Convolutionの計算イメージ" src="https://storage.googleapis.com/deepmind-live-cms/documents/BlogPost-Fig2-Anim-160908-r01.gif" /></p>
+<p><img alt="Conventional convolutional layer calculation" src="http://musyoku.github.io/images/post/2016-09-17/naive_conv.png" /></p>
+<p>Cited from <a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WaveNet: A Generative Model for Raw Audio</a></p>
+<p>On the other hand, Dilated Convolution (also called atrous convolution and convolution weith holes) receives from the place where the reading place shifts. For example, if Dilation = 4, we will receive information from a distance of 4. If we double this Dilated and set the kernel size to 2, only log2𝐷 layer is needed to receive information separated by D. If this time D is hundreds to tens of thousands, only about 10 to 20 layers will be enough.</p>
+<p>This time, using this Dilated Convolution, we will create a model that can take distant information into account.</p>
+<p><img alt="Calculation image of Dilated Convolution" src="https://storage.googleapis.com/deepmind-live-cms/documents/BlogPost-Fig2-Anim-160908-r01.gif" /></p>
 <p><a class="reference external" href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">WAVENET: A GENERATIVE MODEL FOR RAW AUDIO, blog</a> blogpost</p>
 <p>Let’s start by designing the whole network. This network consists of two blocks.</p>
-<p>The first block is of length217From the array as input length210The vector is output. This makes the input 128=217/210) bp corresponds to one position of the output. This is realized by SqueezeBlock. That is, SqueezeBlock accepts the base sequence of the DNA consisting of the length 131072 bp as an input and performs convolution processing so that the information of every 128 bp corresponding to the length of each fragment becomes one value. As a result, a vector sequence with length of
-131072/128 = 1024 is output. This vector sequence can be regarded as the feature of each fragment compressed into one vector.</p>
-<p>The second block is the part which calculates the value of each vector in consideration of the information in the long distance, and is handled by DilatedBlock. DilatedBlock receives a vector sequence of 1024 length output from SqueezeBlock and uses the mechanism of Dilated Convolution to efficiently consider the information at mutually separated positions and process it and input the same 1024 Returns the length output. We will proceed with learning so that this output agrees with the numerical
+<p>The first block takes an array from length <span class="math notranslate nohighlight">\(2^{17}\)</span> and outputs a vector of length <span class="math notranslate nohighlight">\(2^{10}\)</span>. This makes the input 128(=<span class="math notranslate nohighlight">\(2^{17}\)</span>/<span class="math notranslate nohighlight">\(2^{10}\)</span>) bp corresponds to one position of the output. This is realized by SqueezeBlock. That is, SqueezeBlock accepts the base sequence of the DNA consisting of the length 131072 bp as an input and performs convolution processing so that the information of every 128 bp corresponding to the length of each fragment becomes one value. As a
+result, a vector sequence with length of 131072/128 = 1024 is output. This vector sequence can be regarded as the feature of each fragment compressed into one vector.</p>
+<p>The second block is the part which calculates the value of each vector in consideration of the information in the long distance, and is handled by DilatedBlock. DilatedBlock receives a vector sequence of 1024 length output from SqueezeBlock and uses the mechanism of Dilated Convolution to efficiently consider the information at mutually separated positions and process it and returns the same lenth of output as the input. We will proceed with training so that this output agrees with the numerical
 value (coverage value) representing the possibility of binding of DNA-related protein given for each fragment.</p>
-<p>Let’s execute the following code.</p>
+<p>Let’s run the following code.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
-<span class="kn">import</span> <span class="nn">cupy</span> <span class="kn">as</span> <span class="nn">cp</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
 
 <span class="n">bc</span> <span class="o">=</span> <span class="mi">24</span> <span class="c1"># base channel</span>
 
@@ -687,7 +731,7 @@ value (coverage value) representing the possibility of binding of DNA-related pr
 
 <span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">squeeze_params</span><span class="o">=</span><span class="n">default_squeeze_params</span><span class="p">,</span> <span class="n">dilated_params</span><span class="o">=</span><span class="n">default_dilated_params</span><span class="p">,</span> <span class="n">n_targets</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">squeeze_params</span><span class="o">=</span><span class="n">default_squeeze_params</span><span class="p">,</span> <span class="n">dilated_params</span><span class="o">=</span><span class="n">default_dilated_params</span><span class="p">,</span> <span class="n">n_targets</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_squeeze</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">squeeze_params</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_dilated</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dilated_params</span><span class="p">)</span>
@@ -695,13 +739,13 @@ value (coverage value) representing the possibility of binding of DNA-related pr
             <span class="n">in_ch</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">squeeze_params</span><span class="p">):</span>
                 <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span> <span class="o">=</span> <span class="n">param</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;s_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">SqueezeBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;s_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">SqueezeBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
                 <span class="n">in_ch</span> <span class="o">=</span> <span class="n">out_ch</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dilated_params</span><span class="p">):</span>
                 <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span> <span class="o">=</span> <span class="n">param</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;d_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">DilatedBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;d_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">DilatedBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
                 <span class="n">in_ch</span> <span class="o">+=</span> <span class="n">out_ch</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">n_targets</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_targets</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="c1"># x : (B, X, 4)</span>
@@ -710,11 +754,11 @@ value (coverage value) representing the possibility of binding of DNA-related pr
         <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_squeeze</span><span class="p">):</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;s_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">h</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;s_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">h</span><span class="p">)</span>
 
         <span class="n">hs</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_dilated</span><span class="p">):</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;d_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">hs</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;d_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">hs</span><span class="p">)</span>
             <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
 
         <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
@@ -724,27 +768,27 @@ value (coverage value) representing the possibility of binding of DNA-related pr
 </div>
 </div>
 <p>This network receives parameters related to SqueezeBlock and parameters related to DilatedBlock as initialization arguments.</p>
-<p>We receive a list consisting of triplets of output channel, kernel size, pooling and a triad of output channel, kernel size, and dilated size, respectively.</p>
+<p>Each receives a list of triples of output channels, kernel sizes, and pooling, and a list of triples of output channels, kernel sizes, and dilated sizes.</p>
 <p>Next, we define the block.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
-<span class="kn">import</span> <span class="nn">cupy</span> <span class="kn">as</span> <span class="nn">cp</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
 
 <span class="k">class</span> <span class="nc">WNConvolutionND</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">WNConvolutionND</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_param</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">norm</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">batch_l2_norm_squared</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
         <span class="n">channel_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">norm_broadcasted</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
@@ -756,7 +800,7 @@ value (coverage value) representing the possibility of binding of DNA-related pr
             <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilate</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">SqueezeBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">SqueezeBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span> <span class="o">=</span> <span class="n">do_rate</span>
@@ -771,7 +815,7 @@ value (coverage value) representing the possibility of binding of DNA-related pr
         <span class="k">return</span> <span class="n">h</span>
 
 <span class="k">class</span> <span class="nc">DilatedBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
-     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
+     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DilatedBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span> <span class="o">=</span> <span class="n">do_rate</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
@@ -787,25 +831,42 @@ value (coverage value) representing the possibility of binding of DNA-related pr
 </pre></div>
 </div>
 </div>
-<p><img alt="ネットワーク構造" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/7/network.png" /></p>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-1a46fb495a52&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">import</span> chainer<span class="ansi-blue-fg">.</span>functions <span class="ansi-green-fg">as</span> F
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">import</span> chainer<span class="ansi-blue-fg">.</span>links <span class="ansi-green-fg">as</span> L
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> cupy <span class="ansi-green-fg">as</span> cp
+<span class="ansi-green-intense-fg ansi-bold">      5</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> <span class="ansi-green-fg">class</span> WNConvolutionND<span class="ansi-blue-fg">(</span>L<span class="ansi-blue-fg">.</span>ConvolutionND<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;cupy&#39;
+</pre></div></div>
+</div>
+<p><img alt="Network Structure" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/7/network.png" /></p>
 <p>WeightNormalization [2] is a method of expressing parameter representation in length and direction, and is a normalization method used in cases like this series problem. In the code WeightNormalization <code class="docutils literal notranslate"><span class="pre">WNConvolutionND</span></code> is defined as the convolved layer applied .</p>
-<p>SqueezeBlock shortens the array and has a length of217The sequence of210It is a block to shorten it (upper figure). We use WNConvolutionND to handle a one-dimensional array, 1and specify that it is a one-dimensional array with the first argument . Also, in the activation functionℎ=𝑊𝑥∗𝑠𝑖𝑔𝑚𝑜𝑖𝑑(𝑈𝑥)We use the Gated Linear Unit [3] which is denoted as “Gated Linear Unit [3]”. For efficiency in computation, instead of calculating Wx and Ux separately, instead of applying Convolution, which has twice
-the number of output channels, divide the output result into two in the channel direction(𝑊𝑥,𝑈𝑥), Apply the sigmoid function to one side, and then multiply them by element.</p>
-<p>DilatedBlock is a block that calculates using long distance information using Dilated Convolution for an array whose length has already become 1024 (upper figure). We accept dilated as an argument. When using Dilated Convolution you can calculate by simply adding dilated to the argument of the usual Convolution layer (this time ConvolutionND but also Convolution 2D).</p>
-<p>Also, DilatedBlock adopts a method called DenseNet [4], in which all previous intermediate results are used as inputs for the next layer (corresponding to that in forward () within DilatedBlock <code class="docutils literal notranslate"><span class="pre">concat</span></code>). This is based on making a lot of skip connections in the neural network so that the gradient does not decay and the learning becomes easy even if the number of layers increases.</p>
+<p>SqueezeBlock is a block to shorten the array with a length of <span class="math notranslate nohighlight">\(2^{17}\)</span> to the sequence of <span class="math notranslate nohighlight">\(2^{10}\)</span> (upper figure). We use WNConvolutionND to handle a one-dimensional array, and specify 1, which indicates that it is a one-dimensional array, for the first argument. Also, in the activation function, we use the Gated Linear Unit [3] which is denoted as ℎ=𝑊𝑥∗𝑠𝑖𝑔𝑚𝑜𝑖𝑑(𝑈𝑥). For efficiency in computation, instead of calculating Wx and Ux separately, applying Convolution with twice the number
+of output channels, and then divide the output result into two in the channel direction(𝑊𝑥,𝑈𝑥), and then multiply them by element after applying the sigmoid function to one side.</p>
+<p>DilatedBlock is a block that calculates using long distance information using Dilated Convolution for an array whose length has already become 1024 (upper figure). It takes dilated as an argument. When using Dilated Convolution you can calculate by simply adding dilated to the argument of the usual Convolution layer (this time ConvolutionND but also Convolution 2D).</p>
+<p>Also, In DilatedBlock, we adopts a method called DenseNet [4], in which all previous intermediate results are used as inputs for the next layer (corresponding to <code class="docutils literal notranslate"><span class="pre">concat</span></code> in forward() within DilatedBlock). This is based on making a lot of skip connections in the neural network so that the gradient does not decay and the training becomes easy even if the number of layers increases.</p>
 <p>Let’s build a network on a trial and let the sample data flow there.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
 <span class="n">size</span> <span class="o">=</span> <span class="mi">131072</span> <span class="c1"># 128 * 1024</span>
 <span class="n">batchsize</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">batchsize</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -820,19 +881,19 @@ the number of output channels, divide the output result into two in the channel 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, the array where the batch size (B) = 4, the input length (L) = 131072 and the input channel number (C) = 4 has been calculated, it becomes an array of B = 4, L = 1024, C = 10 It was.</p>
-<p>The coverage value predicted this time can be regarded as count data showing how frequently the DNA related protein binds to each fragment. Therefore, we use logarithmic Poisson loss function which is loss function for count data in learning.</p>
-<p>When using the logarithmic Poisson loss function, the model predicts the mean which is the only parameter of the Poisson distribution, and calculates the likelihood of the learning data when using the Poisson distribution with the predicted mean. Then maximize its likelihood and minimize the same negative logarithmic likelihood. In this case, ignoring the term which does not include the parameter to be learned on the program. If the minimum value of this function remains unchanged0So it is the
-minimum value <span class="math notranslate nohighlight">\(t \log t\)</span> In advance, and the minimum value of the loss function is0It is made to become.</p>
+<p>Here, the array which was originally of batch size (B) = 4, input length (L) = 131072, number of input channels (C) = 4 became the array of B = 4, L = 1024, C = 10 after calculation</p>
+<p>The coverage value predicted this time can be regarded as count data showing how frequently the DNA related protein binds to each fragment. Therefore, we use logarithmic Poisson loss function which is loss function for count data in training.</p>
+<p>When using the logarithmic Poisson loss function, the model predicts the mean which is the only parameter of the Poisson distribution, and calculates the likelihood of the training data when using the Poisson distribution with the predicted mean. Then maximize its likelihood and minimize the same negative logarithmic likelihood. In this case, ignoring the term which does not include the parameter to be trained on the program. Note that the minimum value of this function will not become 0 as it
+is, so subtract the minimum value <span class="math notranslate nohighlight">\(t \log t\)</span> beforehand so that the minimum value of the loss function will be 0.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">log_poisson_loss</span><span class="p">(</span><span class="n">log_x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="n">loss</span> <span class="o">=</span>  <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_x</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">log_x</span><span class="p">)</span>
@@ -846,31 +907,31 @@ minimum value <span class="math notranslate nohighlight">\(t \log t\)</span> In 
 </pre></div>
 </div>
 </div>
-<p>We also use CosineScheduler to adjust the learning rate. In learning of neural networks, we know that we can find solutions with higher generalization performance gradually as we gradually reduce the learning rate. Since the objective function of the learning of the neural network has many poor performance local solutions, at first, the learning rate is increased so that the local solution is not overcome so as to find a good solution in the whole and gradually learned in the second half It
-converts the rate closer to 0 and convergence. CosineScheduler changes the learning rate like the change of the Cosine function from 0 degrees to 90 degrees. Since learning is initially unstable, it is also common to increase the learning rate linearly from 0 to the initial learning rate for the first n_warmup cycles. Since learning rate is low and learning is stable this time, n_warmup is set to 0.</p>
+<p>We also use CosineScheduler to adjust the learning rate. In training of neural networks, we know that we can find solutions with higher generalization performance gradually as we gradually reduce the learning rate. Since the objective function of the training of the neural network has many poor performance local solutions, the first is to increase the learning rate so that it does not fit into the local solution and find a good solution in the whole, and in the second half, the learning rate is
+gradually brought close to 0 and converged. CosineScheduler changes the learning rate like the change of the Cosine function from 0 degrees to 90 degrees. Since training is initially unstable, it is also common to increase the learning rate linearly from 0 to the initial learning rate for the first n_warmup cycles. Since learning rate is low and training is stable this time, n_warmup is set to 0.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
 <span class="k">class</span> <span class="nc">CosineScheduler</span><span class="p">(</span><span class="n">training</span><span class="o">.</span><span class="n">Extension</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">n_decays</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_warmups</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">n_decays</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_warmups</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span> <span class="o">=</span> <span class="n">attr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_min_loss</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_value</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_loss</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">=</span> <span class="n">init_val</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_decays</span> <span class="o">=</span> <span class="n">n_decays</span> <span class="o">-</span> <span class="n">n_warmups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_decay_count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span> <span class="o">=</span> <span class="n">n_warmups</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
         <span class="n">updater</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span>
         <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_optimizer</span><span class="p">(</span><span class="n">trainer</span><span class="p">)</span>
         <span class="n">epoch</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">epoch</span>
@@ -890,24 +951,24 @@ converts the rate closer to 0 and convergence. CosineScheduler changes the learn
 </pre></div>
 </div>
 </div>
-<p>Finally, we apply Data Augmentation which makes a change which does not change meaning to training data during learning. This is the same as rotating and translating in the image. Although coverage value is predicted every 128 bp this time, it is expected that the coverage value will be about the same even if it moves several bases (eg 4 to 8). So we shift the array back and forth by max_shift max. (Putting a completely random base sequence in the remaining part may change from the actual base
-sequence distribution, so here we roll-shift the roll () function ).</p>
+<p>Finally, we apply Data Augmentation which makes a change which does not change meaning to training data during training. This is the same as rotating and translating in the image. Although coverage value is predicted every 128 bp this time, it is expected that the coverage value will be about the same even if it moves several bases (eg 4 to 8). So we shift the array back and forth by max_shift max. (Putting a completely random base sequence in the remaining part may change from the actual base
+sequence distribution, so here we roll-shift the roll() function).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">chainer</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
 <span class="k">class</span> <span class="nc">PreprocessedDataset</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">max_shift</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">max_shift</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ys</span> <span class="o">=</span> <span class="n">ys</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span> <span class="o">=</span> <span class="n">max_shift</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
@@ -925,19 +986,19 @@ sequence distribution, so here we roll-shift the roll () function ).</p>
 </pre></div>
 </div>
 </div>
-<p>I have completed all the preparations. The rest is to remodel the chainer’s trainer and learn. Execute the following code.</p>
-<p>Since learning takes time in the entire original data, <code class="docutils literal notranslate"><span class="pre">ratio</span></code> only data / minutes is used as learning and verification data. This time it <code class="docutils literal notranslate"><span class="pre">ratio</span></code> is set to 1. In this case, learning is completed in about 30 minutes. If you want to try it in a short time, experiment with ratio = 1 as ratio = 10 or ratio = 20.</p>
+<p>All the preparations are complete now. The rest is to remodel the Chainer’s trainer and train it. Run the following code.</p>
+<p>Since training takes time in the entire original data, only data / <code class="docutils literal notranslate"><span class="pre">ratio</span></code> portion is used as training and validation data. This time <code class="docutils literal notranslate"><span class="pre">ratio</span></code> is set to 1. In this case, training is completed in about 30 minutes. If you want to try it in a short time, experiment with ratio = 1 as ratio = 10 or ratio = 20.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">extensions</span>
-<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">extensions</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
 
 <span class="n">ml_h5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">)</span>
@@ -965,7 +1026,7 @@ sequence distribution, so here we roll-shift the roll () function ).</p>
 <span class="n">batchsize</span> <span class="o">=</span> <span class="mi">8</span>
 
 <span class="n">train_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
-<span class="n">val_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">val_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">Net</span><span class="p">(),</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">log_poisson_loss</span><span class="p">,</span> <span class="n">accfun</span><span class="o">=</span><span class="n">log_r2_score</span><span class="p">)</span>
 
@@ -1055,12 +1116,12 @@ epoch       main/loss   validation/main/loss  elapsed_time
 9           1.55514                           2501.51
 </pre></div></div>
 </div>
-<p>If learning is successful, the model learned under directory out should be output. Let’s see if the model is actually being output.</p>
+<p>If training is successful, the model trained should be output under directory out. Let’s see if the model is actually being output.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>ls -l out/
 </pre></div>
 </div>
@@ -1084,31 +1145,31 @@ total 14172
 -rw-r--r-- 1 root root 1447650 Dec 16 05:21 model_epoch_9
 </pre></div></div>
 </div>
-<p>Next, let us also predict test data using the learned model. Let’s load the model after learning as follows and apply the model to the test data.</p>
+<p>Next, let us also predict test data using the trained model. Let’s load the model after training as follows and apply the model to the test data.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">model_n_epoch</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">out_dir</span> <span class="o">=</span> <span class="s1">&#39;out&#39;</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">Net</span><span class="p">())</span>
-<span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;{}/model_epoch_{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">model_n_epoch</span><span class="p">),</span> <span class="n">model</span><span class="p">)</span>
+<span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/model_epoch_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">model_n_epoch</span><span class="p">),</span> <span class="n">model</span><span class="p">)</span>
 <span class="n">predictor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predictor</span>
 
-<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">))</span>
 <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">():</span>
     <span class="n">test_y_estimated</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">predictor</span><span class="p">(</span><span class="n">test_x</span><span class="p">[:</span><span class="mi">1</span><span class="p">]))</span>
 
 <span class="n">test_y</span> <span class="o">=</span> <span class="n">test_y</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">])</span>
 
 
 </pre></div>
@@ -1125,12 +1186,12 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
           0.8720923 ])
 </pre></div></div>
 </div>
-<p>Let’s excerpt the result and display it. Here, the correct answer and estimation result are output for the first (i = 0) output. Even in this case, although I narrowed down the learning data (the number of classes was set to 10) and the number of learning is also small, I think that you can see that the peak is captured.</p>
+<p>Let’s excerpt the result and display it. Here, the correct answer and estimation result are output for the first (i = 0) output. Even in this case, although we narrowed down the training data (the number of classes was set to 10) and the number of training is also small, you can see that the peak is captured.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">y</span> <span class="o">=</span> <span class="n">test_y_estimated</span><span class="o">.</span><span class="n">data</span>
 <span class="n">fig_size</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span>
 <span class="n">fig_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
@@ -1158,7 +1219,7 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
 <img alt="../_images/notebooks_DNA_Sequence_Data_Analysis_44_1.png" src="../_images/notebooks_DNA_Sequence_Data_Analysis_44_1.png" />
 </div>
 </div>
-<p>Learn if you can learn more accurate models by increasing n_epochs of learning from 10 to 30 to 50, increasing the number of layers, or increasing the number of channels if you have time to spare.</p>
+<p>If you have time, you can find out if more accurate models would be trained by increasing n_epochs of training from 10 to somewhere in between 30 and 50, or increasing the number of layers, or increasing the number of channels.</p>
 <ul class="simple">
 <li><p>[1] “Sequential regulatory activity prediction across chromosomes with convolutional neural networks”, D. R. Kelly and et al., Genome Res. 2018. 28: 739-750</p></li>
 <li><p>[2] “Weight Normalization: A Simple Reparameterization to Accelerate Training of Deep Neural Networks”, T. Salimans and et al., arXiv:1602.07868</p></li>
@@ -1169,7 +1230,7 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
 </div>
@@ -1189,7 +1250,7 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
         <a href="Sequential_Data_Analysis_with_Deep_Learning.html" class="btn btn-neutral float-right" title="8. Practical part: Time series analysis of monitoring data using the deep learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Blood_Cell_Detection.html" class="btn btn-neutral" title="6. Practice section: Detection of cells from microscopic images of" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Blood_Cell_Detection.html" class="btn btn-neutral" title="6. Practice section: Detection of cells from microscope images of blood" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

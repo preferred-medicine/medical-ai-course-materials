@@ -102,7 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscope images of blood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">8. Practical part: Time series analysis of monitoring data using the deep learning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Environment">8.1. Environment</a></li>
@@ -423,8 +423,8 @@ div.rendered_html tbody tr:hover {
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Sequential_Data_Analysis_with_Deep_Learning.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <div class="section" id="Practical-part:-Time-series-analysis-of-monitoring-data-using-the-deep-learning">
 <h1>8. Practical part: Time series analysis of monitoring data using the deep learning<a class="headerlink" href="#Practical-part:-Time-series-analysis-of-monitoring-data-using-the-deep-learning" title="Permalink to this headline">¶</a></h1>
-<p>As health consciousness rises and the number of exercising individuals increases, wearable devices such as activity meters are on the rise. Recently, cases of utilization of these devices in the healthcare field is increasing. It is now possible to monitor health status in real time by acquiring data from sensor devices eg. Heart Rate. In February 2018, a joint research study by Cardiogram Inc. and the University of California, San Francisco reported that it was possible to predict diabetes with
-fairly high accuracy by applying Deep Learning to heart rate data. In addition, the development of sensor devices with features such as Electrocardiogram is now available in products such as the Apple Watch Series 4, where more detailed information can be acquired. Against this backdrop, it is clear that efforts to collect and analyze health monitoring data leading towards better health management, will become more and more popular in the future.</p>
+<p>As health consciousness rises and the number of exercising individuals increases, wearable devices such as activity meters are on the rise. Recently, cases of utilization of these devices in the healthcare field is increasing. It is now possible to monitor health status eg. Heart Rate in real time by acquiring data from sensor devices. In February 2018, a joint research study by Cardiogram Inc. and the University of California, San Francisco reported that it was possible to predict diabetes with
+fairly high accuracy by applying Deep Learning to heart rate data. In addition, the development of sensor devices with features such as Electrocardiogram are now available in products such as the Apple Watch Series 4, where more detailed information can be acquired. Against this backdrop, it is clear that efforts to collect and analyze health monitoring data leading towards better health management, will become more and more popular in the future.</p>
 <p>In this section, we will address the problem of detecting cardiac arrhythmias from signal waveform data of the electrocardiogram.</p>
 <div class="section" id="Environment">
 <h2>8.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
@@ -509,7 +509,7 @@ Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware 
 </div>
 <p>When installation is completed, execute the following cell, import each library, and check the version.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -536,6 +536,22 @@ Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware 
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages/chainer/_environment_check.py:37: UserWarning: Accelerate has been detected as a NumPy backend library.
+vecLib, which is a part of Accelerate, is known not to work correctly with Chainer.
+We recommend using other BLAS libraries such as OpenBLAS.
+For details of the issue, please see
+https://docs.chainer.org/en/stable/tips.html#mnist-example-does-not-converge-in-cpu-mode-on-mac-os-x.
+
+Please be aware that Mac OS X is not an officially supported OS.
+
+  &#39;&#39;&#39;)  # NOQA
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
@@ -558,7 +574,7 @@ iDeep: Not Available
 <p>Also, in order to reproduce the execution result of this chapter, fix the random number seed introduced in Chapter 4 (4.2.4.4).</p>
 <p>(This setting is not necessarily required for subsequent calculations.)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -567,7 +583,6 @@ iDeep: Not Available
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
         <span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-
 <span class="n">reset_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -576,10 +591,11 @@ iDeep: Not Available
 <div class="section" id="Electrocardiogram-(ECG)-and-arrhythmia-diagnosis">
 <h2>8.2. Electrocardiogram (ECG) and arrhythmia diagnosis<a class="headerlink" href="#Electrocardiogram-(ECG)-and-arrhythmia-diagnosis" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Electrocardiogram (ECG) is an electronic signal transmitted from the body surface in the stimulation conduction system in order to move the myocardium cooperatively and rhythmically. The electrocardiogram is widely used for inspection/diagnosis of arrhythmia and ischemic heart disease.</div>
+<div class="line">Electrocardiogram (ECG) is a electronic signal transmitted from the body surface in the stimulation conduction system in order to move the myocardium cooperatively and rhythmically. The electrocardiogram is widely used for inspection/diagnosis of arrhythmia and ischemic heart disease.</div>
 <div class="line">[<a class="reference external" href="https://en.wikipedia.org/wiki/Electrocardiography">Reference 1</a>, <a class="reference external" href="https://www.ningen-dock.jp/wp/wp-content/uploads/2013/09/d4bb55fcf01494e251d315b76738ab40.pdf">Reference 2</a>]．</div>
 </div>
-<p>As a standard electrocardiogram, as an electrocardiogram (limb lead) taken from limbs, bipolar induction Ⅰ, Ⅱ, Ⅲ), And unipolar induction (𝑎𝑉𝑅, 𝑎𝑉𝐿, 𝑎𝑉𝐹), As the electrocardiogram taken from the chest (chest lead) 𝑉1, 𝑉2, 𝑉3, 𝑉4, 𝑉5, 𝑉6 leads, consisting of 12 guides in total. Among them, particularly when screening arrhythmia, Ⅱ With induction 𝑉1 It is generally considered that diagnosis is carried out focusing on induction.</p>
+<p>A standard electrocardiogram is recorded from 3 bipolar limb leads (Ⅰ, Ⅱ, Ⅲ), 3 unipolar limb leads (𝑎𝑉𝑅, 𝑎𝑉𝐿, 𝑎𝑉𝐹), 6 unipolar chest leads taken from the chest (chest lead) 𝑉1, 𝑉2, 𝑉3, 𝑉4, 𝑉5, 𝑉6 leads also called precordial or V leads, consisting of 12 guides in total.</p>
+<p>Among them, particularly when screening arrhythmia, Ⅱ with induction 𝑉1 It is generally considered that diagnosis is carried out focusing on induction.</p>
 <p>In the normal state of the heart, regular waveforms are observed in ECG, and this is called normal sinus rhythm (NSR)</p>
 <p>Specifically, it consists of the following three main waveforms</p>
 <ol class="arabic simple">
@@ -588,17 +604,17 @@ iDeep: Not Available
 <li><p><strong>T wave</strong> : ventricular repolarization (ventricular excitation constriction)</p></li>
 </ol>
 <p>In this order, the waveforms shown below are observed.</p>
-<p><img alt="Schematic diagram of normal electrocardiogram" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/sinus_rhythm.png" /></p>
+<p><img alt="Schematic diagram of normal electrocardiogram" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/monitoring/sinus_rhythm.png" /></p>
 <p>(Quoted from <a class="reference external" href="https://en.wikipedia.org/wiki/Electrocardiography">Reference 1</a>)</p>
-<p>If these regular waveforms are disturbed and it is judged that there is abnormality in the tuning, diagnosis will be performed because there is a doubt such as arrhythmia.</p>
+<p>If these regular waveforms are disturbed then it is likely that there is an abnormality in the tuning. Therefore further diagnosis will be warranted to detect any potential condition such as arrhythmia.</p>
 </div>
 <div class="section" id="Data-sets">
 <h2>8.3. Data sets<a class="headerlink" href="#Data-sets" title="Permalink to this headline">¶</a></h2>
-<p>Here, we use the ECG data set from <a class="reference external" href="https://www.physionet.org/physiobank/database/mitdb/">MIT-BIH Arrhythmia Database (mitdb)</a> published by Beth Israel Hospital and MIT.</p>
+<p>Here, we will use the ECG data set from <a class="reference external" href="https://www.physionet.org/physiobank/database/mitdb/">MIT-BIH Arrhythmia Database (mitdb)</a> published by Beth Israel Hospital and MIT.</p>
 <p>The data set includes 48 records collected from 47 patients, and each record file contains two leads in about 30 minutes (𝐼𝐼,𝑉1) Signal data is stored. Annotation is given to the peak position of each R wave. (Please refer <a class="reference external" href="https://www.physionet.org/physiobank/database/html/mitdbdir/intro.htm">here</a> for details on data and annotations).</p>
-<p>The database is managed by <a class="reference external" href="https://www.physionet.org/">PhysioNet</a> and we will use the Python package provided for downloading and reading the data is provided.</p>
+<p>The database is managed by <a class="reference external" href="https://www.physionet.org/">PhysioNet</a> and we will use the Python package provided for downloading and reading the data.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -608,7 +624,7 @@ iDeep: Not Available
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -623,7 +639,7 @@ iDeep: Not Available
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-29-e254183268f9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-8-e254183268f9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>wfdb<span class="ansi-blue-fg">.</span>dl_database<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;mitdb&#39;</span><span class="ansi-blue-fg">,</span> os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span>os<span class="ansi-blue-fg">.</span>getcwd<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;mitdb&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-green-fg">/Users/sandeepayyar/Documents/.env/lib/python2.7/posixpath.pyc</span> in <span class="ansi-cyan-fg">join</span><span class="ansi-blue-fg">(a, *p)</span>
@@ -648,7 +664,7 @@ iDeep: Not Available
 </div>
 <p>When the download is completed successfully, a message will be displayed. <code class="docutils literal notranslate"><span class="pre">Finished</span> <span class="pre">downloading</span> <span class="pre">files</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -663,7 +679,7 @@ iDeep: Not Available
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">OSError</span>                                   Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-26-de07a81672ba&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-9-de07a81672ba&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>sorted<span class="ansi-blue-fg">(</span>os<span class="ansi-blue-fg">.</span>listdir<span class="ansi-blue-fg">(</span>download_dir<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-red-fg">OSError</span>: [Errno 2] No such file or directory: &#39;./dataset/download&#39;
@@ -679,7 +695,7 @@ iDeep: Not Available
 </div>
 <div class="section" id="Data-pre-processing">
 <h2>8.4. Data pre-processing<a class="headerlink" href="#Data-pre-processing" title="Permalink to this headline">¶</a></h2>
-<p>This section explains data preprocessing that reads the downloaded file and converts it to the input form to the machine learning model .</p>
+<p>This section explains data preprocessing step which basically involves reading the downloaded files and converting them into the appropriate input form for the machine learning model.</p>
 <p>In this section, preprocessing is performed by the following procedure.</p>
 <ol class="arabic simple">
 <li><p>Split record ID in advance for study / evaluation</p>
@@ -687,11 +703,11 @@ iDeep: Not Available
 <li><p>Out of 48 records,</p>
 <ul>
 <li><p>The signal of ID = (102, 104, 107, 217) is excluded because it contains the pace of the pacemaker.</p></li>
-<li><p>The signal with ID = 114 is excluded this time because part of the waveform is inverted.</p></li>
-<li><p>ID = (201, 202) excludes 202 because it is data obtained from the same patient.</p></li>
+<li><p>The signal with ID = 114 is excluded this time because a part of the waveform is inverted.</p></li>
+<li><p>The ID (201, 202) are data from the same patient. Hence 202 is excluded.</p></li>
 </ul>
 </li>
-<li><p>We divide 42 records in total excluding the above for learning and testing (see <a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Reference 3</a> for the division method).]</p></li>
+<li><p>We divide 42 records in total excluding the above for learning (training) and testing (see <a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Reference 3</a> for the division method).]</p></li>
 </ul>
 </li>
 <li><p>Read signal file (.dat)</p>
@@ -707,7 +723,7 @@ iDeep: Not Available
 </li>
 <li><p>Normalization of signals</p>
 <ul class="simple">
-<li><p>We convert so that it becomes average 0 and dispersion 1.</p></li>
+<li><p>We convert the signals so that it becomes average 0 and dispersion 1.</p></li>
 </ul>
 </li>
 <li><p>Signal segmentation</p>
@@ -722,7 +738,7 @@ iDeep: Not Available
 </li>
 </ol>
 <p>※ The standards recommended by the Association for the Advancement of Medical Instrumentation (AAMI) (<a class="reference external" href="https://ieeexplore.ieee.org/document/1306572">Reference 3</a>]) are roughly classified into five categories.</p>
-<p><img alt="AAMIの分類基準" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/aami_standard.png" /></p>
+<p><img alt="AAMIの分類基準" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/monitoring/aami_standard.png" /></p>
 <p>(Quoted from <a class="reference external" href="https://arxiv.org/abs/1810.04121">Reference 4</a>])</p>
 <p>Let’s first define the data preprocessing class by executing the following cells.</p>
 <p>In the preprocessing class, the following member functions are defined.</p>
@@ -740,7 +756,6 @@ iDeep: Not Available
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">BaseECGDatasetPreprocessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">dataset_root</span><span class="p">,</span>
@@ -766,7 +781,6 @@ iDeep: Not Available
             <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span>
             <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="s1">&#39;V&#39;</span>
         <span class="p">}</span>
-
     <span class="k">def</span> <span class="nf">_load_data</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">base_record</span><span class="p">,</span>
@@ -845,7 +859,6 @@ iDeep: Not Available
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;X.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xs</span><span class="p">))</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;y.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span>
-
 </pre></div>
 </div>
 </div>
@@ -906,8 +919,8 @@ iDeep: Not Available
 </div>
 <p>The number of samples in the data set are as follows.</p>
 <ul class="simple">
-<li><p>For learning: : 47738 pieces</p></li>
-<li><p>For evaluation: 45349 pieces</p></li>
+<li><p>For learning: 47738 samples</p></li>
+<li><p>For evaluation: 45349 samples</p></li>
 </ul>
 <p>Each signal data is expressed as 2 (sec) * 360 (Hz) = 720 dimensional vector.</p>
 <div class="nbinput docutils container">
@@ -930,8 +943,10 @@ X_test.shape =  (45349, 720)     y_test.shape =  (45349,)
 </pre></div></div>
 </div>
 <p>Each label is represented by an index,</p>
-<p>0: Normal beat (Normal) 1: ventricular ectopic beat (VEB)</p>
-<p>It has become.</p>
+<ul class="simple">
+<li><p>0: Normal beat (Normal)</p></li>
+<li><p>1: Ventricular Ectopic Beat (VEB)</p></li>
+</ul>
 <p>Let’s count the number of samples for each label included in the training data set.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -970,7 +985,7 @@ y_train count each labels:  {0: 43995, 1: 3743}
 y_test count each labels:  {0: 42149, 1: 3200}
 </pre></div></div>
 </div>
-<p>For both learning data and evaluation data, VEB samples are less than 10% of the whole, and most of them are normal beat samples.</p>
+<p>We see that for both the learning data and evaluation data, VEB samples are less than 10% of the total number of samples. Most of them are normal beat samples.</p>
 <p>Next, let us visualize normal beat and VEB signal data.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -1009,7 +1024,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_43_1.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_43_1.png" />
 </div>
 </div>
-<p>On the other hand, the waveform of VEB is disordered regularity, and the shape of the R wave peak and the distance between peaks are also different from the normal example.</p>
+<p>On the other hand, the waveform of VEB is disordered, and the shape of the R wave peak and the distance between peaks are observably different from the normal example.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1035,7 +1050,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 <img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_45_1.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_45_1.png" />
 </div>
 </div>
-<p>The purpose of this chapter is to grasp ECG signal features well and construct a model that predicts normality / abnormality with high accuracy even for new waveform samples.</p>
+<p>The purpose of this case study is to learn the ECG signal features well and construct a model that classifies normality / abnormality and predicts with high accuracy for new waveform samples.</p>
 <p>In the next section, we will explain the model construction using deep learning.</p>
 </div>
 <div class="section" id="Series-data-analysis-when-using-the-deep-learning">
@@ -1072,9 +1087,9 @@ y_test count each labels:  {0: 42149, 1: 3200}
 </pre></div>
 </div>
 </div>
-<p>Next, we define the network structure used for learning (+ prediction).</p>
-<p>This time we will use the same network structure as CNN based <strong>ResNet34</strong> , which is famous for image recognition task [<a class="reference external" href="https://arxiv.org/abs/1512.03385">Reference 5</a>]</p>
-<p>However, since input signals are one-dimensional arrays, 1D Convolution is used here, not 2D Convolution, which is commonly used in image analysis etc., as with the gene analysis in the previous chapter.</p>
+<p>Next, we define the network structure used for learning (and prediction).</p>
+<p>This time we will use the same network structure as CNN based <strong>ResNet34</strong> , which is popular for image recognition task [<a class="reference external" href="https://arxiv.org/abs/1512.03385">Reference 5</a>]</p>
+<p>However, since input signals are one-dimensional arrays, we will use 1D Convolution, instead of 2D Convolution, which is routinely used for image analysis etc., as with the gene analysis in the previous chapter.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1199,7 +1214,7 @@ y_test count each labels:  {0: 42149, 1: 3200}
 </div>
 <p>Prepare the following functions as preparations for executing learning.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">create_train_dataset()</span></code>：<code class="docutils literal notranslate"><span class="pre">ECGDataset</span></code> Pass the learning data set to the class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_train_dataset()</span></code>：<code class="docutils literal notranslate"><span class="pre">ECGDataset</span></code> Pass/Feed the learning data set to the class</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">create_trainer()</span></code>：Make necessary settings for learning, create a Trainer object</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
@@ -1329,12 +1344,12 @@ CPU times: user 1min 12s, sys: 14.7 s, total: 1min 27s
 Wall time: 1min 27s
 </pre></div></div>
 </div>
-<p>If learning progresses without problems, I think that main / accuracy has reached near 0.99 (99%).</p>
+<p>We observe that the main / accuracy has reached near 0.99 (99%).</p>
 </div>
 </div>
 <div class="section" id="Evaluation">
 <h2>8.6. Evaluation<a class="headerlink" href="#Evaluation" title="Permalink to this headline">¶</a></h2>
-<p>In order to confirm the discrimination performance by applying the learned model to the evaluation data, prepare the following function.</p>
+<p>In order to confirm the classification performance by applying the learned model to the evaluation data, we prepare the following functions.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">create_test_dataset()</span></code> : Read evaluation data</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">predict()</span></code> : Perform inference and output result array (correct answer label and predictive label)</p></li>
@@ -1393,7 +1408,7 @@ Wall time: 1min 27s
 </pre></div>
 </div>
 </div>
-<p>Prepare an evaluation data set,</p>
+<p>Prepare the evaluation data set:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -1436,12 +1451,12 @@ Wall time: 18.3 s
 </pre></div></div>
 </div>
 <p>Let’s confirm the prediction result.</p>
-<p>First, we create a table that summarizes the classification results of predictions, called <strong>confusion matrices</strong> . With the row direction (front side) as the correct solution label and the column direction (front side) as the prediction label, the following summary values are obtained for each item.</p>
+<p>First, we create a table that summarizes the classification results of predictions, called <strong>confusion matrix</strong> . The rows show the correct solution label and the columns show the prediction label. The following summary values are obtained for each item.</p>
 <ul class="simple">
-<li><p>Upper left: Number of samples that are actually normal beating, normal beat</p></li>
-<li><p>Upper right: Number of samples that are actually normal beats and VEB</p></li>
-<li><p>Bottom left: Samples that are actually VEBs are predicted to be normal</p></li>
-<li><p>Bottom right: Samples that are actually VEB are predicted as VEB</p></li>
+<li><p>Upper left: Number of samples that are actually normal and predicted as normal</p></li>
+<li><p>Upper right: Number of samples that are actually normal but predicted as VEB</p></li>
+<li><p>Bottom left: Samples that are actually VEBs but predicted to be normal</p></li>
+<li><p>Bottom right: Samples that are actually VEB but predicted as VEB</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -1459,7 +1474,7 @@ Wall time: 18.3 s
 <img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_69_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_69_0.png" />
 </div>
 </div>
-<p>Next, let’s display the evaluation index score of prediction accuracy calculated from the prediction result.</p>
+<p>Next, let’s display the evaluation index score (Classfication Report) of prediction accuracy calculated from the prediction result.</p>
 <p>In particular, please pay attention to the following scores.</p>
 <ul class="simple">
 <li><p>Rate of conformity (Precision): Percentage (Normal or VEB) of each expected diagnosis (correct answer was the same diagnosis result)</p></li>
@@ -1493,13 +1508,13 @@ weighted avg       0.96      0.94      0.94     45349
 accuracy:  0.9351694634942336
 </pre></div></div>
 </div>
-<p>Predictive scores for normal beats with a large number of samples show high values, while scores tend to be low for VEBs with a small number of samples. It is known that this tendency is often observed in imbalance data in which the proportion of classes occupied by samples is extremely biased as in this data set.</p>
-<p>In the next section, we will introduce some trial and error for improving prediction model, including response to such class imbalance problem.</p>
+<p>Predictive scores for normal beats with a large number of samples show high values, while scores tend to be low for VEBs with a smaller number of samples. It is known that this tendency is often observed in unbalanced data. In this case we see that the proportion of classes occupied by samples is extremely biased.</p>
+<p>In the next section, we will introduce some trial and error for improving prediction model, including how to deal with such class imbalance problem.</p>
 </div>
 <div class="section" id="Towards-the-accuracy">
 <h2>8.7. Towards the accuracy<a class="headerlink" href="#Towards-the-accuracy" title="Permalink to this headline">¶</a></h2>
-<p>In this section, we devise a method to contribute to accuracy improvement by devising the learning device constructed in the previous section from various viewpoints such as “data set”, “objective function”, “learning model”, “preprocessing” I will continue.</p>
-<p>When analyzing using machine learning, it is often unknown beforehand which devises are effective for accuracy improvement, so trial and error is necessary. However, it is not a good idea to try random methods, so it is important to consider means that can be effective based on the nature of the target dataset.</p>
+<p>In this section, we devise a method to contribute to accuracy improvement by devising the learning device constructed in the previous section from various viewpoints such as “data set”, “objective function”, “learning model”, “preprocessing”.</p>
+<p>When analyzing data sets using machine learning, it is often unknown beforehand which methods/models are effective for accuracy improvement, so trial and error is necessary. However, rather than trying random methods, it is important to consider methods that can be effective based on the nature of the target dataset.</p>
 <p>First of all, let’s consider how to cope with the problem of class imbalance, which was mentioned as a challenge in the previous section.</p>
 <div class="section" id="Corresponds-to-the-class-imbalance-data">
 <h3>8.7.1. Corresponds to the class imbalance data<a class="headerlink" href="#Corresponds-to-the-class-imbalance-data" title="Permalink to this headline">¶</a></h3>
@@ -1715,7 +1730,7 @@ described by the following equation.</p>
 \[FL(p_t) = - (1 - p_t)^{\gamma}\log(p_t)\]</div>
 <p>here<span class="math notranslate nohighlight">\(p_t\)</span> is the output (probability value) of Softmax function.<span class="math notranslate nohighlight">\(\gamma = 0\)</span>, It is equal to normal Softmax cross-entropy loss,<span class="math notranslate nohighlight">\(\gamma &gt; 0\)</span>, It has the effect of reducing the relative loss for clearly classifiable (easy to distinguish) samples. As a result, it is expected that studies will progress with attention to samples that are difficult to classify.</p>
 <p>The figure below plots the relationship between the predicted probability value of the correct class and the loss at that time,<span class="math notranslate nohighlight">\(\gamma\)</span>It shows how the relative loss will decline when changing the value of.</p>
-<p><img alt="正解予測確率と損失の関係" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/focal_plot.png" /></p>
+<p><img alt="正解予測確率と損失の関係" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/monitoring/focal_plot.png" /></p>
 <p>(Cited from [<a class="reference external" href="https://arxiv.org/abs/1708.02002">Reference 6</a>])</p>
 <p>Let’s actually define the Focal loss function.</p>
 <div class="nbinput nblast docutils container">
@@ -2234,7 +2249,7 @@ accuracy:  0.9553683653443296
 <li><p><strong>High-pass filter</strong> : Only high-frequency components pass (low-frequency components are blocked)</p></li>
 <li><p><strong>Band-pass filter</strong> : Only certain band components pass (low frequency, high frequency components are blocked)</p></li>
 </ul>
-<p><img alt="Classification by frequency characteristic of linear filter" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/monitoring/band_form.png" /></p>
+<p><img alt="Classification by frequency characteristic of linear filter" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/monitoring/band_form.png" /></p>
 <p>(Cited from [<a class="reference external" href="https://en.wikipedia.org/wiki/Filter_%28signal_processing%29">Reference 9</a>])</p>
 <p>In mitdb, the low frequency of 0.1 Hz or less and the high frequency of 100 Hz or more have been removed by the band pass filter beforehand, and here, furthermore, the high frequency noise is removed by the low pass Butterworth filter of 25 Hz.</p>
 <p>Let’s activate the noise elimination option and try preprocessing.</p>

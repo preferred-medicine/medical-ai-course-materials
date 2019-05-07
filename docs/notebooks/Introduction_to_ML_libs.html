@@ -129,7 +129,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscope images of blood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
@@ -450,9 +450,9 @@ or white wine . Simple regression analysis, as the name implies, is a method tha
 <h3>2.1.2. Step 1. Determine the model (single regression analysis)<a class="headerlink" href="#Step-1.-Determine-the-model-(single-regression-analysis)" title="Permalink to this headline">¶</a></h3>
 <p>First, decide the <strong>model</strong> in Step1 . Model is an output variable <span class="math notranslate nohighlight">\(y\)</span> And input variables <span class="math notranslate nohighlight">\(x\)</span> It is a <strong>formulation</strong> of the relationship of . How can we formulate the rent and predict it well? Currently, this model design is generally performed manually, and machines do not automatically determine this (in recent years, research has also progressed to automatically determine models such as AutoML).</p>
 <p>For example, in a given data set, suppose that the relationship between rent and room size is as follows.</p>
-<p><img alt="家賃と部屋の広さの関係" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/01.png" /></p>
+<p><img alt="家賃と部屋の広さの関係" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/01.png" /></p>
 <p>In this case, the larger the room, the higher the rent, and it seems reasonable to use a straight line for prediction.</p>
-<p><img alt="直線式によるモデル化" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/02.png" /></p>
+<p><img alt="直線式によるモデル化" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/02.png" /></p>
 <p>In this case, the straight line is adopted as a model, and the model of Step 1 is formulated as follows.</p>
 <div class="math notranslate nohighlight">
 \[y = wx + b\]</div>
@@ -462,9 +462,9 @@ or white wine . Simple regression analysis, as the name implies, is a method tha
 <p>The data set is <span class="math notranslate nohighlight">\(\mathcal{D} = \{x_n, t_n\}_{n=1}^{N}\)</span> It may also be represented as. Where subscript𝑛 (<span class="math notranslate nohighlight">\(n=1,2,\ldots,N\)</span>) Is <span class="math notranslate nohighlight">\(n\)</span> It means the second property,<span class="math notranslate nohighlight">\(N\)</span> Is the total number of properties. this <span class="math notranslate nohighlight">\(N\)</span> Is called the <strong>number of samples</strong> .</p>
 <p>Here, we will introduce a technique called <strong>data centering</strong> to facilitate the subsequent calculations . As shown in the figure below, the room size and the rent both have positive values, so it looks like the graph on the left. Centering means <strong>averaging</strong> <span class="math notranslate nohighlight">\(\boldsymbol{0}\)</span> It performs conversion processing such as placing it in the center. This centralization is generally performed as preprocessing in many algorithms. Strictly speaking, centralization scaling described in the previous
 chapter is often used.</p>
-<p><img alt="中心化処理" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/03.png" /></p>
+<p><img alt="中心化処理" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/03.png" /></p>
 <p>As one of the reasons for this process, as shown in the figure below, bias is due to centralization of data <span class="math notranslate nohighlight">\(b\)</span>But <span class="math notranslate nohighlight">\(0\)</span> And <span class="math notranslate nohighlight">\(y_{c} = wx_{c}\)</span> It can be mentioned that the model can be expressed without bias components, as this can reduce the parameters to be adjusted.</p>
-<p><img alt="中心化後の直線式" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/04.png" /></p>
+<p><img alt="中心化後の直線式" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/04.png" /></p>
 <p>Centralization of the data is achieved by subtracting the average of the input and output from the whole of the data. In other words,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
@@ -472,7 +472,7 @@ x_{c} &amp;= x - \bar{x} \\
 t_{c} &amp;= t - \bar{t}
 \end{aligned}\end{split}\]</div>
 <p>It becomes. For example, looking at specific numbers, it is as shown in the figure below.</p>
-<p><img alt="中心化前後の数値比較" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/05.png" /></p>
+<p><img alt="中心化前後の数値比較" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/05.png" /></p>
 <p>Indexed to indicate after centering 𝑐Because the expression is redundant with respect to, it is assumed in the future that this subscript is omitted and data centralization is performed in advance. At this time, the model is</p>
 <div class="math notranslate nohighlight">
 \[y = wx\]</div>
@@ -816,11 +816,11 @@ w_{1} + 2w_{2} \\
 &amp;=4w^{2}_{2} + \left(5w_{1} + 2\right) w_{2} + \left( w^{2}_{1} + w_{1} + 1\right) \end{aligned}\end{split}\]</div>
 <p>You can see that it is each quadratic function like.</p>
 <p>And if it is a quadratic function, it looks like the figure below.</p>
-<p><img alt="パラメータと目的関数の関係（2次元）" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/06.png" /></p>
+<p><img alt="パラメータと目的関数の関係（2次元）" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/06.png" /></p>
 <p>If this is imaged in three dimensions, it will become like the following figure.</p>
-<p><img alt="パラメータと目的関数の関係（3次元）" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/08.png" /></p>
+<p><img alt="パラメータと目的関数の関係（3次元）" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/08.png" /></p>
 <p>Then, at the point where the sum of squared errors, which is the objective function, is minimum, the slope when differentiated with each variable is zero.</p>
-<p><img alt="目的関数が最小となる点" src="https://github.com/preferred-medicine/medical-ai-course-materials/raw/master/notebooks/images/2/07.png" /></p>
+<p><img alt="目的関数が最小となる点" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/2/07.png" /></p>
 <p>In this example<span class="math notranslate nohighlight">\(w_{1}\)</span> when <span class="math notranslate nohighlight">\(w_{2}\)</span> I considered in the case of two parameters of <span class="math notranslate nohighlight">\(w_{0}\)</span>, <span class="math notranslate nohighlight">\(w_{1}\)</span>, <span class="math notranslate nohighlight">\(w_{2}\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(w_{M}\)</span> You can think in the same way for</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{cases}
@@ -922,8 +922,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -932,7 +932,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -942,8 +942,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -960,7 +960,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -974,8 +974,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -996,8 +996,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1017,7 +1017,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">XX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1026,8 +1026,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">XX</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">XX</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1046,7 +1046,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">XX_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">XX</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1055,8 +1055,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">XX_inv</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">XX_inv</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1076,7 +1076,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Xt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1085,8 +1085,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1102,7 +1102,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">XX_inv</span><span class="p">,</span> <span class="n">Xt</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1111,8 +1111,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1150,7 +1150,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">sklearn</span>
 </pre></div>
 </div>
@@ -1160,8 +1160,8 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
 </pre></div>
 </div>
 </div>
@@ -1171,7 +1171,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1181,7 +1181,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -1207,7 +1207,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1229,7 +1229,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># パラメータw</span>
 <span class="n">model</span><span class="o">.</span><span class="n">coef_</span>
 </pre></div>
@@ -1247,7 +1247,7 @@ w_{1} + 2w_{2} \\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># バイアスb</span>
 <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
 </pre></div>
@@ -1290,8 +1290,8 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">load_boston</span>
 </pre></div>
 </div>
 </div>
@@ -1299,7 +1299,7 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1309,7 +1309,7 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1319,8 +1319,8 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1342,8 +1342,8 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1396,7 +1396,7 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -1413,7 +1413,7 @@ build a model that predicts the average property price, which is an output varia
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">t</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -1437,8 +1437,8 @@ learning data. This separation and verification is called <strong>holdout method
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
 </pre></div>
 </div>
 </div>
@@ -1446,7 +1446,7 @@ learning data. This separation and verification is called <strong>holdout method
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">t_train</span><span class="p">,</span> <span class="n">t_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1455,7 +1455,7 @@ learning data. This separation and verification is called <strong>holdout method
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -1472,7 +1472,7 @@ learning data. This separation and verification is called <strong>holdout method
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -1492,7 +1492,7 @@ for testing.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1501,7 +1501,7 @@ for testing.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">t_train</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1519,7 +1519,7 @@ for testing.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># 訓練データ</span>
 <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">t_train</span><span class="p">)</span>
 </pre></div>
@@ -1537,7 +1537,7 @@ for testing.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># テストデータ</span>
 <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">t_test</span><span class="p">)</span>
 </pre></div>
@@ -1559,8 +1559,8 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">StandardScaler</span>
 </pre></div>
 </div>
 </div>
@@ -1568,7 +1568,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># インスタンス化</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
 </pre></div>
@@ -1579,7 +1579,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># 平均と分散を計算</span>
 <span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
@@ -1598,7 +1598,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># 変換</span>
 <span class="n">X_train_s</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">X_test_s</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -1611,8 +1611,8 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">X_train_s</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train_s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1640,8 +1640,8 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="n">X_test_s</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_test_s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1672,7 +1672,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
 </div>

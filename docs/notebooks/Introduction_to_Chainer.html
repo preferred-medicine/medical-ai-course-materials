@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#To-guarantee-the-same-result">4.2.4.3. To guarantee the same result</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Defining-network-inherted-from-Chain">4.2.4.4. Defining network inherted from Chain</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Running-on-GPU">4.2.4.5. Running on GPU</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Calulation-of-the-number-of-input-side-units">4.2.4.6. Calulation of the number of input side units</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Calculation-of-the-number-of-input-side-units">4.2.4.6. Calculation of the number of input side units</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#Selection-of-Optimizers">4.2.5. Selection of Optimizers</a><ul>
@@ -162,7 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#Defining-deep-network">4.4.4. Defining deep network</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Defining-the-components">4.4.4.1. Defining the components</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Defining-large-network">4.4.4.2. Defining large network</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#TIPS-for-speeding-up">4.4.4.3. TIPS for speeding up</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Tips-for-speeding-up">4.4.4.3. Tips for speeding up</a></li>
 </ul>
 </li>
 </ul>
@@ -180,7 +180,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscopic images of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Blood_Cell_Detection.html">6. Practice section: Detection of cells from microscope images of blood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
 </ul>
@@ -478,16 +478,16 @@ div.rendered_html tbody tr:hover {
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Introduction_to_Chainer.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <div class="section" id="Introduction-to-Deep-Learning-Framework">
 <h1>4. Introduction to Deep Learning Framework<a class="headerlink" href="#Introduction-to-Deep-Learning-Framework" title="Permalink to this headline">¶</a></h1>
-<p>Chainer is a deep learning framework which uses the methodology called <strong>Define-by-Run</strong> among popular deep learning frameworks for the first time. Preferred Network, Inc. has been developing Chainer since 2015. Define-by-Run is a way to define structure of a neural network by using a code that performs calculations inside the neural network, which has been adopted widely by other popular deep learning frameworks, such as TensorFlow and PyTorch. The other way is to define the neural network
+<p>Chainer is a deep learning framework which uses the methodology called <strong>Define-by-Run</strong> among popular deep learning frameworks for the first time. Preferred Networks, Inc. has been developing Chainer since 2015. Define-by-Run is a way to define structure of a neural network by using a code that performs calculations inside the neural network, which has been adopted widely by other popular deep learning frameworks, such as TensorFlow and PyTorch. The other way is to define the neural network
 structure before the training which requires us to add a code to take data necessary for training as input. Such approach is known as Define-and-Run. Since Define-by-Run enables definition of the neural network structure at run-time, it makes it easy to write a dynamic neural network. Int this section, we will explain the fundamental usage of this framework called Chainer which is characterized by its <strong>flexibility</strong> and <strong>intuitiveness</strong>.</p>
 <div class="section" id="Preparing-Environment">
 <h2>4.1. Preparing Environment<a class="headerlink" href="#Preparing-Environment" title="Permalink to this headline">¶</a></h2>
 <p>Let’s run the following cell on Colab and install the latest version of Chainer. Here we install a software called <code class="docutils literal notranslate"><span class="pre">graphviz</span></code> at the same time, which will later be used to visualize the graph structure of neural network architecture.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
 <span class="o">!</span>apt-get install -y graphviz
 </pre></div>
@@ -500,29 +500,21 @@ structure before the training which requires us to add a code to take data neces
 <div class="highlight"><pre>
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  1580  100  1580    0     0  12440      0 --:--:-- --:--:-- --:--:-- 12440
-+ apt -y -q install cuda-libraries-dev-10-0
-Reading package lists...
-Building dependency tree...
-Reading state information...
-cuda-libraries-dev-10-0 is already the newest version (10.0.130-1).
-0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
-+ pip install -q cupy-cuda100  chainer
-+ set +ex
-Installation succeeded!
-Reading package lists... Done
-Building dependency tree
-Reading state information... Done
-graphviz is already the newest version (2.40.1-2).
-0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+100  1580  100  1580    0     0   6774      0 --:--:-- --:--:-- --:--:--  6752
+sh: line 9: nvidia-smi: command not found
+********************************************************************************
+GPU is not enabled!
+Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware accelerator&#34; to &#34;GPU&#34;.
+********************************************************************************
+/bin/sh: apt-get: command not found
 </pre></div></div>
 </div>
 <p>Now, run the following command in the terminal to check if a package called CuPy, which is necessary to use GPU with Chainer, has been installed correctly.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>python -c <span class="s1">&#39;import chainer; chainer.print_runtime_info()&#39;</span>
 </pre></div>
 </div>
@@ -532,27 +524,28 @@ graphviz is already the newest version (2.40.1-2).
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Platform: Linux-4.14.79+-x86_64-with-Ubuntu-18.04-bionic
-Chainer: 5.0.0
-NumPy: 1.14.6
-CuPy:
-  CuPy Version          : 5.2.0
-  CUDA Root             : /usr/local/cuda
-  CUDA Build Version    : 10000
-  CUDA Driver Version   : 10000
-  CUDA Runtime Version  : 10000
-  cuDNN Build Version   : 7301
-  cuDNN Version         : 7301
-  NCCL Build Version    : 2307
-iDeep: 2.0.0.post3
+/Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages/chainer/_environment_check.py:37: UserWarning: Accelerate has been detected as a NumPy backend library.
+vecLib, which is a part of Accelerate, is known not to work correctly with Chainer.
+We recommend using other BLAS libraries such as OpenBLAS.
+For details of the issue, please see
+https://docs.chainer.org/en/stable/tips.html#mnist-example-does-not-converge-in-cpu-mode-on-mac-os-x.
+
+Please be aware that Mac OS X is not an officially supported OS.
+
+  &#39;&#39;&#39;)  # NOQA
+Platform: Darwin-17.7.0-x86_64-i386-64bit
+Chainer: 5.1.0
+NumPy: 1.15.4
+CuPy: Not Available
+iDeep: Not Available
 </pre></div></div>
 </div>
 <p>There are items such as Chainer, Numpy and CuPy, and also CUDA, cuDNN and NCCL under CuPy. If version numbers are displayed, it is successful. In the following tutorial, we will use matplotlib for visualizing the graph, so let’s install it at the same time.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>pip install matplotlib
 </pre></div>
 </div>
@@ -562,32 +555,38 @@ iDeep: 2.0.0.post3
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Requirement already satisfied: matplotlib in /usr/local/lib/python3.6/dist-packages (3.0.2)
-Requirement already satisfied: numpy&gt;=1.10.0 in /usr/local/lib/python3.6/dist-packages (from matplotlib) (1.14.6)
-Requirement already satisfied: python-dateutil&gt;=2.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib) (2.5.3)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib) (1.0.1)
-Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.6/dist-packages (from matplotlib) (0.10.0)
-Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib) (2.3.1)
-Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.6/dist-packages (from python-dateutil&gt;=2.1-&gt;matplotlib) (1.11.0)
-Requirement already satisfied: setuptools in /usr/local/lib/python3.6/dist-packages (from kiwisolver&gt;=1.0.1-&gt;matplotlib) (40.8.0)
+<span class="ansi-yellow-fg">DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won&#39;t be maintained after that date. A future version of pip will drop support for Python 2.7.</span>
+Requirement already satisfied: matplotlib in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (2.2.3)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (1.0.1)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (0.10.0)
+Requirement already satisfied: subprocess32 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (3.5.3)
+Requirement already satisfied: pytz in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (2018.7)
+Requirement already satisfied: six&gt;=1.10 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (1.11.0)
+Requirement already satisfied: backports.functools-lru-cache in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (1.5)
+Requirement already satisfied: numpy&gt;=1.7.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (1.15.4)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (2.3.0)
+Requirement already satisfied: python-dateutil&gt;=2.1 in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from matplotlib) (2.7.5)
+Requirement already satisfied: setuptools in /Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages (from kiwisolver&gt;=1.0.1-&gt;matplotlib) (40.6.3)
+<span class="ansi-yellow-fg">You are using pip version 19.0.3, however version 19.1 is available.
+You should consider upgrading via the &#39;pip install --upgrade pip&#39; command.</span>
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="Basic-Usage-of-Chainer">
 <h2>4.2. Basic Usage of Chainer<a class="headerlink" href="#Basic-Usage-of-Chainer" title="Permalink to this headline">¶</a></h2>
-<p>First, we will explain the basic usage of Chainer by actually working on simple tasks. Let’s write a network that classifies images into one of 10 classes (0 - 9 of numbers) using the well-known handwritten numerical data set MNIST.</p>
+<p>First, we will explain the basic usage of Chainer by working on simple tasks. Let’s write a network that classifies images into one of 10 classes (0 - 9 of numbers) using the well-known handwritten numerical data set MNIST.</p>
 <div class="section" id="Preparing-Dataset">
 <h3>4.2.1. Preparing Dataset<a class="headerlink" href="#Preparing-Dataset" title="Permalink to this headline">¶</a></h3>
-<p>First we prepare the dataset used for training . In supervised learning, the dataset must be an object that returns a pair of “input data” and “corresponding label data”. Chainer has a convenient method that automatically performs from data downloading to object creation for commonly used data sets such as MNIST and CIFAR 10/100. Let’s use this for the moment.</p>
+<p>First we prepare the dataset used for training . In supervised learning, the dataset must be an object that returns a pair of “input data” and “corresponding label data”. Chainer has a convenient method that automatically performs from data downloading to object creation for commonly used data sets such as MNIST and CIFAR 10/100. Let’s use this method for the moment.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="k">import</span> <span class="n">mnist</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
 
 <span class="c1"># If datasets have not been downloaded yet, dowonload them</span>
-<span class="n">train_val</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">get_mnist</span><span class="p">(</span><span class="n">withlabel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">train_val</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">get_mnist</span><span class="p">(</span><span class="n">withlabel</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -596,28 +595,33 @@ Requirement already satisfied: setuptools in /usr/local/lib/python3.6/dist-packa
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Downloading from http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz...
-Downloading from http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz...
-Downloading from http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz...
-Downloading from http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz...
+/Users/sandeepayyar/Documents/.env/lib/python2.7/site-packages/chainer/_environment_check.py:37: UserWarning: Accelerate has been detected as a NumPy backend library.
+vecLib, which is a part of Accelerate, is known not to work correctly with Chainer.
+We recommend using other BLAS libraries such as OpenBLAS.
+For details of the issue, please see
+https://docs.chainer.org/en/stable/tips.html#mnist-example-does-not-converge-in-cpu-mode-on-mac-os-x.
+
+Please be aware that Mac OS X is not an officially supported OS.
+
+  &#39;&#39;&#39;)  # NOQA
 </pre></div></div>
 </div>
 <p>The data set object is ready. When you specify this object like <code class="docutils literal notranslate"><span class="pre">train_val[i]</span></code>, think of it as a list that returns the i th (data, label) tuple . (In fact, just a Python list is also available as Chainer’s dataset object). Let’s retrieve the 0th data and label and display it.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Configure it so that results using matplotlib will be rendered inside the notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Illustration of data</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">train_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 0番目の (data, label) を取り出す</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">train_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Extract (data, label) from 0&#39;th data point</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;label:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;label:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -633,33 +637,35 @@ Downloading from http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz...
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-label: 5
+(&#39;label:&#39;, 5)
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="Create-a-Dataset-for-Validation">
 <h3>4.2.2. Create a Dataset for Validation<a class="headerlink" href="#Create-a-Dataset-for-Validation" title="Permalink to this headline">¶</a></h3>
-<p>Next, we divide the dataset <code class="docutils literal notranslate"><span class="pre">train_val</span></code> we created earlier into dataset for training and dataset for validation. Validation dataset is a dataset split for verification, not used for training but used for checking the generalization performance of the model, and for adjusting hyper parameters such as learning rate. The split processing can also be performed using functions provided by Chainer for dividing datasets. Let’s split the <code class="docutils literal notranslate"><span class="pre">train</span></code> dataset that originally contains 60000 data into two
-randomly selected 50000 pieces of data and the remaining 10,000 pieces of data. To do this, we use the function named <code class="docutils literal notranslate"><span class="pre">split_dataset_random</span></code>.</p>
+<p>Next, we divide the dataset <code class="docutils literal notranslate"><span class="pre">train_val</span></code> we created earlier into dataset for training and dataset for validation. Validation dataset is a dataset for verification, not used for training but used for checking the generalization performance of the model, and for adjusting hyper parameters such as learning rate. The split processing can also be performed using functions provided by Chainer for dividing datasets. Let’s split the dataset that originally contains 60,000 data points into two randomly
+selected 50,000 data points as <code class="docutils literal notranslate"><span class="pre">train</span></code> and the remaining 10,000 data points as <code class="docutils literal notranslate"><span class="pre">valid</span></code>. To do this, we use the function named <code class="docutils literal notranslate"><span class="pre">split_dataset_random</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="k">import</span> <span class="n">split_dataset_random</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="kn">import</span> <span class="n">split_dataset_random</span>
 
 <span class="n">train</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">split_dataset_random</span><span class="p">(</span><span class="n">train_val</span><span class="p">,</span> <span class="mi">50000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
 <p>The first argument of the function is the target dataset object to be divided, the second argument is the number of elements of the first dataset, and the third argument is a random number seed used for random extraction (this can be omitted). If you specify the same value as the third argument <code class="docutils literal notranslate"><span class="pre">seed</span></code>, the dataset will be split in the same way when re-executed. Let’s check the number of data contained in each dataset.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training dataset size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Validation dataset size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid</span><span class="p">))</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Training dataset size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Validation dataset size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid</span><span class="p">))</span>
+
 </pre></div>
 </div>
 </div>
@@ -668,51 +674,51 @@ randomly selected 50000 pieces of data and the remaining 10,000 pieces of data. 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Training dataset size: 50000
-Validation dataset size: 10000
+(&#39;Training dataset size:&#39;, 50000)
+(&#39;Validation dataset size:&#39;, 10000)
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="Creating-Iterator">
 <h3>4.2.3. Creating Iterator<a class="headerlink" href="#Creating-Iterator" title="Permalink to this headline">¶</a></h3>
-<p>Next, We will introduce the function called Iterator which bundles several data (input and label pairs) from the dataset object prepared earlier and passes it one after another to the training model . The reason why the Iterator function is required is because in the optimization method such as the stochastic gradient descent method (SGD), which is used when updating the parameters of the neural network, is common to calculate based on <strong>mini batches</strong> that bundle some data. (As to the reason
-why mini batch calculations are common, there are gradient mini batches calculating the average stabilizes the parameter update, and it is easy to parallelize using GPU etc.)</p>
-<p><code class="docutils literal notranslate"><span class="pre">Iterator</span></code> specifies the data set object we created earlier as an argument and calls the method <code class="docutils literal notranslate"><span class="pre">next()</span></code> to return a new mini batch. When we finish using all the data in the dataset once for training, we call it <strong>an epoch</strong>. Inside Iterator, information such as how many epochs have been learned during training, etc. are sequentially recorded, which makes it easy to write code that runs the training loop by using data in the dataset many times.</p>
+<p>Next, we will introduce the function called Iterator which bundles several data points(input and label pairs) from the dataset object prepared earlier and passes it one after another to the training model. The Iterator function is required especially during the optimization method, such as stochastic gradient descent method (SGD) which updates the parameters of the neural network, and for calculations using <strong>mini batches</strong> that bundle some data. (Mini batch calculations are common during mini
+batch gradient descent by calculating the average of the gradient to stabilize the parameter updates, and it is easy to parallelize using GPU etc.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Iterator</span></code> specifies the data set object we created earlier as an argument and calls the method <code class="docutils literal notranslate"><span class="pre">next()</span></code> to return a new mini batch. When we finish using all the data in the dataset once for training, we call it <strong>an epoch</strong>. Inside Iterator, information such as how many epochs have been learned during training, etc. are sequentially recorded, which makes it easy to write code that runs the training loop by using data in the dataset several times.</p>
 <p>Here’s how to create an interator from a dataset object.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">iterators</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">iterators</span>
 
 <span class="n">batchsize</span> <span class="o">=</span> <span class="mi">128</span>
 
 <span class="n">train_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
 <span class="n">valid_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span>
-    <span class="n">valid</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">valid</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="n">test_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span>
-    <span class="n">test</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">test</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>We have now created a total of three iterators, <code class="docutils literal notranslate"><span class="pre">train_iter</span></code> for the training data set, <code class="docutils literal notranslate"><span class="pre">valid_iter</span></code> for the validation dataset, and <code class="docutils literal notranslate"><span class="pre">test_iter</span></code> for the test dataset used to evaluate the trained network. Since we set <code class="docutils literal notranslate"><span class="pre">batchsize</span></code> to 128, if the method <code class="docutils literal notranslate"><span class="pre">next()</span></code> is called as <code class="docutils literal notranslate"><span class="pre">train_iter.next()</span></code>, the three iterators created will return <strong>128 numeric image data</strong> in bundle. Let’s examine the actual return value of <code class="docutils literal notranslate"><span class="pre">next()</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">minibatch</span> <span class="o">=</span> <span class="n">train_iter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <p>This <code class="docutils literal notranslate"><span class="pre">minibatch</span></code> variable is a list of 128 tuples of <code class="docutils literal notranslate"><span class="pre">(img,</span> <span class="pre">label)</span></code> (with the size of mini batch). Let’s check if the length of this list is actually 128.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;batchsize:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">minibatch</span><span class="p">))</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;batchsize:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">minibatch</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -721,19 +727,19 @@ why mini batch calculations are common, there are gradient mini batches calculat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-batchsize: 128
+(&#39;batchsize:&#39;, 128)
 </pre></div></div>
 </div>
 <p>Next, let’s read the first element of this list named as <code class="docutils literal notranslate"><span class="pre">minibatch</span></code> (it should be a tuple with images and labels) as <code class="docutils literal notranslate"><span class="pre">minibatch[0]</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">minibatch</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x:&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;x:&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;t:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -742,15 +748,15 @@ batchsize: 128
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-x: (784,)
-t: ()
+(&#39;x:&#39;, (784,))
+(&#39;t:&#39;, ())
 </pre></div></div>
 </div>
-<p>If you examine shapes of the two arrays, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">t</span></code> that are the return values at that time, these are stored as vectors of length 784 respectively, and correct label is being a scalar value. 784 comes from a set of 28×28 pixel values of square image data flattend in a row.</p>
+<p>You can examine shapes of the two arrays, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">t</span></code>, representing the return values at that time. They are stored as vectors of length 784 respectively, and correct label as being a scalar value. 784 comes from a set of 28×28 pixel values of square image data flattend in a row.</p>
 <div class="section" id="About-SerialIterator">
 <h4>4.2.3.1. About SerialIterator<a class="headerlink" href="#About-SerialIterator" title="Permalink to this headline">¶</a></h4>
-<p>One of the iterators that is provided by Chainer is <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code>, the simplest iterator that fetches the data in the dataset in order. It takes dataset object and batch size as an argument of <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code> constructor (method called at the time of instantiating class). At this time, if data needs to be repeatedly read out from the passed dataset object, set <code class="docutils literal notranslate"><span class="pre">repeat</span></code> to t<code class="docutils literal notranslate"><span class="pre">True</span></code>, and if it does not want to retrieve more data after one lap, set it to <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is mainly used
-for datasets for validation. By default, it is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Also, if you pass <code class="docutils literal notranslate"><span class="pre">True</span></code> in an <code class="docutils literal notranslate"><span class="pre">shuffle</span></code> argument, it randomly changes the order of data retrieved from the dataset for each epoch. In addition to <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code>, multiple iterators, such as <code class="docutils literal notranslate"><span class="pre">MultiprocessIterator</span></code> and <code class="docutils literal notranslate"><span class="pre">MultithreadIterator</span></code> that allow data to be processed at high speed with multiple processes, are provided. See the follwing for more details.</p>
+<p>One of the iterators that is provided by Chainer is the <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code>, the simplest iterator that fetches the data in the dataset in order. It takes dataset object and batch size as an argument of <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code> constructor (method called at the time of instantiating class). At this time, if data needs to be repeatedly read out from the passed dataset object, set <code class="docutils literal notranslate"><span class="pre">repeat</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>, and if it does not want to retrieve more data after one lap, set it to <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is mainly used
+for datasets during validation. By default, this option is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Also, if you pass <code class="docutils literal notranslate"><span class="pre">True</span></code> in an <code class="docutils literal notranslate"><span class="pre">shuffle</span></code> argument, it randomly changes the order of data retrieved from the dataset for each epoch. In addition to <code class="docutils literal notranslate"><span class="pre">SerialIterator</span></code>, multiple iterators, such as <code class="docutils literal notranslate"><span class="pre">MultiprocessIterator</span></code> and <code class="docutils literal notranslate"><span class="pre">MultithreadIterator</span></code> that allow data to be processed at high speed with multiple processes, are provided. See the following link for more details.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/iterators.html">Iterators provided by Chainer</a></p></li>
 </ul>
@@ -758,21 +764,21 @@ for datasets for validation. By default, it is set to <code class="docutils lite
 </div>
 <div class="section" id="Defining-Network">
 <h3>4.2.4. Defining Network<a class="headerlink" href="#Defining-Network" title="Permalink to this headline">¶</a></h3>
-<p>Let’s define a network to trained. In this example, we will create a neural network (multilayer perceptron) consisting only fully-connected layers and let the number of units in the hidden layer be 100. Since the MNIST dataset used this time has 10 kinds of labels indicating one of numbers from 0 to 9, the number of output units is 10.</p>
-<p>Here’s a brief description of <code class="docutils literal notranslate"><span class="pre">Link</span></code>, <code class="docutils literal notranslate"><span class="pre">Function</span></code> and <code class="docutils literal notranslate"><span class="pre">Chain</span></code> that are necessary to define a network.</p>
+<p>Let’s define a network to be trained. In this example, we will create a neural network (multilayer perceptron) consisting of fully-connected layers. Let the number of units in the hidden layer be 100. Since the MNIST dataset has 10 types of labels indicating numbers from 0 to 9, the number of output units is 10.</p>
+<p>Here is a brief description of <code class="docutils literal notranslate"><span class="pre">Link</span></code>, <code class="docutils literal notranslate"><span class="pre">Function</span></code> and <code class="docutils literal notranslate"><span class="pre">Chain</span></code> that are necessary to define a neural network.</p>
 <div class="section" id="Link-and-Function">
 <h4>4.2.4.1. Link and Function<a class="headerlink" href="#Link-and-Function" title="Permalink to this headline">¶</a></h4>
 <p>Chainer distinguishes each layer of the neural network into <code class="docutils literal notranslate"><span class="pre">Link</span></code> and <code class="docutils literal notranslate"><span class="pre">Function</span></code>.</p>
 <ul class="simple">
-<li><p>Link is a function which <strong>has parameters</strong>.</p></li>
-<li><p>Function is a function which <strong>does not have parameters</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Link</span></code> is a function which <strong>has parameters</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Function</span></code> is a function which <strong>does not have parameters</strong>.</p></li>
 </ul>
-<p>We will combine these to describe the network. Layers with parameters are sprovidedthe module, <code class="docutils literal notranslate"><span class="pre">chainer.link</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">chainer.links.Linear</span></code> corresponds to the fully-connected layer described in the previous chapter, <code class="docutils literal notranslate"><span class="pre">W</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, that are trainable parameters, are stored inside it. Layers without parameters are provided below the module, <code class="docutils literal notranslate"><span class="pre">chainer.functions</span></code>. We typically import these modules to make it easy to access them like;</p>
+<p>We will combine these to describe the network. Layers with parameters are provided in the module <code class="docutils literal notranslate"><span class="pre">chainer.link</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">chainer.links.Linear</span></code> corresponds to the fully-connected layer described in the previous chapter, <code class="docutils literal notranslate"><span class="pre">W</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, that are trainable parameters, are stored inside it. Layers without parameters are provided in the module, <code class="docutils literal notranslate"><span class="pre">chainer.functions</span></code>. We typically import these modules to make it easy to access them as;</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
 <span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
 </pre></div>
 </div>
-<p>,then access <code class="docutils literal notranslate"><span class="pre">L.Convolution2D(...)</span></code> or <code class="docutils literal notranslate"><span class="pre">F.relu(...)</span></code>, but these are just a convention.</p>
+<p>We can then access <code class="docutils literal notranslate"><span class="pre">L.Convolution2D(...)</span></code> or <code class="docutils literal notranslate"><span class="pre">F.relu(...)</span></code>, just as a convention.</p>
 </div>
 <div class="section" id="Chain">
 <h4>4.2.4.2. Chain<a class="headerlink" href="#Chain" title="Permalink to this headline">¶</a></h4>
@@ -780,13 +786,13 @@ for datasets for validation. By default, it is set to <code class="docutils lite
 </div>
 <div class="section" id="To-guarantee-the-same-result">
 <h4>4.2.4.3. To guarantee the same result<a class="headerlink" href="#To-guarantee-the-same-result" title="Permalink to this headline">¶</a></h4>
-<p>Fixing the random number seed at the beginning of writing the network makes it possible to reproduce almost the same result as this article. (If you want to guarantee more precisely the reproducibility of the calculation results in environments where cuDNN is enabled, you need to know about the Configuring option <code class="docutils literal notranslate"><span class="pre">chainer.config.cudnn_deterministic</span></code>. See this document:
+<p>Fixing the random number seed at the beginning of writing the network makes it possible to reproduce almost the same result as this article. (If you want to more precisely guarantee the reproducibility of the calculation results in environments where cuDNN is enabled, you need to know about the configuring option <code class="docutils literal notranslate"><span class="pre">chainer.config.cudnn_deterministic</span></code>. Please refer this document for more details:
 <a class="reference external" href="https://docs.chainer.org/en/stable/reference/configuration.html?highlight=chainer.config.cudnn_deterministic">chainer.config.cudnn_deterministic</a>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">chainer</span>
@@ -804,24 +810,24 @@ for datasets for validation. By default, it is set to <code class="docutils lite
 </div>
 <div class="section" id="Defining-network-inherted-from-Chain">
 <h4>4.2.4.4. Defining network inherted from Chain<a class="headerlink" href="#Defining-network-inherted-from-Chain" title="Permalink to this headline">¶</a></h4>
-<p>In Chainer, networks are generally defined as classes that inherit <code class="docutils literal notranslate"><span class="pre">Chain</span></code> class. By inheriting <code class="docutils literal notranslate"><span class="pre">Chain</span></code>, the three-layer multilayer perceptron, or MLP, with the number of units in the hiddlen layer = 100 and the number of output units = 10 can be written as follows.</p>
+<p>In Chainer, networks are generally defined as classes that inherit <code class="docutils literal notranslate"><span class="pre">Chain</span></code> class. By inheriting <code class="docutils literal notranslate"><span class="pre">Chain</span></code>, the three-layer multilayer perceptron, or MLP, with number of units in the hiddlen layer = 100 and number of output units = 10 can be written as follows.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
-<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
 
 <span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_mid_units</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_out</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_mid_units</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_out</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">MLP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># Set up layers that have parameters</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">l1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_mid_units</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">l1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_mid_units</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_mid_units</span><span class="p">,</span> <span class="n">n_mid_units</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">l3</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_mid_units</span><span class="p">,</span> <span class="n">n_out</span><span class="p">)</span>
 
@@ -840,42 +846,41 @@ for datasets for validation. By default, it is set to <code class="docutils lite
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">self.init_scope()</span></code> is called in the constructor of the class inherited from <code class="docutils literal notranslate"><span class="pre">MLP</span></code>, and in that the <code class="docutils literal notranslate"><span class="pre">Link</span></code> (more specifically, the fully-connected layer, <code class="docutils literal notranslate"><span class="pre">L.Linear</span></code>) which appears in the network is defined. By describing in this way, <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> automatically interprets that these are layers with parameters to be optimized.</p>
+<p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">self.init_scope()</span></code> is called in the constructor of the class inherited from <code class="docutils literal notranslate"><span class="pre">MLP</span></code>, and in that the <code class="docutils literal notranslate"><span class="pre">Link</span></code> (more specifically, the fully-connected layer, <code class="docutils literal notranslate"><span class="pre">L.Linear</span></code>) which appears in the network is defined. By describing the network in this way, <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> automatically interprets that these are layers with parameters to be optimized.</p>
 <p>Also, as indicated by the name of the function <code class="docutils literal notranslate"><span class="pre">forward</span></code>, it describes the forward propagation of the network. By taking <code class="docutils literal notranslate"><span class="pre">x</span></code> as an argument for <code class="docutils literal notranslate"><span class="pre">forward</span></code>, and returning the result of forward propagation as output, it becomes possible to use an object created by instantiating the <code class="docutils literal notranslate"><span class="pre">MLP</span></code> class like a function. (Example: <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">=</span> <span class="pre">net(data)</span></code>)</p>
-<p>Chainer provides many kinds of <code class="docutils literal notranslate"><span class="pre">Function</span></code> and <code class="docutils literal notranslate"><span class="pre">Link</span></code>. Please take a look at the following links. Chainerには数多くの <code class="docutils literal notranslate"><span class="pre">Function</span></code> や <code class="docutils literal notranslate"><span class="pre">Link</span></code> が用意されています．ぜひ一度以下の一覧のページを見てみてください．</p>
+<p>Chainer provides many kinds of <code class="docutils literal notranslate"><span class="pre">Function</span></code> and <code class="docutils literal notranslate"><span class="pre">Link</span></code>. Please take a look at the following links.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/functions.html">List of functions available in Chainer</a></p></li>
 <li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/links.html">List of layers (Link) available in Chainer</a></p></li>
 </ul>
-<p>In <code class="docutils literal notranslate"><span class="pre">Link</span></code>, Well-known network structures such as ResNet and VGG are provided in addition to fully-connecgted layer, convolution layer, LSTM etc. commonly used for neural networks. In <code class="docutils literal notranslate"><span class="pre">Function</span></code>, functions such as ReLU activation functions, functions to resize the images, functions such as sine and cosine, and functions that can be used as elements of the network are provided. It is necessary to connect and use those provided in <code class="docutils literal notranslate"><span class="pre">chainer.functions</span></code> even for functions with no parameters
-because, in <code class="docutils literal notranslate"><span class="pre">Define-by-Run</span></code>, as it acquires the path that calculates gradient with back propagation, by first performing forward propagation calculation with inputting data to the network, then tracing the history of the function (with and without parameters) that were applied to the data.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">Link</span></code>, Well-known network structures such as ResNet and VGG are provided in addition to fully-connected layer, convolution layer, LSTM etc. commonly used for neural networks. In <code class="docutils literal notranslate"><span class="pre">Function</span></code>, functions such as ReLU activation functions, functions to resize images, functions such as sine and cosine, and functions that can be used as elements of the network are provided. It is necessary to use those provided in <code class="docutils literal notranslate"><span class="pre">chainer.functions</span></code> even for functions with no parameters because, in
+<code class="docutils literal notranslate"><span class="pre">Define-by-Run</span></code>, it acquires the path that calculates gradient with back propagation, by first performing forward propagation calculation with input data to the network, then tracing the history of the functions (with and without parameters) that were applied to the data.</p>
 </div>
 <div class="section" id="Running-on-GPU">
 <h4>4.2.4.5. Running on GPU<a class="headerlink" href="#Running-on-GPU" title="Permalink to this headline">¶</a></h4>
-<p>GPU has been commonly used for training networks with many parameters such as those used in deep learning. By using GPU, some processing such as matrix operation can be done very fast compared with CPU. The way to do calculations with GPU with Chainer is simple. <code class="docutils literal notranslate"><span class="pre">Chain</span></code> class has a <code class="docutils literal notranslate"><span class="pre">to_gpu</span></code> method, and if you specify a GPU ID for this argument, all parameters of the network are transferred to the memory of the specified GPU ID. By doing this, forward propagation and parameter update at
-training etc are all done on the GPU. If -1 is specified as the GPU ID, CPU is used instead.</p>
+<p>GPUs are routinely used for training networks with many parameters in deep learning. By using GPU, processing such as matrix operation can be done very fast compared with CPU. The way to do calculations with GPU with Chainer is simple. <code class="docutils literal notranslate"><span class="pre">Chain</span></code> class has a <code class="docutils literal notranslate"><span class="pre">to_gpu</span></code> method, and if you specify a GPU ID for this argument, all parameters of the network are transferred to the memory of the specified GPU ID. By doing this, forward propagation and parameter update at training etc are all done on the
+GPU. If -1 is specified as the GPU ID, CPU is used instead.</p>
 </div>
-<div class="section" id="Calulation-of-the-number-of-input-side-units">
-<h4>4.2.4.6. Calulation of the number of input side units<a class="headerlink" href="#Calulation-of-the-number-of-input-side-units" title="Permalink to this headline">¶</a></h4>
-<p>In the above network definition, in the first Linear layer, <code class="docutils literal notranslate"><span class="pre">None</span></code> is passed to the first argument. By specifying the arguments like this, the necessary number of units on the input side is automatically determined at the timing when the data is first input to that layer, create a matrix of size of <code class="docutils literal notranslate"><span class="pre">n_input</span></code> <span class="math notranslate nohighlight">\(\times\)</span> <code class="docutils literal notranslate"><span class="pre">n_mid_units</span></code> and hold it as a parameter to be trained. Remember, this will be a useful function, for example, when placing the convolution layer in front of
+<div class="section" id="Calculation-of-the-number-of-input-side-units">
+<h4>4.2.4.6. Calculation of the number of input side units<a class="headerlink" href="#Calculation-of-the-number-of-input-side-units" title="Permalink to this headline">¶</a></h4>
+<p>In the above network definition, in the first Linear layer, <code class="docutils literal notranslate"><span class="pre">None</span></code> is passed to the first argument. By specifying the argument as <code class="docutils literal notranslate"><span class="pre">None</span></code>, the necessary number of units on the input side are automatically determined at the time when the data is first input to that layer, create a matrix of size of <code class="docutils literal notranslate"><span class="pre">n_input</span></code> <span class="math notranslate nohighlight">\(\times\)</span> <code class="docutils literal notranslate"><span class="pre">n_mid_units</span></code> and hold it as a parameter to be trained. Remember, this will be a useful function, for example, when placing the convolution layer in front of
 fully-connected layers later.</p>
 </div>
 </div>
 <div class="section" id="Selection-of-Optimizers">
 <h3>4.2.5. Selection of Optimizers<a class="headerlink" href="#Selection-of-Optimizers" title="Permalink to this headline">¶</a></h3>
-<p>Let’s train the network defined above with the MNIST dataset. Although many methods of optimization used at the time of training have been proposed, Chainer offers them by the function <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> to make many methods avaiable to you with the same interface. <code class="docutils literal notranslate"><span class="pre">chainer.optimizers</span></code> module is defined below. Here is the list:</p>
+<p>Let’s train the network defined above with the MNIST dataset. Many methods of optimization of training have been proposed, Chainer offers them by the function <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> to make them avaiable with the same interface. <code class="docutils literal notranslate"><span class="pre">chainer.optimizers</span></code> module is defined below. Here is the list:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.chainer.org/en/stable/reference/optimizers.html">List of optimizers available in Chainer</a></p></li>
 </ul>
-<p>Here we use the simplest method of gradient descent method, <code class="docutils literal notranslate"><span class="pre">optimizers.SGD</span></code>. We will pass the model (<code class="docutils literal notranslate"><span class="pre">Chain</span></code> object) to the object of <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> using <code class="docutils literal notranslate"><span class="pre">setup</span></code> method. By doing this, you can let <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> know what it should optimize.</p>
-<p>Since you can easilty try out various optimization methods, please try them and see how the result would change. For example, the <code class="docutils literal notranslate"><span class="pre">Optimizers</span></code> listed as <code class="docutils literal notranslate"><span class="pre">chainer.optimizers.SGD</span></code> etc, for instance, by simply replacing <code class="docutils literal notranslate"><span class="pre">SGD</span></code> part with <code class="docutils literal notranslate"><span class="pre">MomentumSGD</span></code>, <code class="docutils literal notranslate"><span class="pre">RMSprop</span></code>, <code class="docutils literal notranslate"><span class="pre">Adamsimply</span></code>, you can check how the learning curve (also known as loss curve - the plots of the value of the objective function) changes by using different optimization techniques. Depending on the optimization method, there are
-things that can automatically determine the appropriate learning rate that people needed to provide.</p>
+<p>Here we use the simplest method of gradient descent method, <code class="docutils literal notranslate"><span class="pre">optimizers.SGD</span></code>. We will pass the model (<code class="docutils literal notranslate"><span class="pre">Chain</span></code> object) to the object of <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> using <code class="docutils literal notranslate"><span class="pre">setup</span></code> method. By doing this, you can let <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code> know what it needs to optimize.</p>
+<p>Please try out various optimization methods and see how the result would change. Within the <code class="docutils literal notranslate"><span class="pre">Optimizers</span></code> listed as <code class="docutils literal notranslate"><span class="pre">chainer.optimizers.SGD</span></code> for instance, you can simply replace <code class="docutils literal notranslate"><span class="pre">SGD</span></code> with <code class="docutils literal notranslate"><span class="pre">MomentumSGD</span></code>, <code class="docutils literal notranslate"><span class="pre">RMSprop</span></code>, <code class="docutils literal notranslate"><span class="pre">Adam</span></code>, or any of the other optimizers and see how the learning curve (also known as loss curve - the plots of the value of the objective function) changes.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">optimizers</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">optimizers</span>
 
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
 </pre></div>
@@ -883,20 +888,20 @@ things that can automatically determine the appropriate learning rate that peopl
 </div>
 <div class="section" id="Learning-Rate">
 <h4>4.2.5.1. Learning Rate<a class="headerlink" href="#Learning-Rate" title="Permalink to this headline">¶</a></h4>
-<p>We passed <span class="math notranslate nohighlight">\(0.01\)</span> to the argument named <code class="docutils literal notranslate"><span class="pre">lr</span></code> in SGD this time. This value is known as learning rate, which is also known as <strong>hyper parameter</strong>, an important parameter that is necessary to adjust in order to train the model well and to yeild the good performance. Unlike parameters to be trained, hyperparameter refers to things related to training settings that people have to give manually, and to structures of networks.</p>
+<p>We passed <span class="math notranslate nohighlight">\(0.01\)</span> to the argument named <code class="docutils literal notranslate"><span class="pre">lr</span></code> in SGD this time. This value is known as the learning rate, also called a <strong>hyper parameter</strong>, an important parameter that is necessary to adjust in order to train the model well for obtaining high performance. Unlike parameters to be trained, hyperparameter refers to things related to training settings that have to be set separately to the structure of networks.</p>
 </div>
 </div>
 <div class="section" id="Start-Training">
 <h3>4.2.6. Start Training<a class="headerlink" href="#Start-Training" title="Permalink to this headline">¶</a></h3>
-<p>Since this time it is a classification problem to distinguish between 0 and 9 numbers, we calculate the loss to be minimized using the loss function, <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code>. With softmax function, when <span class="math notranslate nohighlight">\(d\)</span> dimension of vector <span class="math notranslate nohighlight">\({\bf y} \in \mathbb{R}^d\)</span> is given, you can normalize it so that the sum of the values of the each dimension becomes 1. In other words, we can make output like probability distribution from arbitrary real vector. If you write he <span class="math notranslate nohighlight">\(i\)</span>th dimension of
+<p>Since it is a classification problem to distinguish between 0 to 9 numbers, we calculate the loss to be minimized using the loss function, <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code>. With softmax function, when <span class="math notranslate nohighlight">\(d\)</span> dimension of vector <span class="math notranslate nohighlight">\({\bf y} \in \mathbb{R}^d\)</span> is given, you can normalize it so that the sum of the values of the each dimension becomes 1. In other words, we can make output like probability distribution from arbitrary real vector. If you write the <span class="math notranslate nohighlight">\(i\)</span>th dimension of
 <span class="math notranslate nohighlight">\({\bf y}\)</span> as <span class="math notranslate nohighlight">\(y_i\)</span>, softmax function can be expressed as</p>
 <div class="math notranslate nohighlight">
 \[p_i = \frac{\exp(y_i)}{\sum_{j=1}^d \exp(y_j)}\]</div>
 <p>Thus, we consider that the normalized output vector is representing the probability of the input belonging to each class, and the one calculating the cross entropy described in the previous chapter with the correct 1-hot vector is <code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy</span></code> function.</p>
-<p>First, pass data to the network and calculate the predicted value by forward propagation. Then, pass the predicted value and the correct answer label corresponding to the input data to the loss function to calculate the loss (value to be minimized). The loss is obtained as an object of <code class="docutils literal notranslate"><span class="pre">chainer.Variable</span></code>. This <code class="docutils literal notranslate"><span class="pre">Variable</span></code> <strong>remembers the history of past calculations so that it is traceable</strong>. This mechanism plays a central role in the invention called Define-by-Run <a class="reference external" href="http://learningsys.org/papers/LearningSys_2015_paper_33.pdf">Tokui
+<p>First, pass data to the network and calculate the predicted value by forward propagation. Then, pass the predicted value and the correct/true label corresponding to the input data to the loss function to calculate the loss (value to be minimized). The loss is obtained as an object of <code class="docutils literal notranslate"><span class="pre">chainer.Variable</span></code>. This <code class="docutils literal notranslate"><span class="pre">Variable</span></code> <strong>remembers the history of past calculations so that it is traceable</strong>. This mechanism plays a central role in the concept called Define-by-Run <a class="reference external" href="http://learningsys.org/papers/LearningSys_2015_paper_33.pdf">Tokui
 2015</a>.</p>
-<p>The process of computing the gradient for the calculated loss <strong>backwards in the network</strong> can be realized, in Chainer, by simply calling the <code class="docutils literal notranslate"><span class="pre">backward</span></code> method on <code class="docutils literal notranslate"><span class="pre">Variable</span></code> output by the network. By calling this, it builds <strong>a calculation graph for error back propagation</strong>, and calculates the gradient of the parameter in the middle using the chain rate. (For details , see the tutorial materials in the <a class="reference external" href="https://www.slideshare.net/mitmul/chainer-79942361">Tutorial material from Japan society for Software Science and
-Technology</a> (written in Japanese).)</p>
+<p>The process of computing the gradient for the calculated loss <strong>backwards in the network</strong> can be achieved in chainer, by simply calling the <code class="docutils literal notranslate"><span class="pre">backward</span></code> method on <code class="docutils literal notranslate"><span class="pre">Variable</span></code> output by the network. By calling this, it builds <strong>a calculation graph for error back propagation</strong>, and calculates the gradient of the parameter in the middle using the chain rate. (For details , see the tutorial materials in the <a class="reference external" href="https://www.slideshare.net/mitmul/chainer-79942361">Tutorial material from Japan society for Software Science and
+Technology</a> (written in Japanese))</p>
 <p>Finally, updating (= training) of network parameters is performed by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>, using the gradient for each parameter calculated.</p>
 <p>In summary, the following four items are performed in the series of update processing.</p>
 <ol class="arabic simple">
@@ -919,10 +924,10 @@ Technology</a> (written in Japanese).)</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">chainer.dataset</span> <span class="k">import</span> <span class="n">concat_examples</span>
-<span class="kn">from</span> <span class="nn">chainer.cuda</span> <span class="k">import</span> <span class="n">to_cpu</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">chainer.dataset</span> <span class="kn">import</span> <span class="n">concat_examples</span>
+<span class="kn">from</span> <span class="nn">chainer.cuda</span> <span class="kn">import</span> <span class="n">to_cpu</span>
 
 <span class="n">max_epoch</span> <span class="o">=</span> <span class="mi">10</span>
 
@@ -952,18 +957,18 @@ Technology</a> (written in Japanese).)</p>
     <span class="k">if</span> <span class="n">train_iter</span><span class="o">.</span><span class="n">is_new_epoch</span><span class="p">:</span>  <span class="c1"># when the end of one epoch..</span>
 
         <span class="c1"># Print the loss</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;epoch:</span><span class="si">{:02d}</span><span class="s1"> train_loss:</span><span class="si">{:.4f}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;epoch:{:02d} train_loss:{:.4f} &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">train_iter</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">data</span><span class="p">))),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
         <span class="n">valid_losses</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">valid_accuracies</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="n">valid_batch</span> <span class="o">=</span> <span class="n">valid_iter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
             <span class="n">x_valid</span><span class="p">,</span> <span class="n">t_valid</span> <span class="o">=</span> <span class="n">concat_examples</span><span class="p">(</span><span class="n">valid_batch</span><span class="p">,</span> <span class="n">gpu_id</span><span class="p">)</span>
 
             <span class="c1"># Forward the Validation data</span>
-            <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> \
-                    <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span> \
+                    <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
                 <span class="n">y_valid</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x_valid</span><span class="p">)</span>
 
             <span class="c1"># Loss calculation</span>
@@ -979,18 +984,18 @@ Technology</a> (written in Japanese).)</p>
                 <span class="n">valid_iter</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
                 <span class="k">break</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;val_loss:</span><span class="si">{:.4f}</span><span class="s1"> val_accuracy:</span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;val_loss:{:.4f} val_accuracy:{:.4f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">valid_losses</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">valid_accuracies</span><span class="p">)))</span>
 
 <span class="c1"># Evaluation with test data</span>
 <span class="n">test_accuracies</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
     <span class="n">test_batch</span> <span class="o">=</span> <span class="n">test_iter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
     <span class="n">x_test</span><span class="p">,</span> <span class="n">t_test</span> <span class="o">=</span> <span class="n">concat_examples</span><span class="p">(</span><span class="n">test_batch</span><span class="p">,</span> <span class="n">gpu_id</span><span class="p">)</span>
 
     <span class="c1"># Forward test data</span>
-    <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> \
-            <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span> \
+            <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
         <span class="n">y_test</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
 
     <span class="c1"># Calculate accuracy</span>
@@ -1002,7 +1007,7 @@ Technology</a> (written in Japanese).)</p>
         <span class="n">test_iter</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="k">break</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test_accuracy:</span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_accuracies</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;test_accuracy:{:.4f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_accuracies</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -1057,8 +1062,8 @@ performance against unseen data. After training, we use the test dataset to eval
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">serializers</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">serializers</span>
 
 <span class="n">serializers</span><span class="o">.</span><span class="n">save_npz</span><span class="p">(</span><span class="s1">&#39;my_mnist.model&#39;</span><span class="p">,</span> <span class="n">net</span><span class="p">)</span>
 </pre></div>
@@ -1068,7 +1073,7 @@ performance against unseen data. After training, we use the test dataset to eval
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Check if has been saved</span>
 <span class="o">%</span><span class="k">ls</span> -la my_mnist.model
 </pre></div>
@@ -1090,7 +1095,7 @@ performance against unseen data. After training, we use the test dataset to eval
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># First, create an object of the same network</span>
 <span class="n">infer_net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">()</span>
 
@@ -1149,7 +1154,7 @@ print('Prediction by network:', pred_label[0])<p>Prediction by the network is 7.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">reset_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">train_val</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">get_mnist</span><span class="p">()</span>
@@ -1158,8 +1163,8 @@ print('Prediction by network:', pred_label[0])<p>Prediction by the network is 7.
 <span class="n">batchsize</span> <span class="o">=</span> <span class="mi">128</span>
 
 <span class="n">train_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
-<span class="n">valid_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">test_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">valid_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">test_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
 <span class="n">gpu_id</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># To use CPU, set this variable to -1</span>
 
@@ -1198,8 +1203,8 @@ an <code class="docutils literal notranslate"><span class="pre">Updater</span></
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
 
 <span class="n">gpu_id</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># If you need to use CPU, set this variable to -1</span>
 
@@ -1232,7 +1237,7 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">max_epoch</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="c1"># Pass Updater to Trainer</span>
@@ -1262,8 +1267,8 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">extensions</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">extensions</span>
 
 <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">())</span>
 <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;snapshot_epoch-{.updater.epoch}&#39;</span><span class="p">))</span>
@@ -1335,7 +1340,7 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1364,8 +1369,8 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">Image</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/mnist_result/loss.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1383,7 +1388,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/mnist_result/accuracy.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1402,7 +1407,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>dot -Tpng results/mnist_result/cg.dot -o results/mnist_result/cg.png
 </pre></div>
 </div>
@@ -1411,7 +1416,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/mnist_result/cg.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1433,10 +1438,10 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">test_evaluator</span> <span class="o">=</span> <span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">test_iter</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">test_evaluator</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;main/accuracy&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;main/accuracy&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1457,7 +1462,7 @@ Test accuracy: 0.92494065
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">reset_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">infer_net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">()</span>
@@ -1472,12 +1477,12 @@ Test accuracy: 0.92494065
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">infer_net</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
-<span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">infer_net</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
+<span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">infer_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">to_cpu</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted label:&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Predicted label:&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1551,16 +1556,16 @@ Test accuracy: 0.92494065
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">MyNet</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_out</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_out</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">MyNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fc5</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_out</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -1593,14 +1598,14 @@ Test accuracy: 0.92494065
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="k">import</span> <span class="n">cifar</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="kn">import</span> <span class="n">cifar</span>
 
 
-<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">network_object</span><span class="p">,</span> <span class="n">batchsize</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">gpu_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_epoch</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">train_dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">valid_dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postfix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">base_lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">lr_decay</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">network_object</span><span class="p">,</span> <span class="n">batchsize</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">gpu_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_epoch</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">train_dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">valid_dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">test_dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">postfix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">base_lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">lr_decay</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
     <span class="c1"># 1. Dataset</span>
-    <span class="k">if</span> <span class="n">train_dataset</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">valid_dataset</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">test_dataset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">train_dataset</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">valid_dataset</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">test_dataset</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">train_val</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">cifar</span><span class="o">.</span><span class="n">get_cifar10</span><span class="p">()</span>
         <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_val</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">)</span>
         <span class="n">train</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">split_dataset_random</span><span class="p">(</span><span class="n">train_val</span><span class="p">,</span> <span class="n">train_size</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1609,7 +1614,7 @@ Test accuracy: 0.92494065
 
     <span class="c1"># 2. Iterator</span>
     <span class="n">train_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
-    <span class="n">valid_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">valid_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
     <span class="c1"># 3. Model</span>
     <span class="n">net</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">network_object</span><span class="p">)</span>
@@ -1622,7 +1627,7 @@ Test accuracy: 0.92494065
     <span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span><span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
 
     <span class="c1"># 6. Trainer</span>
-    <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="p">(</span><span class="n">max_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="s1">&#39;results/</span><span class="si">{}</span><span class="s1">_cifar10_</span><span class="si">{}</span><span class="s1">result&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">network_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">postfix</span><span class="p">))</span>
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="p">(</span><span class="n">max_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="s1">&#39;results/{}_cifar10_{}result&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">network_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">postfix</span><span class="p">))</span>
 
     <span class="c1"># 7. Trainer extensions</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">())</span>
@@ -1632,18 +1637,18 @@ Test accuracy: 0.92494065
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">([</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;val/main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;val/main/accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">,</span> <span class="s1">&#39;lr&#39;</span><span class="p">]))</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">([</span><span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;val/main/loss&#39;</span><span class="p">],</span> <span class="n">x_key</span><span class="o">=</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;loss.png&#39;</span><span class="p">))</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">([</span><span class="s1">&#39;main/accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;val/main/accuracy&#39;</span><span class="p">],</span> <span class="n">x_key</span><span class="o">=</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;accuracy.png&#39;</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">lr_decay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">lr_decay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">ExponentialShift</span><span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="n">lr_decay</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">snapshot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">snapshot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">trainer</span><span class="p">)</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="k">del</span> <span class="n">trainer</span>
 
     <span class="c1"># 8. Evaluation</span>
-    <span class="n">test_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">test_iter</span> <span class="o">=</span> <span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">test_evaluator</span> <span class="o">=</span> <span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">test_iter</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">test_evaluator</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;main/accuracy&#39;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;main/accuracy&#39;</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">net</span>
 </pre></div>
@@ -1653,7 +1658,7 @@ Test accuracy: 0.92494065
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">net</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">MyNet</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">gpu_id</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1700,7 +1705,7 @@ Test accuracy: 0.610265
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/MyNet_cifar10_result/loss.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1717,7 +1722,7 @@ Test accuracy: 0.610265
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/MyNet_cifar10_result/accuracy.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1739,7 +1744,7 @@ Test accuracy: 0.610265
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">cls_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;airplane&#39;</span><span class="p">,</span> <span class="s1">&#39;automobile&#39;</span><span class="p">,</span> <span class="s1">&#39;bird&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;deer&#39;</span><span class="p">,</span>
              <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;frog&#39;</span><span class="p">,</span> <span class="s1">&#39;horse&#39;</span><span class="p">,</span> <span class="s1">&#39;ship&#39;</span><span class="p">,</span> <span class="s1">&#39;truck&#39;</span><span class="p">]</span>
 
@@ -1747,13 +1752,13 @@ Test accuracy: 0.610265
     <span class="n">_</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">cifar</span><span class="o">.</span><span class="n">get_cifar10</span><span class="p">()</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">image_id</span><span class="p">]</span>
     <span class="n">net</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">()</span>
-    <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicted_label:&#39;</span><span class="p">,</span> <span class="n">cls_names</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;answer:&#39;</span><span class="p">,</span> <span class="n">cls_names</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;predicted_label:&#39;</span><span class="p">,</span> <span class="n">cls_names</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;answer:&#39;</span><span class="p">,</span> <span class="n">cls_names</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">):</span>
     <span class="n">predict</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
@@ -1853,14 +1858,14 @@ answer: truck
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">ConvBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_ch</span><span class="p">,</span> <span class="n">pool_drop</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_ch</span><span class="p">,</span> <span class="n">pool_drop</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">HeNormal</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ConvBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_ch</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nobias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">initialW</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Convolution2D</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_ch</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nobias</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">initialW</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bn</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">n_ch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pool_drop</span> <span class="o">=</span> <span class="n">pool_drop</span>
 
@@ -1873,11 +1878,11 @@ answer: truck
 
 <span class="k">class</span> <span class="nc">LinearBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">HeNormal</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LinearBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">initialW</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">initialW</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drop</span> <span class="o">=</span> <span class="n">drop</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -1901,22 +1906,22 @@ Dropout and the absolute value of the parameters from becoming too large.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">DeepCNN</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">ChainList</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_output</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_output</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DeepCNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
-            <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="bp">True</span><span class="p">),</span>
             <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span>
-            <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="bp">True</span><span class="p">),</span>
             <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
             <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
             <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
-            <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="n">ConvBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="bp">True</span><span class="p">),</span>
             <span class="n">LinearBlock</span><span class="p">(),</span>
             <span class="n">LinearBlock</span><span class="p">(),</span>
-            <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_output</span><span class="p">)</span>
+            <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_output</span><span class="p">)</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -1930,16 +1935,16 @@ Dropout and the absolute value of the parameters from becoming too large.</p>
 forward calculations can be easily described as above.</p>
 <p>Let’s run the training. Since the number of parameters is large this time, the number of epochs to stop training is set to 100. Also, we set the learning rate to start from 0.1 and to be reduced to 1/10 every 30 epochs.</p>
 </div>
-<div class="section" id="TIPS-for-speeding-up">
-<h4>4.4.4.3. TIPS for speeding up<a class="headerlink" href="#TIPS-for-speeding-up" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="Tips-for-speeding-up">
+<h4>4.4.4.3. Tips for speeding up<a class="headerlink" href="#Tips-for-speeding-up" title="Permalink to this headline">¶</a></h4>
 <p>This time, we will use a large network with many convolution layers, so let’s activate the autotune feature of cuDNN, which is provided by Chainer. The way is simple, just execute the following two lines in advance. When enabled, cuDNN will automatically make runtime adjustments, such as selecting a fast convolution algorithm.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_max_workspace_size</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
-<span class="n">chainer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">autotune</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">chainer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">autotune</span> <span class="o">=</span> <span class="bp">True</span>
 </pre></div>
 </div>
 </div>
@@ -1954,7 +1959,7 @@ forward calculations can be easily described as above.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/DeepCNN_cifar10_snapshot_epoch_90.npz
 
 <span class="n">reset_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -2093,7 +2098,7 @@ Test accuracy: 0.8966574
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/DeepCNN_cifar10_result/loss.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2110,7 +2115,7 @@ Test accuracy: 0.8966574
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/DeepCNN_cifar10_result/accuracy.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2142,10 +2147,10 @@ output, and there would be other various techniques, such as (Ensemble).</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">CIFAR10Augmented</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
         <span class="n">train_val</span><span class="p">,</span> <span class="n">test_data</span> <span class="o">=</span> <span class="n">cifar</span><span class="o">.</span><span class="n">get_cifar10</span><span class="p">()</span>
         <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_ratio</span><span class="p">)</span>
         <span class="n">train_data</span><span class="p">,</span> <span class="n">valid_data</span> <span class="o">=</span> <span class="n">split_dataset_random</span><span class="p">(</span><span class="n">train_val</span><span class="p">,</span> <span class="n">train_size</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -2156,12 +2161,12 @@ output, and there would be other various techniques, such as (Ensemble).</p>
         <span class="k">elif</span> <span class="n">split</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">test_data</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;split&#39; argument should be either &#39;train&#39;, &#39;valid&#39;, or &#39;test&#39;. But </span><span class="si">{}</span><span class="s2"> was given.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">split</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;split&#39; argument should be either &#39;train&#39;, &#39;valid&#39;, or &#39;test&#39;. But {} was given.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">split</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">split</span> <span class="o">=</span> <span class="n">split</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_crop</span> <span class="o">=</span> <span class="mi">4</span>
 
-    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
@@ -2196,7 +2201,7 @@ output, and there would be other various techniques, such as (Ensemble).</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/DeepCNN_cifar10_augmented_snapshot_epoch_90.npz
 
 <span class="n">reset_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -2336,7 +2341,7 @@ Test accuracy: 0.91702926
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/DeepCNN_cifar10_augmented_result/loss.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2353,7 +2358,7 @@ Test accuracy: 0.91702926
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/DeepCNN_cifar10_augmented_result/accuracy.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2376,8 +2381,8 @@ Test accuracy: 0.91702926
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="k">import</span> <span class="n">TransformDataset</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="kn">import</span> <span class="n">TransformDataset</span>
 
 <span class="n">train_val</span><span class="p">,</span> <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">cifar</span><span class="o">.</span><span class="n">get_cifar10</span><span class="p">()</span>
 <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_val</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">)</span>
@@ -2414,7 +2419,7 @@ that plays a role as an auxiliary package of Chainer, with a wealth of specializ
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>pip install chainercv
 </pre></div>
 </div>
@@ -2464,9 +2469,9 @@ Successfully installed chainercv-0.12.0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">chainercv</span> <span class="k">import</span> <span class="n">transforms</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">chainercv</span> <span class="kn">import</span> <span class="n">transforms</span>
 
 <span class="n">train_val</span><span class="p">,</span> <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">cifar</span><span class="o">.</span><span class="n">get_cifar10</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">255.</span><span class="p">)</span>
 <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_val</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">)</span>
@@ -2476,7 +2481,7 @@ Successfully installed chainercv-0.12.0
 <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">train_dataset</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="n">img</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">inputs</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -2485,20 +2490,20 @@ Successfully installed chainercv-0.12.0
         <span class="n">img</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">pca_lighting</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mf">76.5</span><span class="p">)</span>
 
     <span class="c1"># Standardization</span>
-    <span class="n">img</span> <span class="o">-=</span> <span class="n">mean</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">img</span> <span class="o">/=</span> <span class="n">std</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">img</span> <span class="o">-=</span> <span class="n">mean</span><span class="p">[:,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+    <span class="n">img</span> <span class="o">/=</span> <span class="n">std</span><span class="p">[:,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
 
     <span class="c1"># Random flip &amp; crop</span>
     <span class="k">if</span> <span class="n">train</span><span class="p">:</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_flip</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">x_random</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_flip</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">x_random</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_expand</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">max_ratio</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_crop</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">label</span>
 
-<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -2508,7 +2513,7 @@ Successfully installed chainercv-0.12.0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/DeepCNN_cifar10_augmented2_snapshot_epoch_90.npz
 
 <span class="n">reset_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
