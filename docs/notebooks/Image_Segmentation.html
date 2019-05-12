@@ -435,9 +435,9 @@ div.rendered_html tbody tr:hover {
 <h1>5. Practice: Segmentation of MRI<a class="headerlink" href="#Practice:-Segmentation-of-MRI" title="Permalink to this headline">¶</a></h1>
 <p>There are various application technologies of deep learning for images. For example, there are <strong>object detection</strong> that detects by surrounding an individual object in a rectangle around an image, and <strong>image segmentation</strong> that recognizes an area occupied by individual objects in the image .</p>
 <p>Object detection can be said to be a technology to recognize the “type” and “position” of the target object .</p>
-<p><img alt="Object Detection Example" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection. Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
+<p><img alt="Object Detection Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection. Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
 <p>There are two types of image segmentation . One is an Instance - aware Segmentation that distinguishes individual objects. The other is Semantic Segmentation which does not distinguish individuals if they are of the same class. This time we will deal with the latter.</p>
-<p><img alt="Imesage Segmentation Example" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/PSPNet-result.png" /> (Above figure: Semantic Segmentation example, a task of classifying pixels by pixel.It is painting an image with a predetermined number of colors.The figure shows a certain segmentation model learned using the Cityscapes dataset Example of output result.)</p>
+<p><img alt="Imesage Segmentation Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/PSPNet-result.png" /> (Above figure: Semantic Segmentation example, a task of classifying pixels by pixel.It is painting an image with a predetermined number of colors.The figure shows a certain segmentation model learned using the Cityscapes dataset Example of output result.)</p>
 <p>In image segmentation, unlike the classification problem that assigns one class to the whole image dealt with in Chapter 4, we classify all the pixels in the image by pixel. Therefore, it is also called Pixel labeling task. This can be said to be a technology to recognize the “type”, “position” and “shape” of the target object .</p>
 <p>Let’s work on this Semantic Segmentation task with the deep learning framework Chainer this time.</p>
 <div class="section" id="Environment">
@@ -576,7 +576,7 @@ time consists of 234 pairs of images (a pair of gray scale MRI images and corres
 <li><p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> Object creation (management of training loop)</p></li>
 </ol>
 <p>The components included in <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> have the following relationship:</p>
-<p><img alt="relationship between Trainer related components" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/trainer.png" /></p>
+<p><img alt="relationship between Trainer related components" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/FasterRCNN-result.png" /></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Updater</span></code> takes a specified batch size number of data from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, supplies it to<code class="docutils literal notranslate"><span class="pre">Model</span></code>, calculates the value of objective function, and updates parameters by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>. It hides the work (which makes it 1 iteration).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> can use an extension function<code class="docutils literal notranslate"><span class="pre">Extension</span></code>, and you can do automatically such as, log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc.</p></li>
@@ -929,7 +929,7 @@ Dataset size:
 <p>Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of “true positive” (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when the <strong>class imbalance (the number of white and black is very
 different) is occurring, the influence of prediction error on a small class becomes relatively small</strong>.</p>
 <p>On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction of white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here’s a diagram to make it easy to understand.</p>
-<p><img alt="Area to seek with IoU" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/miou.png" /></p>
+<p><img alt="Area to seek with IoU" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/miou.png" /></p>
 <p>In the words of this figure, IoU,</p>
 <div class="math notranslate nohighlight">
 \[IoU = \frac{\rm true\_positive}{{\rm positive} + {\rm true} - {\rm true\_positive}}\]</div>
@@ -1004,8 +1004,8 @@ points.</p>
 <li><p>Since output size becomes <span class="math notranslate nohighlight">\({\rm stride} \times ({\rm input\_size} - 1) + {\rm ksize} - 2 \times {\rm pad}\)</span>, adjust the parameters so that it becomes the target expansion size.</p></li>
 </ul>
 <p>As the meaning of pad is not a bit intuitive in Deconvolution2D, a diagram is provided below that explains the actual operation.</p>
-<p><img alt="Calculation of Deconvolution2D(when pad=0)" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-0.png" /></p>
-<p><img alt="Calculation of Deconvolution2Dの(when pad=1)" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/deconv_pad-1.png" /></p>
+<p><img alt="Calculation of Deconvolution2D(when pad=0)" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/deconv_pad-0.png" /></p>
+<p><img alt="Calculation of Deconvolution2Dの(when pad=1)" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/deconv_pad-1.png" /></p>
 <p>The point to be careful is that the “amount to cut” around the feature map arranged / extended according to ksize and stride becomes pad. The subsequent operation itself is the same as Convolution with stride = 1, pad = 0.</p>
 <p>Here is a very easy-to-understand GIF animation that shows the calculation of Convolution / Deconvolution, so please refer to: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">Convolution arithmetic</a></p>
 </div>
@@ -1370,17 +1370,17 @@ representing the outline of the target object, you would want to make a final pr
 <div class="section" id="SegNet-[8]">
 <h3>5.6.1. SegNet [8]<a class="headerlink" href="#SegNet-[8]" title="Permalink to this headline">¶</a></h3>
 <p>When Max Pooling is applied in each layer, it is a method to keep information of “which pixel is the maximum value (pooling indices)” and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a>.</p>
-<p><img alt="SegNet" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/SegNet.png" /></p>
+<p><img alt="SegNet" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/SegNet.png" /></p>
 </div>
 <div class="section" id="U-Net-[9]">
 <h3>5.6.2. U-Net [9]<a class="headerlink" href="#U-Net-[9]" title="Permalink to this headline">¶</a></h3>
 <p>A structure that utilizes the output feature map of the lower layer by combining it with the input of the upper layer. It is called “U-Net” because its whole shape is like “U” of the alphabet, it is widely used in segmentation task.</p>
-<p><img alt="U-Net" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/U-Net.png" /></p>
+<p><img alt="U-Net" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/U-Net.png" /></p>
 </div>
 <div class="section" id="PSPNet-[10]">
 <h3>5.6.3. PSPNet [10]<a class="headerlink" href="#PSPNet-[10]" title="Permalink to this headline">¶</a></h3>
 <p>5.6.3. PSPNet [10] It is a model that won the ImageNet 2017 Scene Parsing Challenge by exploiting features of different size for each sub-region to take global context into account.</p>
-<p><img alt="PSPNet" src="https://github.com/mitmul/chainer-handson/raw/master/segmentation-handson/PSPNet.png" /></p>
+<p><img alt="PSPNet" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/PSPNet.png" /></p>
 <p>In addition to the above, various methods have been proposed. For instance, the performance can be raised not only by the size of the number of samples between classes but also by using a loss function that takes them into account when there are difficult classes and simple classes.</p>
 <p>Also, we used a data set with training split then evaluating the final performance and validation split only for the sake of simplicity earlier, but we should use test split at the phase of evaluating the final performance after adjusting the hyper parameter using the validation result with validation split.</p>
 <p>[8] Vijay Badrinarayanan, Alex Kendall and Roberto Cipolla “SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation.” PAMI, 2017</p>

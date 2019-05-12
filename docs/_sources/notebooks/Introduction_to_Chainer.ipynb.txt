@@ -903,7 +903,7 @@
     "id": "VPRotZdNMq4V"
    },
    "source": [
-    "Focusing on `val_accuracy`, finally it became possible to classify handwritten numbers with about 92% accuracy. The accuracy referred to here is $M/N$ where $N$ is the number of data in the Validation dataset, and $M$ is the number of correct results. During training, the generalization performance of the model is checked by measuring accuracy at the end of each loop using the Validation dataset prepared earlier. Generalization performance mainly refers to the level of performance against unseen data. After training, we use the test dataset to evaluate the networks for which training has been completed. The evaluation result on the test data is about 92.37% of the correct answer rate."
+    "Focusing on `val_accuracy`, finally it became possible to classify handwritten numbers with about 92% accuracy. The accuracy referred to here is $M/N$ where $N$ is the number of data points in the Validation dataset, and $M$ is the number of correct results. During training, the generalization performance of the model is checked by measuring accuracy at the end of each loop using the Validation dataset prepared earlier. After training, we use the test dataset to evaluate the networks for which training has been completed. The evaluation result on the test data is about 92.37%. "
    ]
   },
   {
@@ -914,10 +914,9 @@
    },
    "source": [
     "#### Note on Validation and Testing\n",
+    "For final evaluation after training, we use another Test dataset that is different from the Validation dataset used for hyper parameter adjustment. Test dataset is prepared so that there is no duplication of data in Training dataset and Validation dataset.\n",
     "\n",
-    "For final evaluation after training, we use another Test dataset that is different from the Validation dataset used for hyper parameter adjustment. Test dataset is prepared so that there is no duplication of data in both Training dataset and Validation dataset.\n",
-    "\n",
-    "Now, so far, we mainly explained the way of \"training\", but there are some points to be careful when doing \"evaluation\". This is because in some functions and calculation processes, the behavior could differ between training and evaluation. The following describes methods to control the differences in their behavior.\n"
+    "Now, so far, we mainly explained the way of \"training\", but there are some points to be careful when doing \"evaluation\". This is because in some functions and calculation processes, the behavior could differ between training and evaluation. The following describes methods to control the differences in their behavior."
    ]
   },
   {
@@ -934,7 +933,7 @@
     "```python\n",
     "with chainer.using_config('train', False):\n",
     "    --- some inference processing ---\n",
-    "```\n"
+    "```"
    ]
   },
   {
@@ -946,7 +945,7 @@
    "source": [
     "##### `chainer.using_config('enable_backprop', False)`\n",
     "\n",
-    "When considering only evaluation, it is not necessary to construct gradient information for each parameter of the loss function after output calculation, so that **useless calculation graph construction is not performed, and memory consumption is saved**. Please read `enable_backprop` section of the following document for more information: [Configuration Keys](https://docs.chainer.org/en/stable/reference/configuration.html#configuration-keys)"
+    "When considering only evaluation, it is not necessary to construct gradient information for each parameter of the loss function after output calculation, so that **unnecessary calculation graph construction is not performed, and memory consumption is saved**. Please read `enable_backprop` section of the following document for more information: [Configuration Keys](https://docs.chainer.org/en/stable/reference/configuration.html#configuration-keys)"
    ]
   },
   {
@@ -970,7 +969,7 @@
    "source": [
     "### Saving Trained Model\n",
     "\n",
-    "After training is complete, we need to save the result. Chainer has a function to save trained networks in files in two formats. One is the HDF5 format, the other is the NumPy NPZ format, which saves the network. Here we use the serialization function (`numpy.savez()`) provided by the NumPy, with which the model is saved in Numpy's standard format, NPZ, instead of HDF5 that requires the installation of additional libraries."
+    "After training is complete, we need to save the result. Chainer has a function to save trained networks in files in two formats. One is the HDF5 format, the other is the NumPy NPZ format, which saves the network. Here we use the serialization function (`numpy.savez()`) provided by the NumPy, with which the model is saved in Numpy's standard format, NPZ, instead of HDF5 that requires the installation of additional libraries.\n"
    ]
   },
   {
@@ -985,7 +984,7 @@
    "source": [
     "from chainer import serializers\n",
     "\n",
-    "serializers.save_npz('my_mnist.model', net)"
+    "serializers.save_npz('my_mnist.model', net)\n"
    ]
   },
   {
@@ -1011,7 +1010,7 @@
    ],
    "source": [
     "# Check if has been saved\n",
-    "%ls -la my_mnist.model"
+    "%ls -la my_mnist.model\n"
    ]
   },
   {
@@ -1023,7 +1022,7 @@
    "source": [
     "### Perform inference after loading the saved model\n",
     "\n",
-    "We will explain how to load model in a file saved after traing. First, re-instantiate the network used for training, and load the NPZ file saved earlier."
+    "We will explain how to load model in a file saved after training. First, re-instantiate the network used for training, and load the NPZ file saved earlier.\n"
    ]
   },
   {
@@ -1040,7 +1039,7 @@
     "infer_net = MLP()\n",
     "\n",
     "# Load parameters, saved in a file, into the object\n",
-    "serializers.load_npz('my_mnist.model', infer_net)"
+    "serializers.load_npz('my_mnist.model', infer_net)\n"
    ]
   },
   {
@@ -1101,7 +1100,7 @@
     "# View the max value of prediction rate\n",
     "pred_label = y.argmax(axis=1)\n",
     "\n",
-    "print('Prediction by network:', pred_label[0])"
+    "print('Prediction by network:', pred_label[0])\n"
    ]
   },
   {
@@ -1135,7 +1134,7 @@
    "source": [
     "### Pareparing Dataset, Iterator and Network\n",
     "\n",
-    "Dataset, iterator and the netrwork need to be prepared when using Trainer as well."
+    "Dataset, iterator and the network need to be prepared when using Trainer as well.\n"
    ]
   },
   {
@@ -1164,7 +1163,8 @@
     "net = MLP()\n",
     "\n",
     "if gpu_id >= 0:\n",
-    "    net.to_gpu(gpu_id)"
+    "    net.to_gpu(gpu_id)\n",
+    "    "
    ]
   },
   {
@@ -1176,7 +1176,7 @@
    "source": [
     "### Preparation of Updater\n",
     "\n",
-    "To recap the training steps for writing the training loop by yourself, a whole steps of \"create mini-batch from data set\", \"input to network and output prediction\", \"compare error with correct answer\", \"running error backward propagation\" and \"update parameters by Optimizer were written as follows.\n",
+    "To recap the training steps for writing the training loop by yourself, the series of steps including \"create mini-batch from data set\", \"input to network and output prediction\", \"compare error with correct answer\", \"running error backward propagation\" and \"update parameters by Optimizer\" were written as follows:\n",
     "\n",
     "\n",
     "```python\n",
@@ -1190,15 +1190,15 @@
     "# Loss calculation\n",
     "loss = F.softmax_cross_entropy(y, t)\n",
     "\n",
-    "# 勾配の計算\n",
+    "# Slope calculation\n",
     "net.cleargrads()\n",
     "loss.backward()\n",
     "\n",
-    "# パラメータの更新\n",
+    "# Parameter update\n",
     "optimizer.update()\n",
     "```\n",
     "\n",
-    "By using the `Updater` provided as a function of Chainer, it is possible to write the series of these processes easily. `Iterator` and `Optimizer` are passed to the `Updater`. Because `Iterator` has a dataset object, we will create a mini-batch from it. Since `Optimizer` has a network to be optimized, it can be used for forward propagation, error calculation and parameter updating. Therefore, by passing these two, all processing will be complete within the `Updater`. Let's create an `Updater` object."
+    "By using the `Updater` provided as a function of Chainer, it is possible to write the series of these processes easily. `Iterator` and `Optimizer` are passed to the `Updater`. Because `Iterator` has a dataset object, we will create a mini-batch from it. Since `Optimizer` has a network to be optimized, it can be used for forward propagation, error calculation and parameter updating. Therefore, by passing these two, all processing will be complete within the `Updater`. Let's create an `Updater` object. "
    ]
   },
   {
@@ -1222,7 +1222,7 @@
     "optimizer = optimizers.SGD(lr=0.01).setup(net)\n",
     "\n",
     "# Pass Iterator and Optimizer to the Updater\n",
-    "updater = training.StandardUpdater(train_iter, optimizer, device=gpu_id)"
+    "updater = training.StandardUpdater(train_iter, optimizer, device=gpu_id)\n"
    ]
   },
   {
@@ -1234,9 +1234,9 @@
    "source": [
     "#### Chain for the loss calculation\n",
     "\n",
-    "Here, we wrap the network with `L.Classifier`. `L.Classifier` has the network passed as `predictoran` attribute and **adds a function to perform loss calculation**. By doing this , `net()` will take not only the data `x` but also the labels `t`, calculate the predicted value by passing the received data to `predictor`, and **return the Variable of loss**  by comparing with the correct label `t`. What is used as a loss function by default is `F.softmax_cross_entropy`, but you can change it by passing the function that performs the loss calculation to lossfunc argument of `L.Classifier`, and (despite the name being `Classfier`) you can use it to add loss calculation functions, such as regression problem. (e.g. you can do: `L.Classifier(net, lossfun=L.mean_squared_error, compute_accuracy=False)`)\n",
+    "Here, we wrap the network with `L.Classifier`. `L.Classifier` has the network passed `predictor` as an attribute and **adds a function to perform loss calculation**. By doing this, `net()` will take not only the data `x` but also the labels `t`, calculate the predicted value by passing the received data to `predictor`, and **return the Variable of loss**  by comparing with the correct label `t`. The loss function used as default is `F.softmax_cross_entropy`, but you can change it by passing the function that performs the loss calculation to lossfunc argument of `L.Classifier`, and (despite the name being `Classfier`) you can use it to add other loss calculation functions, For example: such as for regression problem, one can do: `L.Classifier(net, lossfun=L.mean_squared_error, compute_accuracy=False)`)\n",
     "\n",
-    "`StandardUpdater` is the simplest class to carry out the processing of the above mentioned `Updater`. Besides this, `ParallelUpdateretc` is provided to use multiple GPUs."
+    "`StandardUpdater` is the simplest class to carry out the processing of the above mentioned `Updater`. Besides this, `ParallelUpdater` etc is provided to use multiple GPUs."
    ]
   },
   {
@@ -1248,7 +1248,7 @@
    "source": [
     "### Preparation of Trainer\n",
     "\n",
-    "`Updater` is the one actually hiding the part of training loop. In addition, `Trainer` provides a function that manages the entire traing by receiving the `Updater`. For instance, it provides things that are required as settings for training or various useful features such as, **how many iterations needs to be made before stopping the training (stop_trigger)**, **to which file you want to save snapshot of the loss values**, and **whether to save the image file visualizing the learning curve**. \n",
+    "In addition to `Updater` which is hiding the part of the training loop, `Trainer` provides a function that manages the entire training by receiving the `Updater`. For instance, it provides things that are required as settings for training or various useful features such as, **how many iterations needs to be made before stopping the training (stop_trigger)**, **to which file you want to save snapshot of the loss values**, and **whether to save the image file visualizing the learning curve**. \n",
     "\n",
     "One of the required one is `stop_trigger` that specifies the timing of the end of training. This is specified in the constructor when creating a `Trainer` object. The way to specifying it is simple, it only needs to give a tuple of the form `(length, unit)`. Specify a number for \"Length\" and a string that is either `'iteration'` or `'epoch'` for \"Unit\". With tese, you can achieve, for example, finishing training with 100 epoch (dataset 100 cycles), or with 1000 iteration (updated 1000 times). If you do not specify it, when creating `Training`, training will not stop automatically.\n",
     "\n",
@@ -1269,7 +1269,8 @@
     "\n",
     "# Pass Updater to Trainer\n",
     "trainer = training.Trainer(\n",
-    "    updater, (max_epoch, 'epoch'), out='results/mnist_result')"
+    "    updater, (max_epoch, 'epoch'), out='results/mnist_result')\n",
+    "\n"
    ]
   },
   {
@@ -1596,7 +1597,7 @@
    },
    "outputs": [],
    "source": [
-    "!dot -Tpng results/mnist_result/cg.dot -o results/mnist_result/cg.png"
+    "!dot -Tpng results/mnist_result/cg.dot -o results/mnist_result/cg.png\n"
    ]
   },
   {
@@ -1627,7 +1628,7 @@
     }
    ],
    "source": [
-    "Image(filename='results/mnist_result/cg.png')"
+    "Image(filename='results/mnist_result/cg.png')\n"
    ]
   },
   {
@@ -1676,7 +1677,7 @@
    "source": [
     "test_evaluator = extensions.Evaluator(test_iter, net, device=gpu_id)\n",
     "results = test_evaluator()\n",
-    "print('Test accuracy:', results['main/accuracy'])"
+    "print('Test accuracy:', results['main/accuracy'])\n"
    ]
   },
   {
@@ -3125,7 +3126,7 @@
     "id": "iNQZOwbAMq6S"
    },
    "source": [
-    "Let's traing the model using standardization and `TransformDataset` with PCA Lighting by Chainer CV.\n",
+    "Let's train the model using standardization and `TransformDataset` with PCA Lighting by Chainer CV.\n",
     "\n",
     "As before, using the snapshot that has been trained up to 90 epochs, only the last 10 epochs are trained."
    ]

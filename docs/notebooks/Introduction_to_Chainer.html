@@ -1029,12 +1029,12 @@ epoch:10 train_loss:0.3221 val_loss:0.2804 val_accuracy:0.9204
 test_accuracy:0.9237
 </pre></div></div>
 </div>
-<p>Focusing on <code class="docutils literal notranslate"><span class="pre">val_accuracy</span></code>, finally it became possible to classify handwritten numbers with about 92% accuracy. The accuracy referred to here is <span class="math notranslate nohighlight">\(M/N\)</span> where <span class="math notranslate nohighlight">\(N\)</span> is the number of data in the Validation dataset, and <span class="math notranslate nohighlight">\(M\)</span> is the number of correct results. During training, the generalization performance of the model is checked by measuring accuracy at the end of each loop using the Validation dataset prepared earlier. Generalization performance mainly refers to the level of
-performance against unseen data. After training, we use the test dataset to evaluate the networks for which training has been completed. The evaluation result on the test data is about 92.37% of the correct answer rate.</p>
+<p>Focusing on <code class="docutils literal notranslate"><span class="pre">val_accuracy</span></code>, finally it became possible to classify handwritten numbers with about 92% accuracy. The accuracy referred to here is <span class="math notranslate nohighlight">\(M/N\)</span> where <span class="math notranslate nohighlight">\(N\)</span> is the number of data points in the Validation dataset, and <span class="math notranslate nohighlight">\(M\)</span> is the number of correct results. During training, the generalization performance of the model is checked by measuring accuracy at the end of each loop using the Validation dataset prepared earlier. After training, we use the test dataset to evaluate the
+networks for which training has been completed. The evaluation result on the test data is about 92.37%.</p>
 </div>
 <div class="section" id="Note-on-Validation-and-Testing">
 <h4>4.2.6.3. Note on Validation and Testing<a class="headerlink" href="#Note-on-Validation-and-Testing" title="Permalink to this headline">¶</a></h4>
-<p>For final evaluation after training, we use another Test dataset that is different from the Validation dataset used for hyper parameter adjustment. Test dataset is prepared so that there is no duplication of data in both Training dataset and Validation dataset.</p>
+<p>For final evaluation after training, we use another Test dataset that is different from the Validation dataset used for hyper parameter adjustment. Test dataset is prepared so that there is no duplication of data in Training dataset and Validation dataset.</p>
 <p>Now, so far, we mainly explained the way of “training”, but there are some points to be careful when doing “evaluation”. This is because in some functions and calculation processes, the behavior could differ between training and evaluation. The following describes methods to control the differences in their behavior.</p>
 <div class="section" id="chainer.using_config('train',-False)">
 <h5>4.2.6.3.1. <code class="docutils literal notranslate"><span class="pre">chainer.using_config('train',</span> <span class="pre">False)</span></code><a class="headerlink" href="#chainer.using_config('train',-False)" title="Permalink to this headline">¶</a></h5>
@@ -1047,7 +1047,7 @@ performance against unseen data. After training, we use the test dataset to eval
 </div>
 <div class="section" id="chainer.using_config('enable_backprop',-False)">
 <h5>4.2.6.3.2. <code class="docutils literal notranslate"><span class="pre">chainer.using_config('enable_backprop',</span> <span class="pre">False)</span></code><a class="headerlink" href="#chainer.using_config('enable_backprop',-False)" title="Permalink to this headline">¶</a></h5>
-<p>When considering only evaluation, it is not necessary to construct gradient information for each parameter of the loss function after output calculation, so that <strong>useless calculation graph construction is not performed, and memory consumption is saved</strong>. Please read <code class="docutils literal notranslate"><span class="pre">enable_backprop</span></code> section of the following document for more information: <a class="reference external" href="https://docs.chainer.org/en/stable/reference/configuration.html#configuration-keys">Configuration Keys</a></p>
+<p>When considering only evaluation, it is not necessary to construct gradient information for each parameter of the loss function after output calculation, so that <strong>unnecessary calculation graph construction is not performed, and memory consumption is saved</strong>. Please read <code class="docutils literal notranslate"><span class="pre">enable_backprop</span></code> section of the following document for more information: <a class="reference external" href="https://docs.chainer.org/en/stable/reference/configuration.html#configuration-keys">Configuration Keys</a></p>
 </div>
 <div class="section" id="Chainer’s-Config">
 <h5>4.2.6.3.3. Chainer’s Config<a class="headerlink" href="#Chainer’s-Config" title="Permalink to this headline">¶</a></h5>
@@ -1066,6 +1066,7 @@ performance against unseen data. After training, we use the test dataset to eval
 <span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">serializers</span>
 
 <span class="n">serializers</span><span class="o">.</span><span class="n">save_npz</span><span class="p">(</span><span class="s1">&#39;my_mnist.model&#39;</span><span class="p">,</span> <span class="n">net</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
@@ -1076,6 +1077,7 @@ performance against unseen data. After training, we use the test dataset to eval
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Check if has been saved</span>
 <span class="o">%</span><span class="k">ls</span> -la my_mnist.model
+
 </pre></div>
 </div>
 </div>
@@ -1090,7 +1092,7 @@ performance against unseen data. After training, we use the test dataset to eval
 </div>
 <div class="section" id="Perform-inference-after-loading-the-saved-model">
 <h3>4.2.8. Perform inference after loading the saved model<a class="headerlink" href="#Perform-inference-after-loading-the-saved-model" title="Permalink to this headline">¶</a></h3>
-<p>We will explain how to load model in a file saved after traing. First, re-instantiate the network used for training, and load the NPZ file saved earlier.</p>
+<p>We will explain how to load model in a file saved after training. First, re-instantiate the network used for training, and load the NPZ file saved earlier.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1101,6 +1103,7 @@ performance against unseen data. After training, we use the test dataset to eval
 
 <span class="c1"># Load parameters, saved in a file, into the object</span>
 <span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;my_mnist.model&#39;</span><span class="p">,</span> <span class="n">infer_net</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
@@ -1149,7 +1152,7 @@ print('Prediction by network:', pred_label[0])<p>Prediction by the network is 7.
 <p>Chainer provides a function called <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> to hide the training loop as written so far. By using this, you do not have to write the training loop yourself, and by using the convenient extension function (<code class="docutils literal notranslate"><span class="pre">Extention</span></code>), you can easily visualize the learning curve in the training process and save the log.</p>
 <div class="section" id="Pareparing-Dataset,-Iterator-and-Network">
 <h3>4.3.1. Pareparing Dataset, Iterator and Network<a class="headerlink" href="#Pareparing-Dataset,-Iterator-and-Network" title="Permalink to this headline">¶</a></h3>
-<p>Dataset, iterator and the netrwork need to be prepared when using Trainer as well.</p>
+<p>Dataset, iterator and the network need to be prepared when using Trainer as well.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1178,7 +1181,7 @@ print('Prediction by network:', pred_label[0])<p>Prediction by the network is 7.
 </div>
 <div class="section" id="Preparation-of-Updater">
 <h3>4.3.2. Preparation of Updater<a class="headerlink" href="#Preparation-of-Updater" title="Permalink to this headline">¶</a></h3>
-<p>To recap the training steps for writing the training loop by yourself, a whole steps of “create mini-batch from data set”, “input to network and output prediction”, “compare error with correct answer”, “running error backward propagation” and “update parameters by Optimizer were written as follows.</p>
+<p>To recap the training steps for writing the training loop by yourself, the series of steps including “create mini-batch from data set”, “input to network and output prediction”, “compare error with correct answer”, “running error backward propagation” and “update parameters by Optimizer” were written as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------- 1 iteration of training ----------</span>
 <span class="n">train_batch</span> <span class="o">=</span> <span class="n">train_iter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">concat_examples</span><span class="p">(</span><span class="n">train_batch</span><span class="p">,</span> <span class="n">gpu_id</span><span class="p">)</span>
@@ -1189,11 +1192,11 @@ print('Prediction by network:', pred_label[0])<p>Prediction by the network is 7.
 <span class="c1"># Loss calculation</span>
 <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
-<span class="c1"># 勾配の計算</span>
+<span class="c1"># Slope calculation</span>
 <span class="n">net</span><span class="o">.</span><span class="n">cleargrads</span><span class="p">()</span>
 <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 
-<span class="c1"># パラメータの更新</span>
+<span class="c1"># Parameter update</span>
 <span class="n">optimizer</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1216,19 +1219,20 @@ an <code class="docutils literal notranslate"><span class="pre">Updater</span></
 
 <span class="c1"># Pass Iterator and Optimizer to the Updater</span>
 <span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span><span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
 <div class="section" id="Chain-for-the-loss-calculation">
 <h4>4.3.2.1. Chain for the loss calculation<a class="headerlink" href="#Chain-for-the-loss-calculation" title="Permalink to this headline">¶</a></h4>
-<p>Here, we wrap the network with <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>. <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> has the network passed as <code class="docutils literal notranslate"><span class="pre">predictoran</span></code> attribute and <strong>adds a function to perform loss calculation</strong>. By doing this , <code class="docutils literal notranslate"><span class="pre">net()</span></code> will take not only the data <code class="docutils literal notranslate"><span class="pre">x</span></code> but also the labels <code class="docutils literal notranslate"><span class="pre">t</span></code>, calculate the predicted value by passing the received data to <code class="docutils literal notranslate"><span class="pre">predictor</span></code>, and <strong>return the Variable of loss</strong> by comparing with the correct label <code class="docutils literal notranslate"><span class="pre">t</span></code>. What is used as a loss function by default is <code class="docutils literal notranslate"><span class="pre">F.softmax_cross_entropy</span></code>, but you can
-change it by passing the function that performs the loss calculation to lossfunc argument of <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>, and (despite the name being <code class="docutils literal notranslate"><span class="pre">Classfier</span></code>) you can use it to add loss calculation functions, such as regression problem. (e.g. you can do: <code class="docutils literal notranslate"><span class="pre">L.Classifier(net,</span> <span class="pre">lossfun=L.mean_squared_error,</span> <span class="pre">compute_accuracy=False)</span></code>)</p>
-<p><code class="docutils literal notranslate"><span class="pre">StandardUpdater</span></code> is the simplest class to carry out the processing of the above mentioned <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. Besides this, <code class="docutils literal notranslate"><span class="pre">ParallelUpdateretc</span></code> is provided to use multiple GPUs.</p>
+<p>Here, we wrap the network with <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>. <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> has the network passed <code class="docutils literal notranslate"><span class="pre">predictor</span></code> as an attribute and <strong>adds a function to perform loss calculation</strong>. By doing this, <code class="docutils literal notranslate"><span class="pre">net()</span></code> will take not only the data <code class="docutils literal notranslate"><span class="pre">x</span></code> but also the labels <code class="docutils literal notranslate"><span class="pre">t</span></code>, calculate the predicted value by passing the received data to <code class="docutils literal notranslate"><span class="pre">predictor</span></code>, and <strong>return the Variable of loss</strong> by comparing with the correct label <code class="docutils literal notranslate"><span class="pre">t</span></code>. The loss function used as default is <code class="docutils literal notranslate"><span class="pre">F.softmax_cross_entropy</span></code>, but you can change
+it by passing the function that performs the loss calculation to lossfunc argument of <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>, and (despite the name being <code class="docutils literal notranslate"><span class="pre">Classfier</span></code>) you can use it to add other loss calculation functions, For example: such as for regression problem, one can do: <code class="docutils literal notranslate"><span class="pre">L.Classifier(net,</span> <span class="pre">lossfun=L.mean_squared_error,</span> <span class="pre">compute_accuracy=False)</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">StandardUpdater</span></code> is the simplest class to carry out the processing of the above mentioned <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. Besides this, <code class="docutils literal notranslate"><span class="pre">ParallelUpdater</span></code> etc is provided to use multiple GPUs.</p>
 </div>
 </div>
 <div class="section" id="Preparation-of-Trainer">
 <h3>4.3.3. Preparation of Trainer<a class="headerlink" href="#Preparation-of-Trainer" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Updater</span></code> is the one actually hiding the part of training loop. In addition, <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> provides a function that manages the entire traing by receiving the <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. For instance, it provides things that are required as settings for training or various useful features such as, <strong>how many iterations needs to be made before stopping the training (stop_trigger)</strong>, <strong>to which file you want to save snapshot of the loss values</strong>, and <strong>whether to save the image file visualizing the learning
+<p>In addition to <code class="docutils literal notranslate"><span class="pre">Updater</span></code> which is hiding the part of the training loop, <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> provides a function that manages the entire training by receiving the <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. For instance, it provides things that are required as settings for training or various useful features such as, <strong>how many iterations needs to be made before stopping the training (stop_trigger)</strong>, <strong>to which file you want to save snapshot of the loss values</strong>, and <strong>whether to save the image file visualizing the learning
 curve</strong>.</p>
 <p>One of the required one is <code class="docutils literal notranslate"><span class="pre">stop_trigger</span></code> that specifies the timing of the end of training. This is specified in the constructor when creating a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. The way to specifying it is simple, it only needs to give a tuple of the form <code class="docutils literal notranslate"><span class="pre">(length,</span> <span class="pre">unit)</span></code>. Specify a number for “Length” and a string that is either <code class="docutils literal notranslate"><span class="pre">'iteration'</span></code> or <code class="docutils literal notranslate"><span class="pre">'epoch'</span></code> for “Unit”. With tese, you can achieve, for example, finishing training with 100 epoch (dataset 100 cycles), or with 1000 iteration (updated 1000
 times). If you do not specify it, when creating <code class="docutils literal notranslate"><span class="pre">Training</span></code>, training will not stop automatically.</p>
@@ -1243,6 +1247,8 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <span class="c1"># Pass Updater to Trainer</span>
 <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
     <span class="n">updater</span><span class="p">,</span> <span class="p">(</span><span class="n">max_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="s1">&#39;results/mnist_result&#39;</span><span class="p">)</span>
+
+
 </pre></div>
 </div>
 </div>
@@ -1409,6 +1415,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">!</span>dot -Tpng results/mnist_result/cg.dot -o results/mnist_result/cg.png
+
 </pre></div>
 </div>
 </div>
@@ -1418,6 +1425,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;results/mnist_result/cg.png&#39;</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
@@ -1442,6 +1450,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <span></span><span class="n">test_evaluator</span> <span class="o">=</span> <span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">test_iter</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">test_evaluator</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;main/accuracy&#39;</span><span class="p">])</span>
+
 </pre></div>
 </div>
 </div>
@@ -2507,7 +2516,7 @@ Successfully installed chainercv-0.12.0
 </pre></div>
 </div>
 </div>
-<p>Let’s traing the model using standardization and <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> with PCA Lighting by Chainer CV.</p>
+<p>Let’s train the model using standardization and <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> with PCA Lighting by Chainer CV.</p>
 <p>As before, using the snapshot that has been trained up to 90 epochs, only the last 10 epochs are trained.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
