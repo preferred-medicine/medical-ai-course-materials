@@ -25,7 +25,7 @@
    "source": [
     "## Preparing Environment\n",
     "\n",
-    "Let's run the following cell on Colab and install the latest version of Chainer. Here we install a software called `graphviz` at the same time, which will later be used to visualize the graph structure of neural network architecture."
+    "Let's run the following cell on Colab and install the latest version of Chainer. Here we install a software package called `graphviz` , which we will use later to visualize the graph structure of the neural network architecture."
    ]
   },
   {
@@ -117,7 +117,7 @@
     "id": "8GFokOwXMq3b"
    },
    "source": [
-    "There are items such as Chainer, Numpy and CuPy, and also CUDA, cuDNN and NCCL under CuPy. If version numbers are displayed, it is successful. In the following tutorial, we will use matplotlib for visualizing the graph, so let's install it at the same time."
+    "There are items such as Chainer, Numpy and CuPy, and also CUDA, cuDNN and NCCL under CuPy. If version numbers are displayed, it means that it has been successfully installed. In the following tutorial, we will also install and use matplotlib for visualizing the graph. "
    ]
   },
   {
@@ -167,7 +167,7 @@
    "source": [
     "## Basic Usage of Chainer\n",
     "\n",
-    "First, we will explain the basic usage of Chainer by working on simple tasks. Let's write a network that classifies images into one of 10 classes (0 - 9 of numbers) using the well-known handwritten numerical data set MNIST."
+    "First, we will explain the basic usage of Chainer by working on simple tasks. Let's write a network that classifies images into one of the 10 classes (0 - 9 of numbers) using the well-known handwritten numerical data set MNIST."
    ]
   },
   {
@@ -180,7 +180,7 @@
     "### Preparing Dataset\n",
     "\n",
     "First we prepare the dataset used for training . In supervised learning, the dataset must be an object that returns a pair of \"input data\" and \"corresponding label data\".\n",
-    "Chainer has a convenient method that automatically performs from data downloading to object creation for commonly used data sets such as MNIST and CIFAR 10/100. Let's use this method for the moment."
+    "Chainer has a convenient method that automatically performs data downloading to object creation for commonly used data sets such as MNIST and CIFAR 10/100. "
    ]
   },
   {
@@ -226,7 +226,7 @@
     "id": "k6phOMcvMq3j"
    },
    "source": [
-    "The data set object is ready. When you specify this object like `train_val[i]`, think of it as a list that returns the i th (data, label) tuple . (In fact, just a Python list is also available as Chainer's dataset object). Let's retrieve the 0th data and label and display it."
+    "The data set object is now ready. When you specify this object like `train_val[i]`, think of it as a list that returns the i th (data, label) tuple . (In fact, just a Python list is also available as Chainer's dataset object). Let's retrieve the 0th data and label and display it."
    ]
   },
   {
@@ -284,7 +284,7 @@
    "source": [
     "### Create a Dataset for Validation\n",
     "\n",
-    "Next, we divide the dataset `train_val` we created earlier into dataset for training and dataset for validation. Validation dataset is a dataset for verification, not used for training but used for checking the generalization performance of the model, and for adjusting hyper parameters such as learning rate. The split processing can also be performed using functions provided by Chainer for dividing datasets. Let's split the dataset that originally contains 60,000 data points into two randomly selected 50,000 data points as `train` and the remaining 10,000 data points as `valid`. To do this, we use the function named `split_dataset_random`. \n"
+    "Next, we divide the dataset `train_val` we created earlier into dataset for training and dataset for validation. Validation dataset is a dataset for verification, not used for training but used for checking the generalization performance of the model, and for adjusting hyper parameters such as learning rate. The split processing can also be performed using functions provided by Chainer for spliting datasets. Let's split the dataset that contains 60,000 data points into two randomly selected 50,000 data points as `train` and the remaining 10,000 data points as `valid`. To do this, we use the function named `split_dataset_random`. "
    ]
   },
   {
@@ -298,8 +298,7 @@
    "outputs": [],
    "source": [
     "from chainer.datasets import split_dataset_random\n",
-    "\n",
-    "train, valid = split_dataset_random(train_val, 50000, seed=0)\n"
+    "train, valid = split_dataset_random(train_val, 50000, seed=0)"
    ]
   },
   {
@@ -337,7 +336,7 @@
    ],
    "source": [
     "print('Training dataset size:', len(train))\n",
-    "print('Validation dataset size:', len(valid))\n"
+    "print('Validation dataset size:', len(valid))"
    ]
   },
   {
@@ -349,7 +348,7 @@
    "source": [
     "### Creating Iterator\n",
     "\n",
-    "Next, we will introduce the function called Iterator which bundles several data points(input and label pairs) from the dataset object prepared earlier and passes it one after another to the training model. The Iterator function is required especially during the optimization method, such as stochastic gradient descent method (SGD) which updates the parameters of the neural network, and for calculations using **mini batches** that bundle some data. (Mini batch calculations are common during mini batch gradient descent by calculating the average of the gradient to stabilize the parameter updates, and it is easy to parallelize using GPU etc.)\n",
+    "Next, we will introduce the function called Iterator which bundles several data points (input and label pairs) from the dataset object prepared earlier and passes it one after another to the training model. The Iterator function is required especially during the optimization method, such as stochastic gradient descent method (SGD) which updates the parameters of the neural network, and for calculations using **mini batches** that bundle the data points. (Mini batch calculations are common during mini batch gradient descent by calculating the average of the gradient to stabilize the parameter updates, and it is easy to parallelize using GPU etc.)\n",
     "\n",
     "`Iterator` specifies the data set object we created earlier as an argument and calls the method `next()` to return a new mini batch. When we finish using all the data in the dataset once for training, we call it **an epoch**. Inside Iterator, information such as how many epochs have been learned during training, etc. are sequentially recorded, which makes it easy to write code that runs the training loop by using data in the dataset several times.\n",
     "\n",
@@ -1638,7 +1637,7 @@
     }
    ],
    "source": [
-    "Image(filename='results/mnist_result/cg.png')\n"
+    "Image(filename='results/mnist_result/cg.png')"
    ]
   },
   {

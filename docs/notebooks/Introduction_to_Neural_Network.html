@@ -653,13 +653,13 @@ local optimal solution under appropriate conditions It is known to do.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span>import numpy as np
 
-<span class="c1"># 入力</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+# 入力
+x = np.array([2, 3, 1])
 
-<span class="c1"># 正解</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">])</span>
+# 正解
+t = np.array([20])
 </pre></div>
 </div>
 </div>
@@ -669,13 +669,13 @@ local optimal solution under appropriate conditions It is known to do.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># 1-2層間のパラメータ</span>
-<span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span></span># 1-2層間のパラメータ
+w1 = np.array([[3, 1, 2], [-2, -3, -1]])
+b1 = np.array([0, 0])
 
-<span class="c1"># 2-3層間のパラメータ</span>
-<span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
-<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+# 2-3層間のパラメータ
+w2 = np.array([[3, 2]])
+b2 = np.array([0])
 </pre></div>
 </div>
 </div>
@@ -692,15 +692,15 @@ local optimal solution under appropriate conditions It is known to do.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># 中間層の計算</span>
-<span class="n">u1</span> <span class="o">=</span> <span class="n">w1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>
-<span class="n">h1</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u1</span><span class="p">))</span>
+<span></span># 中間層の計算
+u1 = w1.dot(x) + b1
+h1 = 1. / (1 + np.exp(-u1))
 
-<span class="c1"># 出力の計算</span>
-<span class="n">u2</span> <span class="o">=</span> <span class="n">w2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u2</span><span class="p">))</span>
+# 出力の計算
+u2 = w2.dot(h1) + b2
+y = 1. / (1 + np.exp(-u2))
 
-<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+print(y)
 </pre></div>
 </div>
 </div>
@@ -722,14 +722,14 @@ local optimal solution under appropriate conditions It is known to do.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># dL / dy</span>
-<span class="n">g_Ly</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+<span></span># dL / dy
+g_Ly = -2 / 1 * (t - y)
 
-<span class="c1"># dy / du_2</span>
-<span class="n">g_yu2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+# dy / du_2
+g_yu2 = y * (1 - y)
 
-<span class="c1"># du_2 / dw_2</span>
-<span class="n">g_u2w2</span> <span class="o">=</span> <span class="n">h1</span>
+# du_2 / dw_2
+g_u2w2 = h1
 </pre></div>
 </div>
 </div>
@@ -739,10 +739,10 @@ local optimal solution under appropriate conditions It is known to do.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># dL / dw_2: 求めたい勾配</span>
-<span class="n">g_Lw2</span> <span class="o">=</span> <span class="n">g_Ly</span> <span class="o">*</span> <span class="n">g_yu2</span> <span class="o">*</span> <span class="n">g_u2w2</span>
+<span></span># dL / dw_2: 求めたい勾配
+g_Lw2 = g_Ly * g_yu2 * g_u2w2
 
-<span class="nb">print</span><span class="p">(</span><span class="n">g_Lw2</span><span class="p">)</span>
+print(g_Lw2)
 </pre></div>
 </div>
 </div>
@@ -804,21 +804,21 @@ local optimal solution under appropriate conditions It is known to do.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">g_yu2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">g_u2h1</span> <span class="o">=</span> <span class="n">w2</span>
-<span class="n">g_h1u1</span> <span class="o">=</span> <span class="n">h1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h1</span><span class="p">)</span>
-<span class="n">g_u1w1</span> <span class="o">=</span> <span class="n">x</span>
+<span></span>g_yu2 = y * (1 - y)
+g_u2h1 = w2
+g_h1u1 = h1 * (1 - h1)
+g_u1w1 = x
 
-<span class="c1"># 上から du1 / dw1 の直前までを一旦計算</span>
-<span class="n">g_Lu1</span> <span class="o">=</span> <span class="n">g_Ly</span> <span class="o">*</span> <span class="n">g_yu2</span> <span class="o">*</span> <span class="n">g_u2h1</span> <span class="o">*</span> <span class="n">g_h1u1</span>
+# 上から du1 / dw1 の直前までを一旦計算
+g_Lu1 = g_Ly * g_yu2 * g_u2h1 * g_h1u1
 
-<span class="c1"># g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形</span>
-<span class="n">g_u1w1</span> <span class="o">=</span> <span class="n">g_u1w1</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+# g_u1w1は (3,) というshapeなので，g_u1w1[None]として(1, 3)に変形
+g_u1w1 = g_u1w1[None]
 
-<span class="c1"># dL / dw_1: 求めたい勾配</span>
-<span class="n">g_Lw1</span> <span class="o">=</span> <span class="n">g_Lu1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_u1w1</span><span class="p">)</span>
+# dL / dw_1: 求めたい勾配
+g_Lw1 = g_Lu1.T.dot(g_u1w1)
 
-<span class="nb">print</span><span class="p">(</span><span class="n">g_Lw1</span><span class="p">)</span>
+print(g_Lw1)
 </pre></div>
 </div>
 </div>
