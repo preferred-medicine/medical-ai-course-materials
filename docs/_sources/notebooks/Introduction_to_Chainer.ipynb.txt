@@ -1053,7 +1053,8 @@
    ]
   },
   {
-   "cell_type": "raw",
+   "cell_type": "code",
+   "execution_count": 1,
    "metadata": {
     "colab": {
      "base_uri": "https://localhost:8080/",
@@ -1063,6 +1064,16 @@
     "id": "le0Fo53xMq4f",
     "outputId": "5ff3047e-1e1e-42d3-f0ca-e197a6a2535e"
    },
+   "outputs": [
+    {
+     "ename": "SyntaxError",
+     "evalue": "invalid syntax (<ipython-input-1-93fb5e4741a3>, line 15)",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-1-93fb5e4741a3>\"\u001b[0;36m, line \u001b[0;32m15\u001b[0m\n\u001b[0;31m    print('Original shape:', x.shape, end=' -> ')\u001b[0m\n\u001b[0m                                         ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m invalid syntax\n"
+     ]
+    }
+   ],
    "source": [
     "gpu_id = 0  # If you need to use CPU, set this variable to -1\n",
     "\n",
@@ -1236,7 +1247,7 @@
     "\n",
     "Here, we wrap the network with `L.Classifier`. `L.Classifier` has the network passed `predictor` as an attribute and **adds a function to perform loss calculation**. By doing this, `net()` will take not only the data `x` but also the labels `t`, calculate the predicted value by passing the received data to `predictor`, and **return the Variable of loss**  by comparing with the correct label `t`. The loss function used as default is `F.softmax_cross_entropy`, but you can change it by passing the function that performs the loss calculation to lossfunc argument of `L.Classifier`, and (despite the name being `Classfier`) you can use it to add other loss calculation functions, For example: such as for regression problem, one can do: `L.Classifier(net, lossfun=L.mean_squared_error, compute_accuracy=False)`)\n",
     "\n",
-    "`StandardUpdater` is the simplest class to carry out the processing of the above mentioned `Updater`. Besides this, `ParallelUpdater` etc is provided to use multiple GPUs."
+    "`StandardUpdater` is the simplest class to carry out the processing of the above mentioned `Updater`. Besides this, `ParallelUpdater` is provided to use multiple GPUs."
    ]
   },
   {
@@ -1250,7 +1261,7 @@
     "\n",
     "In addition to `Updater` which is hiding the part of the training loop, `Trainer` provides a function that manages the entire training by receiving the `Updater`. For instance, it provides things that are required as settings for training or various useful features such as, **how many iterations needs to be made before stopping the training (stop_trigger)**, **to which file you want to save snapshot of the loss values**, and **whether to save the image file visualizing the learning curve**. \n",
     "\n",
-    "One of the required one is `stop_trigger` that specifies the timing of the end of training. This is specified in the constructor when creating a `Trainer` object. The way to specifying it is simple, it only needs to give a tuple of the form `(length, unit)`. Specify a number for \"Length\" and a string that is either `'iteration'` or `'epoch'` for \"Unit\". With tese, you can achieve, for example, finishing training with 100 epoch (dataset 100 cycles), or with 1000 iteration (updated 1000 times). If you do not specify it, when creating `Training`, training will not stop automatically.\n",
+    "One of the required features is `stop_trigger` that specifies the timing of the end of training. This is specified in the constructor when creating a `Trainer` object. The way to specify it is simple: It only needs to be given a tuple of the form `(length, unit)`. Specify a number for \"Length\" and a string that is either `'iteration'` or `'epoch'` for \"Unit\". With these, you can achieve, for example, finishing training with 100 epoch (dataset 100 cycles), or with 1000 iterations (updated 1000 times). If you do not specify it, when creating `Training`, training will not stop automatically.\n",
     "\n",
     "Let's actually create a `Training` object."
    ]
@@ -1269,8 +1280,7 @@
     "\n",
     "# Pass Updater to Trainer\n",
     "trainer = training.Trainer(\n",
-    "    updater, (max_epoch, 'epoch'), out='results/mnist_result')\n",
-    "\n"
+    "    updater, (max_epoch, 'epoch'), out='results/mnist_result')"
    ]
   },
   {
@@ -1306,7 +1316,7 @@
     "- Save network structure in Graphviz dot format（`dump_graph`）\n",
     "- Output statistical information such as average and variance of network parameters（`ParameterStatistics`）\n",
     "\n",
-    "These are easily achieved with the `Trainer`. You would ony need to pass `Extention` you want to add, using `extend` method, to `Trainer` object. Let's actually add some."
+    "These are easily achieved with the `Trainer`. You would ony need to pass `Extension` you want to add, using `extend` method, to `Trainer` object. Let's actually add some."
    ]
   },
   {
@@ -1413,7 +1423,7 @@
    "source": [
     "#### `PlotReport`\n",
     "\n",
-    "Draw he transition of the value specified in the argument list using the `matplotlib` library, and save it as an image in the output directory with the file name specified with the `file_name` argument."
+    "Draw the transition of the value specified in the argument list using the `matplotlib` library, and save it as an image in the output directory with the file name specified with the `file_name` argument."
    ]
   },
   {
@@ -1437,7 +1447,7 @@
    "source": [
     "---\n",
     "\n",
-    "The `Extension`, in addition to ones introduced here, has other several options, such as the ability to specify the timing to operate individually by the `trigger`, and the options can remove flexibly be combined. See the official documentation for details.\n",
+    "The `Extension` object, in addition to ones introduced here, has several other options, such as the ability to specify the timing to operate individually by the `trigger`, and the options can be flexibly combined. See the official documentation for details.\n",
     "\n",
     "- [List of Trainer extensions in Chainer](http://docs.chainer.org/en/stable/reference/extensions.html)"
    ]
@@ -1496,9 +1506,9 @@
     "id": "4N-T8yJIMq42"
    },
    "source": [
-    "The same result was achieved far more easily than writing the training loop manually. In addition, visualization of various scores and learning curves are automatically output by using the function of `Extension`.\n",
+    "The same result was achieved far more easily than writing the training loop manually. In addition, visualization of various scores and learning curves are automatically outputed by using the function of `Extension`.\n",
     "\n",
-    "Let's check the samve loss graph."
+    "Let's check the loss graph."
    ]
   },
   {
@@ -1638,7 +1648,7 @@
     "id": "afca_9ZgMq5B"
    },
    "source": [
-    "Data and parameters are passed to the function one after another, and a series of calculation processes until loss is output can be confirmed."
+    "Data and parameters are passed to the function one after another, and a series of calculations are performed until loss as output can be confirmed."
    ]
   },
   {
@@ -1829,7 +1839,7 @@
     "- Initial learning rate\n",
     "- Timing of learning rate decay\n",
     "\n",
-    "After completion of `Trainer.run()`, it will use the test dataset for evaluation. Unlike the example in the previous MNIST, it uses the MomentumSGD as the optimization technique, `Extention` called `ExponentialShift` to attenuate the learning rate for each specified timing.\n",
+    "After completion of `Trainer.run()`, it will use the test dataset for evaluation. Unlike the example in the previous dataset MNIST, it uses the MomentumSGD as the optimization technique, `Extension` called `ExponentialShift` to attenuate the learning rate for each specified timing.\n",
     "\n",
     "Also, in this case, 90% of the training data set returned by `cifar.get_cifar10()` is used for `train`, remaining 10% for `valid`.\n",
     "\n",
@@ -2267,7 +2277,7 @@
     "id": "7PWQmRE4Mq5o"
    },
    "source": [
-    "`ConvBlock` is defined as a small network that inherits from `Chain` and consists of one convolutional layer and Batch Normalization layer. The Batch Normalization layer is one of the widely used methods to stabilize the training process of the network, and is used by inserting it immediately after the convolution layer, as in this example. In the method `forward`, while passing data to these, apply the activation function ReLU, and in addition, if `pool_drop` argument is set to `True`, calculation of ordered propagation such as applying Max Pooling and Dropout is performed. Dropout is one of the methods used to improve the generalization performance by avoiding over-fitting of the network, and training is performed while randomly invalidating at fixed ratio (called dropout ratio) of nodes in the layer. (To disable, `ratio` argument can be used. 50% will be disabled if nothing is specified). For inference, if you set dropout ratio to $p$, layer works as a layer that only multiply input by $p$ and outputs it. This is said to have the effect of averaging training results of multiple networks in an artificial manner (see: [Ensemble averaging](https://en.wikipedia.org/wiki/Ensemble_averaging_(machine_learning))), and generalization performance may be improved. A device to improve the generalization performance by giving some constraints to the model parameters during optimization is called regularization, and weight decay prevents this Dropout and the absolute value of the parameters from becoming too large.\n",
+    "`ConvBlock` is defined as a small network that inherits from `Chain` and consists of one convolutional layer and Batch Normalization layer. The Batch Normalization layer is one of the widely used methods to stabilize the training process of the network, and is used by inserting it immediately after the convolution layer, as in this example. In the method `forward`, while passing data, apply the activation function ReLU, and in addition, if `pool_drop` argument is set to `True`, calculation of ordered propagation such as application of Max Pooling and Dropout is performed. Dropout is one of the methods used to improve the generalization performance by avoiding over-fitting of the network, and training is performed while randomly invalidating at fixed ratio (called dropout ratio) of nodes in the layer. (To disable, `ratio` argument can be used. 50% will be disabled if nothing is specified). For inference, if you set dropout ratio to $p$, layer works as a layer that only multiply input by $p$ and outputs it. This is said to have the effect of averaging training results of multiple networks in an artificial manner (see: [Ensemble averaging](https://en.wikipedia.org/wiki/Ensemble_averaging_(machine_learning))), and generalization performance may be improved. A technique to improve the generalization performance by giving some constraints to the model parameters during optimization is called regularization, and weight decay prevents this Dropout and the absolute value of the parameters from becoming too large.\n",
     "\n",
     "In Chainer, the code for forward calculation written using Python itself represents the structure of the network. That is, the network itself is defined by which layer the data passed at runtime. This property makes it possible to easily describe networks including the above branches, etc., and enables flexible, simple and highly readable network definition. This is a major feature of **Define-by-Run**."
    ]
@@ -2324,7 +2334,7 @@
     "id": "Wywy-_DVMq5s"
    },
    "source": [
-    "Here, the class `ChainList` is used. This class is a class that inherits from `Chain`, is useful when defining a network that calls a number of `Link` and/or `Chain` on after another. A model defined by inheriting from `ChainList` can be passed as an ordinary argument `Link` or an `Chain` object instead of a keyword argument when calling the constructor of the parent class, and can be extracted **in the order registration** by the `self.children()` method. Using this feature, forward calculations can be easily described as above.\n",
+    "Here, the class `ChainList` is used. This class is a class that inherits from `Chain`, is useful when defining a network that calls a number of `Link` and/or `Chain` one after another. A model defined by inheriting from `ChainList` can be passed as an ordinary argument `Link` or a `Chain` object instead of a keyword argument when calling the constructor of the parent class, and can be extracted **in the order registration** by the `self.children()` method. Using this feature, forward calculations can be easily described as above.\n",
     "\n",
     "Let's run the training. Since the number of parameters is large this time, the number of epochs to stop training is set to 100. Also, we set the learning rate to start from 0.1 and to be reduced to 1/10 every 30 epochs."
    ]
@@ -2606,7 +2616,7 @@
     "id": "FJ9K1MtIMq5-"
    },
    "source": [
-    "The accuracy of the Validation data, which was around 60% using the shallow (low number of layers) CNN, increased to around 90%. Also, the accuracy using test data is about 90%. However, the latest research results have achieved more than 97%. In order to further improve the accuracy, it is a matter of course not only to improve the network structure itself as this time but also to artificially increase training data (Data augmentation) and to combine the outputs of multiple models into one output, and there would be other various techniques, such as (Ensemble)."
+    "The accuracy of the Validation data, which was around 60% using the shallow (low number of layers) CNN, increased to around 90%. Also, the accuracy using test data is about 90% (comapared to ~60% previously). The training accuracy  results are also 97% (compared to ~77% previously). In order to further improve the accuracy, one can not only improve the network structure itself but also artificially increase training data (Data augmentation) and/or combine the outputs of multiple models into one output such as (Ensemble)."
    ]
   },
   {
@@ -2620,7 +2630,7 @@
     "\n",
     "Here, let's write the data set class by using the function to acquire CIFAR10 data already provided by Chainer. In Chainer, a class representing a dataset needs to have the following functions.\n",
     "\n",
-    "- `__len__` that returns the number of data in the dataset\n",
+    "- `__len__` that returns the number of data points in the dataset\n",
     "- `get_example` method that returns data or data / label pairs corresponding to `i` passed as an argument.\n",
     "\n",
     "The functions required for other datasets can be prepared by inheriting `chainer.dataset.DatasetMixin` class. Here, let's create a dataset class, by inheriting the class `DatasetMixin`, that has a Data augmentation function which converts the training data during the training to increase the variation of data which are received by the model."
@@ -2638,16 +2648,27 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 0,
+   "execution_count": 2,
    "metadata": {
     "colab": {},
     "colab_type": "code",
     "id": "csErjCCTMq6C"
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'chainer' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-2-2250fe68d370>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mclass\u001b[0m \u001b[0mCIFAR10Augmented\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mchainer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdataset\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mDatasetMixin\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0m__init__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msplit\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m'train'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtrain_ratio\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m0.9\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m         \u001b[0mtrain_val\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtest_data\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mcifar\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_cifar10\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m         \u001b[0mtrain_size\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtrain_val\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0mtrain_ratio\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'chainer' is not defined"
+     ]
+    }
+   ],
    "source": [
     "class CIFAR10Augmented(chainer.dataset.DatasetMixin):\n",
-    "\n",
     "    def __init__(self, split='train', train_ratio=0.9):\n",
     "        train_val, test_data = cifar.get_cifar10()\n",
     "        train_size = int(len(train_val) * train_ratio)\n",
@@ -2695,7 +2716,7 @@
     "- Crop 28x28 area randomly from 32x32 size\n",
     "- Flip the image horizontally at a probability of 1/2\n",
     "\n",
-    "It is known that adding such operations and artificially increasing the variation of training data contributes to the reduction of overfitting. Besides these operations, various ideas have been proposed to artificially increase the number of training data by various processes such as conversion that changes the color of an image, random rotation, and affine conversion."
+    "It is known that adding such operations and artificially increasing the variation of training data contributes to the reduction of overfitting. Besides these operations, various ideas have been proposed to artificially increase the number of training data such as conversion that changes the color of an image, random rotation, and affine conversion."
    ]
   },
   {
@@ -2941,7 +2962,7 @@
    "source": [
     "## Simple way to use Data Augmentation\n",
     "\n",
-    "An operation that performs various transformations on each image in a dataset as described above to artificially increase data is called Data Augmentation. In the above, we implemented an implementation in which transformation operations are also written inside `get_example()` in order to show how to create the original dataset class, but there is actually a way to perform various transformations on data more easily.\n",
+    "An operation that performs various transformations on each image in a dataset as described above to artificially increase the number of data points is called Data Augmentation. In the above section, we implemented transformation operations  written inside `get_example()` in order to show how to create the original dataset class, but there is actually a way to perform various transformations on data more easily.\n",
     "\n",
     "That is to use `TransformDataset` class. `TransformDataset` is a useful class that takes a source dataset object and a function that does what you want to perform on each data point sampled from the source dataset, and returns transformed data. A simple usage is shown below."
    ]
@@ -3002,7 +3023,7 @@
    "source": [
     "### Conversion Processing utilizing ChainerCV\n",
     "\n",
-    "Now, in the code I introduced earlier, I implemented the process of random cropping and random flipping on the image. If you want to do more various transformations, you will add processing to the above `transform` function, but it is time-consuming to implement commonly used transformation processing each time. In this section, I will introduce [Chainer CV](http://chainercv.readthedocs.io/en/stable) [[Niitani 2017](https://arxiv.org/abs/1708.08169)]. ChainerCV is an open source software that plays a role as an auxiliary package of Chainer, with a wealth of specialized functions in Computer Vision."
+    "Now, in the code introduced earlier, we implemented the process of random cropping and random flipping on the image. In order to carry out more transformations, we can add processing to the above `transform` function, but it is time-consuming to implement commonly used transformation processing each time. In this section, we will introduce [Chainer CV](http://chainercv.readthedocs.io/en/stable) [[Niitani 2017](https://arxiv.org/abs/1708.08169)]. ChainerCV is an open source software that plays a role as an auxiliary package of Chainer, with a wealth of specialized functions in Computer Vision."
    ]
   },
   {
@@ -3064,10 +3085,10 @@
     "x = chainercv.transforms.random_flip(x)  # Random flip\n",
     "```\n",
     "\n",
-    "Lets update `transform` function using `chainercv.transforms`. By the way, in the dataset obtained by `get_cifar10()`, the range of pixel values of the image is scaled to `[0, 1]` by default. you keep the same range as `[0, 255]` by passing `scale=255.` to `get_cifar10()`. The following five processes are performed here: \n",
+    "Lets update `transform` function using `chainercv.transforms`. By the way, in the dataset obtained by `get_cifar10()`, the range of pixel values of the image is scaled to `[0, 1]` by default. We can keep the same range as `[0, 255]` by passing `scale=255.` to `get_cifar10()`. The following five processes are performed here: \n",
     "\n",
     "1. PCA lighting: Performs conversion processing to change colors in the method used for training in the previous research (AlexNet).\n",
-    "2. Standardization: Standardizes the mean and standard deviation of pixel values ​​per channel from the entire training data set\n",
+    "2. Standardization: Standardizes the mean and standard deviation of pixel values per channel from the entire training data set\n",
     "3. Random flip: Randomly flip image horizontally\n",
     "4. Random expand: Create a black canvas of a randomly determined size from `[1, 1.5]` and place the image at a random location within it\n",
     "5. Random crop: Randomuly crop the area with the size of `(28, 28)`"
@@ -3284,10 +3305,9 @@
     "id": "HsuPDoGsMq6V"
    },
    "source": [
-    "Slightly improved accuracy. There are several other improvement methods that can be easily tested, such as training using a well-known network structure called ResNet [He 2016]. Please try it in various ways.\n",
+    "We observe slightly improved accuracy. There are several other improvement methods that can be easily tested, such as training using a well-known network structure called ResNet [He 2016].\n",
     "\n",
-    "---\n",
-    "\n"
+    "---"
    ]
   },
   {

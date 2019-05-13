@@ -1108,43 +1108,65 @@ networks for which training has been completed. The evaluation result on the tes
 </div>
 </div>
 <p>Now we are ready. Let’s take the first image out of the test data and try to classify it.</p>
-gpu_id = 0  # If you need to use CPU, set this variable to -1
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">gpu_id</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># If you need to use CPU, set this variable to -1</span>
 
-if gpu_id >= 0:
-    infer_net.to_gpu(gpu_id)
+<span class="k">if</span> <span class="n">gpu_id</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">infer_net</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">gpu_id</span><span class="p">)</span>
 
-# Pick the first test data
-x, t = test[0]  #  t not used
+<span class="c1"># Pick the first test data</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">#  t not used</span>
 
-# Show the image just to see how it looks like
-plt.imshow(x.reshape(28, 28), cmap='gray')
-plt.show()
+<span class="c1"># Show the image just to see how it looks like</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-# Conver to mini-batch form. (If you'd like to bunle multiple images for
-# inference, bundle them into a mini-batch of size n)
-print('Original shape:', x.shape, end=' -> ')
+<span class="c1"># Conver to mini-batch form. (If you&#39;d like to bunle multiple images for</span>
+<span class="c1"># inference, bundle them into a mini-batch of size n)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Original shape:&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; -&gt; &#39;</span><span class="p">)</span>
 
-x = x[None, ...]
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 
-print('After coverted to mini-batch shape：', x.shape)
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;After coverted to mini-batch shape：&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-# Send data to the same device as the as the network
-x = infer_net.xp.asarray(x)
+<span class="c1"># Send data to the same device as the as the network</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">infer_net</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-# Pass to the model's forward function
-with chainer.using_config('train', False), chainer.using_config('enable_backprop', False):
-    y = infer_net(x)
+<span class="c1"># Pass to the model&#39;s forward function</span>
+<span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;enable_backprop&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">infer_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-# As it is in Variable form, take out the content
-y = y.array
+<span class="c1"># As it is in Variable form, take out the content</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">array</span>
 
-# Pass the result to CPU
-y = to_cpu(y)
+<span class="c1"># Pass the result to CPU</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">to_cpu</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
-# View the max value of prediction rate
-pred_label = y.argmax(axis=1)
+<span class="c1"># View the max value of prediction rate</span>
+<span class="n">pred_label</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-print('Prediction by network:', pred_label[0])<p>Prediction by the network is 7. As you can see with the image, it is predicted correctly.</p>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Prediction by network:&#39;</span><span class="p">,</span> <span class="n">pred_label</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-1-93fb5e4741a3&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">15</span>
+<span class="ansi-red-fg">    print(&#39;Original shape:&#39;, x.shape, end=&#39; -&gt; &#39;)</span>
+                                         ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+
+</pre></div></div>
+</div>
+<p>Prediction by the network is 7. As you can see with the image, it is predicted correctly.</p>
 </div>
 </div>
 <div class="section" id="How-to-use-Trainer">
@@ -1227,15 +1249,15 @@ an <code class="docutils literal notranslate"><span class="pre">Updater</span></
 <h4>4.3.2.1. Chain for the loss calculation<a class="headerlink" href="#Chain-for-the-loss-calculation" title="Permalink to this headline">¶</a></h4>
 <p>Here, we wrap the network with <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>. <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> has the network passed <code class="docutils literal notranslate"><span class="pre">predictor</span></code> as an attribute and <strong>adds a function to perform loss calculation</strong>. By doing this, <code class="docutils literal notranslate"><span class="pre">net()</span></code> will take not only the data <code class="docutils literal notranslate"><span class="pre">x</span></code> but also the labels <code class="docutils literal notranslate"><span class="pre">t</span></code>, calculate the predicted value by passing the received data to <code class="docutils literal notranslate"><span class="pre">predictor</span></code>, and <strong>return the Variable of loss</strong> by comparing with the correct label <code class="docutils literal notranslate"><span class="pre">t</span></code>. The loss function used as default is <code class="docutils literal notranslate"><span class="pre">F.softmax_cross_entropy</span></code>, but you can change
 it by passing the function that performs the loss calculation to lossfunc argument of <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code>, and (despite the name being <code class="docutils literal notranslate"><span class="pre">Classfier</span></code>) you can use it to add other loss calculation functions, For example: such as for regression problem, one can do: <code class="docutils literal notranslate"><span class="pre">L.Classifier(net,</span> <span class="pre">lossfun=L.mean_squared_error,</span> <span class="pre">compute_accuracy=False)</span></code>)</p>
-<p><code class="docutils literal notranslate"><span class="pre">StandardUpdater</span></code> is the simplest class to carry out the processing of the above mentioned <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. Besides this, <code class="docutils literal notranslate"><span class="pre">ParallelUpdater</span></code> etc is provided to use multiple GPUs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">StandardUpdater</span></code> is the simplest class to carry out the processing of the above mentioned <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. Besides this, <code class="docutils literal notranslate"><span class="pre">ParallelUpdater</span></code> is provided to use multiple GPUs.</p>
 </div>
 </div>
 <div class="section" id="Preparation-of-Trainer">
 <h3>4.3.3. Preparation of Trainer<a class="headerlink" href="#Preparation-of-Trainer" title="Permalink to this headline">¶</a></h3>
 <p>In addition to <code class="docutils literal notranslate"><span class="pre">Updater</span></code> which is hiding the part of the training loop, <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> provides a function that manages the entire training by receiving the <code class="docutils literal notranslate"><span class="pre">Updater</span></code>. For instance, it provides things that are required as settings for training or various useful features such as, <strong>how many iterations needs to be made before stopping the training (stop_trigger)</strong>, <strong>to which file you want to save snapshot of the loss values</strong>, and <strong>whether to save the image file visualizing the learning
 curve</strong>.</p>
-<p>One of the required one is <code class="docutils literal notranslate"><span class="pre">stop_trigger</span></code> that specifies the timing of the end of training. This is specified in the constructor when creating a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. The way to specifying it is simple, it only needs to give a tuple of the form <code class="docutils literal notranslate"><span class="pre">(length,</span> <span class="pre">unit)</span></code>. Specify a number for “Length” and a string that is either <code class="docutils literal notranslate"><span class="pre">'iteration'</span></code> or <code class="docutils literal notranslate"><span class="pre">'epoch'</span></code> for “Unit”. With tese, you can achieve, for example, finishing training with 100 epoch (dataset 100 cycles), or with 1000 iteration (updated 1000
-times). If you do not specify it, when creating <code class="docutils literal notranslate"><span class="pre">Training</span></code>, training will not stop automatically.</p>
+<p>One of the required features is <code class="docutils literal notranslate"><span class="pre">stop_trigger</span></code> that specifies the timing of the end of training. This is specified in the constructor when creating a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. The way to specify it is simple: It only needs to be given a tuple of the form <code class="docutils literal notranslate"><span class="pre">(length,</span> <span class="pre">unit)</span></code>. Specify a number for “Length” and a string that is either <code class="docutils literal notranslate"><span class="pre">'iteration'</span></code> or <code class="docutils literal notranslate"><span class="pre">'epoch'</span></code> for “Unit”. With these, you can achieve, for example, finishing training with 100 epoch (dataset 100 cycles), or with 1000 iterations
+(updated 1000 times). If you do not specify it, when creating <code class="docutils literal notranslate"><span class="pre">Training</span></code>, training will not stop automatically.</p>
 <p>Let’s actually create a <code class="docutils literal notranslate"><span class="pre">Training</span></code> object.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -1247,8 +1269,6 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <span class="c1"># Pass Updater to Trainer</span>
 <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
     <span class="n">updater</span><span class="p">,</span> <span class="p">(</span><span class="n">max_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="s1">&#39;results/mnist_result&#39;</span><span class="p">)</span>
-
-
 </pre></div>
 </div>
 </div>
@@ -1268,7 +1288,7 @@ times). If you do not specify it, when creating <code class="docutils literal no
 <li><p>Save network structure in Graphviz dot format（<code class="docutils literal notranslate"><span class="pre">dump_graph</span></code>）</p></li>
 <li><p>Output statistical information such as average and variance of network parameters（<code class="docutils literal notranslate"><span class="pre">ParameterStatistics</span></code>）</p></li>
 </ul>
-<p>These are easily achieved with the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. You would ony need to pass <code class="docutils literal notranslate"><span class="pre">Extention</span></code> you want to add, using <code class="docutils literal notranslate"><span class="pre">extend</span></code> method, to <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. Let’s actually add some.</p>
+<p>These are easily achieved with the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. You would ony need to pass <code class="docutils literal notranslate"><span class="pre">Extension</span></code> you want to add, using <code class="docutils literal notranslate"><span class="pre">extend</span></code> method, to <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object. Let’s actually add some.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -1327,13 +1347,13 @@ times). If you do not specify it, when creating <code class="docutils literal no
 </div>
 <div class="section" id="PlotReport">
 <h4>4.3.4.6. <code class="docutils literal notranslate"><span class="pre">PlotReport</span></code><a class="headerlink" href="#PlotReport" title="Permalink to this headline">¶</a></h4>
-<p>Draw he transition of the value specified in the argument list using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library, and save it as an image in the output directory with the file name specified with the <code class="docutils literal notranslate"><span class="pre">file_name</span></code> argument.</p>
+<p>Draw the transition of the value specified in the argument list using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library, and save it as an image in the output directory with the file name specified with the <code class="docutils literal notranslate"><span class="pre">file_name</span></code> argument.</p>
 </div>
 <div class="section" id="ParameterStatistics">
 <h4>4.3.4.7. <code class="docutils literal notranslate"><span class="pre">ParameterStatistics</span></code><a class="headerlink" href="#ParameterStatistics" title="Permalink to this headline">¶</a></h4>
 <p>Calculates statistical information such as the average, variance, minimum value, maximum value, etc. of the parameters of the specified layer (Link), and saves it in a log. It is useful to check whether parameters are diverging etc.</p>
 <hr class="docutils" />
-<p>The <code class="docutils literal notranslate"><span class="pre">Extension</span></code>, in addition to ones introduced here, has other several options, such as the ability to specify the timing to operate individually by the <code class="docutils literal notranslate"><span class="pre">trigger</span></code>, and the options can remove flexibly be combined. See the official documentation for details.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Extension</span></code> object, in addition to ones introduced here, has several other options, such as the ability to specify the timing to operate individually by the <code class="docutils literal notranslate"><span class="pre">trigger</span></code>, and the options can be flexibly combined. See the official documentation for details.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://docs.chainer.org/en/stable/reference/extensions.html">List of Trainer extensions in Chainer</a></p></li>
 </ul>
@@ -1369,8 +1389,8 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 10          0.275229    0.921116       0.27476        0.921776           0.0380852      45.5019
 </pre></div></div>
 </div>
-<p>The same result was achieved far more easily than writing the training loop manually. In addition, visualization of various scores and learning curves are automatically output by using the function of <code class="docutils literal notranslate"><span class="pre">Extension</span></code>.</p>
-<p>Let’s check the samve loss graph.</p>
+<p>The same result was achieved far more easily than writing the training loop manually. In addition, visualization of various scores and learning curves are automatically outputed by using the function of <code class="docutils literal notranslate"><span class="pre">Extension</span></code>.</p>
+<p>Let’s check the loss graph.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
@@ -1437,7 +1457,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  l1/W/da
 <img alt="../_images/notebooks_Introduction_to_Chainer_83_0.png" src="../_images/notebooks_Introduction_to_Chainer_83_0.png" />
 </div>
 </div>
-<p>Data and parameters are passed to the function one after another, and a series of calculation processes until loss is output can be confirmed.</p>
+<p>Data and parameters are passed to the function one after another, and a series of calculations are performed until loss as output can be confirmed.</p>
 </div>
 <div class="section" id="Test-data-evaluation">
 <h3>4.3.6. Test data evaluation<a class="headerlink" href="#Test-data-evaluation" title="Permalink to this headline">¶</a></h3>
@@ -1600,7 +1620,7 @@ Test accuracy: 0.92494065
 <li><p>Initial learning rate</p></li>
 <li><p>Timing of learning rate decay</p></li>
 </ul>
-<p>After completion of <code class="docutils literal notranslate"><span class="pre">Trainer.run()</span></code>, it will use the test dataset for evaluation. Unlike the example in the previous MNIST, it uses the MomentumSGD as the optimization technique, <code class="docutils literal notranslate"><span class="pre">Extention</span></code> called <code class="docutils literal notranslate"><span class="pre">ExponentialShift</span></code> to attenuate the learning rate for each specified timing.</p>
+<p>After completion of <code class="docutils literal notranslate"><span class="pre">Trainer.run()</span></code>, it will use the test dataset for evaluation. Unlike the example in the previous dataset MNIST, it uses the MomentumSGD as the optimization technique, <code class="docutils literal notranslate"><span class="pre">Extension</span></code> called <code class="docutils literal notranslate"><span class="pre">ExponentialShift</span></code> to attenuate the learning rate for each specified timing.</p>
 <p>Also, in this case, 90% of the training data set returned by <code class="docutils literal notranslate"><span class="pre">cifar.get_cifar10()</span></code> is used for <code class="docutils literal notranslate"><span class="pre">train</span></code>, remaining 10% for <code class="docutils literal notranslate"><span class="pre">valid</span></code>.</p>
 <p>Use this <code class="docutils literal notranslate"><span class="pre">train</span></code> function to train the model <code class="docutils literal notranslate"><span class="pre">MyModel</span></code> defined above.</p>
 <div class="nbinput nblast docutils container">
@@ -1902,10 +1922,10 @@ answer: truck
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ConvBlock</span></code> is defined as a small network that inherits from <code class="docutils literal notranslate"><span class="pre">Chain</span></code> and consists of one convolutional layer and Batch Normalization layer. The Batch Normalization layer is one of the widely used methods to stabilize the training process of the network, and is used by inserting it immediately after the convolution layer, as in this example. In the method <code class="docutils literal notranslate"><span class="pre">forward</span></code>, while passing data to these, apply the activation function ReLU, and in addition, if <code class="docutils literal notranslate"><span class="pre">pool_drop</span></code> argument is set to
-<code class="docutils literal notranslate"><span class="pre">True</span></code>, calculation of ordered propagation such as applying Max Pooling and Dropout is performed. Dropout is one of the methods used to improve the generalization performance by avoiding over-fitting of the network, and training is performed while randomly invalidating at fixed ratio (called dropout ratio) of nodes in the layer. (To disable, <code class="docutils literal notranslate"><span class="pre">ratio</span></code> argument can be used. 50% will be disabled if nothing is specified). For inference, if you set dropout ratio to <span class="math notranslate nohighlight">\(p\)</span>, layer works as a
-layer that only multiply input by <span class="math notranslate nohighlight">\(p\)</span> and outputs it. This is said to have the effect of averaging training results of multiple networks in an artificial manner (see: <a class="reference external" href="https://en.wikipedia.org/wiki/Ensemble_averaging_(machine_learning)">Ensemble averaging</a>), and generalization performance may be improved. A device to improve the generalization performance by giving some constraints to the model parameters during optimization is called regularization, and weight decay prevents this
-Dropout and the absolute value of the parameters from becoming too large.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ConvBlock</span></code> is defined as a small network that inherits from <code class="docutils literal notranslate"><span class="pre">Chain</span></code> and consists of one convolutional layer and Batch Normalization layer. The Batch Normalization layer is one of the widely used methods to stabilize the training process of the network, and is used by inserting it immediately after the convolution layer, as in this example. In the method <code class="docutils literal notranslate"><span class="pre">forward</span></code>, while passing data, apply the activation function ReLU, and in addition, if <code class="docutils literal notranslate"><span class="pre">pool_drop</span></code> argument is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>,
+calculation of ordered propagation such as application of Max Pooling and Dropout is performed. Dropout is one of the methods used to improve the generalization performance by avoiding over-fitting of the network, and training is performed while randomly invalidating at fixed ratio (called dropout ratio) of nodes in the layer. (To disable, <code class="docutils literal notranslate"><span class="pre">ratio</span></code> argument can be used. 50% will be disabled if nothing is specified). For inference, if you set dropout ratio to <span class="math notranslate nohighlight">\(p\)</span>, layer works as a layer
+that only multiply input by <span class="math notranslate nohighlight">\(p\)</span> and outputs it. This is said to have the effect of averaging training results of multiple networks in an artificial manner (see: <a class="reference external" href="https://en.wikipedia.org/wiki/Ensemble_averaging_(machine_learning)">Ensemble averaging</a>), and generalization performance may be improved. A technique to improve the generalization performance by giving some constraints to the model parameters during optimization is called regularization, and weight decay prevents this Dropout
+and the absolute value of the parameters from becoming too large.</p>
 <p>In Chainer, the code for forward calculation written using Python itself represents the structure of the network. That is, the network itself is defined by which layer the data passed at runtime. This property makes it possible to easily describe networks including the above branches, etc., and enables flexible, simple and highly readable network definition. This is a major feature of <strong>Define-by-Run</strong>.</p>
 </div>
 <div class="section" id="Defining-large-network">
@@ -1940,7 +1960,7 @@ Dropout and the absolute value of the parameters from becoming too large.</p>
 </pre></div>
 </div>
 </div>
-<p>Here, the class <code class="docutils literal notranslate"><span class="pre">ChainList</span></code> is used. This class is a class that inherits from <code class="docutils literal notranslate"><span class="pre">Chain</span></code>, is useful when defining a network that calls a number of <code class="docutils literal notranslate"><span class="pre">Link</span></code> and/or <code class="docutils literal notranslate"><span class="pre">Chain</span></code> on after another. A model defined by inheriting from <code class="docutils literal notranslate"><span class="pre">ChainList</span></code> can be passed as an ordinary argument <code class="docutils literal notranslate"><span class="pre">Link</span></code> or an <code class="docutils literal notranslate"><span class="pre">Chain</span></code> object instead of a keyword argument when calling the constructor of the parent class, and can be extracted <strong>in the order registration</strong> by the <code class="docutils literal notranslate"><span class="pre">self.children()</span></code> method. Using this feature,
+<p>Here, the class <code class="docutils literal notranslate"><span class="pre">ChainList</span></code> is used. This class is a class that inherits from <code class="docutils literal notranslate"><span class="pre">Chain</span></code>, is useful when defining a network that calls a number of <code class="docutils literal notranslate"><span class="pre">Link</span></code> and/or <code class="docutils literal notranslate"><span class="pre">Chain</span></code> one after another. A model defined by inheriting from <code class="docutils literal notranslate"><span class="pre">ChainList</span></code> can be passed as an ordinary argument <code class="docutils literal notranslate"><span class="pre">Link</span></code> or a <code class="docutils literal notranslate"><span class="pre">Chain</span></code> object instead of a keyword argument when calling the constructor of the parent class, and can be extracted <strong>in the order registration</strong> by the <code class="docutils literal notranslate"><span class="pre">self.children()</span></code> method. Using this feature,
 forward calculations can be easily described as above.</p>
 <p>Let’s run the training. Since the number of parameters is large this time, the number of epochs to stop training is set to 100. Also, we set the learning rate to start from 0.1 and to be reduced to 1/10 every 30 epochs.</p>
 </div>
@@ -2137,8 +2157,8 @@ Test accuracy: 0.8966574
 <img alt="../_images/notebooks_Introduction_to_Chainer_117_0.png" src="../_images/notebooks_Introduction_to_Chainer_117_0.png" />
 </div>
 </div>
-<p>The accuracy of the Validation data, which was around 60% using the shallow (low number of layers) CNN, increased to around 90%. Also, the accuracy using test data is about 90%. However, the latest research results have achieved more than 97%. In order to further improve the accuracy, it is a matter of course not only to improve the network structure itself as this time but also to artificially increase training data (Data augmentation) and to combine the outputs of multiple models into one
-output, and there would be other various techniques, such as (Ensemble).</p>
+<p>The accuracy of the Validation data, which was around 60% using the shallow (low number of layers) CNN, increased to around 90%. Also, the accuracy using test data is about 90% (comapared to ~60% previously). The training accuracy results are also 97% (compared to ~77% previously). In order to further improve the accuracy, one can not only improve the network structure itself but also artificially increase training data (Data augmentation) and/or combine the outputs of multiple models into one
+output such as (Ensemble).</p>
 </div>
 </div>
 </div>
@@ -2146,19 +2166,18 @@ output, and there would be other various techniques, such as (Ensemble).</p>
 <h2>4.5. Using Dataset Class<a class="headerlink" href="#Using-Dataset-Class" title="Permalink to this headline">¶</a></h2>
 <p>Here, let’s write the data set class by using the function to acquire CIFAR10 data already provided by Chainer. In Chainer, a class representing a dataset needs to have the following functions.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">__len__</span></code> that returns the number of data in the dataset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__len__</span></code> that returns the number of data points in the dataset</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">get_example</span></code> method that returns data or data / label pairs corresponding to <code class="docutils literal notranslate"><span class="pre">i</span></code> passed as an argument.</p></li>
 </ul>
 <p>The functions required for other datasets can be prepared by inheriting <code class="docutils literal notranslate"><span class="pre">chainer.dataset.DatasetMixin</span></code> class. Here, let’s create a dataset class, by inheriting the class <code class="docutils literal notranslate"><span class="pre">DatasetMixin</span></code>, that has a Data augmentation function which converts the training data during the training to increase the variation of data which are received by the model.</p>
 <div class="section" id="CIFAR10-Dataset-Class">
 <h3>4.5.1. CIFAR10 Dataset Class<a class="headerlink" href="#CIFAR10-Dataset-Class" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">class</span> <span class="nc">CIFAR10Augmented</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
         <span class="n">train_val</span><span class="p">,</span> <span class="n">test_data</span> <span class="o">=</span> <span class="n">cifar</span><span class="o">.</span><span class="n">get_cifar10</span><span class="p">()</span>
         <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_ratio</span><span class="p">)</span>
@@ -2195,12 +2214,29 @@ output, and there would be other various techniques, such as (Ensemble).</p>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-2250fe68d370&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">class</span> CIFAR10Augmented<span class="ansi-blue-fg">(</span>chainer<span class="ansi-blue-fg">.</span>dataset<span class="ansi-blue-fg">.</span>DatasetMixin<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> split<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;train&#39;</span><span class="ansi-blue-fg">,</span> train_ratio<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.9</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>         train_val<span class="ansi-blue-fg">,</span> test_data <span class="ansi-blue-fg">=</span> cifar<span class="ansi-blue-fg">.</span>get_cifar10<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>         train_size <span class="ansi-blue-fg">=</span> int<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>train_val<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">*</span> train_ratio<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;chainer&#39; is not defined
+</pre></div></div>
+</div>
 <p>This class does the following conversion for each of the CIFAR10 data.</p>
 <ul class="simple">
 <li><p>Crop 28x28 area randomly from 32x32 size</p></li>
 <li><p>Flip the image horizontally at a probability of 1/2</p></li>
 </ul>
-<p>It is known that adding such operations and artificially increasing the variation of training data contributes to the reduction of overfitting. Besides these operations, various ideas have been proposed to artificially increase the number of training data by various processes such as conversion that changes the color of an image, random rotation, and affine conversion.</p>
+<p>It is known that adding such operations and artificially increasing the variation of training data contributes to the reduction of overfitting. Besides these operations, various ideas have been proposed to artificially increase the number of training data such as conversion that changes the color of an image, random rotation, and affine conversion.</p>
 </div>
 <div class="section" id="Training-using-created-dataset">
 <h3>4.5.2. Training using created dataset<a class="headerlink" href="#Training-using-created-dataset" title="Permalink to this headline">¶</a></h3>
@@ -2384,7 +2420,7 @@ Test accuracy: 0.91702926
 </div>
 <div class="section" id="Simple-way-to-use-Data-Augmentation">
 <h2>4.6. Simple way to use Data Augmentation<a class="headerlink" href="#Simple-way-to-use-Data-Augmentation" title="Permalink to this headline">¶</a></h2>
-<p>An operation that performs various transformations on each image in a dataset as described above to artificially increase data is called Data Augmentation. In the above, we implemented an implementation in which transformation operations are also written inside <code class="docutils literal notranslate"><span class="pre">get_example()</span></code> in order to show how to create the original dataset class, but there is actually a way to perform various transformations on data more easily.</p>
+<p>An operation that performs various transformations on each image in a dataset as described above to artificially increase the number of data points is called Data Augmentation. In the above section, we implemented transformation operations written inside <code class="docutils literal notranslate"><span class="pre">get_example()</span></code> in order to show how to create the original dataset class, but there is actually a way to perform various transformations on data more easily.</p>
 <p>That is to use <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> class. <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> is a useful class that takes a source dataset object and a function that does what you want to perform on each data point sampled from the source dataset, and returns transformed data. A simple usage is shown below.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2422,8 +2458,8 @@ Test accuracy: 0.91702926
 <p>The new <code class="docutils literal notranslate"><span class="pre">train_dataset</span></code> obtained in this way is a dataset object that returns data after conversion processing similar to that of a custom-made dataset class.</p>
 <div class="section" id="Conversion-Processing-utilizing-ChainerCV">
 <h3>4.6.1. Conversion Processing utilizing ChainerCV<a class="headerlink" href="#Conversion-Processing-utilizing-ChainerCV" title="Permalink to this headline">¶</a></h3>
-<p>Now, in the code I introduced earlier, I implemented the process of random cropping and random flipping on the image. If you want to do more various transformations, you will add processing to the above <code class="docutils literal notranslate"><span class="pre">transform</span></code> function, but it is time-consuming to implement commonly used transformation processing each time. In this section, I will introduce <a class="reference external" href="http://chainercv.readthedocs.io/en/stable">Chainer CV</a> [<a class="reference external" href="https://arxiv.org/abs/1708.08169">Niitani 2017</a>]. ChainerCV is an open source software
-that plays a role as an auxiliary package of Chainer, with a wealth of specialized functions in Computer Vision.</p>
+<p>Now, in the code introduced earlier, we implemented the process of random cropping and random flipping on the image. In order to carry out more transformations, we can add processing to the above <code class="docutils literal notranslate"><span class="pre">transform</span></code> function, but it is time-consuming to implement commonly used transformation processing each time. In this section, we will introduce <a class="reference external" href="http://chainercv.readthedocs.io/en/stable">Chainer CV</a> [<a class="reference external" href="https://arxiv.org/abs/1708.08169">Niitani 2017</a>]. ChainerCV is an open source software that
+plays a role as an auxiliary package of Chainer, with a wealth of specialized functions in Computer Vision.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
@@ -2466,10 +2502,10 @@ Successfully installed chainercv-0.12.0
 <span class="n">x</span> <span class="o">=</span> <span class="n">chainercv</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">random_flip</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Random flip</span>
 </pre></div>
 </div>
-<p>Lets update <code class="docutils literal notranslate"><span class="pre">transform</span></code> function using <code class="docutils literal notranslate"><span class="pre">chainercv.transforms</span></code>. By the way, in the dataset obtained by <code class="docutils literal notranslate"><span class="pre">get_cifar10()</span></code>, the range of pixel values of the image is scaled to <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> by default. you keep the same range as <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">255]</span></code> by passing <code class="docutils literal notranslate"><span class="pre">scale=255.</span></code> to <code class="docutils literal notranslate"><span class="pre">get_cifar10()</span></code>. The following five processes are performed here:</p>
+<p>Lets update <code class="docutils literal notranslate"><span class="pre">transform</span></code> function using <code class="docutils literal notranslate"><span class="pre">chainercv.transforms</span></code>. By the way, in the dataset obtained by <code class="docutils literal notranslate"><span class="pre">get_cifar10()</span></code>, the range of pixel values of the image is scaled to <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> by default. We can keep the same range as <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">255]</span></code> by passing <code class="docutils literal notranslate"><span class="pre">scale=255.</span></code> to <code class="docutils literal notranslate"><span class="pre">get_cifar10()</span></code>. The following five processes are performed here:</p>
 <ol class="arabic simple">
 <li><p>PCA lighting: Performs conversion processing to change colors in the method used for training in the previous research (AlexNet).</p></li>
-<li><p>Standardization: Standardizes the mean and standard deviation of pixel values ​​per channel from the entire training data set</p></li>
+<li><p>Standardization: Standardizes the mean and standard deviation of pixel values per channel from the entire training data set</p></li>
 <li><p>Random flip: Randomly flip image horizontally</p></li>
 <li><p>Random expand: Create a black canvas of a randomly determined size from <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1.5]</span></code> and place the image at a random location within it</p></li>
 <li><p>Random crop: Randomuly crop the area with the size of <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code></p></li>
@@ -2656,7 +2692,7 @@ epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  elapsed
 Test accuracy: 0.9244462
 </pre></div></div>
 </div>
-<p>Slightly improved accuracy. There are several other improvement methods that can be easily tested, such as training using a well-known network structure called ResNet [He 2016]. Please try it in various ways.</p>
+<p>We observe slightly improved accuracy. There are several other improvement methods that can be easily tested, such as training using a well-known network structure called ResNet [He 2016].</p>
 </div>
 </div>
 <hr class="docutils" />
