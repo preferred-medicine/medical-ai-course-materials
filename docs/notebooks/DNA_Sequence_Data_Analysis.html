@@ -427,7 +427,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>!curl https://colab.chainer.org/install | sh -
+<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
 </pre></div>
 </div>
 </div>
@@ -452,12 +452,12 @@ Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import cupy
-import matplotlib
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">cupy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
 
-chainer.print_runtime_info()
-print(&#39;matplotlib:&#39;, matplotlib.__version__)
+<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;matplotlib:&#39;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -536,7 +536,7 @@ into account, and receive a DNA base sequence having a length exceeding 100,000 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>!wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
+<span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/seq.h5
 </pre></div>
 </div>
 </div>
@@ -568,7 +568,7 @@ seq.h5.1            100%[===================&gt;] 566.60M  21.1MB/s    in 44s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>!ls -lh
+<span></span><span class="o">!</span>ls -lh
 </pre></div>
 </div>
 </div>
@@ -604,12 +604,12 @@ drwxr-xr-x  15 ytakeda  staff   480B Apr 19 11:07 <span class="ansi-cyan-intense
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import h5py
-import numpy as np
+<span></span><span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-with h5py.File(&#39;seq.h5&#39;, &#39;r&#39;) as hf:
-    for key in hf.keys():
-        print(key, hf[key].shape, hf[key].dtype)
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -647,16 +647,16 @@ with h5py.File(&#39;seq.h5&#39;, &#39;r&#39;) as hf:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>%matplotlib inline
-import matplotlib.pyplot as plt
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-with h5py.File(&#39;seq.h5&#39;) as hf:
-    y = hf[&#39;train_out&#39;][:100]
-    fig_size = plt.rcParams[&quot;figure.figsize&quot;]
-    fig_size[0] = 20
-    fig_size[1] = 5
-    for i in range(3):
-        plt.bar(range(y.shape[1]), y[0,:,i])
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;train_out&#39;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span>
+    <span class="n">fig_size</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span>
+    <span class="n">fig_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">fig_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -701,69 +701,69 @@ value (coverage value) representing the possibility of binding of DNA-related pr
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.functions as F
-import chainer.links as L
-import cupy as cp
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
 
-bc = 24 # base channel
+<span class="n">bc</span> <span class="o">=</span> <span class="mi">24</span> <span class="c1"># base channel</span>
 
-default_squeeze_params = [
-    # out_ch, kernel, stride, dropout
-    [bc*2, 21, 2, 0], #1 128 -&gt; 64
-    [int(bc*2.5), 7, 4, 0.05], #2  64 -&gt; 16
-    [int(bc*3.2), 7, 4, 0.05], #3  16 -&gt; 4
-    [bc*4, 7, 4, 0.05]  #4  4 -&gt; 1
-]
-
-
-default_dilated_params = [
-# out_ch, kernel, dilated
-  [bc, 3, 1, 0.1],
-  [bc, 3, 2, 0.1],
-  [bc, 3, 4, 0.1],
-  [bc, 3, 8, 0.1],
-  [bc, 3, 16, 0.1],
-  [bc, 3, 32, 0.1],
-  [bc, 3, 64, 0.1]
-]
+<span class="n">default_squeeze_params</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># out_ch, kernel, stride, dropout</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1">#1 128 -&gt; 64</span>
+    <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bc</span><span class="o">*</span><span class="mf">2.5</span><span class="p">),</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="c1">#2  64 -&gt; 16</span>
+    <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bc</span><span class="o">*</span><span class="mf">3.2</span><span class="p">),</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="c1">#3  16 -&gt; 4</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]</span>  <span class="c1">#4  4 -&gt; 1</span>
+<span class="p">]</span>
 
 
-class Net(chainer.Chain):
+<span class="n">default_dilated_params</span> <span class="o">=</span> <span class="p">[</span>
+<span class="c1"># out_ch, kernel, dilated</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+  <span class="p">[</span><span class="n">bc</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+<span class="p">]</span>
 
-    def __init__(self, squeeze_params=default_squeeze_params, dilated_params=default_dilated_params, n_targets=10):
-        super(Net, self).__init__()
-        self._n_squeeze = len(squeeze_params)
-        self._n_dilated = len(dilated_params)
-        with self.init_scope():
-            in_ch = 4
-            for i, param in enumerate(squeeze_params):
-                out_ch, kernel, stride, do_rate = param
-                setattr(self, &quot;s_{}&quot;.format(i), SqueezeBlock(in_ch, out_ch, kernel, stride, do_rate))
-                in_ch = out_ch
-            for i, param in enumerate(dilated_params):
-                out_ch, kernel, dilated, do_rate = param
-                setattr(self, &quot;d_{}&quot;.format(i), DilatedBlock(in_ch, out_ch, kernel, dilated, do_rate))
-                in_ch += out_ch
-            self.l = L.ConvolutionND(1, None, n_targets, 1)
 
-    def forward(self, x):
-        # x : (B, X, 4)
-        xp = cp.get_array_module(x)
-        h = xp.transpose(x, (0, 2, 1))
-        h = h.astype(xp.float32)
+<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-        for i in range(self._n_squeeze):
-            h = self[&quot;s_{}&quot;.format(i)](h)
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">squeeze_params</span><span class="o">=</span><span class="n">default_squeeze_params</span><span class="p">,</span> <span class="n">dilated_params</span><span class="o">=</span><span class="n">default_dilated_params</span><span class="p">,</span> <span class="n">n_targets</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_squeeze</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">squeeze_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_dilated</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dilated_params</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="n">in_ch</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">squeeze_params</span><span class="p">):</span>
+                <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span> <span class="o">=</span> <span class="n">param</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;s_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">SqueezeBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
+                <span class="n">in_ch</span> <span class="o">=</span> <span class="n">out_ch</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dilated_params</span><span class="p">):</span>
+                <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span> <span class="o">=</span> <span class="n">param</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;d_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">DilatedBlock</span><span class="p">(</span><span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilated</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">))</span>
+                <span class="n">in_ch</span> <span class="o">+=</span> <span class="n">out_ch</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_targets</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        hs = [h]
-        for i in range(self._n_dilated):
-            h = self[&quot;d_{}&quot;.format(i)](hs)
-            hs.append(h)
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># x : (B, X, 4)</span>
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">get_array_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-        h = self.l(F.concat(hs, axis=1))
-        h = xp.transpose(h, (0, 2, 1))
-        return h
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_squeeze</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;s_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">h</span><span class="p">)</span>
+
+        <span class="n">hs</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_dilated</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;d_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)](</span><span class="n">hs</span><span class="p">)</span>
+            <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">h</span>
 </pre></div>
 </div>
 </div>
@@ -775,58 +775,58 @@ class Net(chainer.Chain):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.functions as F
-import chainer.links as L
-import cupy as cp
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
 
-class WNConvolutionND(L.ConvolutionND):
-    def __init__(self, *args, **kwargs):
-        super(WNConvolutionND, self).__init__(*args, **kwargs)
-        self.add_param(&#39;g&#39;, self.W.data.shape[0])
-        norm = np.linalg.norm(self.W.data.reshape(
-            self.W.data.shape[0], -1), axis=1)
-        self.g.data[...] = norm
+<span class="k">class</span> <span class="nc">WNConvolutionND</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WNConvolutionND</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_param</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span>
 
-    def __call__(self, x):
-        norm = F.batch_l2_norm_squared(self.W) ** 0.5
-        channel_size = self.W.data.shape[0]
-        norm_broadcasted = F.broadcast_to(
-            F.reshape(norm, (channel_size, 1, 1)), self.W.data.shape)
-        g_broadcasted = F.broadcast_to(
-            F.reshape(self.g, (channel_size, 1, 1)), self.W.data.shape)
-        return F.convolution_nd(
-            x, g_broadcasted * self.W / norm_broadcasted, self.b, self.stride,
-            self.pad, self.cover_all, self.dilate)
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">batch_l2_norm_squared</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+        <span class="n">channel_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">norm_broadcasted</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="p">(</span><span class="n">channel_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">g_broadcasted</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="p">(</span><span class="n">channel_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">convolution_nd</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">g_broadcasted</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">/</span> <span class="n">norm_broadcasted</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilate</span><span class="p">)</span>
 
-class SqueezeBlock(chainer.Chain):
-    def __init__(self, in_ch, out_ch, kernel, stride, do_rate):
-        super(SqueezeBlock, self).__init__()
+<span class="k">class</span> <span class="nc">SqueezeBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SqueezeBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-        self.do_rate = do_rate
-        with self.init_scope():
-            pad = kernel // 2
-            self.conv = WNConvolutionND(1, in_ch, out_ch*2, kernel, pad=pad, stride=stride)
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span> <span class="o">=</span> <span class="n">do_rate</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="n">pad</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">WNConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span>
 
-    def forward(self, x):
-        h = self.conv(x)
-        h, g = F.split_axis(h, 2, 1)
-        h = F.dropout(h * F.sigmoid(g), self.do_rate)
-        return h
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split_axis</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 
-class DilatedBlock(chainer.Chain):
-     def __init__(self, in_ch, out_ch, kernel, dilate, do_rate):
-        super(DilatedBlock, self).__init__()
-        self.do_rate = do_rate
-        with self.init_scope():
-            self.conv = WNConvolutionND(1, in_ch, out_ch*2, kernel, pad=dilate, dilate=dilate)
+<span class="k">class</span> <span class="nc">DilatedBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">do_rate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DilatedBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span> <span class="o">=</span> <span class="n">do_rate</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">WNConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">in_ch</span><span class="p">,</span> <span class="n">out_ch</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
 
-     def forward(self, xs):
-        x = F.concat(xs, axis=1)
-        h = self.conv(x)
-        h, g = F.split_axis(h, 2, 1)
-        h = F.dropout(h * F.sigmoid(g), self.do_rate)
-        return h
+     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split_axis</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 
 </pre></div>
 </div>
@@ -860,13 +860,13 @@ of output channels, and then divide the output result into two in the channel di
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import numpy as np
-n = Net()
-size = 131072 # 128 * 1024
-batchsize = 4
-x = np.empty((batchsize, size, 4), dtype=np.bool)
-y = n.forward(x)
-print(y.shape)
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">131072</span> <span class="c1"># 128 * 1024</span>
+<span class="n">batchsize</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">batchsize</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -890,20 +890,20 @@ is, so subtract the minimum value <span class="math notranslate nohighlight">\(t
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer.functions as F
-import math
-import sklearn
-import numpy as np
+<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-def log_poisson_loss(log_x, t):
-    loss =  F.mean(F.exp(log_x) - t * log_x)
-    t = chainer.cuda.to_cpu(t.astype(np.float32))
-    offset = F.mean(cp.array(t - t * np.ma.log(t)))
-    return loss - offset
+<span class="k">def</span> <span class="nf">log_poisson_loss</span><span class="p">(</span><span class="n">log_x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span>  <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_x</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">log_x</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">loss</span> <span class="o">-</span> <span class="n">offset</span>
 
 
-def log_r2_score(log_x, t):
-    return F.r2_score(F.exp(log_x), t)
+<span class="k">def</span> <span class="nf">log_r2_score</span><span class="p">(</span><span class="n">log_x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_x</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -914,40 +914,40 @@ gradually brought close to 0 and converged. CosineScheduler changes the learning
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from chainer import training
-import numpy as np
-import math
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-class CosineScheduler(training.Extension):
+<span class="k">class</span> <span class="nc">CosineScheduler</span><span class="p">(</span><span class="n">training</span><span class="o">.</span><span class="n">Extension</span><span class="p">):</span>
 
-    def __init__(self, attr=&#39;lr&#39;, init_val=0.0001, n_decays=200, n_warmups=3, target=None, optimizer=None):
-        self._attr = attr
-        self._target = target
-        self._optimizer = optimizer
-        self._min_loss = None
-        self._last_value = None
-        self._init_val = init_val
-        self._n_decays = n_decays - n_warmups
-        self._decay_count = 0
-        self._n_warmups = n_warmups
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">n_decays</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_warmups</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span> <span class="o">=</span> <span class="n">attr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_loss</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">=</span> <span class="n">init_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_decays</span> <span class="o">=</span> <span class="n">n_decays</span> <span class="o">-</span> <span class="n">n_warmups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decay_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span> <span class="o">=</span> <span class="n">n_warmups</span>
 
-    def __call__(self, trainer):
-        updater = trainer.updater
-        optimizer = self._get_optimizer(trainer)
-        epoch = updater.epoch
-        if epoch &lt; self._n_warmups:
-            value = self._init_val / (self._n_warmups + 1) * (epoch + 1)
-        else:
-            value = 0.5 * self._init_val * (1 + math.cos(math.pi * (epoch - self._n_warmups) / self._n_decays))
-        self._update_value(optimizer, value)
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+        <span class="n">updater</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_optimizer</span><span class="p">(</span><span class="n">trainer</span><span class="p">)</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">epoch</span>
+        <span class="k">if</span> <span class="n">epoch</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_val</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_warmups</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_decays</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_value</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 
-    def _get_optimizer(self, trainer):
-        return self._optimizer or trainer.updater.get_optimizer(&#39;main&#39;)
+    <span class="k">def</span> <span class="nf">_get_optimizer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="ow">or</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">get_optimizer</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
 
-    def _update_value(self, optimizer, value):
-        setattr(optimizer, self._attr, value)
-        self._last_value = value
+    <span class="k">def</span> <span class="nf">_update_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_value</span> <span class="o">=</span> <span class="n">value</span>
 </pre></div>
 </div>
 </div>
@@ -958,31 +958,31 @@ sequence distribution, so here we roll-shift the roll() function).</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import random
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-class PreprocessedDataset(chainer.dataset.DatasetMixin):
+<span class="k">class</span> <span class="nc">PreprocessedDataset</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
 
-    def __init__(self, xs, ys, max_shift):
-        self.xs = xs
-        self.ys = ys
-        self.max_shift = max_shift
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">max_shift</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ys</span> <span class="o">=</span> <span class="n">ys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span> <span class="o">=</span> <span class="n">max_shift</span>
 
-    def __len__(self):
-        return len(self.xs)
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
 
-    def get_example(self, i):
-        # It applies following preprocesses:
-        #     - Cropping
-        #     - Random flip
+    <span class="k">def</span> <span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="c1"># It applies following preprocesses:</span>
+        <span class="c1">#     - Cropping</span>
+        <span class="c1">#     - Random flip</span>
 
-        x = self.xs[i]
-        y = self.ys[i]
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
 
-        s = random.randint(-self.max_shift, self.max_shift)
-        x = np.roll(x, s, axis=0)
-        return x, y
+        <span class="n">s</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_shift</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 </pre></div>
 </div>
 </div>
@@ -993,68 +993,68 @@ class PreprocessedDataset(chainer.dataset.DatasetMixin):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.functions as F
-import chainer.links as L
-import numpy as np
-from chainer.training import extensions
-from chainer import training
-import h5py
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">extensions</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
 
-ml_h5 = h5py.File(&#39;seq.h5&#39;)
+<span class="n">ml_h5</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;seq.h5&#39;</span><span class="p">)</span>
 
-train_x = ml_h5[&#39;train_in&#39;]
-train_y = ml_h5[&#39;train_out&#39;]
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;train_in&#39;</span><span class="p">]</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;train_out&#39;</span><span class="p">]</span>
 
-valid_x = ml_h5[&#39;valid_in&#39;]
-valid_y = ml_h5[&#39;valid_out&#39;]
+<span class="n">valid_x</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;valid_in&#39;</span><span class="p">]</span>
+<span class="n">valid_y</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;valid_out&#39;</span><span class="p">]</span>
 
-test_x = ml_h5[&#39;test_in&#39;]
-test_y = ml_h5[&#39;test_out&#39;]
+<span class="n">test_x</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;test_in&#39;</span><span class="p">]</span>
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">ml_h5</span><span class="p">[</span><span class="s1">&#39;test_out&#39;</span><span class="p">]</span>
 
-ratio = 1
-train_x = train_x[:len(train_x)//ratio]
-train_y = train_y[:len(train_y)//ratio]
-valid_x = valid_x[:len(valid_x)//ratio]
-valid_y = valid_y[:len(valid_y)//ratio]
-
-
-max_shift_for_data_augmentation = 5
-train = PreprocessedDataset(train_x, train_y, max_shift_for_data_augmentation)
-val = chainer.datasets.TupleDataset(valid_x, valid_y)
-
-batchsize = 8
-
-train_iter = chainer.iterators.SerialIterator(train, batchsize)
-val_iter = chainer.iterators.SerialIterator(val, batchsize, repeat=False, shuffle=False)
-
-model = L.Classifier(Net(), lossfun=log_poisson_loss, accfun=log_r2_score)
-
-lr = 0.001
-optimizer = chainer.optimizers.Adam(alpha=lr, beta1=0.97, beta2=0.98)
-optimizer.setup(model)
-optimizer.add_hook(chainer.optimizer_hooks.GradientClipping(threshold=0.01))
+<span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">train_y</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
+<span class="n">valid_x</span> <span class="o">=</span> <span class="n">valid_x</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_x</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
+<span class="n">valid_y</span> <span class="o">=</span> <span class="n">valid_y</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_y</span><span class="p">)</span><span class="o">//</span><span class="n">ratio</span><span class="p">]</span>
 
 
-updater = training.updaters.StandardUpdater(
-     train_iter, optimizer, device=0)
+<span class="n">max_shift_for_data_augmentation</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">PreprocessedDataset</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">max_shift_for_data_augmentation</span><span class="p">)</span>
+<span class="n">val</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">TupleDataset</span><span class="p">(</span><span class="n">valid_x</span><span class="p">,</span> <span class="n">valid_y</span><span class="p">)</span>
 
-n_epochs = 10
-n_warmups = 0
-out = &quot;out&quot;
-trainer = training.Trainer(updater, (n_epochs, &#39;epoch&#39;), out=out)
-trainer.extend(CosineScheduler(attr=&#39;alpha&#39;, init_val=lr, n_decays=n_epochs, n_warmups=n_warmups), trigger=(1, &#39;epoch&#39;))
+<span class="n">batchsize</span> <span class="o">=</span> <span class="mi">8</span>
 
-trainer.extend(extensions.Evaluator(val_iter, model, device = 0))
-trainer.extend(extensions.LogReport(trigger=(0.2, &#39;epoch&#39;)))
-trainer.extend(extensions.snapshot_object(model, &#39;model_epoch_{.updater.epoch}&#39;), trigger=(1, &#39;epoch&#39;))
+<span class="n">train_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
+<span class="n">val_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-trainer.extend(extensions.PrintReport(
-          [&#39;epoch&#39;, &#39;main/loss&#39;, &#39;validation/main/loss&#39;, &#39;elapsed_time&#39;]), trigger = (0.1, &#39;epoch&#39;))
+<span class="n">model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">Net</span><span class="p">(),</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">log_poisson_loss</span><span class="p">,</span> <span class="n">accfun</span><span class="o">=</span><span class="n">log_r2_score</span><span class="p">)</span>
 
-# trainer.extend(extensions.ProgressBar())
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">beta1</span><span class="o">=</span><span class="mf">0.97</span><span class="p">,</span> <span class="n">beta2</span><span class="o">=</span><span class="mf">0.98</span><span class="p">)</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">optimizer_hooks</span><span class="o">.</span><span class="n">GradientClipping</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
 
-trainer.run()
+
+<span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">updaters</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span>
+     <span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_warmups</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">CosineScheduler</span><span class="p">(</span><span class="n">attr</span><span class="o">=</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">n_decays</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_warmups</span><span class="o">=</span><span class="n">n_warmups</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">val_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">(</span><span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">)))</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">snapshot_object</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;model_epoch_{.updater.epoch}&#39;</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span>
+          <span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;validation/main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">]),</span> <span class="n">trigger</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+
+<span class="c1"># trainer.extend(extensions.ProgressBar())</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
 </pre></div>
 </div>
@@ -1122,7 +1122,7 @@ epoch       main/loss   validation/main/loss  elapsed_time
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>!ls -l out/
+<span></span><span class="o">!</span>ls -l out/
 </pre></div>
 </div>
 </div>
@@ -1151,25 +1151,25 @@ total 14172
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import chainer
-import chainer.links as L
-%matplotlib inline
-import matplotlib.pyplot as plt
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-model_n_epoch = 10
-out_dir = &#39;out&#39;
-model = L.Classifier(Net())
-chainer.serializers.load_npz(&#39;{}/model_epoch_{}&#39;.format(out_dir, model_n_epoch), model)
-predictor = model.predictor
+<span class="n">model_n_epoch</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">out_dir</span> <span class="o">=</span> <span class="s1">&#39;out&#39;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Classifier</span><span class="p">(</span><span class="n">Net</span><span class="p">())</span>
+<span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/model_epoch_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">model_n_epoch</span><span class="p">),</span> <span class="n">model</span><span class="p">)</span>
+<span class="n">predictor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predictor</span>
 
-print(len(test_x))
-with chainer.no_backprop_mode():
-    test_y_estimated = F.exp(predictor(test_x[:1]))
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">():</span>
+    <span class="n">test_y_estimated</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">predictor</span><span class="p">(</span><span class="n">test_x</span><span class="p">[:</span><span class="mi">1</span><span class="p">]))</span>
 
-test_y = test_y[:1]
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">test_y</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
 
-print(test_y_estimated.shape)
-print(test_y_estimated[0,:,0])
+<span class="nb">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_y_estimated</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">])</span>
 
 
 </pre></div>
@@ -1192,14 +1192,14 @@ variable([1.8674504  2.004048   1.68377    ... 0.81418294 0.7608197
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>y = test_y_estimated.data
-fig_size = plt.rcParams[&quot;figure.figsize&quot;]
-fig_size[0] = 20
-fig_size[1] = 10
-i = 0
-b1 = plt.bar(range(y.shape[1]), y[0,:,i])
-b2 = plt.bar(range(y.shape[1]), test_y[0,:,i])
-plt.legend((b1, b2), (&#39;estimated&#39;, &#39;observed&#39;))
+<span></span><span class="n">y</span> <span class="o">=</span> <span class="n">test_y_estimated</span><span class="o">.</span><span class="n">data</span>
+<span class="n">fig_size</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span>
+<span class="n">fig_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">fig_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">])</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">test_y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;estimated&#39;</span><span class="p">,</span> <span class="s1">&#39;observed&#39;</span><span class="p">))</span>
 
 </pre></div>
 </div>

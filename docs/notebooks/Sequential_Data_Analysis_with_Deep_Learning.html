@@ -446,8 +446,8 @@ fairly high accuracy by applying Deep Learning to heart rate data. In addition, 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>!apt -y -q install tree
-!pip install wfdb==2.2.1 imbalanced-learn==0.4.3
+<span></span><span class="o">!</span>apt -y -q install tree
+<span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">2</span>.2.1 imbalanced-learn<span class="o">==</span><span class="m">0</span>.4.3
 </pre></div>
 </div>
 </div>
@@ -488,7 +488,7 @@ Requirement already satisfied: setuptools in /Users/sandeepayyar/Documents/.env/
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>!curl https://colab.chainer.org/install | sh -
+<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
 </pre></div>
 </div>
 </div>
@@ -513,26 +513,26 @@ Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>import os
-import random
-import numpy as np
-import chainer
-import scipy
-import pandas as pd
-import matplotlib
-import seaborn as sn
-import wfdb
-import sklearn
-import imblearn
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sn</span>
+<span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">imblearn</span>
 
-chainer.print_runtime_info()
-print(&quot;Scipy: &quot;, scipy.__version__)
-print(&quot;Pandas: &quot;, pd.__version__)
-print(&quot;Matplotlib: &quot;, matplotlib.__version__)
-print(&quot;Seaborn: &quot;, sn.__version__)
-print(&quot;WFDB: &quot;, wfdb.__version__)
-print(&quot;Scikit-learn: &quot;, sklearn.__version__)
-print(&quot;Imbalanced-learn: &quot;, imblearn.__version__)
+<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Scipy: &quot;</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Pandas: &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Matplotlib: &quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Seaborn: &quot;</span><span class="p">,</span> <span class="n">sn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;WFDB: &quot;</span><span class="p">,</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Scikit-learn: &quot;</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Imbalanced-learn: &quot;</span><span class="p">,</span> <span class="n">imblearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -578,12 +578,12 @@ iDeep: Not Available
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>def reset_seed(seed=42):
-    random.seed(seed)
-    np.random.seed(seed)
-    if chainer.cuda.available:
-        chainer.cuda.cupy.random.seed(seed)
-reset_seed(42)
+<span></span><span class="k">def</span> <span class="nf">reset_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
+        <span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">reset_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -618,8 +618,8 @@ reset_seed(42)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>dataset_root = &#39;./dataset&#39;
-download_dir = os.path.join(dataset_root, &#39;download&#39;)
+<span></span><span class="n">dataset_root</span> <span class="o">=</span> <span class="s1">&#39;./dataset&#39;</span>
+<span class="n">download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;download&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -628,7 +628,7 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>wfdb.dl_database(&#39;mitdb&#39;, os.path.join(os.getcwd, &#39;mitdb&#39;))
+<span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">dl_database</span><span class="p">(</span><span class="s1">&#39;mitdb&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">,</span> <span class="s1">&#39;mitdb&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -658,7 +658,7 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>#wfdb.dl_database(&#39;mitdb&#39;, dl_dir=download_dir)
+<span></span><span class="c1">#wfdb.dl_database(&#39;mitdb&#39;, dl_dir=download_dir)</span>
 </pre></div>
 </div>
 </div>
@@ -668,7 +668,7 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print(sorted(os.listdir(download_dir)))
+<span></span><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">download_dir</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -755,110 +755,110 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>class BaseECGDatasetPreprocessor(object):
-    def __init__(
-            self,
-            dataset_root,
-            window_size=720,  # 2 seconds
-    ):
-        self.dataset_root = dataset_root
-        self.download_dir = os.path.join(self.dataset_root, &#39;download&#39;)
-        self.window_size = window_size
-        self.sample_rate = 360.
-        # split list
-        self.train_record_list = [
-            &#39;101&#39;, &#39;106&#39;, &#39;108&#39;, &#39;109&#39;, &#39;112&#39;, &#39;115&#39;, &#39;116&#39;, &#39;118&#39;, &#39;119&#39;, &#39;122&#39;,
-            &#39;124&#39;, &#39;201&#39;, &#39;203&#39;, &#39;205&#39;, &#39;207&#39;, &#39;208&#39;, &#39;209&#39;, &#39;215&#39;, &#39;220&#39;, &#39;223&#39;, &#39;230&#39;
-        ]
-        self.test_record_list = [
-            &#39;100&#39;, &#39;103&#39;, &#39;105&#39;, &#39;111&#39;, &#39;113&#39;, &#39;117&#39;, &#39;121&#39;, &#39;123&#39;, &#39;200&#39;, &#39;210&#39;,
-            &#39;212&#39;, &#39;213&#39;, &#39;214&#39;, &#39;219&#39;, &#39;221&#39;, &#39;222&#39;, &#39;228&#39;, &#39;231&#39;, &#39;232&#39;, &#39;233&#39;, &#39;234&#39;
-        ]
-        # annotation
-        self.labels = [&#39;N&#39;, &#39;V&#39;]
-        self.valid_symbols = [&#39;N&#39;, &#39;L&#39;, &#39;R&#39;, &#39;e&#39;, &#39;j&#39;, &#39;V&#39;, &#39;E&#39;]
-        self.label_map = {
-            &#39;N&#39;: &#39;N&#39;, &#39;L&#39;: &#39;N&#39;, &#39;R&#39;: &#39;N&#39;, &#39;e&#39;: &#39;N&#39;, &#39;j&#39;: &#39;N&#39;,
-            &#39;V&#39;: &#39;V&#39;, &#39;E&#39;: &#39;V&#39;
-        }
-    def _load_data(
-            self,
-            base_record,
-            channel=0  # [0, 1]
-    ):
-        record_name = os.path.join(self.download_dir, str(base_record))
-        # read dat file
-        signals, fields = wfdb.rdsamp(record_name)
-        assert fields[&#39;fs&#39;] == self.sample_rate
-        # read annotation file
-        annotation = wfdb.rdann(record_name, &#39;atr&#39;)
-        symbols = annotation.symbol
-        positions = annotation.sample
-        return signals[:, channel], symbols, positions
+<span></span><span class="k">class</span> <span class="nc">BaseECGDatasetPreprocessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">dataset_root</span><span class="p">,</span>
+            <span class="n">window_size</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span>  <span class="c1"># 2 seconds</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_root</span> <span class="o">=</span> <span class="n">dataset_root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;download&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span> <span class="o">=</span> <span class="n">window_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="mf">360.</span>
+        <span class="c1"># split list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_record_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;101&#39;</span><span class="p">,</span> <span class="s1">&#39;106&#39;</span><span class="p">,</span> <span class="s1">&#39;108&#39;</span><span class="p">,</span> <span class="s1">&#39;109&#39;</span><span class="p">,</span> <span class="s1">&#39;112&#39;</span><span class="p">,</span> <span class="s1">&#39;115&#39;</span><span class="p">,</span> <span class="s1">&#39;116&#39;</span><span class="p">,</span> <span class="s1">&#39;118&#39;</span><span class="p">,</span> <span class="s1">&#39;119&#39;</span><span class="p">,</span> <span class="s1">&#39;122&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;124&#39;</span><span class="p">,</span> <span class="s1">&#39;201&#39;</span><span class="p">,</span> <span class="s1">&#39;203&#39;</span><span class="p">,</span> <span class="s1">&#39;205&#39;</span><span class="p">,</span> <span class="s1">&#39;207&#39;</span><span class="p">,</span> <span class="s1">&#39;208&#39;</span><span class="p">,</span> <span class="s1">&#39;209&#39;</span><span class="p">,</span> <span class="s1">&#39;215&#39;</span><span class="p">,</span> <span class="s1">&#39;220&#39;</span><span class="p">,</span> <span class="s1">&#39;223&#39;</span><span class="p">,</span> <span class="s1">&#39;230&#39;</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_record_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;100&#39;</span><span class="p">,</span> <span class="s1">&#39;103&#39;</span><span class="p">,</span> <span class="s1">&#39;105&#39;</span><span class="p">,</span> <span class="s1">&#39;111&#39;</span><span class="p">,</span> <span class="s1">&#39;113&#39;</span><span class="p">,</span> <span class="s1">&#39;117&#39;</span><span class="p">,</span> <span class="s1">&#39;121&#39;</span><span class="p">,</span> <span class="s1">&#39;123&#39;</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">,</span> <span class="s1">&#39;210&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;212&#39;</span><span class="p">,</span> <span class="s1">&#39;213&#39;</span><span class="p">,</span> <span class="s1">&#39;214&#39;</span><span class="p">,</span> <span class="s1">&#39;219&#39;</span><span class="p">,</span> <span class="s1">&#39;221&#39;</span><span class="p">,</span> <span class="s1">&#39;222&#39;</span><span class="p">,</span> <span class="s1">&#39;228&#39;</span><span class="p">,</span> <span class="s1">&#39;231&#39;</span><span class="p">,</span> <span class="s1">&#39;232&#39;</span><span class="p">,</span> <span class="s1">&#39;233&#39;</span><span class="p">,</span> <span class="s1">&#39;234&#39;</span>
+        <span class="p">]</span>
+        <span class="c1"># annotation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">:</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="s1">&#39;V&#39;</span>
+        <span class="p">}</span>
+    <span class="k">def</span> <span class="nf">_load_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">base_record</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="mi">0</span>  <span class="c1"># [0, 1]</span>
+    <span class="p">):</span>
+        <span class="n">record_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">download_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">base_record</span><span class="p">))</span>
+        <span class="c1"># read dat file</span>
+        <span class="n">signals</span><span class="p">,</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdsamp</span><span class="p">(</span><span class="n">record_name</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;fs&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_rate</span>
+        <span class="c1"># read annotation file</span>
+        <span class="n">annotation</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdann</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="s1">&#39;atr&#39;</span><span class="p">)</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">annotation</span><span class="o">.</span><span class="n">symbol</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="n">annotation</span><span class="o">.</span><span class="n">sample</span>
+        <span class="k">return</span> <span class="n">signals</span><span class="p">[:,</span> <span class="n">channel</span><span class="p">],</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span>
 
-    def _normalize_signal(
-            self,
-            signal,
-            method=&#39;std&#39;
-    ):
-        if method == &#39;minmax&#39;:
-            # Min-Max scaling
-            min_val = np.min(signal)
-            max_val = np.max(signal)
-            return (signal - min_val) / (max_val - min_val)
-        elif method == &#39;std&#39;:
-            # Zero mean and unit variance
-            signal = (signal - np.mean(signal)) / np.std(signal)
-            return signal
-        else:
-            raise ValueError(&quot;Invalid method: {}&quot;.format(method))
+    <span class="k">def</span> <span class="nf">_normalize_signal</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">signal</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s1">&#39;std&#39;</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;minmax&#39;</span><span class="p">:</span>
+            <span class="c1"># Min-Max scaling</span>
+            <span class="n">min_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+            <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">signal</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span>
+            <span class="c1"># Zero mean and unit variance</span>
+            <span class="n">signal</span> <span class="o">=</span> <span class="p">(</span><span class="n">signal</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">signal</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">signal</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid method: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
 
-    def _segment_data(
-            self,
-            signal,
-            symbols,
-            positions
-    ):
-        X = []
-        y = []
-        sig_len = len(signal)
-        for i in range(len(symbols)):
-            start = positions[i] - self.window_size // 2
-            end = positions[i] + self.window_size // 2
-            if symbols[i] in self.valid_symbols and start &gt;= 0 and end &lt;= sig_len:
-                segment = signal[start:end]
-                assert len(segment) == self.window_size, &quot;Invalid length&quot;
-                X.append(segment)
-                y.append(self.labels.index(self.label_map[symbols[i]]))
-        return np.array(X), np.array(y)
+    <span class="k">def</span> <span class="nf">_segment_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">signal</span><span class="p">,</span>
+            <span class="n">symbols</span><span class="p">,</span>
+            <span class="n">positions</span>
+    <span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sig_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">symbols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_symbols</span> <span class="ow">and</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">end</span> <span class="o">&lt;=</span> <span class="n">sig_len</span><span class="p">:</span>
+                <span class="n">segment</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+                <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span><span class="p">,</span> <span class="s2">&quot;Invalid length&quot;</span>
+                <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+                <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_map</span><span class="p">[</span><span class="n">symbols</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
-    def preprocess_dataset(
-            self,
-            normalize=True
-    ):
-        # preprocess training dataset
-        self._preprocess_dataset_core(self.train_record_list, &quot;train&quot;, normalize)
-        # preprocess test dataset
-        self._preprocess_dataset_core(self.test_record_list, &quot;test&quot;, normalize)
+    <span class="k">def</span> <span class="nf">preprocess_dataset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">):</span>
+        <span class="c1"># preprocess training dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset_core</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_record_list</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">normalize</span><span class="p">)</span>
+        <span class="c1"># preprocess test dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset_core</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_record_list</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">normalize</span><span class="p">)</span>
 
-    def _preprocess_dataset_core(
-            self,
-            record_list,
-            mode=&quot;train&quot;,
-            normalize=True
-    ):
-        Xs, ys = [], []
-        save_dir = os.path.join(self.dataset_root, &#39;preprocessed&#39;, mode)
-        for i in range(len(record_list)):
-            signal, symbols, positions = self._load_data(record_list[i])
-            if normalize:
-                signal = self._normalize_signal(signal)
-            X, y = self._segment_data(signal, symbols, positions)
-            Xs.append(X)
-            ys.append(y)
-        os.makedirs(save_dir, exist_ok=True)
-        np.save(os.path.join(save_dir, &quot;X.npy&quot;), np.vstack(Xs))
-        np.save(os.path.join(save_dir, &quot;y.npy&quot;), np.concatenate(ys))
+    <span class="k">def</span> <span class="nf">_preprocess_dataset_core</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">record_list</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">):</span>
+        <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">record_list</span><span class="p">)):</span>
+            <span class="n">signal</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_data</span><span class="p">(</span><span class="n">record_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+                <span class="n">signal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_signal</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segment_data</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span><span class="p">)</span>
+            <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;X.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xs</span><span class="p">))</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;y.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -868,7 +868,7 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>BaseECGDatasetPreprocessor(dataset_root).preprocess_dataset()
+<span></span><span class="n">BaseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess_dataset</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -884,7 +884,7 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>!tree ./dataset/preprocessed
+<span></span><span class="o">!</span>tree ./dataset/preprocessed
 </pre></div>
 </div>
 </div>
@@ -910,10 +910,10 @@ download_dir = os.path.join(dataset_root, &#39;download&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>X_train = np.load(os.path.join(dataset_root, &#39;preprocessed&#39;, &#39;train&#39;, &#39;X.npy&#39;))
-y_train = np.load(os.path.join(dataset_root, &#39;preprocessed&#39;, &#39;train&#39;, &#39;y.npy&#39;))
-X_test = np.load(os.path.join(dataset_root, &#39;preprocessed&#39;, &#39;test&#39;, &#39;X.npy&#39;))
-y_test = np.load(os.path.join(dataset_root, &#39;preprocessed&#39;, &#39;test&#39;, &#39;y.npy&#39;))
+<span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">))</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -928,8 +928,8 @@ y_test = np.load(os.path.join(dataset_root, &#39;preprocessed&#39;, &#39;test&#3
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print(&quot;X_train.shape = &quot;, X_train.shape, &quot; \t y_train.shape = &quot;, y_train.shape)
-print(&quot;X_test.shape = &quot;, X_test.shape, &quot; \t y_test.shape = &quot;, y_test.shape)
+<span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;X_train.shape = &quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> y_train.shape = &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;X_test.shape = &quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2"> y_test.shape = &quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -953,8 +953,8 @@ X_test.shape =  (45349, 720)     y_test.shape =  (45349,)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>uniq_train, counts_train = np.unique(y_train, return_counts=True)
-print(&quot;y_train count each labels: &quot;, dict(zip(uniq_train, counts_train)))
+<span></span><span class="n">uniq_train</span><span class="p">,</span> <span class="n">counts_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;y_train count each labels: &quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">uniq_train</span><span class="p">,</span> <span class="n">counts_train</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -972,8 +972,8 @@ y_train count each labels:  {0: 43995, 1: 3743}
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>uniq_test, counts_test = np.unique(y_test, return_counts=True)
-print(&quot;y_test count each labels: &quot;, dict(zip(uniq_test, counts_test)))
+<span></span><span class="n">uniq_test</span><span class="p">,</span> <span class="n">counts_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;y_test count each labels: &quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">uniq_test</span><span class="p">,</span> <span class="n">counts_test</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -992,8 +992,8 @@ y_test count each labels:  {0: 42149, 1: 3200}
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%matplotlib inline
-import matplotlib.pyplot as plt
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
@@ -1004,8 +1004,8 @@ import matplotlib.pyplot as plt
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>idx_n = np.where(y_train == 0)[0]
-plt.plot(X_train[idx_n[0]])
+<span></span><span class="n">idx_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
@@ -1030,8 +1030,8 @@ plt.plot(X_train[idx_n[0]])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>idx_s = np.where(y_train == 1)[0]
-plt.plot(X_train[idx_s[0]])
+<span></span><span class="n">idx_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx_s</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
@@ -1063,26 +1063,26 @@ plt.plot(X_train[idx_s[0]])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>class ECGDataset(chainer.dataset.DatasetMixin):
+<span></span><span class="k">class</span> <span class="nc">ECGDataset</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">DatasetMixin</span><span class="p">):</span>
 
-    def __init__(
-            self,
-            path
-    ):
-        if os.path.isfile(os.path.join(path, &#39;X.npy&#39;)):
-            self.X = np.load(os.path.join(path, &#39;X.npy&#39;))
-        else:
-            raise FileNotFoundError(&quot;{}/X.npy not found.&quot;.format(path))
-        if os.path.isfile(os.path.join(path, &#39;y.npy&#39;)):
-            self.y = np.load(os.path.join(path, &#39;y.npy&#39;))
-        else:
-            raise FileNotFoundError(&quot;{}/y.npy not found.&quot;.format(path))
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">path</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;{}/X.npy not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;y.npy&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;{}/y.npy not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
-    def __len__(self):
-        return len(self.X)
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
 
-    def get_example(self, i):
-        return self.X[None, i].astype(np.float32), self.y[i]
+    <span class="k">def</span> <span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
 </pre></div>
 </div>
@@ -1095,120 +1095,120 @@ plt.plot(X_train[idx_s[0]])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>import chainer.functions as F
-import chainer.links as L
-from chainer import reporter
-from chainer import Variable
+<span></span><span class="kn">import</span> <span class="nn">chainer.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">chainer.links</span> <span class="kn">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">reporter</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">Variable</span>
 
 
-class BaseBlock(chainer.Chain):
+<span class="k">class</span> <span class="nc">BaseBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    def __init__(
-            self,
-            channels,
-            stride=1,
-            dilate=1
-    ):
-        self.stride = stride
-        super(BaseBlock, self).__init__()
-        with self.init_scope():
-            self.c1 = L.ConvolutionND(1, None, channels, 3, stride, dilate, dilate=dilate)
-            self.c2 = L.ConvolutionND(1, None, channels, 3, 1, dilate, dilate=dilate)
-            if stride &gt; 1:
-                self.cd = L.ConvolutionND(1, None, channels, 1, stride, 0)
-            self.b1 = L.BatchNormalization(channels)
-            self.b2 = L.BatchNormalization(channels)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">channels</span><span class="p">,</span>
+            <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">dilate</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BaseBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dilate</span><span class="p">,</span> <span class="n">dilate</span><span class="o">=</span><span class="n">dilate</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cd</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
 
-    def __call__(self, x):
-        h = F.relu(self.b1(self.c1(x)))
-        if self.stride &gt; 1:
-            res = self.cd(x)
-        else:
-            res = x
-        h = res + self.b2(self.c2(h))
-        return F.relu(h)
-
-
-class ResBlock(chainer.Chain):
-
-    def __init__(
-            self,
-            channels,
-            n_block,
-            dilate=1
-    ):
-        self.n_block = n_block
-        super(ResBlock, self).__init__()
-        with self.init_scope():
-            self.b0 = BaseBlock(channels, 2, dilate)
-            for i in range(1, n_block):
-                bx = BaseBlock(channels, 1, dilate)
-                setattr(self, &#39;b{}&#39;.format(str(i)), bx)
-
-    def __call__(self, x):
-        h = self.b0(x)
-        for i in range(1, self.n_block):
-            h = getattr(self, &#39;b{}&#39;.format(str(i)))(h)
-        return h
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c2</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
 
 
-class ResNet34(chainer.Chain):
+<span class="k">class</span> <span class="nc">ResBlock</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    def __init__(self):
-        super(ResNet34, self).__init__()
-        with self.init_scope():
-            self.conv1 = L.ConvolutionND(1, None, 64, 7, 2, 3)
-            self.bn1 = L.BatchNormalization(64)
-            self.resblock0 = ResBlock(64, 3)
-            self.resblock1 = ResBlock(128, 4)
-            self.resblock2 = ResBlock(256, 6)
-            self.resblock3 = ResBlock(512, 3)
-            self.fc = L.Linear(None, 2)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">channels</span><span class="p">,</span>
+            <span class="n">n_block</span><span class="p">,</span>
+            <span class="n">dilate</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_block</span> <span class="o">=</span> <span class="n">n_block</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ResBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">b0</span> <span class="o">=</span> <span class="n">BaseBlock</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dilate</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_block</span><span class="p">):</span>
+                <span class="n">bx</span> <span class="o">=</span> <span class="n">BaseBlock</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dilate</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;b{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">bx</span><span class="p">)</span>
 
-    def __call__(self, x):
-        h = F.relu(self.bn1(self.conv1(x)))
-        h = F.max_pooling_nd(h, 3, 2)
-        for i in range(4):
-            h = getattr(self, &#39;resblock{}&#39;.format(str(i)))(h)
-        h = F.average(h, axis=2)
-        h = self.fc(h)
-        return h
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_block</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;b{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 
 
-class Classifier(chainer.Chain):
+<span class="k">class</span> <span class="nc">ResNet34</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    def __init__(
-            self,
-            predictor,
-            lossfun=F.softmax_cross_entropy
-    ):
-        super(Classifier, self).__init__()
-        with self.init_scope():
-            self.predictor = predictor
-            self.lossfun = lossfun
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ResNet34</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock0</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock1</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock2</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock3</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-    def __call__(self, *args):
-        assert len(args) &gt;= 2
-        x = args[:-1]
-        t = args[-1]
-        y = self.predictor(*x)
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pooling_nd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;resblock{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 
-        # loss
-        loss = self.lossfun(y, t)
-        with chainer.no_backprop_mode():
-            # other metrics
-            accuracy = F.accuracy(y, t)
-        # reporter
-        reporter.report({&#39;loss&#39;: loss}, self)
-        reporter.report({&#39;accuracy&#39;: accuracy}, self)
 
-        return loss
+<span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    def predict(self, x):
-        with chainer.function.no_backprop_mode(), chainer.using_config(&#39;train&#39;, False):
-            x = Variable(self.xp.asarray(x, dtype=self.xp.float32))
-            y = self.predictor(x)
-            return y
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">predictor</span><span class="p">,</span>
+            <span class="n">lossfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Classifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span> <span class="o">=</span> <span class="n">predictor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lossfun</span> <span class="o">=</span> <span class="n">lossfun</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># loss</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lossfun</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">():</span>
+            <span class="c1"># other metrics</span>
+            <span class="n">accuracy</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">accuracy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="c1"># reporter</span>
+        <span class="n">reporter</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">},</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">reporter</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">},</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">chainer</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">no_backprop_mode</span><span class="p">(),</span> <span class="n">chainer</span><span class="o">.</span><span class="n">using_config</span><span class="p">(</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">y</span>
 </pre></div>
 </div>
 </div>
@@ -1222,60 +1222,60 @@ class Classifier(chainer.Chain):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>from chainer import optimizers
-from chainer.optimizer import WeightDecay
-from chainer.iterators import MultiprocessIterator
-from chainer import training
-from chainer.training import extensions
-from chainer.training import triggers
-from chainer.backends.cuda import get_device_from_id
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">optimizers</span>
+<span class="kn">from</span> <span class="nn">chainer.optimizer</span> <span class="kn">import</span> <span class="n">WeightDecay</span>
+<span class="kn">from</span> <span class="nn">chainer.iterators</span> <span class="kn">import</span> <span class="n">MultiprocessIterator</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">extensions</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">triggers</span>
+<span class="kn">from</span> <span class="nn">chainer.backends.cuda</span> <span class="kn">import</span> <span class="n">get_device_from_id</span>
 
 
-def create_train_dataset(root_path):
-    train_path = os.path.join(root_path, &#39;preprocessed&#39;, &#39;train&#39;)
-    train_dataset = ECGDataset(train_path)
+<span class="k">def</span> <span class="nf">create_train_dataset</span><span class="p">(</span><span class="n">root_path</span><span class="p">):</span>
+    <span class="n">train_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">ECGDataset</span><span class="p">(</span><span class="n">train_path</span><span class="p">)</span>
 
-    return train_dataset
+    <span class="k">return</span> <span class="n">train_dataset</span>
 
 
-def create_trainer(
-    batchsize, train_dataset, nb_epoch=1,
-    device=0, lossfun=F.softmax_cross_entropy
-):
-    # setup model
-    model = ResNet34()
-    train_model = Classifier(model, lossfun=lossfun)
+<span class="k">def</span> <span class="nf">create_trainer</span><span class="p">(</span>
+    <span class="n">batchsize</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span>
+<span class="p">):</span>
+    <span class="c1"># setup model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ResNet34</span><span class="p">()</span>
+    <span class="n">train_model</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">lossfun</span><span class="p">)</span>
 
-    # use Adam optimizer
-    optimizer = optimizers.Adam(alpha=0.001)
-    optimizer.setup(train_model)
-    optimizer.add_hook(WeightDecay(0.0001))
+    <span class="c1"># use Adam optimizer</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">train_model</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">WeightDecay</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">))</span>
 
-    # setup iterator
-    train_iter = MultiprocessIterator(train_dataset, batchsize)
+    <span class="c1"># setup iterator</span>
+    <span class="n">train_iter</span> <span class="o">=</span> <span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
 
-    # define updater
-    updater = training.StandardUpdater(train_iter, optimizer, device=device)
+    <span class="c1"># define updater</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span><span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
 
-    # setup trainer
-    stop_trigger = (nb_epoch, &#39;epoch&#39;)
-    trainer = training.trainer.Trainer(updater, stop_trigger)
-    logging_attributes = [
-        &#39;epoch&#39;, &#39;iteration&#39;,
-        &#39;main/loss&#39;, &#39;main/accuracy&#39;
-    ]
-    trainer.extend(
-        extensions.LogReport(logging_attributes, trigger=(2000 // batchsize, &#39;iteration&#39;))
-    )
-    trainer.extend(
-        extensions.PrintReport(logging_attributes)
-    )
-    trainer.extend(
-        extensions.ExponentialShift(&#39;alpha&#39;, 0.75, optimizer=optimizer),
-        trigger=(4000 // batchsize, &#39;iteration&#39;)
-    )
+    <span class="c1"># setup trainer</span>
+    <span class="n">stop_trigger</span> <span class="o">=</span> <span class="p">(</span><span class="n">nb_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="n">stop_trigger</span><span class="p">)</span>
+    <span class="n">logging_attributes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/accuracy&#39;</span>
+    <span class="p">]</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">(</span><span class="n">logging_attributes</span><span class="p">,</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">2000</span> <span class="o">//</span> <span class="n">batchsize</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span><span class="n">logging_attributes</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">ExponentialShift</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">),</span>
+        <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">4000</span> <span class="o">//</span> <span class="n">batchsize</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
 
-    return trainer
+    <span class="k">return</span> <span class="n">trainer</span>
 </pre></div>
 </div>
 </div>
@@ -1285,7 +1285,7 @@ def create_trainer(
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>train_dataset = create_train_dataset(dataset_root)
+<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1294,7 +1294,7 @@ def create_trainer(
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>trainer = create_trainer(256, train_dataset, nb_epoch=1, device=0)
+<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1304,7 +1304,7 @@ def create_trainer(
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time trainer.run()
+<span></span><span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
 </div>
@@ -1361,49 +1361,49 @@ Wall time: 1min 27s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>from chainer import cuda
-from sklearn.metrics import classification_report
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
+<span></span><span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">cuda</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
 
 
-def create_test_dataset(root_path):
-    test_path = os.path.join(root_path, &#39;preprocessed&#39;, &#39;test&#39;)
-    test_dataset = ECGDataset(test_path)
-    return test_dataset
+<span class="k">def</span> <span class="nf">create_test_dataset</span><span class="p">(</span><span class="n">root_path</span><span class="p">):</span>
+    <span class="n">test_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+    <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">ECGDataset</span><span class="p">(</span><span class="n">test_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">test_dataset</span>
 
 
-def predict(trainer, test_dataset, batchsize, device=-1):
-    model = trainer.updater.get_optimizer(&#39;main&#39;).target
-    ys = []
-    ts = []
-    for i in range(len(test_dataset) // batchsize + 1):
-        if i == len(test_dataset) // batchsize:
-            X, t = zip(*test_dataset[i*batchsize: len(test_dataset)])
-        else:
-            X, t = zip(*test_dataset[i*batchsize:(i+1)*batchsize])
-        X = cuda.to_gpu(np.array(X), device)
-        y = model.predict(X)
-        y = cuda.to_cpu(y.data.argmax(axis=1))
-        ys.append(y)
-        ts.append(np.array(t))
-    return np.concatenate(ts), np.concatenate(ys)
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">get_optimizer</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">target</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">)</span> <span class="o">//</span> <span class="n">batchsize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">)</span> <span class="o">//</span> <span class="n">batchsize</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">test_dataset</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">batchsize</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">test_dataset</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">batchsize</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">batchsize</span><span class="p">])</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">device</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ts</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
 
 
-def print_confusion_matrix(y_true, y_pred):
-    labels = sorted(list(set(y_true)))
-    target_names = [&#39;Normal&#39;, &#39;VEB&#39;]
-    cmx = confusion_matrix(y_true, y_pred, labels=labels)
-    df_cmx = pd.DataFrame(cmx, index=target_names, columns=target_names)
-    plt.figure(figsize = (5,3))
-    sn.heatmap(df_cmx, annot=True, annot_kws={&quot;size&quot;: 18}, fmt=&quot;d&quot;, cmap=&#39;Blues&#39;)
-    plt.show()
+<span class="k">def</span> <span class="nf">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y_true</span><span class="p">)))</span>
+    <span class="n">target_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;VEB&#39;</span><span class="p">]</span>
+    <span class="n">cmx</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">df_cmx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cmx</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">target_names</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">target_names</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">sn</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_cmx</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">},</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
-def print_scores(y_true, y_pred):
-    target_names = [&#39;Normal&#39;, &#39;VEB&#39;]
-    print(classification_report(y_true, y_pred, target_names=target_names))
-    print(&quot;accuracy: &quot;, accuracy_score(y_true, y_pred))
+<span class="k">def</span> <span class="nf">print_scores</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">target_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;VEB&#39;</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;accuracy: &quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
 </pre></div>
 </div>
@@ -1414,7 +1414,7 @@ def print_scores(y_true, y_pred):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>test_dataset = create_test_dataset(dataset_root)
+<span></span><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">create_test_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1437,7 +1437,7 @@ def print_scores(y_true, y_pred):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
+<span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
 </div>
@@ -1463,7 +1463,7 @@ Wall time: 18.3 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_confusion_matrix(y_true_test, y_pred_test)
+<span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1487,7 +1487,7 @@ Wall time: 18.3 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_scores(y_true_test, y_pred_test)
+<span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1575,31 +1575,31 @@ circumstances, there are several strategies to learn the model focusing on the d
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>from imblearn.datasets import make_imbalance
-from imblearn.over_sampling import SMOTE
+<span></span><span class="kn">from</span> <span class="nn">imblearn.datasets</span> <span class="kn">import</span> <span class="n">make_imbalance</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">SMOTE</span>
 
 
-class SampledECGDataset(ECGDataset):
+<span class="k">class</span> <span class="nc">SampledECGDataset</span><span class="p">(</span><span class="n">ECGDataset</span><span class="p">):</span>
 
-    def __init__(
-            self,
-            path
-    ):
-        super(SampledECGDataset, self).__init__(path)
-        _, counts = np.unique(self.y, return_counts=True)
-        self.X, self.y = make_imbalance(
-            self.X, self.y,
-            sampling_strategy={0: counts[0]//4, 1: counts[1]}
-        )
-        smote = SMOTE(random_state=42)
-        self.X, self.y = smote.fit_sample(self.X, self.y)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">path</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SampledECGDataset</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_imbalance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">sampling_strategy</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+        <span class="p">)</span>
+        <span class="n">smote</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">smote</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
 
-def create_sampled_train_dataset(root_path):
-    train_path = os.path.join(root_path, &#39;preprocessed&#39;, &#39;train&#39;)
-    train_dataset = SampledECGDataset(train_path)
+<span class="k">def</span> <span class="nf">create_sampled_train_dataset</span><span class="p">(</span><span class="n">root_path</span><span class="p">):</span>
+    <span class="n">train_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">SampledECGDataset</span><span class="p">(</span><span class="n">train_path</span><span class="p">)</span>
 
-    return train_dataset
+    <span class="k">return</span> <span class="n">train_dataset</span>
 </pre></div>
 </div>
 </div>
@@ -1608,7 +1608,7 @@ def create_sampled_train_dataset(root_path):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>train_dataset = create_sampled_train_dataset(dataset_root)
+<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_sampled_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1618,8 +1618,8 @@ def create_sampled_train_dataset(root_path):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>trainer = create_trainer(256, train_dataset, nb_epoch=2, device=0)
-%time trainer.run()
+<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
 </div>
@@ -1663,7 +1663,7 @@ Wall time: 1min 8s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
+<span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
 </div>
@@ -1681,7 +1681,7 @@ Wall time: 18 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_confusion_matrix(y_true_test, y_pred_test)
+<span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1697,7 +1697,7 @@ Wall time: 18 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_scores(y_true_test, y_pred_test)
+<span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1738,20 +1738,20 @@ described by the following equation.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>from chainer.backends.cuda import get_array_module
+<span></span><span class="kn">from</span> <span class="nn">chainer.backends.cuda</span> <span class="kn">import</span> <span class="n">get_array_module</span>
 
-def focal_loss(x, t, class_num=2, gamma=0.5, eps=1e-6):
-    xp = get_array_module(t)
+<span class="k">def</span> <span class="nf">focal_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">class_num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">get_array_module</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-    p = F.softmax(x)
-    p = F.clip(p, x_min=eps, x_max=1-eps)
-    log_p = F.log_softmax(x)
-    t_onehot = xp.eye(class_num)[t.ravel()]
+    <span class="n">p</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x_min</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">x_max</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">eps</span><span class="p">)</span>
+    <span class="n">log_p</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">t_onehot</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">class_num</span><span class="p">)[</span><span class="n">t</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
 
-    loss_sce = -1 * t_onehot * log_p
-    loss_focal = F.sum(loss_sce * (1. - p) ** gamma, axis=1)
+    <span class="n">loss_sce</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">t_onehot</span> <span class="o">*</span> <span class="n">log_p</span>
+    <span class="n">loss_focal</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">loss_sce</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    return F.mean(loss_focal)
+    <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss_focal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1761,7 +1761,7 @@ def focal_loss(x, t, class_num=2, gamma=0.5, eps=1e-6):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>train_dataset = create_train_dataset(dataset_root)
+<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1770,7 +1770,7 @@ def focal_loss(x, t, class_num=2, gamma=0.5, eps=1e-6):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>trainer = create_trainer(256, train_dataset, nb_epoch=1, device=0, lossfun=focal_loss)
+<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">focal_loss</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1780,7 +1780,7 @@ def focal_loss(x, t, class_num=2, gamma=0.5, eps=1e-6):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time trainer.run()
+<span></span><span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
 </div>
@@ -1826,7 +1826,7 @@ Wall time: 1min 17s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
+<span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
 </div>
@@ -1844,7 +1844,7 @@ Wall time: 17.9 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_confusion_matrix(y_true_test, y_pred_test)
+<span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1860,7 +1860,7 @@ Wall time: 17.9 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_scores(y_true_test, y_pred_test)
+<span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1908,29 +1908,29 @@ accuracy:  0.9456437848684646
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>class DilatedResNet34(chainer.Chain):
+<span></span><span class="k">class</span> <span class="nc">DilatedResNet34</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
 
-    def __init__(self):
-        super(DilatedResNet34, self).__init__()
-        with self.init_scope():
-            self.conv1 = L.ConvolutionND(1, None, 64, 7, 2, 3)
-            self.bn1 = L.BatchNormalization(64)
-            self.resblock0 = ResBlock(64, 3, 1)
-            self.resblock1 = ResBlock(128, 4, 1)
-            self.resblock2 = ResBlock(256, 6, 2)
-            self.resblock3 = ResBlock(512, 3, 4)
-            self.fc1 = L.Linear(None, 512)
-            self.fc2 = L.Linear(None, 2)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DilatedResNet34</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">ConvolutionND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock0</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock1</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock2</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resblock3</span> <span class="o">=</span> <span class="n">ResBlock</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-    def __call__(self, x):
-        h = F.relu(self.bn1(self.conv1(x)))
-        h = F.max_pooling_nd(h, 3, 2)
-        for i in range(4):
-            h = getattr(self, &#39;resblock{}&#39;.format(str(i)))(h)
-        h = F.average(h, axis=2)
-        h = F.dropout(self.fc1(h), 0.5)
-        h = self.fc2(h)
-        return h
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pooling_nd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;resblock{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
 </pre></div>
 </div>
 </div>
@@ -1940,44 +1940,44 @@ accuracy:  0.9456437848684646
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>def create_trainer(
-    batchsize, train_dataset, nb_epoch=1,
-    device=0, lossfun=F.softmax_cross_entropy
-):
-    # setup model
-    model = DilatedResNet34()
-    train_model = Classifier(model, lossfun=lossfun)
+<span></span><span class="k">def</span> <span class="nf">create_trainer</span><span class="p">(</span>
+    <span class="n">batchsize</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span>
+<span class="p">):</span>
+    <span class="c1"># setup model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">DilatedResNet34</span><span class="p">()</span>
+    <span class="n">train_model</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lossfun</span><span class="o">=</span><span class="n">lossfun</span><span class="p">)</span>
 
-    # use Adam optimizer
-    optimizer = optimizers.Adam(alpha=0.001)
-    optimizer.setup(train_model)
-    optimizer.add_hook(WeightDecay(0.0001))
+    <span class="c1"># use Adam optimizer</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">train_model</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">WeightDecay</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">))</span>
 
-    # setup iterator
-    train_iter = MultiprocessIterator(train_dataset, batchsize)
+    <span class="c1"># setup iterator</span>
+    <span class="n">train_iter</span> <span class="o">=</span> <span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
 
-    # define updater
-    updater = training.StandardUpdater(train_iter, optimizer, device=device)
+    <span class="c1"># define updater</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span><span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
 
-    # setup trainer
-    stop_trigger = (nb_epoch, &#39;epoch&#39;)
-    trainer = training.trainer.Trainer(updater, stop_trigger)
-    logging_attributes = [
-        &#39;epoch&#39;, &#39;iteration&#39;,
-        &#39;main/loss&#39;, &#39;main/accuracy&#39;
-    ]
-    trainer.extend(
-        extensions.LogReport(logging_attributes, trigger=(2000 // batchsize, &#39;iteration&#39;))
-    )
-    trainer.extend(
-        extensions.PrintReport(logging_attributes)
-    )
-    trainer.extend(
-        extensions.ExponentialShift(&#39;alpha&#39;, 0.75, optimizer=optimizer),
-        trigger=(4000 // batchsize, &#39;iteration&#39;)
-    )
+    <span class="c1"># setup trainer</span>
+    <span class="n">stop_trigger</span> <span class="o">=</span> <span class="p">(</span><span class="n">nb_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="n">stop_trigger</span><span class="p">)</span>
+    <span class="n">logging_attributes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/accuracy&#39;</span>
+    <span class="p">]</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">(</span><span class="n">logging_attributes</span><span class="p">,</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">2000</span> <span class="o">//</span> <span class="n">batchsize</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span><span class="n">logging_attributes</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">ExponentialShift</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">),</span>
+        <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">4000</span> <span class="o">//</span> <span class="n">batchsize</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
 
-    return trainer
+    <span class="k">return</span> <span class="n">trainer</span>
 </pre></div>
 </div>
 </div>
@@ -1986,8 +1986,8 @@ accuracy:  0.9456437848684646
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>train_dataset = create_train_dataset(dataset_root)
-test_dataset = create_test_dataset(dataset_root)
+<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">create_test_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1996,7 +1996,7 @@ test_dataset = create_test_dataset(dataset_root)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>trainer = create_trainer(256, train_dataset, nb_epoch=1, device=0)
+<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2006,7 +2006,7 @@ test_dataset = create_test_dataset(dataset_root)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time trainer.run()
+<span></span><span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
 </div>
@@ -2052,7 +2052,7 @@ Wall time: 1min 14s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
+<span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
 </div>
@@ -2070,7 +2070,7 @@ Wall time: 17.9 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_confusion_matrix(y_true_test, y_pred_test)
+<span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2086,7 +2086,7 @@ Wall time: 17.9 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_scores(y_true_test, y_pred_test)
+<span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2152,92 +2152,92 @@ accuracy:  0.9553683653443296
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>from scipy.signal import butter, lfilter
+<span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">lfilter</span>
 
 
-class DenoiseECGDatasetPreprocessor(BaseECGDatasetPreprocessor):
+<span class="k">class</span> <span class="nc">DenoiseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">BaseECGDatasetPreprocessor</span><span class="p">):</span>
 
-    def __init__(
-            self,
-            dataset_root=&#39;./&#39;,
-            window_size=720
-    ):
-        super(DenoiseECGDatasetPreprocessor, self).__init__(
-        dataset_root, window_size)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">dataset_root</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
+            <span class="n">window_size</span><span class="o">=</span><span class="mi">720</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DenoiseECGDatasetPreprocessor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="n">dataset_root</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
 
-    def _denoise_signal(
-            self,
-            signal,
-            btype=&#39;low&#39;,
-            cutoff_low=0.2,
-            cutoff_high=25.,
-            order=5
-    ):
-        nyquist = self.sample_rate / 2.
-        if btype == &#39;band&#39;:
-            cut_off = (cutoff_low / nyquist, cutoff_high / nyquist)
-        elif btype == &#39;high&#39;:
-            cut_off = cutoff_low / nyquist
-        elif btype == &#39;low&#39;:
-            cut_off = cutoff_high / nyquist
-        else:
-            return signal
-        b, a = butter(order, cut_off, analog=False, btype=btype)
-        return lfilter(b, a, signal)
+    <span class="k">def</span> <span class="nf">_denoise_signal</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">signal</span><span class="p">,</span>
+            <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;low&#39;</span><span class="p">,</span>
+            <span class="n">cutoff_low</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+            <span class="n">cutoff_high</span><span class="o">=</span><span class="mf">25.</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="mi">5</span>
+    <span class="p">):</span>
+        <span class="n">nyquist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">if</span> <span class="n">btype</span> <span class="o">==</span> <span class="s1">&#39;band&#39;</span><span class="p">:</span>
+            <span class="n">cut_off</span> <span class="o">=</span> <span class="p">(</span><span class="n">cutoff_low</span> <span class="o">/</span> <span class="n">nyquist</span><span class="p">,</span> <span class="n">cutoff_high</span> <span class="o">/</span> <span class="n">nyquist</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">btype</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+            <span class="n">cut_off</span> <span class="o">=</span> <span class="n">cutoff_low</span> <span class="o">/</span> <span class="n">nyquist</span>
+        <span class="k">elif</span> <span class="n">btype</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span><span class="p">:</span>
+            <span class="n">cut_off</span> <span class="o">=</span> <span class="n">cutoff_high</span> <span class="o">/</span> <span class="n">nyquist</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">signal</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">butter</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">cut_off</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="n">btype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span>
 
-    def _segment_data(
-            self,
-            signal,
-            symbols,
-            positions
-    ):
-        X = []
-        y = []
-        sig_len = len(signal)
-        for i in range(len(symbols)):
-            start = positions[i] - self.window_size // 2
-            end = positions[i] + self.window_size // 2
-            if symbols[i] in self.valid_symbols and start &gt;= 0 and end &lt;= sig_len:
-                segment = signal[start:end]
-                assert len(segment) == self.window_size, &quot;Invalid length&quot;
-                X.append(segment)
-                y.append(self.labels.index(self.label_map[symbols[i]]))
-        return np.array(X), np.array(y)
+    <span class="k">def</span> <span class="nf">_segment_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">signal</span><span class="p">,</span>
+            <span class="n">symbols</span><span class="p">,</span>
+            <span class="n">positions</span>
+    <span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sig_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">symbols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_symbols</span> <span class="ow">and</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">end</span> <span class="o">&lt;=</span> <span class="n">sig_len</span><span class="p">:</span>
+                <span class="n">segment</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+                <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_size</span><span class="p">,</span> <span class="s2">&quot;Invalid length&quot;</span>
+                <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+                <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_map</span><span class="p">[</span><span class="n">symbols</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
-    def prepare_dataset(
-            self,
-            denoise=False,
-            normalize=True
-    ):
-        if not os.path.isdir(self.download_dir):
-            self.download_data()
+    <span class="k">def</span> <span class="nf">prepare_dataset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">denoise</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">download_dir</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">download_data</span><span class="p">()</span>
 
-        # prepare training dataset
-        self._prepare_dataset_core(self.train_record_list, &quot;train&quot;, denoise, normalize)
-        # prepare test dataset
-        self._prepare_dataset_core(self.test_record_list, &quot;test&quot;, denoise, normalize)
+        <span class="c1"># prepare training dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_dataset_core</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_record_list</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">denoise</span><span class="p">,</span> <span class="n">normalize</span><span class="p">)</span>
+        <span class="c1"># prepare test dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_dataset_core</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_record_list</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">denoise</span><span class="p">,</span> <span class="n">normalize</span><span class="p">)</span>
 
-    def _prepare_dataset_core(
-            self,
-            record_list,
-            mode=&quot;train&quot;,
-            denoise=False,
-            normalize=True
-    ):
-        Xs, ys = [], []
-        save_dir = os.path.join(self.dataset_root, &#39;preprocessed&#39;, mode)
-        for i in range(len(record_list)):
-            signal, symbols, positions = self._load_data(record_list[i])
-            if denoise:
-                signal = self._denoise_signal(signal)
-            if normalize:
-                signal = self._normalize_signal(signal)
-            X, y = self._segment_data(signal, symbols, positions)
-            Xs.append(X)
-            ys.append(y)
-        os.makedirs(save_dir, exist_ok=True)
-        np.save(os.path.join(save_dir, &quot;X.npy&quot;), np.vstack(Xs))
-        np.save(os.path.join(save_dir, &quot;y.npy&quot;), np.concatenate(ys))
+    <span class="k">def</span> <span class="nf">_prepare_dataset_core</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">record_list</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+            <span class="n">denoise</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">):</span>
+        <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">save_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">record_list</span><span class="p">)):</span>
+            <span class="n">signal</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_data</span><span class="p">(</span><span class="n">record_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">denoise</span><span class="p">:</span>
+                <span class="n">signal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_denoise_signal</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+                <span class="n">signal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_signal</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segment_data</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span><span class="p">)</span>
+            <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;X.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xs</span><span class="p">))</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">&quot;y.npy&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span>
 
 </pre></div>
 </div>
@@ -2258,7 +2258,7 @@ class DenoiseECGDatasetPreprocessor(BaseECGDatasetPreprocessor):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>DenoiseECGDatasetPreprocessor(dataset_root).prepare_dataset(denoise=True)
+<span></span><span class="n">DenoiseECGDatasetPreprocessor</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span><span class="o">.</span><span class="n">prepare_dataset</span><span class="p">(</span><span class="n">denoise</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2268,7 +2268,7 @@ class DenoiseECGDatasetPreprocessor(BaseECGDatasetPreprocessor):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>X_train_d = np.load(os.path.join(dataset_root, &#39;preprocessed&#39;, &#39;train&#39;, &#39;X.npy&#39;))
+<span></span><span class="n">X_train_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">,</span> <span class="s1">&#39;preprocessed&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;X.npy&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -2277,12 +2277,12 @@ class DenoiseECGDatasetPreprocessor(BaseECGDatasetPreprocessor):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>plt.subplots(figsize=(12, 4))
-plt.subplot(1, 2, 1)
-plt.plot(X_train[idx_n[0]])
-plt.subplot(1, 2, 2)
-plt.plot(X_train_d[idx_n[0]])
-plt.show()
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train_d</span><span class="p">[</span><span class="n">idx_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2300,8 +2300,8 @@ plt.show()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>train_dataset = create_train_dataset(dataset_root)
-test_dataset = create_test_dataset(dataset_root)
+<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">create_train_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">create_test_dataset</span><span class="p">(</span><span class="n">dataset_root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2310,8 +2310,8 @@ test_dataset = create_test_dataset(dataset_root)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>trainer = create_trainer(256, train_dataset, nb_epoch=1, device=0)
-%time trainer.run()
+<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">%</span><span class="k">time</span> trainer.run()
 </pre></div>
 </div>
 </div>
@@ -2357,7 +2357,7 @@ Wall time: 1min 13s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>%time y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
+<span></span><span class="o">%</span><span class="k">time</span> y_true_test, y_pred_test = predict(trainer, test_dataset, 256, 0)
 </pre></div>
 </div>
 </div>
@@ -2375,7 +2375,7 @@ Wall time: 18 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_confusion_matrix(y_true_test, y_pred_test)
+<span></span><span class="n">print_confusion_matrix</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2391,7 +2391,7 @@ Wall time: 18 s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
-<span></span>print_scores(y_true_test, y_pred_test)
+<span></span><span class="n">print_scores</span><span class="p">(</span><span class="n">y_true_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
