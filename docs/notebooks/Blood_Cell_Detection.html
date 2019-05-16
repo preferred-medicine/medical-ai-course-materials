@@ -445,8 +445,8 @@ to a corresponding target object, such as 0 for RBC, 1 for WBC and 2 for Platele
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -  # Install Chainer and CuPy
-<span class="o">!</span>pip install chainercv matplotlib               # Install ChainerCV and matplotlib
+<span></span>!curl https://colab.chainer.org/install | sh -  # Install Chainer and CuPy
+!pip install chainercv matplotlib               # Install ChainerCV and matplotlib
 </pre></div>
 </div>
 </div>
@@ -1040,9 +1040,9 @@ Successfully installed Pillow-6.0.0 chainer-5.4.0 chainercv-0.12.0 cycler-0.10.0
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span></span>import chainer
 
-<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+chainer.print_runtime_info()
 </pre></div>
 </div>
 </div>
@@ -1090,7 +1090,7 @@ about multiple cells.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span><span class="k">if</span> <span class="o">[</span> ! -d BCCD_Dataset <span class="o">]</span><span class="p">;</span> <span class="k">then</span> git clone https://github.com/Shenggan/BCCD_Dataset.git<span class="p">;</span> <span class="k">fi</span>
+<span></span>!if [ ! -d BCCD_Dataset ]; then git clone https://github.com/Shenggan/BCCD_Dataset.git; fi
 </pre></div>
 </div>
 </div>
@@ -1146,49 +1146,49 @@ Resolving deltas: 100% (367/367), done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span></span>import os
+import xml.etree.ElementTree as ET
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+import numpy as np
 
-<span class="kn">from</span> <span class="nn">chainercv.datasets</span> <span class="k">import</span> <span class="n">VOCBboxDataset</span>
-
-
-<span class="n">bccd_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;rbc&#39;</span><span class="p">,</span> <span class="s1">&#39;wbc&#39;</span><span class="p">,</span> <span class="s1">&#39;platelets&#39;</span><span class="p">)</span>
+from chainercv.datasets import VOCBboxDataset
 
 
-<span class="k">class</span> <span class="nc">BCCDDataset</span><span class="p">(</span><span class="n">VOCBboxDataset</span><span class="p">):</span>
+bccd_labels = (&#39;rbc&#39;, &#39;wbc&#39;, &#39;platelets&#39;)
 
-    <span class="k">def</span> <span class="nf">_get_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
-        <span class="c1"># Annotation data in Pascal VOC format is distributed in XML format</span>
-        <span class="n">anno</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;Annotations&#39;</span><span class="p">,</span> <span class="n">id_</span> <span class="o">+</span> <span class="s1">&#39;.xml&#39;</span><span class="p">))</span>
+class BCCDDataset(VOCBboxDataset):
 
-        <span class="c1"># Import XML file, extract information such as bbox cordinates, size,</span>
-        <span class="c1"># class labels for each bbox, and add to the list</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">difficult</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">anno</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">):</span>
-            <span class="n">bndbox_anno</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bndbox&#39;</span><span class="p">)</span>
+    def _get_annotations(self, i):
+        id_ = self.ids[i]
 
-            <span class="c1"># Subtract 1 so that the coordinate value of bbox becomes 0-origin</span>
-            <span class="n">bbox</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
-                <span class="nb">int</span><span class="p">(</span><span class="n">bndbox_anno</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;ymin&#39;</span><span class="p">,</span> <span class="s1">&#39;xmin&#39;</span><span class="p">,</span> <span class="s1">&#39;ymax&#39;</span><span class="p">,</span> <span class="s1">&#39;xmax&#39;</span><span class="p">)])</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bccd_labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        # Annotation data in Pascal VOC format is distributed in XML format
+        anno = ET.parse(
+            os.path.join(self.data_dir, &#39;Annotations&#39;, id_ + &#39;.xml&#39;))
 
-        <span class="c1"># In the original Pascal VOC, the attribute &quot;difficult&quot; is given as a</span>
-        <span class="c1"># true / false value for each image, but this time this is not used</span>
-        <span class="c1"># (since all the images are set to &quot;difficult = 0&quot; in this data set)</span>
-        <span class="c1"># When `use_difficult==False`, all elements in `difficult` are False.</span>
-        <span class="n">difficult</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">difficult</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">difficult</span>
+        # Import XML file, extract information such as bbox cordinates, size,
+        # class labels for each bbox, and add to the list
+        bbox = []
+        label = []
+        difficult = []
+        for obj in anno.findall(&#39;object&#39;):
+            bndbox_anno = obj.find(&#39;bndbox&#39;)
+
+            # Subtract 1 so that the coordinate value of bbox becomes 0-origin
+            bbox.append([
+                int(bndbox_anno.find(tag).text) - 1
+                for tag in (&#39;ymin&#39;, &#39;xmin&#39;, &#39;ymax&#39;, &#39;xmax&#39;)])
+            name = obj.find(&#39;name&#39;).text.lower().strip()
+            label.append(bccd_labels.index(name))
+        bbox = np.stack(bbox).astype(np.float32)
+        label = np.stack(label).astype(np.int32)
+
+        # In the original Pascal VOC, the attribute &quot;difficult&quot; is given as a
+        # true / false value for each image, but this time this is not used
+        # (since all the images are set to &quot;difficult = 0&quot; in this data set)
+        # When `use_difficult==False`, all elements in `difficult` are False.
+        difficult = np.array(difficult, dtype=np.bool)
+        return bbox, label, difficult
 </pre></div>
 </div>
 </div>
@@ -1198,9 +1198,9 @@ Resolving deltas: 100% (367/367), done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">BCCDDataset</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
-<span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">BCCDDataset</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD&#39;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">)</span>
-<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">BCCDDataset</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span></span>train_dataset = BCCDDataset(&#39;BCCD_Dataset/BCCD&#39;, &#39;train&#39;)
+valid_dataset = BCCDDataset(&#39;BCCD_Dataset/BCCD&#39;, &#39;val&#39;)
+test_dataset = BCCDDataset(&#39;BCCD_Dataset/BCCD&#39;, &#39;test&#39;)
 </pre></div>
 </div>
 </div>
@@ -1220,9 +1220,9 @@ Resolving deltas: 100% (367/367), done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of images in &quot;train&quot; dataset:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of images in &quot;valid&quot; dataset:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of images in &quot;test&quot; dataset:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">))</span>
+<span></span>print(&#39;Number of images in &quot;train&quot; dataset:&#39;, len(train_dataset))
+print(&#39;Number of images in &quot;valid&quot; dataset:&#39;, len(valid_dataset))
+print(&#39;Number of images in &quot;test&quot; dataset:&#39;, len(test_dataset))
 </pre></div>
 </div>
 </div>
@@ -1242,7 +1242,7 @@ Number of images in &#34;test&#34; dataset: 72
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">first_datum</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span></span>first_datum = train_dataset[0]
 </pre></div>
 </div>
 </div>
@@ -1296,7 +1296,7 @@ Number of images in &#34;test&#34; dataset: 72
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">len</span><span class="p">(</span><span class="n">first_datum</span><span class="p">)</span>
+<span></span>len(first_datum)
 </pre></div>
 </div>
 </div>
@@ -1315,7 +1315,7 @@ Number of images in &#34;test&#34; dataset: 72
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">first_datum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span></span>print(first_datum[0].shape, first_datum[0].dtype)
 </pre></div>
 </div>
 </div>
@@ -1338,8 +1338,8 @@ Number of images in &#34;test&#34; dataset: 72
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span></span>print(first_datum[1])
+print(first_datum[1].shape)
 </pre></div>
 </div>
 </div>
@@ -1377,8 +1377,8 @@ Number of images in &#34;test&#34; dataset: 72
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span></span>print(first_datum[2])
+print(first_datum[2].shape)
 </pre></div>
 </div>
 </div>
@@ -1398,13 +1398,13 @@ Number of images in &#34;test&#34; dataset: 72
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">from</span> <span class="nn">chainercv.visualizations</span> <span class="k">import</span> <span class="n">vis_bbox</span>
+<span></span>%matplotlib inline
+from chainercv.visualizations import vis_bbox
 
-<span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">vis_bbox</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+img, bbox, label = train_dataset[0]
+ax = vis_bbox(img, bbox, label, label_names=bccd_labels)
+ax.set_axis_off()
+ax.figure.tight_layout()
 </pre></div>
 </div>
 </div>
@@ -1446,35 +1446,35 @@ positive:negative becomes 1:k from the top, and use it to calculate the loss. It
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">chainer</span>
-<span class="kn">from</span> <span class="nn">chainercv.links</span> <span class="k">import</span> <span class="n">SSD300</span>
-<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="k">import</span> <span class="n">multibox_loss</span>
+<span></span>import chainer
+from chainercv.links import SSD300
+from chainercv.links.model.ssd import multibox_loss
 
 
-<span class="k">class</span> <span class="nc">MultiboxTrainChain</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+class MultiboxTrainChain(chainer.Chain):
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MultiboxTrainChain</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+    def __init__(self, model, alpha=1, k=3):
+        super(MultiboxTrainChain, self).__init__()
+        with self.init_scope():
+            self.model = model
+        self.alpha = alpha
+        self.k = k
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imgs</span><span class="p">,</span> <span class="n">gt_mb_locs</span><span class="p">,</span> <span class="n">gt_mb_labels</span><span class="p">):</span>
-        <span class="n">mb_locs</span><span class="p">,</span> <span class="n">mb_confs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span>
-        <span class="n">loc_loss</span><span class="p">,</span> <span class="n">conf_loss</span> <span class="o">=</span> <span class="n">multibox_loss</span><span class="p">(</span>
-            <span class="n">mb_locs</span><span class="p">,</span> <span class="n">mb_confs</span><span class="p">,</span> <span class="n">gt_mb_locs</span><span class="p">,</span> <span class="n">gt_mb_labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">loc_loss</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">conf_loss</span>
+    def forward(self, imgs, gt_mb_locs, gt_mb_labels):
+        mb_locs, mb_confs = self.model(imgs)
+        loc_loss, conf_loss = multibox_loss(
+            mb_locs, mb_confs, gt_mb_locs, gt_mb_labels, self.k)
+        loss = loc_loss * self.alpha + conf_loss
 
-        <span class="n">chainer</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">report</span><span class="p">(</span>
-            <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;loss/loc&#39;</span><span class="p">:</span> <span class="n">loc_loss</span><span class="p">,</span> <span class="s1">&#39;loss/conf&#39;</span><span class="p">:</span> <span class="n">conf_loss</span><span class="p">},</span>
-            <span class="bp">self</span><span class="p">)</span>
+        chainer.reporter.report(
+            {&#39;loss&#39;: loss, &#39;loss/loc&#39;: loc_loss, &#39;loss/conf&#39;: conf_loss},
+            self)
 
-        <span class="k">return</span> <span class="n">loss</span>
+        return loss
 
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">SSD300</span><span class="p">(</span><span class="n">n_fg_class</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bccd_labels</span><span class="p">),</span> <span class="n">pretrained_model</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">)</span>
-<span class="n">train_chain</span> <span class="o">=</span> <span class="n">MultiboxTrainChain</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+model = SSD300(n_fg_class=len(bccd_labels), pretrained_model=&#39;imagenet&#39;)
+train_chain = MultiboxTrainChain(model)
 </pre></div>
 </div>
 </div>
@@ -1506,70 +1506,70 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span></span>import copy
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+import numpy as np
 
-<span class="kn">from</span> <span class="nn">chainercv</span> <span class="k">import</span> <span class="n">transforms</span>
-<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="k">import</span> <span class="n">random_crop_with_bbox_constraints</span>
-<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="k">import</span> <span class="n">random_distort</span>
-<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="k">import</span> <span class="n">resize_with_random_interpolation</span>
+from chainercv import transforms
+from chainercv.links.model.ssd import random_crop_with_bbox_constraints
+from chainercv.links.model.ssd import random_distort
+from chainercv.links.model.ssd import resize_with_random_interpolation
 
 
-<span class="k">class</span> <span class="nc">Transform</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+class Transform(object):
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coder</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mean</span><span class="p">):</span>
-        <span class="c1"># to send cpu, make a copy</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coder</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">coder</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coder</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">()</span>
+    def __init__(self, coder, size, mean):
+        # to send cpu, make a copy
+        self.coder = copy.copy(coder)
+        self.coder.to_cpu()
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span>
+        self.size = size
+        self.mean = mean
 
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_data</span><span class="p">):</span>
-        <span class="c1"># There are five data augmentation steps</span>
-        <span class="c1"># 1. Color augmentation</span>
-        <span class="c1"># 2. Random expansion</span>
-        <span class="c1"># 3. Random cropping</span>
-        <span class="c1"># 4. Resizing with random interpolation</span>
-        <span class="c1"># 5. Random horizontal flipping</span>
+    def __call__(self, in_data):
+        # There are five data augmentation steps
+        # 1. Color augmentation
+        # 2. Random expansion
+        # 3. Random cropping
+        # 4. Resizing with random interpolation
+        # 5. Random horizontal flipping
 
-        <span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">in_data</span>
+        img, bbox, label = in_data
 
-        <span class="c1"># 1. Color augmentation</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">random_distort</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        # 1. Color augmentation
+        img = random_distort(img)
 
-        <span class="c1"># 2. Random expansion</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-            <span class="n">img</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_expand</span><span class="p">(</span>
-                <span class="n">img</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">bbox</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">translate_bbox</span><span class="p">(</span>
-                <span class="n">bbox</span><span class="p">,</span> <span class="n">y_offset</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;y_offset&#39;</span><span class="p">],</span> <span class="n">x_offset</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;x_offset&#39;</span><span class="p">])</span>
+        # 2. Random expansion
+        if np.random.randint(2):
+            img, param = transforms.random_expand(
+                img, fill=self.mean, return_param=True)
+            bbox = transforms.translate_bbox(
+                bbox, y_offset=param[&#39;y_offset&#39;], x_offset=param[&#39;x_offset&#39;])
 
-        <span class="c1"># 3. Random cropping</span>
-        <span class="n">img</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">random_crop_with_bbox_constraints</span><span class="p">(</span>
-            <span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">bbox</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">crop_bbox</span><span class="p">(</span>
-            <span class="n">bbox</span><span class="p">,</span> <span class="n">y_slice</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;y_slice&#39;</span><span class="p">],</span> <span class="n">x_slice</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;x_slice&#39;</span><span class="p">],</span>
-            <span class="n">allow_outside_center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">[</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]]</span>
+        # 3. Random cropping
+        img, param = random_crop_with_bbox_constraints(
+            img, bbox, return_param=True)
+        bbox, param = transforms.crop_bbox(
+            bbox, y_slice=param[&#39;y_slice&#39;], x_slice=param[&#39;x_slice&#39;],
+            allow_outside_center=False, return_param=True)
+        label = label[param[&#39;index&#39;]]
 
-        <span class="c1"># 4. Resizing with random interpolatation</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">resize_with_random_interpolation</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">resize_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+        # 4. Resizing with random interpolatation
+        _, H, W = img.shape
+        img = resize_with_random_interpolation(img, (self.size, self.size))
+        bbox = transforms.resize_bbox(bbox, (H, W), (self.size, self.size))
 
-        <span class="c1"># 5. Random horizontal flipping</span>
-        <span class="n">img</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_flip</span><span class="p">(</span>
-            <span class="n">img</span><span class="p">,</span> <span class="n">x_random</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">flip_bbox</span><span class="p">(</span>
-            <span class="n">bbox</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">x_flip</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;x_flip&#39;</span><span class="p">])</span>
+        # 5. Random horizontal flipping
+        img, params = transforms.random_flip(
+            img, x_random=True, return_param=True)
+        bbox = transforms.flip_bbox(
+            bbox, (self.size, self.size), x_flip=params[&#39;x_flip&#39;])
 
-        <span class="c1"># Preparation for SSD network</span>
-        <span class="n">img</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
-        <span class="n">mb_loc</span><span class="p">,</span> <span class="n">mb_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+        # Preparation for SSD network
+        img -= self.mean
+        mb_loc, mb_label = self.coder.encode(bbox, label)
 
-        <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">mb_loc</span><span class="p">,</span> <span class="n">mb_label</span>
+        return img, mb_loc, mb_label
 </pre></div>
 </div>
 </div>
@@ -1584,17 +1584,17 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="k">import</span> <span class="n">TransformDataset</span>
-<span class="kn">from</span> <span class="nn">chainer.optimizer_hooks</span> <span class="k">import</span> <span class="n">WeightDecay</span>
-<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">serializers</span>
-<span class="kn">from</span> <span class="nn">chainer</span> <span class="k">import</span> <span class="n">training</span>
-<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">extensions</span>
-<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="k">import</span> <span class="n">triggers</span>
-<span class="kn">from</span> <span class="nn">chainercv.extensions</span> <span class="k">import</span> <span class="n">DetectionVOCEvaluator</span>
-<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="k">import</span> <span class="n">GradientScaling</span>
+<span></span>from chainer.datasets import TransformDataset
+from chainer.optimizer_hooks import WeightDecay
+from chainer import serializers
+from chainer import training
+from chainer.training import extensions
+from chainer.training import triggers
+from chainercv.extensions import DetectionVOCEvaluator
+from chainercv.links.model.ssd import GradientScaling
 
-<span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_max_workspace_size</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
-<span class="n">chainer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">autotune</span> <span class="o">=</span> <span class="kc">True</span>
+chainer.cuda.set_max_workspace_size(1024 * 1024 * 1024)
+chainer.config.autotune = True
 </pre></div>
 </div>
 </div>
@@ -1611,14 +1611,14 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">batchsize</span> <span class="o">=</span> <span class="mi">32</span>
-<span class="n">gpu_id</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;results&#39;</span>
-<span class="n">initial_lr</span> <span class="o">=</span> <span class="mf">0.001</span>
-<span class="n">training_epoch</span> <span class="o">=</span> <span class="mi">300</span>
-<span class="n">log_interval</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span>
-<span class="n">lr_decay_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">lr_decay_timing</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">]</span>
+<span></span>batchsize = 32
+gpu_id = 0
+out = &#39;results&#39;
+initial_lr = 0.001
+training_epoch = 300
+log_interval = 10, &#39;epoch&#39;
+lr_decay_rate = 0.1
+lr_decay_timing = [200, 250]
 </pre></div>
 </div>
 </div>
@@ -1628,10 +1628,10 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">transformed_train_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">Transform</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coder</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">insize</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span>
+<span></span>transformed_train_dataset = TransformDataset(train_dataset, Transform(model.coder, model.insize, model.mean))
 
-<span class="n">train_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">transformed_train_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
-<span class="n">valid_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+train_iter = chainer.iterators.MultiprocessIterator(transformed_train_dataset, batchsize)
+valid_iter = chainer.iterators.SerialIterator(valid_dataset, batchsize, repeat=False, shuffle=False)
 </pre></div>
 </div>
 </div>
@@ -1641,13 +1641,13 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">MomentumSGD</span><span class="p">()</span>
-<span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">train_chain</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">train_chain</span><span class="o">.</span><span class="n">params</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
-        <span class="n">param</span><span class="o">.</span><span class="n">update_rule</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">GradientScaling</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">param</span><span class="o">.</span><span class="n">update_rule</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">WeightDecay</span><span class="p">(</span><span class="mf">0.0005</span><span class="p">))</span>
+<span></span>optimizer = chainer.optimizers.MomentumSGD()
+optimizer.setup(train_chain)
+for param in train_chain.params():
+    if param.name == &#39;b&#39;:
+        param.update_rule.add_hook(GradientScaling(2))
+    else:
+        param.update_rule.add_hook(WeightDecay(0.0005))
 </pre></div>
 </div>
 </div>
@@ -1657,8 +1657,8 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">updaters</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span>
-    <span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
+<span></span>updater = training.updaters.StandardUpdater(
+    train_iter, optimizer, device=gpu_id)
 </pre></div>
 </div>
 </div>
@@ -1668,9 +1668,9 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
-    <span class="n">updater</span><span class="p">,</span>
-    <span class="p">(</span><span class="n">training_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="p">)</span>
+<span></span>trainer = training.Trainer(
+    updater,
+    (training_epoch, &#39;epoch&#39;), out)
 </pre></div>
 </div>
 </div>
@@ -1681,9 +1681,9 @@ solution is the one with the correct answer label flipped in the horizontal dire
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-    <span class="n">extensions</span><span class="o">.</span><span class="n">ExponentialShift</span><span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">lr_decay_rate</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="n">initial_lr</span><span class="p">),</span>
-    <span class="n">trigger</span><span class="o">=</span><span class="n">triggers</span><span class="o">.</span><span class="n">ManualScheduleTrigger</span><span class="p">(</span><span class="n">lr_decay_timing</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+<span></span>trainer.extend(
+    extensions.ExponentialShift(&#39;lr&#39;, lr_decay_rate, init=initial_lr),
+    trigger=triggers.ManualScheduleTrigger(lr_decay_timing, &#39;epoch&#39;))
 </pre></div>
 </div>
 </div>
@@ -1697,11 +1697,11 @@ previous chapter, but the IoU in object detection is the same as well, refers to
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-    <span class="n">DetectionVOCEvaluator</span><span class="p">(</span>
-        <span class="n">valid_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">use_07_metric</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">),</span>
-    <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+<span></span>trainer.extend(
+    DetectionVOCEvaluator(
+        valid_iter, model, use_07_metric=False,
+        label_names=bccd_labels),
+    trigger=(1, &#39;epoch&#39;))
 </pre></div>
 </div>
 </div>
@@ -1711,24 +1711,24 @@ previous chapter, but the IoU in object detection is the same as well, refers to
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">(</span><span class="n">trigger</span><span class="o">=</span><span class="n">log_interval</span><span class="p">))</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">observe_lr</span><span class="p">(),</span> <span class="n">trigger</span><span class="o">=</span><span class="n">log_interval</span><span class="p">)</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span>
-    <span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;lr&#39;</span><span class="p">,</span>
-     <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/loc&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/conf&#39;</span><span class="p">,</span>
-     <span class="s1">&#39;validation/main/map&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">]),</span>
-    <span class="n">trigger</span><span class="o">=</span><span class="n">log_interval</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
-    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-        <span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">(</span>
-            <span class="p">[</span><span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/loc&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/conf&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;loss.png&#39;</span><span class="p">))</span>
-    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-        <span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">(</span>
-            <span class="p">[</span><span class="s1">&#39;validation/main/map&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;accuracy.png&#39;</span><span class="p">))</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;snapshot_epoch_{.updater.epoch}.npz&#39;</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+<span></span>trainer.extend(extensions.LogReport(trigger=log_interval))
+trainer.extend(extensions.observe_lr(), trigger=log_interval)
+trainer.extend(extensions.PrintReport(
+    [&#39;epoch&#39;, &#39;iteration&#39;, &#39;lr&#39;,
+     &#39;main/loss&#39;, &#39;main/loss/loc&#39;, &#39;main/loss/conf&#39;,
+     &#39;validation/main/map&#39;, &#39;elapsed_time&#39;]),
+    trigger=log_interval)
+if extensions.PlotReport.available():
+    trainer.extend(
+        extensions.PlotReport(
+            [&#39;main/loss&#39;, &#39;main/loss/loc&#39;, &#39;main/loss/conf&#39;],
+            &#39;epoch&#39;, file_name=&#39;loss.png&#39;))
+    trainer.extend(
+        extensions.PlotReport(
+            [&#39;validation/main/map&#39;],
+            &#39;epoch&#39;, file_name=&#39;accuracy.png&#39;))
+trainer.extend(extensions.snapshot(
+    filename=&#39;snapshot_epoch_{.updater.epoch}.npz&#39;), trigger=(10, &#39;epoch&#39;))
 </pre></div>
 </div>
 </div>
@@ -1742,7 +1742,7 @@ previous chapter, but the IoU in object detection is the same as well, refers to
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/detection_snapshot_epoch_290.npz
+<span></span>!wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/detection_snapshot_epoch_290.npz
 </pre></div>
 </div>
 </div>
@@ -1775,7 +1775,7 @@ detection_snapshot_ 100%[===================&gt;] 171.33M  23.7MB/s    in 11s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;detection_snapshot_epoch_290.npz&#39;</span><span class="p">,</span> <span class="n">trainer</span><span class="p">)</span>
+<span></span>chainer.serializers.load_npz(&#39;detection_snapshot_epoch_290.npz&#39;, trainer)
 </pre></div>
 </div>
 </div>
@@ -1785,7 +1785,7 @@ detection_snapshot_ 100%[===================&gt;] 171.33M  23.7MB/s    in 11s
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span></span>trainer.run()
 </pre></div>
 </div>
 </div>
@@ -1838,7 +1838,7 @@ epoch       iteration   lr          main/loss   main/loss/loc  main/loss/conf  v
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>ls -la results/
+<span></span>!ls -la results/
 </pre></div>
 </div>
 </div>
@@ -1865,12 +1865,12 @@ it.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Create a model object</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">SSD300</span><span class="p">(</span><span class="n">n_fg_class</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bccd_labels</span><span class="p">),</span> <span class="n">pretrained_model</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">)</span>
+<span></span># Create a model object
+model = SSD300(n_fg_class=len(bccd_labels), pretrained_model=&#39;imagenet&#39;)
 
-<span class="c1"># Load parameters to the model</span>
-<span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span>
-    <span class="s1">&#39;results/snapshot_epoch_300.npz&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;updater/model:main/model/&#39;</span><span class="p">)</span>
+# Load parameters to the model
+chainer.serializers.load_npz(
+    &#39;results/snapshot_epoch_300.npz&#39;, model, path=&#39;updater/model:main/model/&#39;)
 </pre></div>
 </div>
 </div>
@@ -1880,24 +1880,24 @@ it.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">chainercv</span> <span class="k">import</span> <span class="n">utils</span>
+<span></span>from chainercv import utils
 
-<span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="n">image_filename</span><span class="p">):</span>
-    <span class="c1"># Load a test image</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">image_filename</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+def inference(image_filename):
+    # Load a test image
+    img = utils.read_image(image_filename, color=True)
 
-    <span class="c1"># Perform inference</span>
-    <span class="n">bboxes</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">img</span><span class="p">])</span>
+    # Perform inference
+    bboxes, labels, scores = model.predict([img])
 
-    <span class="c1"># Extract the results</span>
-    <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    # Extract the results
+    bbox, label, score = bboxes[0], labels[0], scores[0]
 
-    <span class="c1"># Visualize the detection results</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">vis_bbox</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    # Visualize the detection results
+    ax = vis_bbox(img, bbox, label, label_names=bccd_labels)
+    ax.set_axis_off()
+    ax.figure.tight_layout()
 
-<span class="n">inference</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD/JPEGImages/BloodImage_00007.jpg&#39;</span><span class="p">)</span>
+inference(&#39;BCCD_Dataset/BCCD/JPEGImages/BloodImage_00007.jpg&#39;)
 </pre></div>
 </div>
 </div>
@@ -1914,16 +1914,16 @@ it.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span></span>import matplotlib.pyplot as plt
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">image_filename</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD/ImageSets/Main/test.txt&#39;</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">image_filename</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-    <span class="n">inference</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD/JPEGImages/&#39;</span> <span class="o">+</span> <span class="n">image_filename</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+for i, image_filename in enumerate(open(&#39;BCCD_Dataset/BCCD/ImageSets/Main/test.txt&#39;)):
+    print(image_filename)
+    plt.clf()
+    inference(&#39;BCCD_Dataset/BCCD/JPEGImages/&#39; + image_filename.strip() + &#39;.jpg&#39;)
+    plt.show()
 
-    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>  <span class="c1"># finish after displaying 5+1 items</span>
-        <span class="k">break</span>
+    if i &gt; 5:  # finish after displaying 5+1 items
+        break
 </pre></div>
 </div>
 </div>
@@ -1956,18 +1956,18 @@ obtained model, it is necessary to <strong>evaluate using the third data set not
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">test_batchsize</span> <span class="o">=</span> <span class="mi">256</span>
+<span></span>test_batchsize = 256
 
-<span class="n">model</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">()</span>
+model.to_gpu()
 
-<span class="n">test_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span>
-    <span class="n">test_dataset</span><span class="p">,</span> <span class="n">test_batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+test_iter = chainer.iterators.SerialIterator(
+    test_dataset, test_batchsize, repeat=False, shuffle=False)
 
-<span class="n">test_evaluator</span> <span class="o">=</span> <span class="n">DetectionVOCEvaluator</span><span class="p">(</span>
-    <span class="n">test_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">use_07_metric</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">)</span>
+test_evaluator = DetectionVOCEvaluator(
+    test_iter, model, use_07_metric=False,
+    label_names=bccd_labels)
 
-<span class="n">test_evaluator</span><span class="p">()</span>
+test_evaluator()
 </pre></div>
 </div>
 </div>
