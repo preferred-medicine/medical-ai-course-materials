@@ -10,19 +10,19 @@
     "[![colab-logo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Image_Segmentation.ipynb)\n",
     "\n",
     "# Practice: Segmentation of MRI \n",
-    "There are various application technologies of deep learning for images. For example, there are **object detection** that detects by surrounding an individual object in a rectangle around an image, and **image segmentation** that recognizes an area occupied by individual objects in the image .\n",
+    "There are various application technologies of deep learning for images. For example, **object detection** that detects an image by surrounding an individual object in a rectangle , and **image segmentation** that recognizes an area occupied by individual objects in the image .\n",
     "\n",
     "Object detection can be said to be a technology to recognize the \"type\" and \"position\" of the target object .\n",
     "\n",
     "![Object Detection Example](https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/FasterRCNN-result.png)\n",
-    "(Above figure: example of object detection. Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.\n",
+    "(Above figure: example of object detection. It is a task that encloses the target object with a rectangle and answers the class. The original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.\n",
     "\n",
     "There are two types of image segmentation . One is an Instance - aware Segmentation that distinguishes individual objects. The other is Semantic Segmentation which does not distinguish individuals if they are of the same class. This time we will deal with the latter.\n",
     "\n",
     "![Imesage Segmentation Example](https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/PSPNet-result.png)\n",
-    "(Above figure: Semantic Segmentation example, a task of classifying pixels by pixel.It is painting an image with a predetermined number of colors.The figure shows a certain segmentation model learned using the Cityscapes dataset Example of output result.)\n",
+    "(Above figure: Example of output result. Semantic Segmentation example, a task of classifying pixels by pixel. It is painting an image with a predetermined number of colors. The figure shows a certain segmentation model learned using the Cityscapes dataset )\n",
     "\n",
-    "In image segmentation, unlike the classification problem that assigns one class to the whole image dealt with in Chapter 4, we classify all the pixels in the image by pixel. Therefore, it is also called Pixel labeling task. This can be said to be a technology to recognize the \"type\", \"position\" and \"shape\" of the target object .\n",
+    "In image segmentation, unlike the classification problem that assigns one class to the whole image dealt with in Chapter 4, we classify all the pixels in the image by pixel. Therefore, it is also called Pixel labeling task. This can be said to be a method to recognize the \"type\", \"position\" and \"shape\" of the target object .\n",
     "\n",
     "Let's work on this Semantic Segmentation task with the deep learning framework Chainer this time."
    ]
@@ -35,13 +35,19 @@
    },
    "source": [
     "## Environment \n",
-    "The library used here,\n",
+    "The libraries used here are ,\n",
     "\n",
     "- Chainer\n",
     "- CuPy\n",
     "- ChainerCV\n",
-    "- matplotlib\n",
-    "is. On Google Colab, you can install as follows. Execute the following cell."
+    "- matplotlib"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "On Google Colab, you can install as follows. Execute the following cell."
    ]
   },
   {
@@ -123,7 +129,7 @@
    "source": [
     "## Semantic Segmentation \n",
     "\n",
-    "Semantic Segmentation is one of the tasks that is still being actively studied in the field of Computer Vision, and it is a matter of giving some classes to each pixel of the input image. But **even human beings can not guess something by looking at only one pixel**. For that reason, it is important how to classify each pixel while **adding information on surrounding pixels**.\n",
+    "Semantic Segmentation is one of the tasks that is still being actively studied in the field of Computer Vision, and it is a method of giving some classes to each pixel of the input image. But **even human beings can not guess something by looking at only one pixel**. For that reason, it is important to know how to classify each pixel while **adding information on surrounding pixels**.\n",
     "\n",
     "When solving this problem using a neural network, you will learn by \" **making a network that inputs images and outputs images**\" . For this reason, it is common for a correct label image that is paired with an input image to be a single channel image that has the same size and contains the class number to which each pixel belongs.\n",
     "\n",
@@ -1560,14 +1566,14 @@
   "language_info": {
    "codemirror_mode": {
     "name": "ipython",
-    "version": 3
+    "version": 2
    },
    "file_extension": ".py",
    "mimetype": "text/x-python",
    "name": "python",
    "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.7.3"
+   "pygments_lexer": "ipython2",
+   "version": "2.7.10"
   },
   "latex_envs": {
    "LaTeX_envs_menu_present": true,

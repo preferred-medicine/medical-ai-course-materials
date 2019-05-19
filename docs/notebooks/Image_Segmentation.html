@@ -433,27 +433,28 @@ div.rendered_html tbody tr:hover {
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Image_Segmentation.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <div class="section" id="Practice:-Segmentation-of-MRI">
 <h1>5. Practice: Segmentation of MRI<a class="headerlink" href="#Practice:-Segmentation-of-MRI" title="Permalink to this headline">¶</a></h1>
-<p>There are various application technologies of deep learning for images. For example, there are <strong>object detection</strong> that detects by surrounding an individual object in a rectangle around an image, and <strong>image segmentation</strong> that recognizes an area occupied by individual objects in the image .</p>
+<p>There are various application technologies of deep learning for images. For example, <strong>object detection</strong> that detects an image by surrounding an individual object in a rectangle , and <strong>image segmentation</strong> that recognizes an area occupied by individual objects in the image .</p>
 <p>Object detection can be said to be a technology to recognize the “type” and “position” of the target object .</p>
-<p><img alt="Object Detection Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection. Task that encloses the target object with a rectangle and answers the class, the original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
+<p><img alt="Object Detection Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection. It is a task that encloses the target object with a rectangle and answers the class. The original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
 <p>There are two types of image segmentation . One is an Instance - aware Segmentation that distinguishes individual objects. The other is Semantic Segmentation which does not distinguish individuals if they are of the same class. This time we will deal with the latter.</p>
-<p><img alt="Imesage Segmentation Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/PSPNet-result.png" /> (Above figure: Semantic Segmentation example, a task of classifying pixels by pixel.It is painting an image with a predetermined number of colors.The figure shows a certain segmentation model learned using the Cityscapes dataset Example of output result.)</p>
-<p>In image segmentation, unlike the classification problem that assigns one class to the whole image dealt with in Chapter 4, we classify all the pixels in the image by pixel. Therefore, it is also called Pixel labeling task. This can be said to be a technology to recognize the “type”, “position” and “shape” of the target object .</p>
+<p><img alt="Imesage Segmentation Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/PSPNet-result.png" /> (Above figure: Example of output result. Semantic Segmentation example, a task of classifying pixels by pixel. It is painting an image with a predetermined number of colors. The figure shows a certain segmentation model learned using the Cityscapes dataset )</p>
+<p>In image segmentation, unlike the classification problem that assigns one class to the whole image dealt with in Chapter 4, we classify all the pixels in the image by pixel. Therefore, it is also called Pixel labeling task. This can be said to be a method to recognize the “type”, “position” and “shape” of the target object .</p>
 <p>Let’s work on this Semantic Segmentation task with the deep learning framework Chainer this time.</p>
 <div class="section" id="Environment">
 <h2>5.1. Environment<a class="headerlink" href="#Environment" title="Permalink to this headline">¶</a></h2>
-<p>The library used here,</p>
+<p>The libraries used here are ,</p>
 <ul class="simple">
 <li><p>Chainer</p></li>
 <li><p>CuPy</p></li>
 <li><p>ChainerCV</p></li>
-<li><p>matplotlib is. On Google Colab, you can install as follows. Execute the following cell.</p></li>
+<li><p>matplotlib</p></li>
 </ul>
+<p>On Google Colab, you can install as follows. Execute the following cell.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>!curl https://colab.chainer.org/install | sh -  # Install Chainer and CuPy
 !pip install chainercv matplotlib               # Install ChainerCV and matplotlib
 </pre></div>
@@ -464,7 +465,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>import chainer
 import cupy
 import chainercv
@@ -501,7 +502,7 @@ matplotlib: 2.1.2
 </div>
 <div class="section" id="Semantic-Segmentation">
 <h2>5.2. Semantic Segmentation<a class="headerlink" href="#Semantic-Segmentation" title="Permalink to this headline">¶</a></h2>
-<p>Semantic Segmentation is one of the tasks that is still being actively studied in the field of Computer Vision, and it is a matter of giving some classes to each pixel of the input image. But <strong>even human beings can not guess something by looking at only one pixel</strong>. For that reason, it is important how to classify each pixel while <strong>adding information on surrounding pixels</strong>.</p>
+<p>Semantic Segmentation is one of the tasks that is still being actively studied in the field of Computer Vision, and it is a method of giving some classes to each pixel of the input image. But <strong>even human beings can not guess something by looking at only one pixel</strong>. For that reason, it is important to know how to classify each pixel while <strong>adding information on surrounding pixels</strong>.</p>
 <p>When solving this problem using a neural network, you will learn by ” <strong>making a network that inputs images and outputs images</strong>” . For this reason, it is common for a correct label image that is paired with an input image to be a single channel image that has the same size and contains the class number to which each pixel belongs.</p>
 <p>The output of the network,<span class="math notranslate nohighlight">\(C\)</span> When classification is done <span class="math notranslate nohighlight">\(C\)</span> It becomes an image of the channel. Let it learn by applying Softmax function in the channel direction for each pixel to make it a probability vector, so that the value of the correct class will be large (to be able to predict the correct class with high confidence). You can also think of calculating the objective function for image classification by pixel . Then, the sum of the classification error for each <strong>pixel</strong> by
 the image size is the target of minimization.</p>
@@ -518,7 +519,7 @@ the image size is the target of minimization.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>!if [ ! -d train ]; then curl -L -O https://github.com/mitmul/chainer-handson/releases/download/SegmentationDataset/train.zip &amp;&amp; unzip train.zip &amp;&amp; rm -rf train.zip; fi
 !if [ ! -d val ]; then curl -L -O https://github.com/mitmul/chainer-handson/releases/download/SegmentationDataset/val.zip &amp;&amp; unzip val.zip &amp;&amp; rm -rf val.zip; fi
 </pre></div>
@@ -529,7 +530,7 @@ the image size is the target of minimization.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>%matplotlib inline
 
 import matplotlib.pyplot as plt
@@ -555,7 +556,7 @@ plt.show()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_9_0.png" src="../_images/notebooks_Image_Segmentation_9_0.png" />
+<img alt="../_images/notebooks_Image_Segmentation_10_0.png" src="../_images/notebooks_Image_Segmentation_10_0.png" />
 </div>
 </div>
 <p>The left side is the MRI image and the right side is the image masking the part of the left ventricle created by the expert. Among the mask images on the right side, <strong>the area painted white is the area of the left ventricle you want to find out this time</strong>. The size of the left ventricle is different for each image, and its shape is also varied. However, it is common that the <strong>area occupied by the left ventricle for the entire image is relatively small</strong>.</p>
@@ -596,7 +597,7 @@ time consists of 234 pairs of images (a pair of gray scale MRI images and corres
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>import glob
 from chainer import datasets
 
@@ -636,7 +637,7 @@ range to [0,1]. In addition, for example, by passing a function, as an argument,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>def create_datasets():
     # Using python standard glob, obtain a list of MRI image files / label image files
     train_img_filenames = sorted(glob.glob(&#39;train/image/*.png&#39;))
@@ -661,7 +662,7 @@ previous function <code class="docutils literal notranslate"><span class="pre">c
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>train, val = create_datasets()
 
 print(&#39;Dataset size:\n\ttrain:\t{}\n\tvalid:\t{}&#39;.format(len(train), len(val)))
@@ -687,7 +688,7 @@ Dataset size:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>import chainer
 import chainer.functions as F
 import chainer.links as L
@@ -731,7 +732,7 @@ class MultiLayerPerceptron(chainer.Chain):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>from chainer import iterators
 from chainer import training
 from chainer import optimizers
@@ -804,7 +805,7 @@ def create_trainer(batchsize, train, val, stop, device=-1):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>%%time
 trainer = create_trainer(64, train, val, (20, &#39;epoch&#39;), device=0)
 trainer.run()
@@ -829,7 +830,7 @@ trainer.run()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>from IPython.display import Image
 Image(&#39;result/loss.png&#39;)
 </pre></div>
@@ -840,14 +841,14 @@ Image(&#39;result/loss.png&#39;)
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_31_0.png" src="../_images/notebooks_Image_Segmentation_31_0.png" />
+<img alt="../_images/notebooks_Image_Segmentation_32_0.png" src="../_images/notebooks_Image_Segmentation_32_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>Image(&#39;result/accuracy.png&#39;)
 </pre></div>
 </div>
@@ -857,7 +858,7 @@ Image(&#39;result/loss.png&#39;)
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_32_0.png" src="../_images/notebooks_Image_Segmentation_32_0.png" />
+<img alt="../_images/notebooks_Image_Segmentation_33_0.png" src="../_images/notebooks_Image_Segmentation_33_0.png" />
 </div>
 </div>
 <p>Training is progressing well. Both Training loss and Validation loss have decreased to nearly 0, and Accuracy for both datasets also approaches the maximum 1.</p>
@@ -880,7 +881,7 @@ Image(&#39;result/loss.png&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>from chainer import cuda
 from chainercv import evaluations
 
@@ -939,7 +940,7 @@ different) is occurring, the influence of prediction error on a small class beco
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>def show_predicts(trainer, val, device=-1, n_sample=3):
     # Retrieve a trained model from a Trainer object
     model = trainer.updater.get_optimizer(&#39;main&#39;).target.predictor
@@ -1028,7 +1029,7 @@ points.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>from chainer import reporter
 from chainer import cuda
 from chainercv import evaluations
@@ -1099,7 +1100,7 @@ print(FullyConvolutionalNetwork(256, 256)(np.zeros((1, 1, 256, 256), dtype=np.fl
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>class PixelwiseSigmoidClassifier(chainer.Chain):
 
     def __init__(self, predictor):
@@ -1160,7 +1161,7 @@ Extension, such as <code class="docutils literal notranslate"><span class="pre">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>def create_trainer(batchsize, train, val, stop, device=-1, log_trigger=(1, &#39;epoch&#39;)):
     model = FullyConvolutionalNetwork(out_h=256, out_w=256)
     train_model = PixelwiseSigmoidClassifier(model)
@@ -1196,7 +1197,7 @@ Extension, such as <code class="docutils literal notranslate"><span class="pre">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>%%time
 trainer = create_trainer(128, train, val, (200, &#39;epoch&#39;), device=0, log_trigger=(10, &#39;epoch&#39;))
 trainer.run()
@@ -1242,7 +1243,7 @@ Wall time: 5min 37s
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>from IPython.display import Image
 print(&#39;Loss&#39;)
 Image(&#39;result_fcn/loss.png&#39;)
@@ -1262,14 +1263,14 @@ Loss
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_54_1.png" src="../_images/notebooks_Image_Segmentation_54_1.png" />
+<img alt="../_images/notebooks_Image_Segmentation_55_1.png" src="../_images/notebooks_Image_Segmentation_55_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>print(&#39;mean IoU&#39;)
 Image(&#39;result_fcn/miou.png&#39;)
 </pre></div>
@@ -1288,14 +1289,14 @@ mean IoU
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_55_1.png" src="../_images/notebooks_Image_Segmentation_55_1.png" />
+<img alt="../_images/notebooks_Image_Segmentation_56_1.png" src="../_images/notebooks_Image_Segmentation_56_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>print(&#39;Pixel Accuracy&#39;)
 Image(&#39;result_fcn/pa.png&#39;)
 </pre></div>
@@ -1314,7 +1315,7 @@ Pixel Accuracy
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_56_1.png" src="../_images/notebooks_Image_Segmentation_56_1.png" />
+<img alt="../_images/notebooks_Image_Segmentation_57_1.png" src="../_images/notebooks_Image_Segmentation_57_1.png" />
 </div>
 </div>
 <p>Not only Pixel Accuracy is 0.99 or more, mIoU has also increased to nearly 0.90. Focusing on mIoU, you will notice that you can see that the accuracy is improved considerably compared with the first model (was about 0.68). Let’s check the results by looking at the predicted label image used when actually inferring validation data. Run the following cell.</p>
@@ -1322,7 +1323,7 @@ Pixel Accuracy
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>evaluate(trainer, val, device=0)
 show_predicts(trainer, val, device=0, )
 </pre></div>
@@ -1341,21 +1342,21 @@ mIoU: 0.8948934203314065
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_58_1.png" src="../_images/notebooks_Image_Segmentation_58_1.png" />
+<img alt="../_images/notebooks_Image_Segmentation_59_1.png" src="../_images/notebooks_Image_Segmentation_59_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_58_2.png" src="../_images/notebooks_Image_Segmentation_58_2.png" />
+<img alt="../_images/notebooks_Image_Segmentation_59_2.png" src="../_images/notebooks_Image_Segmentation_59_2.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Image_Segmentation_58_3.png" src="../_images/notebooks_Image_Segmentation_58_3.png" />
+<img alt="../_images/notebooks_Image_Segmentation_59_3.png" src="../_images/notebooks_Image_Segmentation_59_3.png" />
 </div>
 </div>
 <p>Three images are displayed that are the same as when checking the results of the first model. Notice that, compaired to the first result, especially on the third row, we can see that it is possible to estimate a mask that is close to the correct answer label.</p>
@@ -1403,7 +1404,7 @@ representing the outline of the target object, you would want to make a final pr
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
 </div>
