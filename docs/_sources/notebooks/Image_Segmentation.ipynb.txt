@@ -10,7 +10,7 @@
     "[![colab-logo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Image_Segmentation.ipynb)\n",
     "\n",
     "# Practice: Segmentation of MRI \n",
-    "There are various application technologies of deep learning for images. For example, **object detection** that detects an image by surrounding an individual object in a rectangle , and **image segmentation** that recognizes an area occupied by individual objects in the image .\n",
+    "There are various applications of deep learning for images. For example, **object detection** that detects an image by surrounding an individual object in a rectangle , and **image segmentation** that recognizes an area occupied by individual objects in the image .\n",
     "\n",
     "Object detection can be said to be a technology to recognize the \"type\" and \"position\" of the target object .\n",
     "\n",
@@ -133,7 +133,7 @@
     "\n",
     "When solving this problem using a neural network, you will learn by \" **making a network that inputs images and outputs images**\" . For this reason, it is common for a correct label image that is paired with an input image to be a single channel image that has the same size and contains the class number to which each pixel belongs.\n",
     "\n",
-    "The output of the network,$C$ When classification is done $C$ It becomes an image of the channel. Let it learn by applying Softmax function in the channel direction for each pixel to make it a probability vector, so that the value of the correct class will be large (to be able to predict the correct class with high confidence). You can also think of calculating the objective function for image classification by pixel . Then, the sum of the classification error for each **pixel** by the image size is the target of minimization.\n",
+    "The output of the network,$C$ When classification is done $C$ becomes an image of the channel. Let it learn by applying Softmax function in the channel direction for each pixel to make it a probability vector, so that the value of the correct class will be large (to be able to predict the correct class with high confidence). You can also think of calculating the objective function for image classification by pixel. Then, the sum of the classification error for each **pixel** by the image size is the target of minimization.\n",
     "\n",
     "here,$C =2$ In case of only the output of the network $1$ Sometimes it is a channel and the loss function is Sigmoid Cross Entropy."
    ]
@@ -146,16 +146,16 @@
    },
    "source": [
     "## Data set to \n",
-    "The data set to be used from now is cardiac MRI image (short axis image) and experts labeled it. For details on the data, please refer here [1, 2, 3].\n",
+    "The data set used in this example is cardiac MRI image (short axis image) and it has been labeled by experts. For details on the data, please refer:\n",
     "\n",
     "[1] Sunnybrook cardiac images from earlier competition http://smial.sri.utoronto.ca/LV_Challenge/Data.html\n",
     "\n",
-    "[2] 「This \"Sunnybrook Cardiac MR Database\" is made available under the CC0 1.0 Universal license described above, and with more detail here: http://creativecommons.org/publicdomain/zero/1.0/」\n",
+    "[2] This \"Sunnybrook Cardiac MR Database\" is made available under the CC0 1.0 Universal license described above, and with more detail here: http://creativecommons.org/publicdomain/zero/1.0/」\n",
     "\n",
     "[3] Attribution:\n",
     "Radau P, Lu Y, Connelly K, Paul G, Dick AJ, Wright GA. \"Evaluation Framework for Algorithms Segmenting Short Axis Cardiac MRI.\" The MIDAS Journal -Cardiac MR Left Ventricle Segmentation Challenge, http://hdl.handle.net/10380/3070\n",
     "\n",
-    "First, download the data. This is what I finished processing the distribution data source set so that it is easy to use this time."
+    "First, download the data. This is after we finished processing the distribution data source set so that it is easy to use."
    ]
   },
   {
@@ -179,8 +179,7 @@
     "id": "xS_kqoC1m2KW"
    },
    "source": [
-    "Here is an example of an image pair extracted from this data set. Please try running the cell below.\n",
-    "\n"
+    "Here is an example of an image pair extracted from this data set. "
    ]
   },
   {
@@ -239,9 +238,9 @@
    "source": [
     "The left side is the MRI image and the right side is the image masking the part of the left ventricle created by the expert. Among the mask images on the right side, **the area painted white is the area of the left ventricle you want to find out this time**. The size of the left ventricle is different for each image, and its shape is also varied. However, it is common that the **area occupied by the left ventricle for the entire image is relatively small**.\n",
     "\n",
-    "For this time, MRI image data is converted to a general image format (PNG) so that it is easier to handle from the format (DICOM format) distributed by the provider, but we do not explain the work for that. If you are interested in data shaping method of MRI image group used this time please refer to this tutorial provided related to Kaggle's previous competition: [Kaggle competition: Second Annual Data Science Bowl](https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial) [7]）\n",
+    "For this time, the MRI image data is converted to a general image format (PNG) so that it is easier to handle as compared to the format (DICOM) distributed by the provider (We do not explain the procedure for the conversion, However, if you are interested in data shaping method of the MRI images please refer to this tutorial provided related to Kaggle's previous competition: [Kaggle competition: Second Annual Data Science Bowl](https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial) [7]）\n",
     "\n",
-    "The data that became the basis of the data set used this time is distributed in the [DICOM](https://en.wikipedia.org/wiki/DICOM) format which is a common image format in medical images, and the image size is 256 x 256 grayscale image. This time, it has been converted to PNG image in advance. The label image is a binary image of the same size , **pixels inside the region of the left ventricle have a pixel value of 1, and other pixels are filled with zeros**. The training data set used this time consists of 234 pairs of images (a pair of gray scale MRI images and corresponding binary label images). Validation data consists of 26 images. The verification data is prepared separately from the training data.\n",
+    "The dataset used here is distributed in the [DICOM](https://en.wikipedia.org/wiki/DICOM) format which is a common image format in medical images, and the image size is 256 x 256 grayscale image. It has been converted to PNG image format in advance. The label image is a binary image of the same size , **pixels inside the region of the left ventricle have a pixel value of 1, and other pixels are filled with zeros**. The training data set used here consists of 234 pairs of images (a pair of gray scale MRI images and corresponding binary label images). Validation data consists of 26 images. The verification data is prepared separately from the training data.\n",
     "\n",
     "[7] https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial"
    ]
@@ -255,7 +254,7 @@
    "source": [
     "### Training flow using the Chainer \n",
     "\n",
-    "This time, We will work on Semantic Segmentation using the Chainer described in Chapter 4. Describes a network that outputs an image from an image. As mentioned in Chapter 4, Chainer comes with `Trainer`, a class for training loop abstraction. This is used to address the Semantic Segmentation task, which classifies all pixels into two classes, the left atrium and others. Let's review again the preparation the user needs to do when training with `Trainer`.\n",
+    "Here we will work on Semantic Segmentation using the Chainer described in Chapter 4. We describe a network that outputs an image from an image. As mentioned in Chapter 4, Chainer comes with `Trainer`, a class for training loop abstraction. This is used to address the Semantic Segmentation task, which classifies all pixels into two classes, the left atrium and others. Let's review again the preparation the user needs to do when training with `Trainer`.\n",
     "\n",
     "1. Preparation of Dataset object (It returns data one by one for training)\n",
     "2. Wrap the Dataset object in the Iterator (it returns the data in Dataset bundled in batch size)\n",
@@ -276,8 +275,8 @@
     "id": "8MwXJDwvSprG"
    },
    "source": [
-    "- `Updater` takes a specified batch size number of data from `Iterator` and `Dataset`, supplies it to` Model`, calculates the value of objective function, and updates parameters by `Optimizer`. It hides the work (which makes it 1 iteration).\n",
-    "- `Trainer` can use an extension function` Extension`, and you can do automatically such as, log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc."
+    "- `Updater` takes a specified batch size number of data from `Iterator` and `Dataset`, supplies it to` Model`, calculates the value of objective function, and updates parameters by `Optimizer`. \n",
+    "- `Trainer` can use an extension function` Extension`, which allows you to automatically log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc."
    ]
   },
   {
@@ -289,7 +288,8 @@
    "source": [
     "When describing network to be trained using Chainer, you will be defining them in order from the inside of the above figure, and create a `Trainer` object that includes all at the end, then start the training as by `trainer.run ()`.\n",
     "\n",
-    "(You can write your own training loop without using `Trainer`, but this time, we assume that you use` Trainer`. If you want to know how to write your own training loop, see Chapter 4.)\n"
+    "(You can write your own training loop without using `Trainer`, but this time, we assume that you are using \n",
+    "` Trainer`. If you want to know how to write your own training loop, see Chapter 4.)\n"
    ]
   },
   {
@@ -301,7 +301,7 @@
    "source": [
     "## Segmentation by fully-connected neural network \n",
     "\n",
-    "Let's begin with a simple model. Let's train a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of three fully-connected layers."
+    "We will start with a simple model. Let's train a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of three fully-connected layers."
    ]
   },
   {
@@ -312,7 +312,8 @@
    },
    "source": [
     "### Preparing the data set\n",
-    "First we prepare the data set. Chainer provide some useful classes for data sets. `ImageDataset` Is a data set class that will read the image in the disk and return them for you by initializing it with a list of file paths to an image file. `TupleDataset` Is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It is the same as `zip` in Python.)\n",
+    "\n",
+    "First we prepare the data set. Chainer provide some useful classes for data sets. `ImageDataset` is a data set class that will read the image and return them for you by initializing it with a list of file paths to an image file. `TupleDataset` is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It is the same as `zip` in Python.)\n",
     "\n",
     "We will be working on Semantic Segmentation this time, so both input and output are images. So we are going to create two `ImageDataset` objects. Run the following cell."
    ]
@@ -364,7 +365,7 @@
     "`label` also acts like a list of label images. If you access `dataset` created and bundled these with `TupleDataset` like `dataset[i]`, it will return a tuple (two or more of the collection of value). \n",
     "(If the `image` and `label` are the lists of the same size, it has the same result of `zip(img, label)`.)\n",
     "\n",
-    "Next, in the second line in this function, based on the input data set created using`ImageDataset`, we create a new data set, `TransformDataset`. `TransformDataset` is a class that can **return a data after applying the function given to the second argument** when accessing the data set given to the first argument, allows us to convert the data by giving an arbitrary function. In this case, you give a function that performs conversion using a `lamba` function, simply coverting value range to [0,1]. In addition, for example, by passing a function, as an argument, that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), You can easily enable `Data augmentation`.\n",
+    "Next, in the second line in this function, based on the input data set created using`ImageDataset`, we create a new data set, `TransformDataset`. `TransformDataset` is a class that can **return a dataset after applying the function given to the second argument** when accessing the data set given to the first argument. This allows us to convert the data by giving an arbitrary function. In this case, you give a function that performs conversion using a `lamba` function, i.e. simply coverting the values in the range [0,1]. In addition, for example, by passing a function, as an argument, that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), you can easily enable and achieve`Data augmentation`.\n",
     "\n",
     "Let's create each data set object for training and verification using `create_dataset` function. Please run the cell below."
    ]
@@ -402,7 +403,7 @@
     "id": "7fMFbheJSprR"
    },
    "source": [
-    "In the function `create_datasets()`, first it uses a Python built-in module `glob`, looks for files with `.png`  extension from the specified directory, then creates a list that stores the file paths. Next, sort the file names by using `sorted`, so that the input image and the file list of the label image point to the corresponding data with the same index (the file list enumerated by the function `glob` is not necessarily sorted). After that, we pass these file name lists to the previous function `create_dataset` to create a dataset object. Do the same for the image file for verification, and create and return two dataset objects, `train` and `val`.\n",
+    "In the function `create_datasets()`,  it first uses a Python built-in module `glob`, looks for files with `.png`  extension from the specified directory, then creates a list that stores the file paths. Next, we sort the file names by using `sorted`, so that the input image and the file list of the label image point to the corresponding data with the same index (the file list enumerated by the function `glob` is not necessarily sorted). After that, we pass these file name lists to the previous function `create_dataset` to create a dataset object. Do the same for the image file for verification, and create and return two dataset objects, `train` and `val`.\n",
     "\n",
     "Let's call this function. Please execute the cell below."
    ]
@@ -443,7 +444,7 @@
     "id": "p8d5DHntSprU"
    },
    "source": [
-    "By calling this function, you can create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, you can use `len()` the built-in function to find out how many data it contains."
+    "By calling this function, you can create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, you can use `len()` the built-in function to find out how many data points it contains."
    ]
   },
   {
@@ -498,7 +499,7 @@
     "id": "aYdKpLRHSprY"
    },
    "source": [
-    "In this example, we use three full-connected layers and connect them using the ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as is, reshape it to the shape of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.\n",
+    "In this example, we use three full-connected layers and connect them using ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as is, reshape it to the shape of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.\n",
     "\n",
     "Here, the number of output channels is 1, which represents the probability that each pixel is a left ventricle."
    ]
@@ -596,7 +597,7 @@
     "id": "Zw7vdytqSpre"
    },
    "source": [
-    "At the end of this function definition, **multiple Extensions are added**. These are extend functions which does automatic saving of logs to files (`LogReport`) and display on their standard output (`PrintReport`), automatic creation of plots of objective function values and precision (`PlotReport`), evaluation (`Evaluator`) with validation data every specified timing.\n",
+    "At the end of this function definition, **multiple Extensions are added**. These are extend functions which does automatic saving of logs to files (`LogReport`) and displays their standard output (`PrintReport`), automatic creation of plots of objective function values and precision (`PlotReport`), evaluation (`Evaluator`) with validation data at every specified timing.\n",
     "\n",
     "In addition to this, various extended functions can be used. You can find out how to use and what you can do from the `Extension` list here: [Trainer extensions](https://docs.chainer.org/en/v2.0.2/reference/extensions.html)"
    ]
@@ -610,7 +611,7 @@
    "source": [
     "### Training \n",
     "\n",
-    "We are ready for training. What we need to do is just call the run() function on the `trainer` we created.\n",
+    "We are ready for training. All we need to do is just call the run() function on the `trainer` we created.\n",
     "\n",
     "Please run the cell below."
    ]
@@ -741,11 +742,11 @@
    },
    "source": [
     "### Evaluation \n",
-    "Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1 of the maximum value. But what is this performance indicator? What defines the \"Accuracy\"?\n",
+    "Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1, the maximum value possible . But what is this performance indicator? What defines the \"Accuracy\"?\n",
     "\n",
     "In general, the result of Semantic Segmentation will be evaluated with values such as **Pixel accuracy** indicated as \"accuracy\" above and **Mean Intersection over Union (mIoU)** which is a different indicator. Each definition is as follows.\n",
     "\n",
-    "When the number of pixcels, with the correct class $i$ and classified as $j$, is $N_{ij}$, where the number of classes is $k$, then:\n",
+    "When the number of pixels, with the correct class $i$ and classified as $j$, is $N_{ij}$, where the number of classes is $k$, then:\n",
     "\n",
     "$$\n",
     "{\\rm Pixel\\ Accuracy} = \\frac{\\sum_{i=1}^k N_{ii}}{\\sum_{i=1}^k \\sum_{j=1}^k N_{ij}}\n",
@@ -759,9 +760,10 @@
     "\n",
     "This time, we use [ChainerCV](https://github.com/chainer/chainercv) [11] to calculate these values. ChainerCV is an additional package of Chainer that can unify the handling of frequent calculations, model data, etc. in computer vision tasks. In order to calculate the above two metrics again, let's use a function for evaluation metrics calculation for Semantic Segmentation task provided by ChainerCV.\n",
     "\n",
-    "Run the following cell.\n",
+    "Refer here for more details on chainer CV. \n",
+    "[11] Yusuke Niitani, Toru Ogawa, Shunta Saito, Masaki Saito, \"ChainerCV: a Library for Deep Learning in Computer Vision\", ACM Multimedia (ACMMM), Open Source Software Competition, 2017\n",
     "\n",
-    "[11] Yusuke Niitani, Toru Ogawa, Shunta Saito, Masaki Saito, \"ChainerCV: a Library for Deep Learning in Computer Vision\", ACM Multimedia (ACMMM), Open Source Software Competition, 2017"
+    "Run the following cell."
    ]
   },
   {
@@ -824,15 +826,13 @@
    "source": [
     "Two numbers are displayed.\n",
     "\n",
-    "The value of Pixel Accuracy has the same value as val/main/accuracy displayed by `PrintReport`. What was displayed as \"accuracy\" during training was the same as Pixel Accuracy. This shows a very high value. Since the maximum value is 1, 0.98 is a high number.\n",
+    "The value of Pixel Accuracy has the same value as val/main/accuracy displayed by `PrintReport`. What was displayed as \"accuracy\" during training was the same as Pixel Accuracy. This shows a very high value of 0.98. \n",
     "\n",
-    "On the other hand, we see that mIoU (`miou`) which is the index for which the maximum value being 1 also, is lower than expected. Why?\n",
+    "On the other hand, we see that mIoU (`miou`) which is the index for which the maximum value is also 1, is lower than expected. Why?\n",
     "\n",
-    "Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of \"true positive\" (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when the **class imbalance (the number of white and black is very different) is occurring, the influence of prediction error on a small class becomes relatively small**.\n",
+    "Pixel Accuracy shows the ratio of true positive + true negative (i.e, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of \"true positive\" (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when  **class imbalance (the number of white and black is very different) is occurring, the influence of prediction error on a small class becomes relatively small**.\n",
     "\n",
-    "On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction of white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here's a diagram to make it easy to understand.\n",
-    "\n",
-    "\n",
+    "On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction where white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here's a diagram to make it easy to understand.\n",
     "\n",
     "![Area to seek with IoU](https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/miou.png)\n",
     "\n",
@@ -902,7 +902,7 @@
    "source": [
     "The left column is the predicted label and the right column is the correct label. As is evident in the third line, the predicted positive area (white area) is smaller than the correct area. Since Pixel Accuracy is the correct answer rate including the black portion which accounts for the majority, Pixel Accuracy may not fit the dataset as much as the evaluation index. On the other hand, it `mIoU`is an effective index when the ratio of the prediction target area in the image like this time is small.\n",
     "\n",
-    "Later, `mIoU`let's work on how to improve."
+    "We will see how to improve `mIoU`."
    ]
   },
   {
@@ -914,7 +914,7 @@
    "source": [
     "## Segmentation using convolution \n",
     "\n",
-    "In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, from a model consisting only of fully-connected layers. In addition to that, let's change to a deeper (more layers) model. Links used this time are `Convolution2D`and `Deconvolution2D` only. You can specify kernel size (`ksize`), stride (`stride`), padding (`pad`) respectively. First, let's summarize how these change the output."
+    "In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, rather than a model consisting only of fully-connected layers. In addition to that, let's change to a deeper (more layers) model. Links used this time are `Convolution2D`and `Deconvolution2D` only. You can specify kernel size (`ksize`), stride (`stride`), padding (`pad`) respectively. First, let's summarize how these change the output."
    ]
   },
   {
@@ -926,7 +926,7 @@
    "source": [
     "### Convolution \n",
     "\n",
-    "The Link `Convolution2D` is a general convolution layer implementation. I explained in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.\n",
+    "The Link `Convolution2D` is a general convolution layer implementation. We saw in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.\n",
     "\n",
     "- To make it easier to maintain the output size after calculation using padding, make it an odd kernel size (If ⌊ksize/2⌋ is specified as pad, the image size will not change when stride = 1)\n",
     "- If you want to reduce the output feature map, give a value of >1 to stride (if stride = n, the aspect ratio of the converted image will be 1 / n of the original)\n",
@@ -942,13 +942,12 @@
    "source": [
     "### Deconvolution layer \n",
     "\n",
-    "`Deconvolution2D` is not a deconvolution in a mathematical sense unlike its name from historical reasons. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution2D, the way of applying the filter is the same as that of Convolution, but the part where processing such as arranging the values of the input feature map to skip is different. When setting `Deconvolution2D` layer parameters, it is useful to know the following points.\n",
+    "`Deconvolution2D` is not a deconvolution in a mathematical sense as you might assume based on the naming convention for historical reasons. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution2D, the way of applying the filter is the same as that of Convolution, but the part where processing is applied such as arranging the values of the input feature map to skip is different. When setting `Deconvolution2D` layer parameters, it is useful to know the following points.\n",
     "\n",
     "- Make the kernel size divisible by stride (to prevent checker board artifact. For reference: [Deconvolution and Checkerboard Artifacts](https://distill.pub/2016/deconv-checkerboard/)）\n",
     "- Since output size becomes ${\\rm stride} \\times ({\\rm input\\_size} - 1) + {\\rm ksize} - 2 \\times {\\rm pad}$, adjust the parameters so that it becomes the target expansion size.\n",
     "\n",
     "As the meaning of pad is not a bit intuitive in Deconvolution2D, a diagram is provided below that explains the actual operation.\n",
-    "\n",
     "\n",
     "![Calculation of Deconvolution2D(when pad=0)](https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/deconv_pad-0.png)\n",
     "\n",
@@ -1062,7 +1061,7 @@
     "id": "j7-WbsG8Spry"
    },
    "source": [
-    "After rewriting FIXME_1 to FIXME_5 as a constant and running the above cell, the output size of the network is displayed. Since the input image here is (256, 256) size image, if the output is the same size as 256 x 256, it is working properly."
+    "After rewriting FIXME_1 to FIXME_5 as a constant and running the above cell, the output size of the network is displayed. Since the input image here is (256, 256) size image, if the output is the same size as 256 x 256, it should be working properly."
    ]
   },
   {
@@ -1074,7 +1073,7 @@
    "source": [
     "### Improvement of the Classifier class \n",
     "\n",
-    "Next, in order to check not only Pixel Accuracy but also mIOU as items to be checked during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let's run the following cell."
+    "Next, in order to check not only Pixel Accuracy but also mIOU during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let's run the following cell."
    ]
   },
   {
@@ -1137,9 +1136,9 @@
     "id": "xc_ZaQbnSpr1"
    },
    "source": [
-    "Trainer assumes the model passed as an argument to the Optimizer to be a function that \"returns the value of objective function\". In the first model, the model returned the output result, but passed it to the object called `L.Classifier` and passed it to Optimizer. This `L.Classifier` Chainer provides calculates not only the value of the objective function internally, but also calculates Accuracy, then reports the value in the form of passing a dictionary to `reporter.report` so that Extension, such as `LogReport`, can be supplemented. However, `L.Classifier` does not calculate mIoU.\n",
+    "Trainer assumes the model passed as an argument to the Optimizer to be a function that \"returns the value of objective function\". In the first model, the model returned the output result, but passed it to the object called `L.Classifier` and passed it to Optimizer. This `L.Classifier` provided in Chainer calculates not only the value of the objective function internally, but also calculates Accuracy, then reports the value in the form of passing a dictionary to `reporter.report` so that Extension, such as `LogReport`, can be supplemented. However, `L.Classifier` does not calculate mIoU.\n",
     "\n",
-    "Therefore, we will replace `L.Classifier` with our own `PixelwiseSigmoidClassifier`, writing calculation of `F.sigmoid_cross_entropy` that will be an actual objective functions by ourselves, calculating both the Pixel Accuracy and the mIoU for the prediction (in the above code `y`), then report it. `__call__` itself is expected to return the value (scalar) of the objective function, so it only returns `loss` which is the return value of `F.sigmoid_cross_entropy`."
+    "Therefore, we will replace `L.Classifier` with our own `PixelwiseSigmoidClassifier`, writing calculation of `F.sigmoid_cross_entropy` that will be an actual objective function by ourselves, calculating both the Pixel Accuracy and the mIoU for the prediction (in the above code `y`), then report it. `__call__` itself is expected to return the value (scalar) of the objective function, so it only returns `loss` which is the return value of `F.sigmoid_cross_entropy`."
    ]
   },
   {
@@ -1199,7 +1198,7 @@
    "source": [
     "This is the function to create a Trainer object used this time. The differences from the first case are `LogReport` that records logs to a file, and `PrintReport` that outputs to the standard output, and also the extension of `PlotReport` which outputs the graph, not only `loss`and `accuracy` (in this case, `pa` != Pixel Accuracy) but also `miou`.\n",
     "\n",
-    "Let's start training. remebering that miou only got over 0.68 with the first model, let's observe the progress. This time the model grows and the number of parameters is also increasing, so the training may take time to train a bit (it would take over 6 minutes)\n",
+    "Let's start training (remember that miou only got over 0.68 with the first model). This time the model grows and the number of parameters are also increasing, so the training may take time to train a bit (it would take over 6 minutes)\n",
     "\n",
     "Run the following cell."
    ]
@@ -1485,20 +1484,19 @@
    },
    "source": [
     "## Tips for further improvement \n",
-    "It seems to be working well in this model, but there is still room for improvement. Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to handle prediction results at multiple resolutions, etc., are important problems. Also, in neural networks, it is generally known that the more layers are used, the higher the abstraction level of features will become. However, since Semantic Segmentation wishes to output a mask image accurately representing the outline of the target object, you would want to make a final prediction result considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.\n",
+    "\n",
+    "While our approach seems to be working well in this model, there is still room for improvement. Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to handle prediction results at multiple resolutions, etc., are important problems. Also, in neural networks, it is generally known that the more layers are used, the higher the abstraction level of features will become. However, since Semantic Segmentation wishes to output a mask image accurately representing the outline of the target object, you would want to make a final prediction result considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.\n",
     "\n",
     "Several new models have been proposed from these perspectives. Typical examples are listed below, for example.\n",
     "\n",
     "\n",
     "### SegNet [8] \n",
-    "When Max Pooling is applied in each layer, it is a method to keep information of \"which pixel is the maximum value (pooling indices)\" and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at [ChainerCV](https://github.com/chainer/chainercv).\n",
+    "When Max Pooling is applied in each layer, the goal is to keep information of \"which pixel is the maximum value (pooling indices)\" and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at [ChainerCV](https://github.com/chainer/chainercv).\n",
     "\n",
     "![SegNet](https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/SegNet.png)\n",
     "\n",
     "### U-Net [9] \n",
-    "\n",
-    "A structure that utilizes the output feature map of the lower layer by combining it with the input of the upper layer. It is called \"U-Net\" because its whole shape is like \"U\" of the alphabet, it is widely used in segmentation task.\n",
-    "\n",
+    "A structure that utilizes the output feature map of the lower layer by combining it with the input of the upper layer. It is called \"U-Net\" because its whole shape is like \"U\" of the alphabet, it is widely used in segmentation task. \n",
     "![U-Net](https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/U-Net.png)\n",
     "\n",
     "### PSPNet [10]\n",
@@ -1527,13 +1525,14 @@
    },
    "source": [
     "## Additional References \n",
-    "Finally, we will post some segmen- tation materials from this author's creator here.\n",
+    "\n",
+    "Finally, we will post some segmentation materials for further reference/additional reading.\n",
     "\n",
     "- [Brief introduction of recent segmentation method](https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods)\n",
     "- [Introduction of Pyramid Scene Parsing Network (CVPR 2017)](https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods)\n",
     "\n",
-    "In addition, the following review articles are well organized on the segmentation method utilizing the recent Deep \n",
-    "learning, which is helpful.\n",
+    "In addition, the following review article is well organized on the segmentation method utilizing the recent Deep \n",
+    "learning.\n",
     "\n",
     "- [A Review on Deep Learning Techniques Applied to Semantic Segmentation](https://arxiv.org/abs/1704.06857)"
    ]

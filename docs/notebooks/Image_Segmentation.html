@@ -433,7 +433,7 @@ div.rendered_html tbody tr:hover {
 <p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Image_Segmentation.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <div class="section" id="Practice:-Segmentation-of-MRI">
 <h1>5. Practice: Segmentation of MRI<a class="headerlink" href="#Practice:-Segmentation-of-MRI" title="Permalink to this headline">¶</a></h1>
-<p>There are various application technologies of deep learning for images. For example, <strong>object detection</strong> that detects an image by surrounding an individual object in a rectangle , and <strong>image segmentation</strong> that recognizes an area occupied by individual objects in the image .</p>
+<p>There are various applications of deep learning for images. For example, <strong>object detection</strong> that detects an image by surrounding an individual object in a rectangle , and <strong>image segmentation</strong> that recognizes an area occupied by individual objects in the image .</p>
 <p>Object detection can be said to be a technology to recognize the “type” and “position” of the target object .</p>
 <p><img alt="Object Detection Example" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/FasterRCNN-result.png" /> (Above figure: example of object detection. It is a task that encloses the target object with a rectangle and answers the class. The original image is from the Pascal VOC data set, the result of applying Faster R-CNN by ChainerCV (both will be described later) to this.</p>
 <p>There are two types of image segmentation . One is an Instance - aware Segmentation that distinguishes individual objects. The other is Semantic Segmentation which does not distinguish individuals if they are of the same class. This time we will deal with the latter.</p>
@@ -504,17 +504,17 @@ matplotlib: 2.1.2
 <h2>5.2. Semantic Segmentation<a class="headerlink" href="#Semantic-Segmentation" title="Permalink to this headline">¶</a></h2>
 <p>Semantic Segmentation is one of the tasks that is still being actively studied in the field of Computer Vision, and it is a method of giving some classes to each pixel of the input image. But <strong>even human beings can not guess something by looking at only one pixel</strong>. For that reason, it is important to know how to classify each pixel while <strong>adding information on surrounding pixels</strong>.</p>
 <p>When solving this problem using a neural network, you will learn by ” <strong>making a network that inputs images and outputs images</strong>” . For this reason, it is common for a correct label image that is paired with an input image to be a single channel image that has the same size and contains the class number to which each pixel belongs.</p>
-<p>The output of the network,<span class="math notranslate nohighlight">\(C\)</span> When classification is done <span class="math notranslate nohighlight">\(C\)</span> It becomes an image of the channel. Let it learn by applying Softmax function in the channel direction for each pixel to make it a probability vector, so that the value of the correct class will be large (to be able to predict the correct class with high confidence). You can also think of calculating the objective function for image classification by pixel . Then, the sum of the classification error for each <strong>pixel</strong> by
-the image size is the target of minimization.</p>
+<p>The output of the network,<span class="math notranslate nohighlight">\(C\)</span> When classification is done <span class="math notranslate nohighlight">\(C\)</span> becomes an image of the channel. Let it learn by applying Softmax function in the channel direction for each pixel to make it a probability vector, so that the value of the correct class will be large (to be able to predict the correct class with high confidence). You can also think of calculating the objective function for image classification by pixel. Then, the sum of the classification error for each <strong>pixel</strong> by the
+image size is the target of minimization.</p>
 <p>here,<span class="math notranslate nohighlight">\(C =2\)</span> In case of only the output of the network <span class="math notranslate nohighlight">\(1\)</span> Sometimes it is a channel and the loss function is Sigmoid Cross Entropy.</p>
 </div>
 <div class="section" id="Data-set-to">
 <h2>5.3. Data set to<a class="headerlink" href="#Data-set-to" title="Permalink to this headline">¶</a></h2>
-<p>The data set to be used from now is cardiac MRI image (short axis image) and experts labeled it. For details on the data, please refer here [1, 2, 3].</p>
+<p>The data set used in this example is cardiac MRI image (short axis image) and it has been labeled by experts. For details on the data, please refer:</p>
 <p>[1] Sunnybrook cardiac images from earlier competition <a class="reference external" href="http://smial.sri.utoronto.ca/LV_Challenge/Data.html">http://smial.sri.utoronto.ca/LV_Challenge/Data.html</a></p>
-<p>[2] 「This “Sunnybrook Cardiac MR Database” is made available under the CC0 1.0 Universal license described above, and with more detail here: <a class="reference external" href="http://creativecommons.org/publicdomain/zero/1.0/">http://creativecommons.org/publicdomain/zero/1.0/</a>」</p>
+<p>[2] This “Sunnybrook Cardiac MR Database” is made available under the CC0 1.0 Universal license described above, and with more detail here: <a class="reference external" href="http://creativecommons.org/publicdomain/zero/1.0/">http://creativecommons.org/publicdomain/zero/1.0/</a>」</p>
 <p>[3] Attribution: Radau P, Lu Y, Connelly K, Paul G, Dick AJ, Wright GA. “Evaluation Framework for Algorithms Segmenting Short Axis Cardiac MRI.” The MIDAS Journal -Cardiac MR Left Ventricle Segmentation Challenge, <a class="reference external" href="http://hdl.handle.net/10380/3070">http://hdl.handle.net/10380/3070</a></p>
-<p>First, download the data. This is what I finished processing the distribution data source set so that it is easy to use this time.</p>
+<p>First, download the data. This is after we finished processing the distribution data source set so that it is easy to use.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -525,7 +525,7 @@ the image size is the target of minimization.</p>
 </pre></div>
 </div>
 </div>
-<p>Here is an example of an image pair extracted from this data set. Please try running the cell below.</p>
+<p>Here is an example of an image pair extracted from this data set.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -560,14 +560,14 @@ plt.show()
 </div>
 </div>
 <p>The left side is the MRI image and the right side is the image masking the part of the left ventricle created by the expert. Among the mask images on the right side, <strong>the area painted white is the area of the left ventricle you want to find out this time</strong>. The size of the left ventricle is different for each image, and its shape is also varied. However, it is common that the <strong>area occupied by the left ventricle for the entire image is relatively small</strong>.</p>
-<p>For this time, MRI image data is converted to a general image format (PNG) so that it is easier to handle from the format (DICOM format) distributed by the provider, but we do not explain the work for that. If you are interested in data shaping method of MRI image group used this time please refer to this tutorial provided related to Kaggle’s previous competition: <a class="reference external" href="https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial">Kaggle competition: Second Annual Data Science
+<p>For this time, the MRI image data is converted to a general image format (PNG) so that it is easier to handle as compared to the format (DICOM) distributed by the provider (We do not explain the procedure for the conversion, However, if you are interested in data shaping method of the MRI images please refer to this tutorial provided related to Kaggle’s previous competition: <a class="reference external" href="https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial">Kaggle competition: Second Annual Data Science
 Bowl</a> [7]）</p>
-<p>The data that became the basis of the data set used this time is distributed in the <a class="reference external" href="https://en.wikipedia.org/wiki/DICOM">DICOM</a> format which is a common image format in medical images, and the image size is 256 x 256 grayscale image. This time, it has been converted to PNG image in advance. The label image is a binary image of the same size , <strong>pixels inside the region of the left ventricle have a pixel value of 1, and other pixels are filled with zeros</strong>. The training data set used this
-time consists of 234 pairs of images (a pair of gray scale MRI images and corresponding binary label images). Validation data consists of 26 images. The verification data is prepared separately from the training data.</p>
+<p>The dataset used here is distributed in the <a class="reference external" href="https://en.wikipedia.org/wiki/DICOM">DICOM</a> format which is a common image format in medical images, and the image size is 256 x 256 grayscale image. It has been converted to PNG image format in advance. The label image is a binary image of the same size , <strong>pixels inside the region of the left ventricle have a pixel value of 1, and other pixels are filled with zeros</strong>. The training data set used here consists of 234 pairs of images (a pair of gray
+scale MRI images and corresponding binary label images). Validation data consists of 26 images. The verification data is prepared separately from the training data.</p>
 <p>[7] <a class="reference external" href="https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial">https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial</a></p>
 <div class="section" id="Training-flow-using-the-Chainer">
 <h3>5.3.1. Training flow using the Chainer<a class="headerlink" href="#Training-flow-using-the-Chainer" title="Permalink to this headline">¶</a></h3>
-<p>This time, We will work on Semantic Segmentation using the Chainer described in Chapter 4. Describes a network that outputs an image from an image. As mentioned in Chapter 4, Chainer comes with <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, a class for training loop abstraction. This is used to address the Semantic Segmentation task, which classifies all pixels into two classes, the left atrium and others. Let’s review again the preparation the user needs to do when training with <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>.</p>
+<p>Here we will work on Semantic Segmentation using the Chainer described in Chapter 4. We describe a network that outputs an image from an image. As mentioned in Chapter 4, Chainer comes with <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, a class for training loop abstraction. This is used to address the Semantic Segmentation task, which classifies all pixels into two classes, the left atrium and others. Let’s review again the preparation the user needs to do when training with <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>.</p>
 <ol class="arabic simple">
 <li><p>Preparation of Dataset object (It returns data one by one for training)</p></li>
 <li><p>Wrap the Dataset object in the Iterator (it returns the data in Dataset bundled in batch size)</p></li>
@@ -579,19 +579,19 @@ time consists of 234 pairs of images (a pair of gray scale MRI images and corres
 <p>The components included in <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> have the following relationship:</p>
 <p><img alt="relationship between Trainer related components" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/trainer.png" /></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Updater</span></code> takes a specified batch size number of data from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, supplies it to<code class="docutils literal notranslate"><span class="pre">Model</span></code>, calculates the value of objective function, and updates parameters by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>. It hides the work (which makes it 1 iteration).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> can use an extension function<code class="docutils literal notranslate"><span class="pre">Extension</span></code>, and you can do automatically such as, log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Updater</span></code> takes a specified batch size number of data from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, supplies it to<code class="docutils literal notranslate"><span class="pre">Model</span></code>, calculates the value of objective function, and updates parameters by <code class="docutils literal notranslate"><span class="pre">Optimizer</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code> can use an extension function<code class="docutils literal notranslate"><span class="pre">Extension</span></code>, which allows you to automatically log at a specified timing (every iteration, every epoch), draw and save plots of values and accuracy of objective functions, etc.</p></li>
 </ul>
 <p>When describing network to be trained using Chainer, you will be defining them in order from the inside of the above figure, and create a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object that includes all at the end, then start the training as by <code class="docutils literal notranslate"><span class="pre">trainer.run</span> <span class="pre">()</span></code>.</p>
-<p>(You can write your own training loop without using <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, but this time, we assume that you use<code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. If you want to know how to write your own training loop, see Chapter 4.)</p>
+<p>(You can write your own training loop without using <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>, but this time, we assume that you are using <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. If you want to know how to write your own training loop, see Chapter 4.)</p>
 </div>
 </div>
 <div class="section" id="Segmentation-by-fully-connected-neural-network">
 <h2>5.4. Segmentation by fully-connected neural network<a class="headerlink" href="#Segmentation-by-fully-connected-neural-network" title="Permalink to this headline">¶</a></h2>
-<p>Let’s begin with a simple model. Let’s train a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of three fully-connected layers.</p>
+<p>We will start with a simple model. Let’s train a model outputting grayscale image of left ventricularity by inputting MRI image using a neural network consisting of three fully-connected layers.</p>
 <div class="section" id="Preparing-the-data-set">
 <h3>5.4.1. Preparing the data set<a class="headerlink" href="#Preparing-the-data-set" title="Permalink to this headline">¶</a></h3>
-<p>First we prepare the data set. Chainer provide some useful classes for data sets. <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> Is a data set class that will read the image in the disk and return them for you by initializing it with a list of file paths to an image file. <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> Is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It is the same as <code class="docutils literal notranslate"><span class="pre">zip</span></code> in Python.)</p>
+<p>First we prepare the data set. Chainer provide some useful classes for data sets. <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> is a data set class that will read the image and return them for you by initializing it with a list of file paths to an image file. <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> is a class that creates a dataset object that, when initialized with multiple dataset objects passed in, bundles and returns data with the same index into a tuple. (It is the same as <code class="docutils literal notranslate"><span class="pre">zip</span></code> in Python.)</p>
 <p>We will be working on Semantic Segmentation this time, so both input and output are images. So we are going to create two <code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code> objects. Run the following cell.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -630,8 +630,8 @@ def create_dataset(img_filenames, label_filenames):
 <p>The above function gives a list of file paths of input images <code class="docutils literal notranslate"><span class="pre">img_filenames</span></code>, and a list of file paths of correct label images (binary images having pixel values of 0 or 1) <code class="docutils literal notranslate"><span class="pre">label_filenames</span></code>, and returns two data set objects bundled together as <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">img</span></code> is a data set of the input image, behaves like a list that contains input images. <code class="docutils literal notranslate"><span class="pre">img[i]</span></code> returns the <code class="docutils literal notranslate"><span class="pre">i</span></code>th image (an image is loaded for the first time when accessed with <code class="docutils literal notranslate"><span class="pre">[i]</span></code>).</p>
 <p><code class="docutils literal notranslate"><span class="pre">label</span></code> also acts like a list of label images. If you access <code class="docutils literal notranslate"><span class="pre">dataset</span></code> created and bundled these with <code class="docutils literal notranslate"><span class="pre">TupleDataset</span></code> like <code class="docutils literal notranslate"><span class="pre">dataset[i]</span></code>, it will return a tuple (two or more of the collection of value). (If the <code class="docutils literal notranslate"><span class="pre">image</span></code> and <code class="docutils literal notranslate"><span class="pre">label</span></code> are the lists of the same size, it has the same result of <code class="docutils literal notranslate"><span class="pre">zip(img,</span> <span class="pre">label)</span></code>.)</p>
-<p>Next, in the second line in this function, based on the input data set created using<code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code>, we create a new data set, <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code>. <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> is a class that can <strong>return a data after applying the function given to the second argument</strong> when accessing the data set given to the first argument, allows us to convert the data by giving an arbitrary function. In this case, you give a function that performs conversion using a <code class="docutils literal notranslate"><span class="pre">lamba</span></code> function, simply coverting value
-range to [0,1]. In addition, for example, by passing a function, as an argument, that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), You can easily enable <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">augmentation</span></code>.</p>
+<p>Next, in the second line in this function, based on the input data set created using<code class="docutils literal notranslate"><span class="pre">ImageDataset</span></code>, we create a new data set, <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code>. <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> is a class that can <strong>return a dataset after applying the function given to the second argument</strong> when accessing the data set given to the first argument. This allows us to convert the data by giving an arbitrary function. In this case, you give a function that performs conversion using a <code class="docutils literal notranslate"><span class="pre">lamba</span></code> function, i.e. simply
+coverting the values in the range [0,1]. In addition, for example, by passing a function, as an argument, that performs various transformations depending on random numbers internally (in the case of images, randomly inverting horizontally or rotating at random angles, etc.), you can easily enable and achieve<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">augmentation</span></code>.</p>
 <p>Let’s create each data set object for training and verification using <code class="docutils literal notranslate"><span class="pre">create_dataset</span></code> function. Please run the cell below.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -655,7 +655,7 @@ range to [0,1]. In addition, for example, by passing a function, as an argument,
 </pre></div>
 </div>
 </div>
-<p>In the function <code class="docutils literal notranslate"><span class="pre">create_datasets()</span></code>, first it uses a Python built-in module <code class="docutils literal notranslate"><span class="pre">glob</span></code>, looks for files with <code class="docutils literal notranslate"><span class="pre">.png</span></code> extension from the specified directory, then creates a list that stores the file paths. Next, sort the file names by using <code class="docutils literal notranslate"><span class="pre">sorted</span></code>, so that the input image and the file list of the label image point to the corresponding data with the same index (the file list enumerated by the function <code class="docutils literal notranslate"><span class="pre">glob</span></code> is not necessarily sorted). After that, we pass these file name lists to the
+<p>In the function <code class="docutils literal notranslate"><span class="pre">create_datasets()</span></code>, it first uses a Python built-in module <code class="docutils literal notranslate"><span class="pre">glob</span></code>, looks for files with <code class="docutils literal notranslate"><span class="pre">.png</span></code> extension from the specified directory, then creates a list that stores the file paths. Next, we sort the file names by using <code class="docutils literal notranslate"><span class="pre">sorted</span></code>, so that the input image and the file list of the label image point to the corresponding data with the same index (the file list enumerated by the function <code class="docutils literal notranslate"><span class="pre">glob</span></code> is not necessarily sorted). After that, we pass these file name lists to the
 previous function <code class="docutils literal notranslate"><span class="pre">create_dataset</span></code> to create a dataset object. Do the same for the image file for verification, and create and return two dataset objects, <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">val</span></code>.</p>
 <p>Let’s call this function. Please execute the cell below.</p>
 <div class="nbinput docutils container">
@@ -679,7 +679,7 @@ Dataset size:
         valid:  26
 </pre></div></div>
 </div>
-<p>By calling this function, you can create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, you can use <code class="docutils literal notranslate"><span class="pre">len()</span></code> the built-in function to find out how many data it contains.</p>
+<p>By calling this function, you can create a training data set object and a validation data set object. Dataset objects can basically be treated as lists. For example, you can use <code class="docutils literal notranslate"><span class="pre">len()</span></code> the built-in function to find out how many data points it contains.</p>
 </div>
 <div class="section" id="Defining-Model">
 <h3>5.4.2. Defining Model<a class="headerlink" href="#Defining-Model" title="Permalink to this headline">¶</a></h3>
@@ -714,7 +714,7 @@ class MultiLayerPerceptron(chainer.Chain):
 </pre></div>
 </div>
 </div>
-<p>In this example, we use three full-connected layers and connect them using the ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as is, reshape it to the shape of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.</p>
+<p>In this example, we use three full-connected layers and connect them using ReLU as the activation function. Finally, to make it easy to compare with the correct mask image as is, reshape it to the shape of the image and return it. In other words, one-dimensional arrays are transformed into two-dimensional arrays.</p>
 <p>Here, the number of output channels is 1, which represents the probability that each pixel is a left ventricle.</p>
 </div>
 <div class="section" id="Defining-Trainer">
@@ -794,12 +794,12 @@ def create_trainer(batchsize, train, val, stop, device=-1):
 <span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;chainer&#39;
 </pre></div></div>
 </div>
-<p>At the end of this function definition, <strong>multiple Extensions are added</strong>. These are extend functions which does automatic saving of logs to files (<code class="docutils literal notranslate"><span class="pre">LogReport</span></code>) and display on their standard output (<code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>), automatic creation of plots of objective function values and precision (<code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>), evaluation (<code class="docutils literal notranslate"><span class="pre">Evaluator</span></code>) with validation data every specified timing.</p>
+<p>At the end of this function definition, <strong>multiple Extensions are added</strong>. These are extend functions which does automatic saving of logs to files (<code class="docutils literal notranslate"><span class="pre">LogReport</span></code>) and displays their standard output (<code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>), automatic creation of plots of objective function values and precision (<code class="docutils literal notranslate"><span class="pre">PlotReport</span></code>), evaluation (<code class="docutils literal notranslate"><span class="pre">Evaluator</span></code>) with validation data at every specified timing.</p>
 <p>In addition to this, various extended functions can be used. You can find out how to use and what you can do from the <code class="docutils literal notranslate"><span class="pre">Extension</span></code> list here: <a class="reference external" href="https://docs.chainer.org/en/v2.0.2/reference/extensions.html">Trainer extensions</a></p>
 </div>
 <div class="section" id="Training">
 <h3>5.4.4. Training<a class="headerlink" href="#Training" title="Permalink to this headline">¶</a></h3>
-<p>We are ready for training. What we need to do is just call the run() function on the <code class="docutils literal notranslate"><span class="pre">trainer</span></code> we created.</p>
+<p>We are ready for training. All we need to do is just call the run() function on the <code class="docutils literal notranslate"><span class="pre">trainer</span></code> we created.</p>
 <p>Please run the cell below.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -866,17 +866,17 @@ Image(&#39;result/loss.png&#39;)
 </div>
 <div class="section" id="Evaluation">
 <h3>5.4.5. Evaluation<a class="headerlink" href="#Evaluation" title="Permalink to this headline">¶</a></h3>
-<p>Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1 of the maximum value. But what is this performance indicator? What defines the “Accuracy”?</p>
+<p>Well, looking at the results so far, the performance against training and verification data appears to be good at first glance. Especially Accuracy was close to 1, the maximum value possible . But what is this performance indicator? What defines the “Accuracy”?</p>
 <p>In general, the result of Semantic Segmentation will be evaluated with values such as <strong>Pixel accuracy</strong> indicated as “accuracy” above and <strong>Mean Intersection over Union (mIoU)</strong> which is a different indicator. Each definition is as follows.</p>
-<p>When the number of pixcels, with the correct class <span class="math notranslate nohighlight">\(i\)</span> and classified as <span class="math notranslate nohighlight">\(j\)</span>, is <span class="math notranslate nohighlight">\(N_{ij}\)</span>, where the number of classes is <span class="math notranslate nohighlight">\(k\)</span>, then:</p>
+<p>When the number of pixels, with the correct class <span class="math notranslate nohighlight">\(i\)</span> and classified as <span class="math notranslate nohighlight">\(j\)</span>, is <span class="math notranslate nohighlight">\(N_{ij}\)</span>, where the number of classes is <span class="math notranslate nohighlight">\(k\)</span>, then:</p>
 <div class="math notranslate nohighlight">
 \[{\rm Pixel\ Accuracy} = \frac{\sum_{i=1}^k N_{ii}}{\sum_{i=1}^k \sum_{j=1}^k N_{ij}}\]</div>
 <div class="math notranslate nohighlight">
 \[{\rm mIoU} = \frac{1}{k} \sum_{i=1}^k \frac{N_{ii}}{\sum_{j=1}^k N_{ij} + \sum_{j=1}^k N_{ji} - N_{ii}}\]</div>
 <p>Let’s try to calculate these two values again for Validation dataset <strong>using the model we just trained</strong>.</p>
 <p>This time, we use <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a> [11] to calculate these values. ChainerCV is an additional package of Chainer that can unify the handling of frequent calculations, model data, etc. in computer vision tasks. In order to calculate the above two metrics again, let’s use a function for evaluation metrics calculation for Semantic Segmentation task provided by ChainerCV.</p>
+<p>Refer here for more details on chainer CV. [11] Yusuke Niitani, Toru Ogawa, Shunta Saito, Masaki Saito, “ChainerCV: a Library for Deep Learning in Computer Vision”, ACM Multimedia (ACMMM), Open Source Software Competition, 2017</p>
 <p>Run the following cell.</p>
-<p>[11] Yusuke Niitani, Toru Ogawa, Shunta Saito, Masaki Saito, “ChainerCV: a Library for Deep Learning in Computer Vision”, ACM Multimedia (ACMMM), Open Source Software Competition, 2017</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -925,11 +925,11 @@ evaluate(trainer, val, device=0)
 </pre></div></div>
 </div>
 <p>Two numbers are displayed.</p>
-<p>The value of Pixel Accuracy has the same value as val/main/accuracy displayed by <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>. What was displayed as “accuracy” during training was the same as Pixel Accuracy. This shows a very high value. Since the maximum value is 1, 0.98 is a high number.</p>
-<p>On the other hand, we see that mIoU (<code class="docutils literal notranslate"><span class="pre">miou</span></code>) which is the index for which the maximum value being 1 also, is lower than expected. Why?</p>
-<p>Pixel Accuracy shows the ratio of true positive + true negative (that is, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of “true positive” (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when the <strong>class imbalance (the number of white and black is very
-different) is occurring, the influence of prediction error on a small class becomes relatively small</strong>.</p>
-<p>On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction of white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here’s a diagram to make it easy to understand.</p>
+<p>The value of Pixel Accuracy has the same value as val/main/accuracy displayed by <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code>. What was displayed as “accuracy” during training was the same as Pixel Accuracy. This shows a very high value of 0.98.</p>
+<p>On the other hand, we see that mIoU (<code class="docutils literal notranslate"><span class="pre">miou</span></code>) which is the index for which the maximum value is also 1, is lower than expected. Why?</p>
+<p>Pixel Accuracy shows the ratio of true positive + true negative (i.e, the total number of correct predictions for black as black and white as white) with respect to the number of pixels of the entire image, so when the negative (black) is large with respect to the entire imange, even if the number of “true positive” (number of correct predictions as white) is small, Pixel Accuracy will be high as a result. In other words, when <strong>class imbalance (the number of white and black is very different)
+is occurring, the influence of prediction error on a small class becomes relatively small</strong>.</p>
+<p>On the other hand, in the case of mIoU, as we see the ratio of “true positive” (the prediction where white is correct) with respect to the “sum of positive and true regions” (sum of the region predicted white and the region white is correct), it is not affected by the size of the entire image. Here’s a diagram to make it easy to understand.</p>
 <p><img alt="Area to seek with IoU" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/miou.png" /></p>
 <p>In the words of this figure, IoU,</p>
 <div class="math notranslate nohighlight">
@@ -981,15 +981,15 @@ show_predicts(trainer, val, device=0)
 </div>
 <p>The left column is the predicted label and the right column is the correct label. As is evident in the third line, the predicted positive area (white area) is smaller than the correct area. Since Pixel Accuracy is the correct answer rate including the black portion which accounts for the majority, Pixel Accuracy may not fit the dataset as much as the evaluation index. On the other hand, it <code class="docutils literal notranslate"><span class="pre">mIoU</span></code>is an effective index when the ratio of the prediction target area in the image like this time is
 small.</p>
-<p>Later, <code class="docutils literal notranslate"><span class="pre">mIoU</span></code>let’s work on how to improve.</p>
+<p>We will see how to improve <code class="docutils literal notranslate"><span class="pre">mIoU</span></code>.</p>
 </div>
 </div>
 <div class="section" id="Segmentation-using-convolution">
 <h2>5.5. Segmentation using convolution<a class="headerlink" href="#Segmentation-using-convolution" title="Permalink to this headline">¶</a></h2>
-<p>In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, from a model consisting only of fully-connected layers. In addition to that, let’s change to a deeper (more layers) model. Links used this time are <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code>and <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> only. You can specify kernel size (<code class="docutils literal notranslate"><span class="pre">ksize</span></code>), stride (<code class="docutils literal notranslate"><span class="pre">stride</span></code>), padding (<code class="docutils literal notranslate"><span class="pre">pad</span></code>) respectively. First, let’s summarize how these change the output.</p>
+<p>In order to improve mIoU, we use a convolution layer, which is often used for image related tasks, rather than a model consisting only of fully-connected layers. In addition to that, let’s change to a deeper (more layers) model. Links used this time are <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code>and <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> only. You can specify kernel size (<code class="docutils literal notranslate"><span class="pre">ksize</span></code>), stride (<code class="docutils literal notranslate"><span class="pre">stride</span></code>), padding (<code class="docutils literal notranslate"><span class="pre">pad</span></code>) respectively. First, let’s summarize how these change the output.</p>
 <div class="section" id="Convolution">
 <h3>5.5.1. Convolution<a class="headerlink" href="#Convolution" title="Permalink to this headline">¶</a></h3>
-<p>The Link <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code> is a general convolution layer implementation. I explained in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.</p>
+<p>The Link <code class="docutils literal notranslate"><span class="pre">Convolution2D</span></code> is a general convolution layer implementation. We saw in the previous chapter what kind of layer Convolution is. When setting the parameters of the convolution layer, it is useful to know the following points.</p>
 <ul class="simple">
 <li><p>To make it easier to maintain the output size after calculation using padding, make it an odd kernel size (If ⌊ksize/2⌋ is specified as pad, the image size will not change when stride = 1)</p></li>
 <li><p>If you want to reduce the output feature map, give a value of &gt;1 to stride (if stride = n, the aspect ratio of the converted image will be 1 / n of the original)</p></li>
@@ -998,8 +998,8 @@ small.</p>
 </div>
 <div class="section" id="Deconvolution-layer">
 <h3>5.5.2. Deconvolution layer<a class="headerlink" href="#Deconvolution-layer" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> is not a deconvolution in a mathematical sense unlike its name from historical reasons. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution2D, the way of applying the filter is the same as that of Convolution, but the part where processing such as arranging the values of the input feature map to skip is different. When setting <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> layer parameters, it is useful to know the following
-points.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> is not a deconvolution in a mathematical sense as you might assume based on the naming convention for historical reasons. It is sometimes called Transposed convolution or Backward convolution from the operation actually applied. In Deconvolution2D, the way of applying the filter is the same as that of Convolution, but the part where processing is applied such as arranging the values of the input feature map to skip is different. When setting <code class="docutils literal notranslate"><span class="pre">Deconvolution2D</span></code> layer
+parameters, it is useful to know the following points.</p>
 <ul class="simple">
 <li><p>Make the kernel size divisible by stride (to prevent checker board artifact. For reference: <a class="reference external" href="https://distill.pub/2016/deconv-checkerboard/">Deconvolution and Checkerboard Artifacts</a>）</p></li>
 <li><p>Since output size becomes <span class="math notranslate nohighlight">\({\rm stride} \times ({\rm input\_size} - 1) + {\rm ksize} - 2 \times {\rm pad}\)</span>, adjust the parameters so that it becomes the target expansion size.</p></li>
@@ -1091,11 +1091,11 @@ print(FullyConvolutionalNetwork(256, 256)(np.zeros((1, 1, 256, 256), dtype=np.fl
 <span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;chainer&#39;
 </pre></div></div>
 </div>
-<p>After rewriting FIXME_1 to FIXME_5 as a constant and running the above cell, the output size of the network is displayed. Since the input image here is (256, 256) size image, if the output is the same size as 256 x 256, it is working properly.</p>
+<p>After rewriting FIXME_1 to FIXME_5 as a constant and running the above cell, the output size of the network is displayed. Since the input image here is (256, 256) size image, if the output is the same size as 256 x 256, it should be working properly.</p>
 </div>
 <div class="section" id="Improvement-of-the-Classifier-class">
 <h3>5.5.4. Improvement of the Classifier class<a class="headerlink" href="#Improvement-of-the-Classifier-class" title="Permalink to this headline">¶</a></h3>
-<p>Next, in order to check not only Pixel Accuracy but also mIOU as items to be checked during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let’s run the following cell.</p>
+<p>Next, in order to check not only Pixel Accuracy but also mIOU during training, we will replace the Classifier class that calculates the objective function with one customized by yourself. It is defined as follows. Let’s run the following cell.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -1150,9 +1150,9 @@ print(FullyConvolutionalNetwork(256, 256)(np.zeros((1, 1, 256, 256), dtype=np.fl
 <span class="ansi-red-fg">NameError</span>: name &#39;chainer&#39; is not defined
 </pre></div></div>
 </div>
-<p>Trainer assumes the model passed as an argument to the Optimizer to be a function that “returns the value of objective function”. In the first model, the model returned the output result, but passed it to the object called <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> and passed it to Optimizer. This <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> Chainer provides calculates not only the value of the objective function internally, but also calculates Accuracy, then reports the value in the form of passing a dictionary to <code class="docutils literal notranslate"><span class="pre">reporter.report</span></code> so that
+<p>Trainer assumes the model passed as an argument to the Optimizer to be a function that “returns the value of objective function”. In the first model, the model returned the output result, but passed it to the object called <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> and passed it to Optimizer. This <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> provided in Chainer calculates not only the value of the objective function internally, but also calculates Accuracy, then reports the value in the form of passing a dictionary to <code class="docutils literal notranslate"><span class="pre">reporter.report</span></code> so that
 Extension, such as <code class="docutils literal notranslate"><span class="pre">LogReport</span></code>, can be supplemented. However, <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> does not calculate mIoU.</p>
-<p>Therefore, we will replace <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> with our own <code class="docutils literal notranslate"><span class="pre">PixelwiseSigmoidClassifier</span></code>, writing calculation of <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code> that will be an actual objective functions by ourselves, calculating both the Pixel Accuracy and the mIoU for the prediction (in the above code <code class="docutils literal notranslate"><span class="pre">y</span></code>), then report it. <code class="docutils literal notranslate"><span class="pre">__call__</span></code> itself is expected to return the value (scalar) of the objective function, so it only returns <code class="docutils literal notranslate"><span class="pre">loss</span></code> which is the return value of <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code>.</p>
+<p>Therefore, we will replace <code class="docutils literal notranslate"><span class="pre">L.Classifier</span></code> with our own <code class="docutils literal notranslate"><span class="pre">PixelwiseSigmoidClassifier</span></code>, writing calculation of <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code> that will be an actual objective function by ourselves, calculating both the Pixel Accuracy and the mIoU for the prediction (in the above code <code class="docutils literal notranslate"><span class="pre">y</span></code>), then report it. <code class="docutils literal notranslate"><span class="pre">__call__</span></code> itself is expected to return the value (scalar) of the objective function, so it only returns <code class="docutils literal notranslate"><span class="pre">loss</span></code> which is the return value of <code class="docutils literal notranslate"><span class="pre">F.sigmoid_cross_entropy</span></code>.</p>
 </div>
 <div class="section" id="Training-with-the-new-model">
 <h3>5.5.5. Training with the new model<a class="headerlink" href="#Training-with-the-new-model" title="Permalink to this headline">¶</a></h3>
@@ -1191,7 +1191,7 @@ Extension, such as <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 <p>This is the function to create a Trainer object used this time. The differences from the first case are <code class="docutils literal notranslate"><span class="pre">LogReport</span></code> that records logs to a file, and <code class="docutils literal notranslate"><span class="pre">PrintReport</span></code> that outputs to the standard output, and also the extension of <code class="docutils literal notranslate"><span class="pre">PlotReport</span></code> which outputs the graph, not only <code class="docutils literal notranslate"><span class="pre">loss</span></code>and <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> (in this case, <code class="docutils literal notranslate"><span class="pre">pa</span></code> != Pixel Accuracy) but also <code class="docutils literal notranslate"><span class="pre">miou</span></code>.</p>
-<p>Let’s start training. remebering that miou only got over 0.68 with the first model, let’s observe the progress. This time the model grows and the number of parameters is also increasing, so the training may take time to train a bit (it would take over 6 minutes)</p>
+<p>Let’s start training (remember that miou only got over 0.68 with the first model). This time the model grows and the number of parameters are also increasing, so the training may take time to train a bit (it would take over 6 minutes)</p>
 <p>Run the following cell.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
@@ -1365,18 +1365,17 @@ mIoU: 0.8948934203314065
 </div>
 <div class="section" id="Tips-for-further-improvement">
 <h2>5.6. Tips for further improvement<a class="headerlink" href="#Tips-for-further-improvement" title="Permalink to this headline">¶</a></h2>
-<p>It seems to be working well in this model, but there is still room for improvement. Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to handle prediction results at multiple resolutions, etc., are important problems. Also, in neural networks, it is generally known that the more layers are used, the higher the abstraction level of features will become. However, since Semantic Segmentation wishes to output a mask image accurately
-representing the outline of the target object, you would want to make a final prediction result considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.</p>
+<p>While our approach seems to be working well in this model, there is still room for improvement. Semantic Segmentation shows how to use a wide range of information in the input image to predict one pixel, how to handle prediction results at multiple resolutions, etc., are important problems. Also, in neural networks, it is generally known that the more layers are used, the higher the abstraction level of features will become. However, since Semantic Segmentation wishes to output a mask image
+accurately representing the outline of the target object, you would want to make a final prediction result considering low level information (information such as edge / local pixel value gradient, color consistency, etc.) For that reason, it is important to know how to utilize the features extracted at the layer closer to the input in the layer closer to the output of the network.</p>
 <p>Several new models have been proposed from these perspectives. Typical examples are listed below, for example.</p>
 <div class="section" id="SegNet-[8]">
 <h3>5.6.1. SegNet [8]<a class="headerlink" href="#SegNet-[8]" title="Permalink to this headline">¶</a></h3>
-<p>When Max Pooling is applied in each layer, it is a method to keep information of “which pixel is the maximum value (pooling indices)” and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a>.</p>
+<p>When Max Pooling is applied in each layer, the goal is to keep information of “which pixel is the maximum value (pooling indices)” and upsampling it using the pooling indices recorded when enlarging the image later. Code including a model implemented by Chainer and complete reproduction experiment is released at <a class="reference external" href="https://github.com/chainer/chainercv">ChainerCV</a>.</p>
 <p><img alt="SegNet" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/SegNet.png" /></p>
 </div>
 <div class="section" id="U-Net-[9]">
 <h3>5.6.2. U-Net [9]<a class="headerlink" href="#U-Net-[9]" title="Permalink to this headline">¶</a></h3>
-<p>A structure that utilizes the output feature map of the lower layer by combining it with the input of the upper layer. It is called “U-Net” because its whole shape is like “U” of the alphabet, it is widely used in segmentation task.</p>
-<p><img alt="U-Net" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/U-Net.png" /></p>
+<p>A structure that utilizes the output feature map of the lower layer by combining it with the input of the upper layer. It is called “U-Net” because its whole shape is like “U” of the alphabet, it is widely used in segmentation task. <img alt="U-Net" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/segmentation-handson/U-Net.png" /></p>
 </div>
 <div class="section" id="PSPNet-[10]">
 <h3>5.6.3. PSPNet [10]<a class="headerlink" href="#PSPNet-[10]" title="Permalink to this headline">¶</a></h3>
@@ -1391,12 +1390,12 @@ representing the outline of the target object, you would want to make a final pr
 </div>
 <div class="section" id="Additional-References">
 <h2>5.7. Additional References<a class="headerlink" href="#Additional-References" title="Permalink to this headline">¶</a></h2>
-<p>Finally, we will post some segmen- tation materials from this author’s creator here.</p>
+<p>Finally, we will post some segmentation materials for further reference/additional reading.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods">Brief introduction of recent segmentation method</a></p></li>
 <li><p><a class="reference external" href="https://www.slideshare.net/mitmul/a-brief-introduction-to-recent-segmentation-methods">Introduction of Pyramid Scene Parsing Network (CVPR 2017)</a></p></li>
 </ul>
-<p>In addition, the following review articles are well organized on the segmentation method utilizing the recent Deep learning, which is helpful.</p>
+<p>In addition, the following review article is well organized on the segmentation method utilizing the recent Deep learning.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://arxiv.org/abs/1704.06857">A Review on Deep Learning Techniques Applied to Semantic Segmentation</a></p></li>
 </ul>
