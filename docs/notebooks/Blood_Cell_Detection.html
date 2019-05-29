@@ -1,0 +1,2063 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>6. Practice section: Detection of cells from microscope images of blood &mdash; メディカルAI専門コース オンライン講義資料  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Practical part: sequence analysis using deep learning" href="DNA_Sequence_Data_Analysis.html" />
+    <link rel="prev" title="5. Practice: Segmentation of MRI" href="Image_Segmentation.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-797798-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-797798-11');
+  </script>
+
+  <meta name="description" content="メディカルAI学会公認資格向けオンライン講義資料。機械学習に必要な数学の基礎の解説から深層学習（ディープラーニング）を用いた実践的な内容までGoogle Colaboratory上でGPUを用いて実際にコードを実行可能な形式にしオンライン資料として無料公開。">
+  <meta property="og:title" content="メディカルAI専門コース オンライン講義資料">
+  <meta property="og:description" content="メディカルAI学会公認資格向けオンライン講義資料。機械学習に必要な数学の基礎の解説から深層学習（ディープラーニング）を用いた実践的な内容までGoogle Colaboratory上でGPUを用いて実際にコードを実行可能な形式にしオンライン資料として無料公開。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://japan-medical-ai.github.io/medical-ai-course-materials/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/japan-medical-ai/medical-ai-course-materials/master/notebooks/images/medical_ai.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@PreferredNetJP">
+  <meta name="twitter:creator" content="@PreferredNetJP">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> メディカルAI専門コース オンライン講義資料
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Basic_Math_for_ML.html">1. Basis of the mathematics required to machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_ML_libs.html">2. Basics of machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_Neural_Network.html">3. Basics of neural network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction_to_Chainer.html">4. Introduction to Deep Learning Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Image_Segmentation.html">5. Practice: Segmentation of MRI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Practice section: Detection of cells from microscope images of blood</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Environment-Setting">6.1. Environment Setting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Object-Detection">6.2. Object Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Preparing-the-data-set">6.3. Preparing the data set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Downlaoding-data-set">6.3.1. Downlaoding data set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Creating-Dataset-Object">6.3.2. Creating Dataset Object</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Single-Shot-Multibox-Detector-(SSD)">6.4. Single Shot Multibox Detector (SSD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Model-of-definition">6.5. Model of definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Implementation-of-data-augmentation">6.6. Implementation of data augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Start-of-the-training">6.7. Start of the training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Evaluation-Index">6.7.1. Evaluation Index</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Inference-using-training-result">6.8. Inference using training result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Evaluating-trained-model">6.9. Evaluating trained model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DNA_Sequence_Data_Analysis.html">7. Practical part: sequence analysis using deep learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sequential_Data_Analysis_with_Deep_Learning.html">8. Practical part: Time series analysis of monitoring data using the deep learning</a></li>
+</ul>
+
+            
+          
+          <div style="padding-right:20px; bottom:10px;">
+            <a href="https://short-term.kikagaku.co.jp/dnn-seminar/">
+              <img src="https://github.com/japan-medical-ai/medical-ai-course-materials/raw/master/notebooks/images/img_handson.png" />
+              <p style="padding:5px; font-size:small; line-height: 150%">ディープラーニングの詳しい解説や画像・自然言語の取り扱い、クラウド上のGPUを使った実践的な演習をご希望の方はこちらがおすすめです</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">メディカルAI専門コース オンライン講義資料</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>6. Practice section: Detection of cells from microscope images of blood</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/notebooks/Blood_Cell_Detection.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<p><a class="reference external" href="https://colab.research.google.com/github/preferred-medicine/medical-ai-course-materials/blob/master/notebooks/Blood_Cell_Detection.ipynb"><img alt="colab-logo" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="section" id="Practice-section:-Detection-of-cells-from-microscope-images-of-blood">
+<h1>6. Practice section: Detection of cells from microscope images of blood<a class="headerlink" href="#Practice-section:-Detection-of-cells-from-microscope-images-of-blood" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we will be working on the task of detecting blood cells. We will try to find a method that can predict <strong>the type and position of each cells</strong> when a microscope image of human blood is given. We are mainly interested in these types of cells.</p>
+<ul class="simple">
+<li><p>Red Blood Cell (RBC)</p></li>
+<li><p>White Blood Cell (WBC)</p></li>
+<li><p>Platelet</p></li>
+</ul>
+<p>This enables us to see how many of the above cells are in the given image as well as their location in the image.</p>
+<p>Such tasks are commonly referred to as <strong>object detection</strong>. The goal is to estimate the following metrics for each object of interest individually (here, for example, the above three kinds of cells), from an input image.</p>
+<ol class="arabic simple">
+<li><p>The smallest area rectangle (called Bounding box)</p></li>
+<li><p>“What is inside object” = class label</p></li>
+</ol>
+<p>However, since <strong>the number objects included in the image is not known beforehand</strong>, the method has to be capable of outputting a set of <strong>a Bounding box and predicted value of a class label</strong> for the arbitrary number (or the sufficient number) of objects.</p>
+<p>Bounding box (hereinafter bbox) is typically defined in the form of [<code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">y</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">upper</span> <span class="pre">left</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>, <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">x</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">upper</span> <span class="pre">left</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>, <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">y</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">lower</span> <span class="pre">right</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>, <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">x</span> <span class="pre">coordinate</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">lower</span> <span class="pre">right</span> <span class="pre">corner</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">rectangle</span></code>], and the class is typically represented by ID assigned to each type of object (hereinafter class label). For example, it is common to uniquely assign a non-negative integers
+to a corresponding target object, such as, in this case, 0 for RBC, 1 for WBC and 2 for Platelet.</p>
+<p>Here’s an image from the data set of the cell image used in this article, with the bbox given as correct answer on the image and the name of the corresponding class visualized.</p>
+<p>The red rectangle is what is called bbox. You can see that different rectangles surround each target blood cell one by one. A white label is displayed so as to overlap the upper side of this rectangle. It represents the type (class) of the object inside the rectangle.</p>
+<p><img alt="An example of detecting RBC, WBC, Platelet from an microscope image of blood" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/detection_samples.png" /></p>
+<div class="section" id="Environment-Setting">
+<h2>6.1. Environment Setting<a class="headerlink" href="#Environment-Setting" title="Permalink to this headline">¶</a></h2>
+<p>First of all, let’s finish installing Python package such as Chainer, CuPy, ChainerCV, matplotlib by running the following cell on Colab for environment building. These steps are the same as before.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -  # Install Chainer and CuPy
+<span class="o">!</span>pip install chainercv matplotlib               # Install ChainerCV and matplotlib
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1580  100  1580    0     0   90 0      0 --:--:-- --:--:-- --:--:--     047      0 --:--:-- --:--:-- --:--:--  9080
+sh: line 9: nvidia-smi: command not found
+********************************************************************************
+GPU is not enabled!
+Open &#34;Runtime&#34; &gt; &#34;Change runtime type&#34; and set &#34;Hardware accelerator&#34; to &#34;GPU&#34;.
+********************************************************************************
+Collecting chainercv
+  Downloading https://files.pythonhosted.org/packages/e0/b9/02d9eb0ff60db1b9e5ffb1d89f8ee26764784a0f9f37a7342cb665e8de38/chainercv-0.12.0.tar.gz (239kB)
+    100% |████████████████████████████████| 245kB 6.5MB/s ta 0:00:01
+Collecting matplotlib
+  Downloading https://files.pythonhosted.org/packages/2e/81/bb51214944e79f9c9261badd7ef99b573fb0bc9110c0075c6a9e76224d0d/matplotlib-3.0.3-cp37-cp37m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (14.3MB)
+    100% |████████████████████████████████| 14.3MB 2.9MB/s eta 0:00:01
+Collecting chainer&gt;=5.0 (from chainercv)
+  Downloading https://files.pythonhosted.org/packages/12/ed/8b923bc28345c5b3e53358ba7e5e09b02142fc612378fd90986cf40073ef/chainer-5.4.0.tar.gz (525kB)
+    100% |████████████████████████████████| 532kB 4.6MB/s ta 0:00:011
+Collecting Pillow (from chainercv)
+  Downloading https://files.pythonhosted.org/packages/22/55/2ce41fa510f131c776112a1d24ee90cddffc96f1bf0311efb14fdd8ae877/Pillow-6.0.0-cp37-cp37m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (3.7MB)
+    100% |████████████████████████████████| 3.7MB 8.5MB/s eta 0:00:01
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /Users/ytakeda/venvs/py37/lib/python3.7/site-packages (from matplotlib) (2.4.0)
+Collecting numpy&gt;=1.10.0 (from matplotlib)
+  Using cached https://files.pythonhosted.org/packages/a6/6f/cb20ccd8f0f8581e0e090775c0e3c3e335b037818416e6fa945d924397d2/numpy-1.16.2-cp37-cp37m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl
+Requirement already satisfied: python-dateutil&gt;=2.1 in /Users/ytakeda/venvs/py37/lib/python3.7/site-packages (from matplotlib) (2.8.0)
+Collecting cycler&gt;=0.10 (from matplotlib)
+  Using cached https://files.pythonhosted.org/packages/f7/d2/e07d3ebb2bd7af696440ce7e754c59dd546ffe1bbe732c8ab68b9c834e61/cycler-0.10.0-py2.py3-none-any.whl
+Collecting kiwisolver&gt;=1.0.1 (from matplotlib)
+  Using cached https://files.pythonhosted.org/packages/68/f2/21ec13269a420c063a3d7d8c87dac030da7b00fc6b27fa88cfb1c72a645b/kiwisolver-1.0.1-cp37-cp37m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl
+Collecting filelock (from chainer&gt;=5.0-&gt;chainercv)
+  Using cached https://files.pythonhosted.org/packages/d7/ca/3c74396a9ed8a4cfab5459800edeef9a1269591cb21f5a49bd71a49c5fa2/filelock-3.0.10-py3-none-any.whl
+Collecting protobuf&gt;=3.0.0 (from chainer&gt;=5.0-&gt;chainercv)
+  Downloading https://files.pythonhosted.org/packages/d7/08/a316e74d41a1f3d606dfc3b71cc068354e8b9a0232f46bc098aa50b37116/protobuf-3.7.1-cp37-cp37m-macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (1.3MB)
+    100% |████████████████████████████████| 1.3MB 13.0MB/s ta 0:00:01
+Requirement already satisfied: six&gt;=1.9.0 in /Users/ytakeda/venvs/py37/lib/python3.7/site-packages (from chainer&gt;=5.0-&gt;chainercv) (1.12.0)
+Requirement already satisfied: setuptools in /Users/ytakeda/venvs/py37/lib/python3.7/site-packages (from kiwisolver&gt;=1.0.1-&gt;matplotlib) (40.9.0)
+Building wheels for collected packages: chainercv, chainer
+  Building wheel for chainercv (setup.py) ... error
+  Complete output from command /Users/ytakeda/venvs/py37/bin/python3.7 -u -c &#34;import setuptools, tokenize;__file__=&#39;/private/var/folders/zy/k24hng1d5nv2rkyjw13g189m0000gn/T/pip-install-qi6jpv_s/chainercv/setup.py&#39;;f=getattr(tokenize, &#39;open&#39;, open)(__file__);code=f.read().replace(&#39;\r\n&#39;, &#39;\n&#39;);f.close();exec(compile(code, __file__, &#39;exec&#39;))&#34; bdist_wheel -d /private/var/folders/zy/k24hng1d5nv2rkyjw13g189m0000gn/T/pip-wheel-e1fn0414 --python-tag cp37:
+  running bdist_wheel
+  running build
+  running build_py
+  creating build
+  creating build/lib.macosx-10.14-x86_64-3.7
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv
+  copying chainercv/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv
+  creating build/lib.macosx-10.14-x86_64-3.7/tests
+  copying tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental
+  copying chainercv/experimental/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  copying chainercv/evaluations/eval_detection_voc.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  copying chainercv/evaluations/eval_instance_segmentation_coco.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  copying chainercv/evaluations/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  copying chainercv/evaluations/eval_detection_coco.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  copying chainercv/evaluations/eval_instance_segmentation_voc.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  copying chainercv/evaluations/eval_semantic_segmentation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/evaluations
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets
+  copying chainercv/datasets/siamese_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets
+  copying chainercv/datasets/mixup_soft_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets
+  copying chainercv/datasets/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets
+  copying chainercv/datasets/transform_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets
+  copying chainercv/datasets/directory_parsing_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils
+  copying chainercv/utils/link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils
+  copying chainercv/utils/download.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils
+  copying chainercv/utils/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions
+  copying chainercv/extensions/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/vis_instance_segmentation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/colormap.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/vis_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/vis_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/vis_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  copying chainercv/visualizations/vis_semantic_segmentation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/visualizations
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms
+  copying chainercv/transforms/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links
+  copying chainercv/links/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/functions
+  copying chainercv/functions/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/functions
+  copying chainercv/functions/psroi_pooling_2d.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/functions
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental
+  copying chainercv/chainer_experimental/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links
+  copying chainercv/experimental/links/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model
+  copying chainercv/experimental/links/model/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis
+  copying chainercv/experimental/links/model/fcis/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis
+  copying chainercv/experimental/links/model/fcis/fcis.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis
+  copying chainercv/experimental/links/model/fcis/fcis_resnet101.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis
+  copying chainercv/experimental/links/model/fcis/fcis_train_chain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/pspnet
+  copying chainercv/experimental/links/model/pspnet/transforms.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/pspnet
+  copying chainercv/experimental/links/model/pspnet/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/pspnet
+  copying chainercv/experimental/links/model/pspnet/pspnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/pspnet
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/yolo
+  copying chainercv/experimental/links/model/yolo/yolo_v2_tiny.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/yolo
+  copying chainercv/experimental/links/model/yolo/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/yolo
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis/utils
+  copying chainercv/experimental/links/model/fcis/utils/proposal_target_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis/utils
+  copying chainercv/experimental/links/model/fcis/utils/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis/utils
+  copying chainercv/experimental/links/model/fcis/utils/mask_voting.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/experimental/links/model/fcis/utils
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/camvid
+  copying chainercv/datasets/camvid/camvid_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/camvid
+  copying chainercv/datasets/camvid/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/camvid
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/ade20k
+  copying chainercv/datasets/ade20k/ade20k_utils.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/ade20k
+  copying chainercv/datasets/ade20k/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/ade20k
+  copying chainercv/datasets/ade20k/ade20k_test_image_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/ade20k
+  copying chainercv/datasets/ade20k/ade20k_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/ade20k
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/sbd
+  copying chainercv/datasets/sbd/sbd_utils.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/sbd
+  copying chainercv/datasets/sbd/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/sbd
+  copying chainercv/datasets/sbd/sbd_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/sbd
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cub
+  copying chainercv/datasets/cub/cub_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cub
+  copying chainercv/datasets/cub/cub_utils.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cub
+  copying chainercv/datasets/cub/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cub
+  copying chainercv/datasets/cub/cub_point_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cub
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/coco
+  copying chainercv/datasets/coco/coco_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/coco
+  copying chainercv/datasets/coco/coco_bbox_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/coco
+  copying chainercv/datasets/coco/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/coco
+  copying chainercv/datasets/coco/coco_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/coco
+  copying chainercv/datasets/coco/coco_utils.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/coco
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/online_products
+  copying chainercv/datasets/online_products/online_products_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/online_products
+  copying chainercv/datasets/online_products/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/online_products
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/voc
+  copying chainercv/datasets/voc/voc_utils.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/voc
+  copying chainercv/datasets/voc/voc_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/voc
+  copying chainercv/datasets/voc/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/voc
+  copying chainercv/datasets/voc/voc_bbox_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/voc
+  copying chainercv/datasets/voc/voc_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/voc
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cityscapes
+  copying chainercv/datasets/cityscapes/cityscapes_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cityscapes
+  copying chainercv/datasets/cityscapes/cityscapes_utils.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cityscapes
+  copying chainercv/datasets/cityscapes/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cityscapes
+  copying chainercv/datasets/cityscapes/cityscapes_test_image_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/datasets/cityscapes
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/image
+  copying chainercv/utils/image/tile_images.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/image
+  copying chainercv/utils/image/write_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/image
+  copying chainercv/utils/image/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/image
+  copying chainercv/utils/image/read_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/image
+  copying chainercv/utils/image/read_label.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/image
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing
+  copying chainercv/utils/testing/constant_stub_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing
+  copying chainercv/utils/testing/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing
+  copying chainercv/utils/testing/generate_random_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/iterator
+  copying chainercv/utils/iterator/progress_hook.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/iterator
+  copying chainercv/utils/iterator/unzip.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/iterator
+  copying chainercv/utils/iterator/apply_to_iterator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/iterator
+  copying chainercv/utils/iterator/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/iterator
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/mask
+  copying chainercv/utils/mask/mask_to_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/mask
+  copying chainercv/utils/mask/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/mask
+  copying chainercv/utils/mask/mask_iou.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/mask
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/bbox
+  copying chainercv/utils/bbox/non_maximum_suppression.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/bbox
+  copying chainercv/utils/bbox/bbox_iou.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/bbox
+  copying chainercv/utils/bbox/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/bbox
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_point_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_semantic_segmentation_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_detection_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_instance_segmentation_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_bbox_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  copying chainercv/utils/testing/assertions/assert_is_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/testing/assertions
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  copying chainercv/extensions/evaluator/detection_voc_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  copying chainercv/extensions/evaluator/instance_segmentation_voc_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  copying chainercv/extensions/evaluator/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  copying chainercv/extensions/evaluator/detection_coco_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  copying chainercv/extensions/evaluator/instance_segmentation_coco_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  copying chainercv/extensions/evaluator/semantic_segmentation_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/evaluator
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/vis_report
+  copying chainercv/extensions/vis_report/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/vis_report
+  copying chainercv/extensions/vis_report/detection_vis_report.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/extensions/vis_report
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/point
+  copying chainercv/transforms/point/translate_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/point
+  copying chainercv/transforms/point/flip_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/point
+  copying chainercv/transforms/point/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/point
+  copying chainercv/transforms/point/resize_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/point
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/random_sized_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/center_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/pca_lighting.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/resize.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/ten_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/resize_contain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/flip.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/random_flip.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/rotate.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/random_expand.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/scale.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/random_rotate.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  copying chainercv/transforms/image/random_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/image
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  copying chainercv/transforms/bbox/translate_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  copying chainercv/transforms/bbox/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  copying chainercv/transforms/bbox/crop_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  copying chainercv/transforms/bbox/rotate_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  copying chainercv/transforms/bbox/resize_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  copying chainercv/transforms/bbox/flip_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/transforms/bbox
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/connection
+  copying chainercv/links/connection/conv_2d_activ.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/connection
+  copying chainercv/links/connection/seblock.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/connection
+  copying chainercv/links/connection/conv_2d_bn_activ.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/connection
+  copying chainercv/links/connection/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/connection
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model
+  copying chainercv/links/model/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model
+  copying chainercv/links/model/pickable_sequential_chain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model
+  copying chainercv/links/model/pixelwise_softmax_classifier.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model
+  copying chainercv/links/model/feature_predictor.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/multibox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/transforms.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/multibox_coder.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/ssd.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/normalize.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/multibox_loss.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/gradient_scaling.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  copying chainercv/links/model/ssd/ssd_vgg16.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/ssd
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/resnet
+  copying chainercv/links/model/resnet/resblock.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/resnet
+  copying chainercv/links/model/resnet/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/resnet
+  copying chainercv/links/model/resnet/resnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/resnet
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/senet
+  copying chainercv/links/model/senet/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/senet
+  copying chainercv/links/model/senet/se_resnext.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/senet
+  copying chainercv/links/model/senet/se_resnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/senet
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn
+  copying chainercv/links/model/faster_rcnn/region_proposal_network.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn
+  copying chainercv/links/model/faster_rcnn/faster_rcnn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn
+  copying chainercv/links/model/faster_rcnn/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn
+  copying chainercv/links/model/faster_rcnn/faster_rcnn_train_chain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn
+  copying chainercv/links/model/faster_rcnn/faster_rcnn_vgg.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/yolo
+  copying chainercv/links/model/yolo/yolo_base.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/yolo
+  copying chainercv/links/model/yolo/yolo_v2.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/yolo
+  copying chainercv/links/model/yolo/yolo_v3.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/yolo
+  copying chainercv/links/model/yolo/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/yolo
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/segnet
+  copying chainercv/links/model/segnet/segnet_basic.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/segnet
+  copying chainercv/links/model/segnet/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/segnet
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/misc.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/fpn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/faster_rcnn_fpn_resnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/rpn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/faster_rcnn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  copying chainercv/links/model/fpn/head.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/fpn
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/vgg
+  copying chainercv/links/model/vgg/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/vgg
+  copying chainercv/links/model/vgg/vgg16.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/vgg
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/anchor_target_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/proposal_target_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/bbox2loc.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/loc2bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/generate_anchor_base.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  copying chainercv/links/model/faster_rcnn/utils/proposal_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/links/model/faster_rcnn/utils
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/training
+  copying chainercv/chainer_experimental/training/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/training
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets
+  copying chainercv/chainer_experimental/datasets/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/training/extensions
+  copying chainercv/chainer_experimental/training/extensions/make_shift.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/training/extensions
+  copying chainercv/chainer_experimental/training/extensions/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/training/extensions
+  creating build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  copying chainercv/chainer_experimental/datasets/sliceable/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  copying chainercv/chainer_experimental/datasets/sliceable/sliceable_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  copying chainercv/chainer_experimental/datasets/sliceable/concatenated_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  copying chainercv/chainer_experimental/datasets/sliceable/getter_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  copying chainercv/chainer_experimental/datasets/sliceable/transform_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  copying chainercv/chainer_experimental/datasets/sliceable/tuple_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/chainer_experimental/datasets/sliceable
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/functions_tests
+  copying tests/functions_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/functions_tests
+  copying tests/functions_tests/test_psroi_pooling_2d.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/functions_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests
+  copying tests/links_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests
+  copying tests/experimental_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests
+  copying tests/extensions_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  copying tests/visualizations_tests/test_vis_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  copying tests/visualizations_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  copying tests/visualizations_tests/test_vis_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  copying tests/visualizations_tests/test_vis_semantic_segmentation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  copying tests/visualizations_tests/test_vis_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  copying tests/visualizations_tests/test_vis_instance_segmentation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/visualizations_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests
+  copying tests/transforms_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests
+  copying tests/utils_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  copying tests/evaluations_tests/test_eval_semantic_segmentation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  copying tests/evaluations_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  copying tests/evaluations_tests/test_eval_instance_segmentation_coco.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  copying tests/evaluations_tests/test_eval_instance_segmentation_voc.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  copying tests/evaluations_tests/test_eval_detection_voc.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  copying tests/evaluations_tests/test_eval_detection_coco.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/evaluations_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests
+  copying tests/datasets_tests/test_transform_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests
+  copying tests/datasets_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests
+  copying tests/datasets_tests/test_siamese_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests
+  copying tests/datasets_tests/test_mixup_soft_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests
+  copying tests/datasets_tests/test_directory_parsing_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests
+  copying tests/chainer_experimental_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/connection_tests
+  copying tests/links_tests/connection_tests/test_conv_2d_activ.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/connection_tests
+  copying tests/links_tests/connection_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/connection_tests
+  copying tests/links_tests/connection_tests/test_conv_2d_bn_activ.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/connection_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests
+  copying tests/links_tests/model_tests/test_feature_predictor.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests
+  copying tests/links_tests/model_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests
+  copying tests/links_tests/model_tests/test_pixelwise_softmax_classifier.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests
+  copying tests/links_tests/model_tests/test_pickable_sequential_chain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_ssd.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_gradient_scaling.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_multibox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_random_crop_with_bbox_constraints.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_random_distort.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_multibox_loss.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_ssd_vgg16.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_resize_with_random_interpolation.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_multibox_coder.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  copying tests/links_tests/model_tests/ssd_tests/test_normalize.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/ssd_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/dummy_faster_rcnn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/test_faster_rcnn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/test_faster_rcnn_vgg.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/test_region_proposal_network.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/test_faster_rcnn_train_chain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/senet_tests
+  copying tests/links_tests/model_tests/senet_tests/test_se_resnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/senet_tests
+  copying tests/links_tests/model_tests/senet_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/senet_tests
+  copying tests/links_tests/model_tests/senet_tests/test_se_resnext.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/senet_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/resnet_tests
+  copying tests/links_tests/model_tests/resnet_tests/test_resnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/resnet_tests
+  copying tests/links_tests/model_tests/resnet_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/resnet_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  copying tests/links_tests/model_tests/fpn_tests/test_faster_rcnn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  copying tests/links_tests/model_tests/fpn_tests/test_fpn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  copying tests/links_tests/model_tests/fpn_tests/test_rpn.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  copying tests/links_tests/model_tests/fpn_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  copying tests/links_tests/model_tests/fpn_tests/test_head.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  copying tests/links_tests/model_tests/fpn_tests/test_faster_rcnn_fpn_resnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/fpn_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/yolo_tests
+  copying tests/links_tests/model_tests/yolo_tests/test_yolo_v3.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/yolo_tests
+  copying tests/links_tests/model_tests/yolo_tests/test_yolo_v2.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/yolo_tests
+  copying tests/links_tests/model_tests/yolo_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/yolo_tests
+  copying tests/links_tests/model_tests/yolo_tests/test_yolo_base.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/yolo_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/vgg_tests
+  copying tests/links_tests/model_tests/vgg_tests/test_vgg16.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/vgg_tests
+  copying tests/links_tests/model_tests/vgg_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/vgg_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/segnet_tests
+  copying tests/links_tests/model_tests/segnet_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/segnet_tests
+  copying tests/links_tests/model_tests/segnet_tests/test_segnet_basic.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/segnet_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/utils_tests/test_proposal_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/utils_tests/test_generate_anchor_base.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/utils_tests/test_proposal_target_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/utils_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/utils_tests/test_anchor_target_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  copying tests/links_tests/model_tests/faster_rcnn_tests/utils_tests/test_bbox2loc_loc2bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/links_tests/model_tests/faster_rcnn_tests/utils_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests
+  copying tests/experimental_tests/links_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests
+  copying tests/experimental_tests/links_tests/model_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/pspnet_tests
+  copying tests/experimental_tests/links_tests/model_tests/pspnet_tests/test_pspnet.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/pspnet_tests
+  copying tests/experimental_tests/links_tests/model_tests/pspnet_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/pspnet_tests
+  copying tests/experimental_tests/links_tests/model_tests/pspnet_tests/test_convolution_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/pspnet_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/test_fcis_resnet101.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/test_fcis_train_chain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/test_fcis.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests/test_proposal_target_creator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests
+  copying tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests/test_mask_voting.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/experimental_tests/links_tests/model_tests/fcis_tests/utils_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  copying tests/extensions_tests/evaluator_tests/test_instance_segmentation_voc_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  copying tests/extensions_tests/evaluator_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  copying tests/extensions_tests/evaluator_tests/test_instance_segmentation_coco_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  copying tests/extensions_tests/evaluator_tests/test_detection_voc_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  copying tests/extensions_tests/evaluator_tests/test_detection_coco_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  copying tests/extensions_tests/evaluator_tests/test_semantic_segmentation_evaluator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/evaluator_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/vis_report_tests
+  copying tests/extensions_tests/vis_report_tests/test_detection_vis_report.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/vis_report_tests
+  copying tests/extensions_tests/vis_report_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/extensions_tests/vis_report_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_resize.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_center_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_resize_contain.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_rotate.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_scale.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_flip_transform.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_random_flip.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_random_sized_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_pca_lighting.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_random_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_ten_crop.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_random_rotate.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  copying tests/transforms_tests/image_tests/test_random_expand.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/image_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/point_tests
+  copying tests/transforms_tests/point_tests/test_resize_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/point_tests
+  copying tests/transforms_tests/point_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/point_tests
+  copying tests/transforms_tests/point_tests/test_flip_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/point_tests
+  copying tests/transforms_tests/point_tests/test_translate_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/point_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  copying tests/transforms_tests/bbox_tests/test_crop_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  copying tests/transforms_tests/bbox_tests/test_flip_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  copying tests/transforms_tests/bbox_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  copying tests/transforms_tests/bbox_tests/test_translate_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  copying tests/transforms_tests/bbox_tests/test_rotate_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  copying tests/transforms_tests/bbox_tests/test_resize_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/transforms_tests/bbox_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/image_tests
+  copying tests/utils_tests/image_tests/test_write_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/image_tests
+  copying tests/utils_tests/image_tests/test_read_label.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/image_tests
+  copying tests/utils_tests/image_tests/test_tile_images.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/image_tests
+  copying tests/utils_tests/image_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/image_tests
+  copying tests/utils_tests/image_tests/test_read_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/image_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/iterator_tests
+  copying tests/utils_tests/iterator_tests/test_progress_hook.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/iterator_tests
+  copying tests/utils_tests/iterator_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/iterator_tests
+  copying tests/utils_tests/iterator_tests/test_apply_to_iterator.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/iterator_tests
+  copying tests/utils_tests/iterator_tests/test_unzip.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/iterator_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/mask_tests
+  copying tests/utils_tests/mask_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/mask_tests
+  copying tests/utils_tests/mask_tests/test_mask_iou.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/mask_tests
+  copying tests/utils_tests/mask_tests/test_mask_to_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/mask_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests
+  copying tests/utils_tests/testing_tests/test_generate_random_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests
+  copying tests/utils_tests/testing_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests
+  copying tests/utils_tests/testing_tests/test_constant_stub_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/bbox_tests
+  copying tests/utils_tests/bbox_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/bbox_tests
+  copying tests/utils_tests/bbox_tests/test_bbox_iou.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/bbox_tests
+  copying tests/utils_tests/bbox_tests/test_non_maximum_suppression.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/bbox_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_bbox_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_image.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_point_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_point.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_bbox.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_semantic_segmentation_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_detection_link.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  copying tests/utils_tests/testing_tests/assertions_tests/test_assert_is_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/utils_tests/testing_tests/assertions_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cityscapes_tests
+  copying tests/datasets_tests/cityscapes_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cityscapes_tests
+  copying tests/datasets_tests/cityscapes_tests/test_cityscapes.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cityscapes_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/online_products_tests
+  copying tests/datasets_tests/online_products_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/online_products_tests
+  copying tests/datasets_tests/online_products_tests/test_online_products_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/online_products_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cub_tests
+  copying tests/datasets_tests/cub_tests/test_cub_point_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cub_tests
+  copying tests/datasets_tests/cub_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cub_tests
+  copying tests/datasets_tests/cub_tests/test_cub_label_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/cub_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/ade20k_tests
+  copying tests/datasets_tests/ade20k_tests/test_ade20k.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/ade20k_tests
+  copying tests/datasets_tests/ade20k_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/ade20k_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/coco_tests
+  copying tests/datasets_tests/coco_tests/test_coco_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/coco_tests
+  copying tests/datasets_tests/coco_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/coco_tests
+  copying tests/datasets_tests/coco_tests/test_coco_bbox_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/coco_tests
+  copying tests/datasets_tests/coco_tests/test_coco_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/coco_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/voc_tests
+  copying tests/datasets_tests/voc_tests/test_voc_bbox_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/voc_tests
+  copying tests/datasets_tests/voc_tests/test_voc_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/voc_tests
+  copying tests/datasets_tests/voc_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/voc_tests
+  copying tests/datasets_tests/voc_tests/test_voc_semantic_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/voc_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/camvid_tests
+  copying tests/datasets_tests/camvid_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/camvid_tests
+  copying tests/datasets_tests/camvid_tests/test_camvid_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/camvid_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/sbd_tests
+  copying tests/datasets_tests/sbd_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/sbd_tests
+  copying tests/datasets_tests/sbd_tests/test_sbd_instance_segmentation_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/datasets_tests/sbd_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests
+  copying tests/chainer_experimental_tests/datasets_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/training_tests
+  copying tests/chainer_experimental_tests/training_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/training_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  copying tests/chainer_experimental_tests/datasets_tests/sliceable_tests/test_concatenated_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  copying tests/chainer_experimental_tests/datasets_tests/sliceable_tests/test_transform_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  copying tests/chainer_experimental_tests/datasets_tests/sliceable_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  copying tests/chainer_experimental_tests/datasets_tests/sliceable_tests/test_getter_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  copying tests/chainer_experimental_tests/datasets_tests/sliceable_tests/test_tuple_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  copying tests/chainer_experimental_tests/datasets_tests/sliceable_tests/test_sliceable_dataset.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/datasets_tests/sliceable_tests
+  creating build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/training_tests/extensions_tests
+  copying tests/chainer_experimental_tests/training_tests/extensions_tests/__init__.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/training_tests/extensions_tests
+  copying tests/chainer_experimental_tests/training_tests/extensions_tests/test_make_shift.py -&gt; build/lib.macosx-10.14-x86_64-3.7/tests/chainer_experimental_tests/training_tests/extensions_tests
+  running egg_info
+  writing chainercv.egg-info/PKG-INFO
+  writing dependency_links to chainercv.egg-info/dependency_links.txt
+  writing requirements to chainercv.egg-info/requires.txt
+  writing top-level names to chainercv.egg-info/top_level.txt
+  reading manifest file &#39;chainercv.egg-info/SOURCES.txt&#39;
+  reading manifest template &#39;MANIFEST.in&#39;
+  warning: no previously-included files matching &#39;*.pyx&#39; found under directory &#39;chainercv&#39;
+  writing manifest file &#39;chainercv.egg-info/SOURCES.txt&#39;
+  copying chainercv/utils/bbox/_nms_gpu_post.c -&gt; build/lib.macosx-10.14-x86_64-3.7/chainercv/utils/bbox
+  running build_ext
+  Traceback (most recent call last):
+    File &#34;/Users/ytakeda/venvs/py37/lib/python3.7/site-packages/pkg_resources/__init__.py&#34;, line 359, in get_provider
+      module = sys.modules[moduleOrReq]
+  KeyError: &#39;numpy&#39;
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File &#34;&lt;string&gt;&#34;, line 1, in &lt;module&gt;
+    File &#34;/private/var/folders/zy/k24hng1d5nv2rkyjw13g189m0000gn/T/pip-install-qi6jpv_s/chainercv/setup.py&#34;, line 117, in &lt;module&gt;
+      cmdclass=cmdclass,
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/core.py&#34;, line 148, in setup
+      dist.run_commands()
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/dist.py&#34;, line 966, in run_commands
+      self.run_command(cmd)
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/dist.py&#34;, line 985, in run_command
+      cmd_obj.run()
+    File &#34;/Users/ytakeda/venvs/py37/lib/python3.7/site-packages/wheel/bdist_wheel.py&#34;, line 192, in run
+      self.run_command(&#39;build&#39;)
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/cmd.py&#34;, line 313, in run_command
+      self.distribution.run_command(command)
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/dist.py&#34;, line 985, in run_command
+      cmd_obj.run()
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/command/build.py&#34;, line 135, in run
+      self.run_command(cmd_name)
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/cmd.py&#34;, line 313, in run_command
+      self.distribution.run_command(command)
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/dist.py&#34;, line 985, in run_command
+      cmd_obj.run()
+    File &#34;/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/distutils/command/build_ext.py&#34;, line 340, in run
+      self.build_extensions()
+    File &#34;/private/var/folders/zy/k24hng1d5nv2rkyjw13g189m0000gn/T/pip-install-qi6jpv_s/chainercv/setup.py&#34;, line 77, in build_extensions
+      numpy_incl = pkg_resources.resource_filename(&#39;numpy&#39;, &#39;core/include&#39;)
+    File &#34;/Users/ytakeda/venvs/py37/lib/python3.7/site-packages/pkg_resources/__init__.py&#34;, line 1144, in resource_filename
+      return get_provider(package_or_requirement).get_resource_filename(
+    File &#34;/Users/ytakeda/venvs/py37/lib/python3.7/site-packages/pkg_resources/__init__.py&#34;, line 361, in get_provider
+      __import__(moduleOrReq)
+  ModuleNotFoundError: No module named &#39;numpy&#39;
+
+  ----------------------------------------
+<span class="ansi-red-fg">  Failed building wheel for chainercv</span>
+  Running setup.py clean for chainercv
+  Building wheel for chainer (setup.py) ... done
+  Stored in directory: /Users/ytakeda/Library/Caches/pip/wheels/eb/18/d2/5e85cbd7f32026e5e72cc466a5a17fd1939e99ffeeaaea267b
+Successfully built chainer
+Failed to build chainercv
+Installing collected packages: filelock, numpy, protobuf, chainer, Pillow, chainercv, cycler, kiwisolver, matplotlib
+  Running setup.py install for chainercv ... done
+Successfully installed Pillow-6.0.0 chainer-5.4.0 chainercv-0.12.0 cycler-0.10.0 filelock-3.0.10 kiwisolver-1.0.1 matplotlib-3.0.3 numpy-1.16.2 protobuf-3.7.1
+</pre></div></div>
+</div>
+<p>Let’s confirm by executing the following cells that the setup of the environment succeeded. /</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+
+<span class="n">chainer</span><span class="o">.</span><span class="n">print_runtime_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Platform: Linux-4.14.65+-x86_64-with-Ubuntu-18.04-bionic
+Chainer: 5.0.0
+NumPy: 1.14.6
+CuPy:
+  CuPy Version          : 5.0.0
+  CUDA Root             : /usr/local/cuda
+  CUDA Build Version    : 9020
+  CUDA Driver Version   : 9020
+  CUDA Runtime Version  : 9020
+  cuDNN Build Version   : 7201
+  cuDNN Version         : 7201
+  NCCL Build Version    : 2213
+iDeep: 2.0.0.post3
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Object-Detection">
+<h2>6.2. Object Detection<a class="headerlink" href="#Object-Detection" title="Permalink to this headline">¶</a></h2>
+<p>Object detection is one of the tasks that is still being actively studied in Computer Vision application field, and it plays an important role in a wide range of fields such as autonomous driving and robotics. Unlike Semantic Segmentation, we do not recognize the shape (contour) of the object, but we will output the type and position for each object individually.</p>
+<p>When we call a “type of object” a class, we can call an individual object belonging to that class as an instance. Then, when there are pictures of two dogs, it can be said that there are two instances belonging to the class “dog”. In other words, while the task of the Semantic Segmentation we learned in the previous chapter did not output regions per instance, the output of the object detection ouputs a result for each instance (output different bbox per instance). Sometimes we express the style
+of such output with the word “instance-wise”.</p>
+<p>Starting with the method announced in 2014 called <a class="reference external" href="https://arxiv.org/abs/1311.2524">R-CNN</a>, various refinement methods have been proposed for the object detection method using the neural network. The object detection methods such as <a class="reference external" href="https://arxiv.org/abs/1311.2524">R-CNN</a>, <a class="reference external" href="https://arxiv.org/abs/1504.08083">Fast R-CNN</a>, and <a class="reference external" href="https://arxiv.org/abs/1506.01497">Faster R-CNN</a> estimate object candidates first, then estimate object classes and positions in detail for each candidate. This
+is called a <strong>two stage</strong> type.</p>
+<p>On the other hand, although it is based on CNN, there is a method called <strong>single stage</strong> type . <a class="reference external" href="https://arxiv.org/abs/1512.02325">SSD</a>, <a class="reference external" href="https://arxiv.org/abs/1506.02640">YOLO</a>, <a class="reference external" href="https://arxiv.org/abs/1612.08242">YOLOv2</a>, <a class="reference external" href="https://arxiv.org/abs/1804.02767">YOLOv3</a>, etc. are well known as single stage type. They do not generate candidates for objects but estimate the class and position of each object directly. In general, the single stage type is said to be faster than the two stage
+type, while the accuracy is said to be lower. However, recently the boundaries of these methods have become ambiguous, and performance differences are almost gone.</p>
+<p>Next, we will challenge the task of extracting the position and type of three types of cells from cell images using SSD, one of single stage type object detection methods.</p>
+</div>
+<div class="section" id="Preparing-the-data-set">
+<h2>6.3. Preparing the data set<a class="headerlink" href="#Preparing-the-data-set" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Downlaoding-data-set">
+<h3>6.3.1. Downlaoding data set<a class="headerlink" href="#Downlaoding-data-set" title="Permalink to this headline">¶</a></h3>
+<p>First , prepare a data set of blood microscopic images called <a class="reference external" href="https://github.com/Shenggan/BCCD_Dataset">BCCD Dataset</a>. This data set contains 364 images and XML files with file names corresponding to each image. In the XML file, the coordinate information of the bounding box surrounding one of three cells, RBC, WBC, Platelet, which appeared in the corresponding image, is stored. Because there are cases where multiple images are contained in one image, the XML file may contain descriptions
+about multiple cells.</p>
+<p>The BCCD Dataset is very small compared to the benchmark dataset widely used for object detection research, and it is distributed on Github. Let’s download the dataset by running the following cell.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span><span class="k">if</span> <span class="o">[</span> ! -d BCCD_Dataset <span class="o">]</span><span class="p">;</span> <span class="k">then</span> git clone https://github.com/Shenggan/BCCD_Dataset.git<span class="p">;</span> <span class="k">fi</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Cloning into &#39;BCCD_Dataset&#39;...
+remote: Enumerating objects: 786, done.
+remote: Total 786 (delta 0), reused 0 (delta 0), pack-reused 786
+Receiving objects: 100% (786/786), 7.34 MiB | 2.02 MiB/s, done.
+Resolving deltas: 100% (375/375), done.
+</pre></div></div>
+</div>
+<p>When the download is complete, let’s take a look at the files under the directory <code class="docutils literal notranslate"><span class="pre">BCCD_Datasetlet</span></code>. This data set is distributed with the following file structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BCCD
+|-- Annotations
+|   |
+|   `-- BloodImage_00XYZ.xml (364 items)
+|
+|-- ImageSets
+|   |
+|   `-- Main
+|       |
+|       |-- test.txt
+|       |-- train.txt
+|       `-- val.txt
+|
+`-- JPEGImages
+  |
+   `-- BloodImage_00XYZ.jpg (364 items)
+</pre></div>
+</div>
+<p>This configuration is consistent with the format of the <strong>Pascal VOC dataset</strong> that has been used as a standard benchmark dataset for object detection for many years. Therefore, it is possible to divert classes that make it easy to handle Pascal VOC data set provided by ChainerCV.</p>
+<p>There are several other directories, but we will only use the ones included in the above file tree. The following description explains what is included in each directory.</p>
+<ul class="simple">
+<li><p><strong>Annotations directory:</strong> In the same format as the Pascal VOC data set, correct answer information on <strong>what position is present</strong> for each cell image is stored. Correct information is stored as an XML file, and it is saved with the same file name except the extension so that the relationship with the image file is easy to understand.</p></li>
+<li><p><strong>ImageSets directory:</strong> A text file containing a list of images to be used for each of the training data set (train), the verification data set (val), and the test data set (test). Based on these lists, we use images listed up in <code class="docutils literal notranslate"><span class="pre">train.txt</span></code> for training, images listed up in <code class="docutils literal notranslate"><span class="pre">val.txt</span></code> for validation (dataset splits used to get a general idea of generalization performance during training), and images listed up in <code class="docutils literal notranslate"><span class="pre">test.txt</span></code> for final performance evaluation after the training.</p></li>
+<li><p><strong>JPEGImages directory:</strong> Contains all image data included in this data set.</p></li>
+</ul>
+</div>
+<div class="section" id="Creating-Dataset-Object">
+<h3>6.3.2. Creating Dataset Object<a class="headerlink" href="#Creating-Dataset-Object" title="Permalink to this headline">¶</a></h3>
+<p>ChainerCV has convenient classes for easily reading Pascal VOC dataset. We inherit this and override the method <code class="docutils literal notranslate"><span class="pre">_get_annotations</span></code> so that we can read the dataset used this time. Only one line needs to be changed. Let’s copy the corresponding code (<code class="docutils literal notranslate"><span class="pre">_get_annotations</span></code> method part) from <a class="reference external" href="https://github.com/chainer/chainercv/blob/v0.10.0/chainercv/datasets/voc/voc_bbox_dataset.py#L90-L115">here</a>, apply the following changes, and add it as a method of the <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code> inheriting
+<code class="docutils literal notranslate"><span class="pre">BCCDDataset</span></code>class. (Basically, the following code means, delete the line that begins with <code class="docutils literal notranslate"><span class="pre">-</span></code>, and add the line that starts with <code class="docutils literal notranslate"><span class="pre">+</span></code>.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">voc_utils</span><span class="o">.</span><span class="n">voc_bbox_label_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+<span class="o">+</span> <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bccd_labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">chainercv.datasets</span> <span class="kn">import</span> <span class="n">VOCBboxDataset</span>
+
+
+<span class="n">bccd_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;rbc&#39;</span><span class="p">,</span> <span class="s1">&#39;wbc&#39;</span><span class="p">,</span> <span class="s1">&#39;platelets&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BCCDDataset</span><span class="p">(</span><span class="n">VOCBboxDataset</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_get_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># Annotation data in Pascal VOC format is distributed in XML format</span>
+        <span class="n">anno</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;Annotations&#39;</span><span class="p">,</span> <span class="n">id_</span> <span class="o">+</span> <span class="s1">&#39;.xml&#39;</span><span class="p">))</span>
+
+        <span class="c1"># Import XML file, extract information such as bbox cordinates, size,</span>
+        <span class="c1"># class labels for each bbox, and add to the list</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">difficult</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">anno</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">):</span>
+            <span class="n">bndbox_anno</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bndbox&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Subtract 1 so that the coordinate value of bbox becomes 0-origin</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">bndbox_anno</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;ymin&#39;</span><span class="p">,</span> <span class="s1">&#39;xmin&#39;</span><span class="p">,</span> <span class="s1">&#39;ymax&#39;</span><span class="p">,</span> <span class="s1">&#39;xmax&#39;</span><span class="p">)])</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bccd_labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+        <span class="c1"># In the original Pascal VOC, the attribute &quot;difficult&quot; is given as a</span>
+        <span class="c1"># true / false value for each image, but this time this is not used</span>
+        <span class="c1"># (since all the images are set to &quot;difficult = 0&quot; in this data set)</span>
+        <span class="c1"># When `use_difficult==False`, all elements in `difficult` are False.</span>
+        <span class="n">difficult</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">difficult</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">difficult</span>
+</pre></div>
+</div>
+</div>
+<p>We were able to prepare a class to perform data loading to use data set for training, verification and test etc. Now, let’s create a dataset object for training, verification and testing using this class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">BCCDDataset</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">BCCDDataset</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD&#39;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">BCCDDataset</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.6/dist-packages/chainercv/datasets/voc/voc_bbox_dataset.py:63: UserWarning: please pick split from &#39;train&#39;, &#39;trainval&#39;, &#39;val&#39;for 2012 dataset. For 2007 dataset, you can pick &#39;test&#39; in addition to the above mentioned splits.
+  &#39;please pick split from \&#39;train\&#39;, \&#39;trainval\&#39;, \&#39;val\&#39;&#39;
+</pre></div></div>
+</div>
+<p>A warning may be displayed here, but you do not have to worry about it. It is because it uses the class which was originally specialized only for Pascal VOC data set for BCCD Dataset.</p>
+<p>We were able to create three dataset objects. Let’s check each size (how many data are included).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Number of images in &quot;train&quot; dataset:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Number of images in &quot;valid&quot; dataset:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Number of images in &quot;test&quot; dataset:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Number of images in &#34;train&#34; dataset: 205
+Number of images in &#34;valid&#34; dataset: 87
+Number of images in &#34;test&#34; dataset: 72
+</pre></div></div>
+</div>
+<p>Now, let’s access to the first data of <code class="docutils literal notranslate"><span class="pre">train_dataset</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">first_datum</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">train_dataset</span></code> is the object of the class <code class="docutils literal notranslate"><span class="pre">BCCDDataset</span></code> inherted from <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code>. Therefore, except for the methods <code class="docutils literal notranslate"><span class="pre">_get_annotations</span></code> overridden above, it inherits features that are provided by <code class="docutils literal notranslate"><span class="pre">VOCBboxDataset</span></code> class. To learn what kind of functions are provided, let’s see the class documentation: <a class="reference external" href="https://chainercv.readthedocs.io/en/stable/reference/datasets.html?highlight=VOCBboxDataset#vocbboxdataset">VOCBboxDataset</a></p>
+<p>The following table is stated. This dataset should look like a list with the following in each element:</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>shape</p></th>
+<th class="head"><p>dtype</p></th>
+<th class="head"><p>format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>img</p></td>
+<td><p>(3,H,W)</p></td>
+<td><p>float32</p></td>
+<td><p>RGB, [0,255]</p></td>
+</tr>
+<tr class="row-odd"><td><p>bbox</p></td>
+<td><p>(R,4)</p></td>
+<td><p>float32</p></td>
+<td><p>(ymin,xmin,ymax,xmax)</p></td>
+</tr>
+<tr class="row-even"><td><p>label</p></td>
+<td><p>(R,)</p></td>
+<td><p>int32</p></td>
+<td><p>[0,#fg_class−1]</p></td>
+</tr>
+<tr class="row-odd"><td><p>difficult (optional)*</p></td>
+<td><p>(R,)</p></td>
+<td><p>bool</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>#fg_class is the number of classes of foreground (foreground)</p></li>
+<li><p>difficult only effective when <code class="docutils literal notranslate"><span class="pre">return_difficult</span> <span class="pre">=</span> <span class="pre">True</span></code></p></li>
+</ul>
+<p>However, since the <code class="docutils literal notranslate"><span class="pre">return_difficult</span></code> option has not been set to <code class="docutils literal notranslate"><span class="pre">True</span></code> explicitly when creating the dataset object this time, the default value <code class="docutils literal notranslate"><span class="pre">False</span></code> is used. Therefore, it does not return the <code class="docutils literal notranslate"><span class="pre">difficult</span></code> element which is in the last row of the above table.</p>
+<p>All of the three dataset objects created this time are three arrays of each element <code class="docutils literal notranslate"><span class="pre">Image</span> <span class="pre">data</span></code>,<code class="docutils literal notranslate"><span class="pre">correct</span> <span class="pre">bbox</span> <span class="pre">list</span></code>, and <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">bbox</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">len</span><span class="p">(</span><span class="n">first_datum</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>3
+</pre></div>
+</div>
+</div>
+<p>Certainly, the number of elements was three. Let’s take out image data and look at its shape and dtype.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">first_datum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-8bfb1700b6fb&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>first_datum<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">,</span> first_datum<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>dtype<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;first_datum&#39; is not defined
+</pre></div></div>
+</div>
+<p>Clearly, it is in the form of <code class="docutils literal notranslate"><span class="pre">(3</span> <span class="pre">=</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">channels,</span> <span class="pre">H</span> <span class="pre">=</span> <span class="pre">height,</span> <span class="pre">W</span> <span class="pre">=</span> <span class="pre">width)</span></code>, and the data type is <code class="docutils literal notranslate"><span class="pre">float32</span></code>. It was as it was in the table above. So what format is bbox like? Let’s display contents and show its shape.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[314.  67. 479. 285.]
+ [360. 345. 453. 445.]
+ [178.  52. 298. 145.]
+ [399. 448. 479. 535.]
+ [131. 460. 211. 547.]
+ [294. 453. 374. 540.]
+ [282. 416. 382. 507.]
+ [341. 277. 450. 368.]
+ [ 61. 544. 158. 635.]
+ [ 90. 484. 187. 575.]
+ [170. 375. 252. 437.]
+ [176. 328. 270. 394.]
+ [ 58. 290. 167. 406.]
+ [  0. 298.  67. 403.]
+ [ 25. 345. 137. 448.]
+ [  0. 133.  94. 240.]
+ [ 37.   0. 163.  97.]
+ [159. 164. 263. 256.]
+ [208. 463. 318. 565.]]
+(19, 4)
+</pre></div></div>
+</div>
+<p>Information of 19 bboxes is lined up, and each one is represented by four numbers, <code class="docutils literal notranslate"><span class="pre">(y_min,</span> <span class="pre">x_min,</span> <span class="pre">y_max,</span> <span class="pre">x_max)</span></code>. These four numbers represent the image coordinates (the position on the image plane) of the upper left and lower right of the bbox.</p>
+<p>For each object appearing in the image, outputting these four numbers is one of the goals of object detection. However, in addition to that, it also needs to output which class each bbox belongs to (the type of object inside that bbox). Correct information about this is contained in the last element. Let’s see this.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">first_datum</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+(19,)
+</pre></div></div>
+</div>
+<p>There were 19 numbers. Each of them corresponds to bbox (<code class="docutils literal notranslate"><span class="pre">first_datum[1]</span></code>) displayed above in order, and it indicates which (0: RBC, 1: WBC, 2: Platelet) class each bbox belongs to.</p>
+<p>Lastly, let’s visualize and check one data point in the dataset which is grouped by these three elements. We extract one image extracted from the train data set and its corresponding class label of bbox and their corresponding class labels, display the image using a convenient function for visualization provided by ChainerCV, and then display the names of classes that correspond to the bounding box superimposed there.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">chainercv.visualizations</span> <span class="kn">import</span> <span class="n">vis_bbox</span>
+
+<span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">vis_bbox</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Blood_Cell_Detection_29_0.png" src="../_images/notebooks_Blood_Cell_Detection_29_0.png" />
+</div>
+</div>
+<p>Data preparation is completed.</p>
+</div>
+</div>
+<div class="section" id="Single-Shot-Multibox-Detector-(SSD)">
+<h2>6.4. Single Shot Multibox Detector (SSD)<a class="headerlink" href="#Single-Shot-Multibox-Detector-(SSD)" title="Permalink to this headline">¶</a></h2>
+<p>Next, we will briefly explain the model to train. For this time we will use the technique called <a class="reference external" href="https://arxiv.org/abs/1512.02325">Single Shot MultiBox Detector (SSD)</a></p>
+<p>SSD is a kind of object detection method called single stage type as mentioned above. First, <strong>feature maps</strong> are extracted from images by using a network structure which has achieved great results with image classification like VGG or ResNet . We prepare candidates for each position of feature maps (In the SSD paper, it is called default box, but anchor is more commonly used). Each candidate region has a different form (square, portrait, landscape, different sizes, etc.). For example, we
+prepare 16 x 16 candidates, 16 x 12 candidates, 12 x 16 candidates at the position of (x = 0, y = 0) in the feature map. Then find the candidate that is most <strong>appropriate</strong> for the <strong>correct answer</strong>, calculate <strong>how far candidates are deviated from the correct bounding box</strong>, and train to minimize this deviation. At the same time, predict <strong>which class the object in each area belongs to</strong>, then train it also to reduce error. Ensure that you can predict the situation where no candidate that did
+not match any correct answer was in that position. For more details on this process, please refer to the <a class="reference external" href="https://arxiv.org/abs/1512.02325">original paper</a>.</p>
+<p>On the other hand, in a two stage type technique, Faster R-CNN for example, another network predicts a candidate region (region proposal) of an object with respect to the extracted feature map, and create a feature vector of each candidate region (a calculation called RoI pooling is used) using the result, then <strong>further pass to two different small networks for solving classification problem and solving regression problem of finding the correction amount for the position and size of candidate
+region</strong>.</p>
+<p>For this reason, it is generally said that a single stage type network is faster. On the other hand, it is said that the accuracy of two stage type is higher. For such a trade-off, the following figure is often referred to from the paper (<a class="reference external" href="https://arxiv.org/abs/1611.10012">Speed/accuracy trade-offs for modern convolutional object detectors</a>) comparing various object detection methods.</p>
+<p><img alt="Relation between prediction accuracy and execution speed" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/speed-accuracy-tradeoffs.png" /></p>
+<p>The network architecture of the SSD method used this time has the following form (cited from Fig. 2 of the SSD paper).</p>
+<p><img alt="Network structure of SSD" src="https://raw.githubusercontent.com/preferred-medicine/medical-ai-course-materials/master/notebooks/images/ssd-architecture.png" /></p>
+<p>The VGG-16 network that performs feature extraction is constructed by stacking many convolutional layers. It is designed to lower the resolution of the feature map by applying the pooling process to each of a group of several convolutional layers and acquire more abstract expressions as they accumulate.</p>
+<p>It is a feature of SSD that it enables consideration of multiple scales, by holding the intermediate output at the time when the data passed through each block, finally utilizing the intermediate output (the feature map of different size) taken out from several different depths.</p>
+</div>
+<div class="section" id="Model-of-definition">
+<h2>6.5. Model of definition<a class="headerlink" href="#Model-of-definition" title="Permalink to this headline">¶</a></h2>
+<p>Implementation of the network part of SSD is provided by ChainerCV. The class called <code class="docutils literal notranslate"><span class="pre">chainercv.links.SSD300</span></code> in ChainerCV represents a model of SSD with input of 300 pixels vertically and horizontally, and by default the feature extractor uses 16 layers of network structure called <a class="reference external" href="https://arxiv.org/abs/1409.1556">VGG16</a>.</p>
+<p>Let’s prepare a class that calculates the loss function necessary for training.</p>
+<p>Class that is defined below receives, via a constructor, the object of the SSD model, hyper-parameters for the loss calculation <code class="docutils literal notranslate"><span class="pre">alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> is a coefficient that represents weights between error for position prediction and error for class prediction, respectively. <code class="docutils literal notranslate"><span class="pre">k</span></code> is a parameter for hard negative mining. During the traning, for one correct bounding box, the model outputs at least one close (positive) prediction and many false (negative) predictions. Basically, we sort these many wrong predictions by the confidence score (value expressing how confidently the model is outputting that prediction), then select negative
+samples so that positive:negative becomes 1:k from the top, and use it to calculate the loss. It is <code class="docutils literal notranslate"><span class="pre">k</span></code> a parameter that determines this balance (𝑘=3 is used in the above paper, we also use 𝑘=3 by default.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method, we receive the input image and the list of correct positions and labels, and actually calculate the loss. Object detection solves two problems of object localization (prediction of position) and classification (prediction of type (= class)), however, SSD calculates localization loss and classification loss separately.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">chainer</span>
+<span class="kn">from</span> <span class="nn">chainercv.links</span> <span class="kn">import</span> <span class="n">SSD300</span>
+<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="kn">import</span> <span class="n">multibox_loss</span>
+
+
+<span class="k">class</span> <span class="nc">MultiboxTrainChain</span><span class="p">(</span><span class="n">chainer</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiboxTrainChain</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_scope</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imgs</span><span class="p">,</span> <span class="n">gt_mb_locs</span><span class="p">,</span> <span class="n">gt_mb_labels</span><span class="p">):</span>
+        <span class="n">mb_locs</span><span class="p">,</span> <span class="n">mb_confs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span>
+        <span class="n">loc_loss</span><span class="p">,</span> <span class="n">conf_loss</span> <span class="o">=</span> <span class="n">multibox_loss</span><span class="p">(</span>
+            <span class="n">mb_locs</span><span class="p">,</span> <span class="n">mb_confs</span><span class="p">,</span> <span class="n">gt_mb_locs</span><span class="p">,</span> <span class="n">gt_mb_labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">loc_loss</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">conf_loss</span>
+
+        <span class="n">chainer</span><span class="o">.</span><span class="n">reporter</span><span class="o">.</span><span class="n">report</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;loss/loc&#39;</span><span class="p">:</span> <span class="n">loc_loss</span><span class="p">,</span> <span class="s1">&#39;loss/conf&#39;</span><span class="p">:</span> <span class="n">conf_loss</span><span class="p">},</span>
+            <span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">SSD300</span><span class="p">(</span><span class="n">n_fg_class</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bccd_labels</span><span class="p">),</span> <span class="n">pretrained_model</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">)</span>
+<span class="n">train_chain</span> <span class="o">=</span> <span class="n">MultiboxTrainChain</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Downloading ...
+From: https://chainercv-models.preferred.jp/ssd_vgg16_imagenet_converted_2017_06_09.npz
+To: /root/.chainer/dataset/_dl_cache/b4130ae0aa259c095b50ff95d81c32ee
+  %   Total    Recv       Speed  Time left
+100   76MiB   76MiB   3745KiB/s    0:00:00
+</pre></div></div>
+</div>
+<p>Running the above cell will automatically download the weight (pre-trained model) used when training the network called VGG 16 with the ImageNet-1K data set (large scale dataset of image classification).</p>
+<p>In general, large-scale data sets are required for training of deep learning models, but in some cases it is practically difficult to gather large amounts of data according for individual tasks. In such a case, a training method called Fine-tuning is effective, in which a model is pre-trained with a large-scale image classification data set that has been published (pre-trained model), and re-train it with a small data set at hand. Using a large-scale image classification data set, it is expected
+that the pre-trained model already has the ability to extract most of the features of various images in the real world, there is a possibility of obtaining high accuracy even with less training when it is for the similar task or data set.</p>
+<p>ChainerCV provides several pre-trained models in such a way that they can start using it very easily. Various pre-trained models are listed here: <a class="reference external" href="https://chainercv.readthedocs.io/en/latest/license.html#pretrained-models">Pretrained Models</a></p>
+</div>
+<div class="section" id="Implementation-of-data-augmentation">
+<h2>6.6. Implementation of data augmentation<a class="headerlink" href="#Implementation-of-data-augmentation" title="Permalink to this headline">¶</a></h2>
+<p>In deep learning, whether the large amount of data can be prepared greatly affects the generalization performance of the model. A <strong>technique (data augmentation) that applies various transformations to images and accompanying labels without changing the meaning of the data so as to increase data in a pseudo manner</strong> is a method to inflate training data.</p>
+<p>In the following, you define a class describing the conversion process you want to apply to each data point in the training data set. The conversion to be done is five described in the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method. For example, you can change the color, flip it horizontally, enlarge, or shrink as long as the meaning of the image does not change much. Please note that correct answer labels need to be converted properly in those cases. For example, if you flip it in the horizontal direction, the correct
+solution is the one with the correct answer label flipped in the horizontal direction. Also, it is an effective technique to mask and hide part of the image. This makes it possible to recognize based on various information without relying on only one information in recognition.</p>
+<p>Let’s execute the following cells.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">chainercv</span> <span class="kn">import</span> <span class="n">transforms</span>
+<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="kn">import</span> <span class="n">random_crop_with_bbox_constraints</span>
+<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="kn">import</span> <span class="n">random_distort</span>
+<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="kn">import</span> <span class="n">resize_with_random_interpolation</span>
+
+
+<span class="k">class</span> <span class="nc">Transform</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coder</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mean</span><span class="p">):</span>
+        <span class="c1"># to send cpu, make a copy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coder</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">coder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coder</span><span class="o">.</span><span class="n">to_cpu</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_data</span><span class="p">):</span>
+        <span class="c1"># There are five data augmentation steps</span>
+        <span class="c1"># 1. Color augmentation</span>
+        <span class="c1"># 2. Random expansion</span>
+        <span class="c1"># 3. Random cropping</span>
+        <span class="c1"># 4. Resizing with random interpolation</span>
+        <span class="c1"># 5. Random horizontal flipping</span>
+
+        <span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">in_data</span>
+
+        <span class="c1"># 1. Color augmentation</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">random_distort</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+        <span class="c1"># 2. Random expansion</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">img</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_expand</span><span class="p">(</span>
+                <span class="n">img</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">translate_bbox</span><span class="p">(</span>
+                <span class="n">bbox</span><span class="p">,</span> <span class="n">y_offset</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;y_offset&#39;</span><span class="p">],</span> <span class="n">x_offset</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;x_offset&#39;</span><span class="p">])</span>
+
+        <span class="c1"># 3. Random cropping</span>
+        <span class="n">img</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">random_crop_with_bbox_constraints</span><span class="p">(</span>
+            <span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">bbox</span><span class="p">,</span> <span class="n">param</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">crop_bbox</span><span class="p">(</span>
+            <span class="n">bbox</span><span class="p">,</span> <span class="n">y_slice</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;y_slice&#39;</span><span class="p">],</span> <span class="n">x_slice</span><span class="o">=</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;x_slice&#39;</span><span class="p">],</span>
+            <span class="n">allow_outside_center</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">[</span><span class="n">param</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]]</span>
+
+        <span class="c1"># 4. Resizing with random interpolatation</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">resize_with_random_interpolation</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">resize_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+        <span class="c1"># 5. Random horizontal flipping</span>
+        <span class="n">img</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">random_flip</span><span class="p">(</span>
+            <span class="n">img</span><span class="p">,</span> <span class="n">x_random</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">return_param</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">flip_bbox</span><span class="p">(</span>
+            <span class="n">bbox</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">x_flip</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;x_flip&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Preparation for SSD network</span>
+        <span class="n">img</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
+        <span class="n">mb_loc</span><span class="p">,</span> <span class="n">mb_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">mb_loc</span><span class="p">,</span> <span class="n">mb_label</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Start-of-the-training">
+<h2>6.7. Start of the training<a class="headerlink" href="#Start-of-the-training" title="Permalink to this headline">¶</a></h2>
+<p>In the following, we will use the dataset class <code class="docutils literal notranslate"><span class="pre">TransformDataset</span></code> provided by Chainer to apply the transformation <code class="docutils literal notranslate"><span class="pre">Transform</span></code> we just defined to each data.</p>
+<p>Since the basic flow is common to many of the network training methods which do image classification and segmentation we have already learned, detailed explanation is omitted here.</p>
+<p>First, import the necessary modules. we will adopt SSD 300, provided by ChainerCV, as the neural network to be trained, and use its implementation.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainer.datasets</span> <span class="kn">import</span> <span class="n">TransformDataset</span>
+<span class="kn">from</span> <span class="nn">chainer.optimizer_hooks</span> <span class="kn">import</span> <span class="n">WeightDecay</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="kn">from</span> <span class="nn">chainer</span> <span class="kn">import</span> <span class="n">training</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">extensions</span>
+<span class="kn">from</span> <span class="nn">chainer.training</span> <span class="kn">import</span> <span class="n">triggers</span>
+<span class="kn">from</span> <span class="nn">chainercv.extensions</span> <span class="kn">import</span> <span class="n">DetectionVOCEvaluator</span>
+<span class="kn">from</span> <span class="nn">chainercv.links.model.ssd</span> <span class="kn">import</span> <span class="n">GradientScaling</span>
+
+<span class="n">chainer</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_max_workspace_size</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="n">chainer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">autotune</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<p>Next, assign the following setting items to variables here for easy change later.</p>
+<ul class="simple">
+<li><p>Batch size</p></li>
+<li><p>ID of the GPU to be used</p></li>
+<li><p>Directory name for output result</p></li>
+<li><p>Initial value of learning rate</p></li>
+<li><p>Number of epochs to be trained</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">batchsize</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">gpu_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;results&#39;</span>
+<span class="n">initial_lr</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">training_epoch</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">log_interval</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span>
+<span class="n">lr_decay_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">lr_decay_timing</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Next, we create dataset classes and iterators. This is the same as in the case of image classification already learned. The data points extracted from the data set are converted by the conversion process defined in each predefined <code class="docutils literal notranslate"><span class="pre">Transform</span></code> class.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">transformed_train_dataset</span> <span class="o">=</span> <span class="n">TransformDataset</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">Transform</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coder</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">insize</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span>
+
+<span class="n">train_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">MultiprocessIterator</span><span class="p">(</span><span class="n">transformed_train_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">)</span>
+<span class="n">valid_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="n">batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Next we will create Optimizer. This time, we will optimize the parameters of the model using the technique called Momentum SGD. In doing so, we set hooks for <code class="docutils literal notranslate"><span class="pre">update_rule</span></code> so that the slope is twice as large as the bias parameter of the linear transformation in the model. Also, in the case of bias parameters, weight decay is not performed, and weight decay is set for parameters other than bias parameters. These are techniques often used to stabilize training, etc.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">MomentumSGD</span><span class="p">()</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">train_chain</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">train_chain</span><span class="o">.</span><span class="n">params</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">update_rule</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">GradientScaling</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">update_rule</span><span class="o">.</span><span class="n">add_hook</span><span class="p">(</span><span class="n">WeightDecay</span><span class="p">(</span><span class="mf">0.0005</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Next we will create an updater object. This time, we use the simplest <code class="docutils literal notranslate"><span class="pre">StandardUpdater</span></code> as an updater. We use this updater when training with CPU or single GPU.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">updater</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">updaters</span><span class="o">.</span><span class="n">StandardUpdater</span><span class="p">(</span>
+    <span class="n">train_iter</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gpu_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Finally, we create a Trainer object.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
+    <span class="n">updater</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">training_epoch</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">),</span> <span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>There are no new additions of Trainer Extension from the one described in the previous chapter, but the method of specifying the new attenuation timing called <code class="docutils literal notranslate"><span class="pre">ManualScheduleTrigger</span></code> is used for attenuation of learning rate using ExponentialShift below. If you pass a list of numbers, like <code class="docutils literal notranslate"><span class="pre">[200,</span> <span class="pre">250]</span></code>, that show the timing when you want to start that Extention, and that unit (here <code class="docutils literal notranslate"><span class="pre">epoch</span></code>), it will simply invoke that extension only at the specified timing. In the following code, since
+<code class="docutils literal notranslate"><span class="pre">[200,</span> <span class="pre">250]</span></code> is assigned to <code class="docutils literal notranslate"><span class="pre">lr_decay_timing</span></code> above, at the time of 200 epochs and 250 epochs, ExponentialShift is invoked, multiplying the learning rate by <code class="docutils literal notranslate"><span class="pre">lr_decay_rate0</span></code>, that is, as set above as 0.1 times.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+    <span class="n">extensions</span><span class="o">.</span><span class="n">ExponentialShift</span><span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">lr_decay_rate</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="n">initial_lr</span><span class="p">),</span>
+    <span class="n">trigger</span><span class="o">=</span><span class="n">triggers</span><span class="o">.</span><span class="n">ManualScheduleTrigger</span><span class="p">(</span><span class="n">lr_decay_timing</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Evaluation-Index">
+<h3>6.7.1. Evaluation Index<a class="headerlink" href="#Evaluation-Index" title="Permalink to this headline">¶</a></h3>
+<p>For object detection, the <strong>case where the bbox (bbox to which confidence exceeding a certain value was given) that the model determined as “detected” is actually true bbox and IoU &gt; 0.5 or more is regarded as True Positive</strong>, and the <strong>average precision (AP)</strong> is generally used for evaluation. In addition, Mean average precision (mAP) which calculates this for each class and takes an average as a whole is also used. IoU is described in the explanation about the semantic segmentation in the
+previous chapter, but the IoU in object detection is the same as well, refers to the size of the area enclosed in common divided by the size of the area enclosed by either or both of the predicted rectangle and the correct rectangle</p>
+<p>The extension provided by ChainerCV <code class="docutils literal notranslate"><span class="pre">DetectionVOCEvaluator</span></code> calculates the AP and the whole mAP for each class while learning, using the passed iterator (an iterator val_iter created for the validation dataset here). Again we will use this Extension.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+    <span class="n">DetectionVOCEvaluator</span><span class="p">(</span>
+        <span class="n">valid_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">use_07_metric</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">),</span>
+    <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s add another commonly used extension. For this time, I will save the results of learning every 10 epochs.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">(</span><span class="n">trigger</span><span class="o">=</span><span class="n">log_interval</span><span class="p">))</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">observe_lr</span><span class="p">(),</span> <span class="n">trigger</span><span class="o">=</span><span class="n">log_interval</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span>
+    <span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;lr&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/loc&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/conf&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;validation/main/map&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">]),</span>
+    <span class="n">trigger</span><span class="o">=</span><span class="n">log_interval</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">(</span>
+            <span class="p">[</span><span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/loc&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss/conf&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;loss.png&#39;</span><span class="p">))</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+        <span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">(</span>
+            <span class="p">[</span><span class="s1">&#39;validation/main/map&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;accuracy.png&#39;</span><span class="p">))</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;snapshot_epoch_{.updater.epoch}.npz&#39;</span><span class="p">),</span> <span class="n">trigger</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Now, you would do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>traing will begin immediately, but it will take about 100 minutes. So I just ran this script beforehand and saved the result of learning up to 290 epochs so let’s read this and train only the last 10 epochs. First, download snapshot which is halfway through learning up to 290 epoch points.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>wget https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/detection_snapshot_epoch_290.npz
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--2018-12-16 13:36:44--  https://github.com/japan-medical-ai/medical-ai-course-materials/releases/download/v0.1/detection_snapshot_epoch_290.npz
+Resolving github.com (github.com)... 140.82.118.3, 140.82.118.4
+Connecting to github.com (github.com)|140.82.118.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://github-production-release-asset-2e65be.s3.amazonaws.com/153412006/8191fa00-e78e-11e8-8a9b-3b2647ec012b?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20181216%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20181216T133644Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=8db368451cd08ed3f63daaf1a71d6fc8e00d5e1d60c84eeee422ef7d79c57fe0&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;response-content-disposition=attachment%3B%20filename%3Ddetection_snapshot_epoch_290.npz&amp;response-content-type=application%2Foctet-stream [following]
+--2018-12-16 13:36:44--  https://github-production-release-asset-2e65be.s3.amazonaws.com/153412006/8191fa00-e78e-11e8-8a9b-3b2647ec012b?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20181216%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20181216T133644Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=8db368451cd08ed3f63daaf1a71d6fc8e00d5e1d60c84eeee422ef7d79c57fe0&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;response-content-disposition=attachment%3B%20filename%3Ddetection_snapshot_epoch_290.npz&amp;response-content-type=application%2Foctet-stream
+Resolving github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)... 52.216.136.83
+Connecting to github-production-release-asset-2e65be.s3.amazonaws.com (github-production-release-asset-2e65be.s3.amazonaws.com)|52.216.136.83|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 179653491 (171M) [application/octet-stream]
+Saving to: ‘detection_snapshot_epoch_290.npz’
+
+detection_snapshot_ 100%[===================&gt;] 171.33M  23.7MB/s    in 11s
+
+2018-12-16 13:36:55 (16.1 MB/s) - ‘detection_snapshot_epoch_290.npz’ saved [179653491/179653491]
+
+</pre></div></div>
+</div>
+<p>Next, let’s load this downloaded file <code class="docutils literal notranslate"><span class="pre">detection_snapshot_epoch_250.npz</span></code> into the Trainer object created earlier.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s1">&#39;detection_snapshot_epoch_290.npz&#39;</span><span class="p">,</span> <span class="n">trainer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s train only the last 10 epochs. Please execute the following cell and wait for a moment.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+epoch       iteration   lr          main/loss   main/loss/loc  main/loss/conf  validation/main/map  elapsed_time
+10          65          0.001       6.75134     2.08291        4.66843         0.118168             230.543
+20          129         0.001       4.12112     1.58375        2.53737         0.181493             435.038
+30          193         0.001       3.59885     1.31919        2.27966         0.279919             635.634
+40          257         0.001       3.1998      1.07375        2.12605         0.573733             835.256
+50          321         0.001       2.94131     0.926096       2.01522         0.657611             1034.6
+60          385         0.001       2.86323     0.887698       1.97553         0.670849             1233.12
+70          449         0.001       2.73648     0.819021       1.91746         0.696257             1428.25
+80          513         0.001       2.63796     0.765831       1.87212         0.692361             1625.98
+90          577         0.001       2.55598     0.738259       1.81773         0.711002             1821.58
+100         641         0.001       2.49245     0.701536       1.79092         0.713163             2019.14
+110         705         0.001       2.46662     0.68411        1.78251         0.719259             2215.34
+120         769         0.001       2.42422     0.668462       1.75576         0.716902             2410.75
+130         833         0.001       2.38509     0.651328       1.73376         0.72674              2609.16
+140         897         0.001       2.32725     0.62762        1.69963         0.734795             2809.84
+150         961         0.001       2.28612     0.609401       1.67672         0.731203             3012.42
+160         1025        0.001       2.26408     0.602341       1.66174         0.737827             3208.94
+170         1090        0.001       2.26435     0.602011       1.66234         0.739109             3415.94
+180         1154        0.001       2.20838     0.580387       1.62799         0.73633              3619
+190         1218        0.001       2.1549      0.558059       1.59684         0.738508             3823.92
+200         1282        0.001       2.1479      0.557085       1.59082         0.735312             4022.46
+210         1346        0.0001      2.15193     0.566057       1.58587         0.743703             4218.82
+220         1410        0.0001      2.06368     0.525004       1.53867         0.746575             4421.17
+230         1474        0.0001      2.03127     0.510777       1.52049         0.748318             4629.21
+240         1538        0.0001      2.03743     0.517596       1.51984         0.748923             4836.61
+250         1602        0.0001      2.01771     0.50665        1.51106         0.74621              5044.15
+260         1666        1e-05       1.9999      0.500324       1.49958         0.750594             5251.47
+270         1730        1e-05       2.0164      0.502952       1.51345         0.749446             5459.1
+280         1794        1e-05       2.0113      0.504592       1.50671         0.750496             5667.54
+290         1858        1e-05       2.0113      0.507134       1.50417         0.750217             5871.16
+300         1922        1e-05       2.0002      0.496281       1.50392         0.749795             6107.78
+</pre></div></div>
+</div>
+<p>Training is completed. From the next section we will try <strong>to infer</strong> the <strong>unknown data</strong> using the new snapshot obtained as a result of this training.</p>
+</div>
+</div>
+<div class="section" id="Inference-using-training-result">
+<h2>6.8. Inference using training result<a class="headerlink" href="#Inference-using-training-result" title="Permalink to this headline">¶</a></h2>
+<p>The parameters of the model obtained as a result of training are saved in the file by the Trainer extension called <code class="docutils literal notranslate"><span class="pre">extensions.snapshot()</span></code>. By default, the save destination is less than or equal to the directory specified by the argument <code class="docutils literal notranslate"><span class="pre">out</span></code> that it was passed at the time of Trainer object initialization. This time, it should be under <code class="docutils literal notranslate"><span class="pre">results</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls -la results/
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+total 175520
+drwxr-xr-x 2 root root      4096 Dec 16 13:41 .
+drwxr-xr-x 1 root root      4096 Dec 16 13:36 ..
+-rw-r--r-- 1 root root     16448 Dec 16 13:40 accuracy.png
+-rw-r--r-- 1 root root     14213 Dec 16 13:40 log
+-rw-r--r-- 1 root root     19216 Dec 16 13:40 loss.png
+-rw-r--r-- 1 root root 179665430 Dec 16 13:41 snapshot_epoch_300.npz
+</pre></div></div>
+</div>
+<p>As a result of executing the above shell command, a file called <code class="docutils literal notranslate"><span class="pre">snapshot_epoch_300.npz</span></code> should be found. This is a collection of the parameters necessary for restarting the training that was in Trainer during training. For that reason, parameters other than the parameters that the model itself had inside, such as the parameters that the Optimizer has inside, are stored together. Therefore, this time we will use only the parameters of the model necessary for inference from this file and use
+it.</p>
+<p>As a way to retrieve the model parameters, using <code class="docutils literal notranslate"><span class="pre">chainer.serializers.load_npz</span></code>, there’s a way to see only what are under the specific hierarchy by specifying keys in <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file. When taking a snapshot of the entire Trainer object, other than the parameters inside the model, such as information on the iteration count of the Optimizer, are also stored, but if you pass the prefix <code class="docutils literal notranslate"><span class="pre">updater/model:main/model</span></code>, you can retrieve only the parameter part of the model.</p>
+<p>In the place different from the one used for training, assuming a situation where only the snapshot and the code of the definition of the model are passed, let’s create a new model object and load pre-trained parameters there.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Create a model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SSD300</span><span class="p">(</span><span class="n">n_fg_class</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bccd_labels</span><span class="p">),</span> <span class="n">pretrained_model</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load parameters to the model</span>
+<span class="n">chainer</span><span class="o">.</span><span class="n">serializers</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span>
+    <span class="s1">&#39;results/snapshot_epoch_300.npz&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;updater/model:main/model/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s try to detect the cells with one of the test images using the model loaded with the trained weights. In the following code, we read images, execute inference, and visualize the results in order using ChainerCV.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">chainercv</span> <span class="kn">import</span> <span class="n">utils</span>
+
+<span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="n">image_filename</span><span class="p">):</span>
+    <span class="c1"># Load a test image</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">image_filename</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c1"># Perform inference</span>
+    <span class="n">bboxes</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">img</span><span class="p">])</span>
+
+    <span class="c1"># Extract the results</span>
+    <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Visualize the detection results</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">vis_bbox</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">inference</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD/JPEGImages/BloodImage_00007.jpg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Blood_Cell_Detection_67_0.png" src="../_images/notebooks_Blood_Cell_Detection_67_0.png" />
+</div>
+</div>
+<p>Let’s further infer some images and take a look at the results.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">image_filename</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD/ImageSets/Main/test.txt&#39;</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">image_filename</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">inference</span><span class="p">(</span><span class="s1">&#39;BCCD_Dataset/BCCD/JPEGImages/&#39;</span> <span class="o">+</span> <span class="n">image_filename</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>  <span class="c1"># finish after displaying 5+1 items</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-705ffab8b5bd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">import</span> matplotlib<span class="ansi-blue-fg">.</span>pyplot <span class="ansi-green-fg">as</span> plt
+<span class="ansi-green-intense-fg ansi-bold">      2</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> i<span class="ansi-blue-fg">,</span> image_filename <span class="ansi-green-fg">in</span> enumerate<span class="ansi-blue-fg">(</span>open<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;BCCD_Dataset/BCCD/ImageSets/Main/test.txt&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     print<span class="ansi-blue-fg">(</span>image_filename<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     plt<span class="ansi-blue-fg">.</span>clf<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;BCCD_Dataset/BCCD/ImageSets/Main/test.txt&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Evaluating-trained-model">
+<h2>6.9. Evaluating trained model<a class="headerlink" href="#Evaluating-trained-model" title="Permalink to this headline">¶</a></h2>
+<p>After training, we evaluate the obtained model with the test dataset. Validation data set is not used directly to calculate parameter update amount during learning, however, <strong>it is used for adjusting hyperparameters</strong> such as learning rate and ratio / timing of learning rate attenuation. <strong>Strictly speaking, it is not true that the validation dataset was not used for the training</strong>. Therefore, in order to obtain an indication of the extent of the generalization performance of the finally
+obtained model, it is necessary to <strong>evaluate using the third data set not included in any of the training / verification data set</strong>.</p>
+<p>Evaluator, one of Chainer’s Trainer Extensions, can actually be used alone, wit outh Trainer. <code class="docutils literal notranslate"><span class="pre">DetectionVOCEvaluatoran</span></code> ChainerCV provides, as it is an extension version Evaluator inherited from Chainer’s Evaluator, it can be used for evaluation only independent from Trainer as well.</p>
+<p>Now, let’s use <code class="docutils literal notranslate"><span class="pre">test_dataset</span></code> prepared at the beginning, passes it along with the trained model used earlier to <code class="docutils literal notranslate"><span class="pre">DetectionVOCEvaluator</span></code>, and perform the final performance evaluation using the test data set.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">test_batchsize</span> <span class="o">=</span> <span class="mi">256</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">()</span>
+
+<span class="n">test_iter</span> <span class="o">=</span> <span class="n">chainer</span><span class="o">.</span><span class="n">iterators</span><span class="o">.</span><span class="n">SerialIterator</span><span class="p">(</span>
+    <span class="n">test_dataset</span><span class="p">,</span> <span class="n">test_batchsize</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">test_evaluator</span> <span class="o">=</span> <span class="n">DetectionVOCEvaluator</span><span class="p">(</span>
+    <span class="n">test_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">use_07_metric</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">label_names</span><span class="o">=</span><span class="n">bccd_labels</span><span class="p">)</span>
+
+<span class="n">test_evaluator</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;main/ap/platelets&#39;: 0.43220927662530395,
+ &#39;main/ap/rbc&#39;: 0.760081977582848,
+ &#39;main/ap/wbc&#39;: 0.9651693947468596,
+ &#39;main/map&#39;: 0.7191535496516704}
+</pre></div>
+</div>
+</div>
+<p>Looking at the results displayed here, we found that prediction for white blood cells is most accurate, then red blood cells, while platelets predictions are much lower than those of the other two. In these cases, it is necessary to check whether platelets, erythrocytes, white blood cells appear in the data set at the same frequency. If the frequency varies from class to class, the model seems to be able to observe less frequent classes less frequently than frequent classes. It is not the best
+way to handle training by treating them completely equally without distinction.</p>
+<p>Even when training an object detector with actual application, It is important to have phase where we examine the features etc by first trying training using a well known model, and obtain a result, then match the result with the data, and analyze the prediction trend of the model and the data set itself.</p>
+<p>As for the problem of Class imbalance, the method called <a class="reference external" href="https://arxiv.org/abs/1708.02002">Focal loss</a> proposes a simple and powerful proposal. It may be helpful.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DNA_Sequence_Data_Analysis.html" class="btn btn-neutral float-right" title="7. Practical part: sequence analysis using deep learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Image_Segmentation.html" class="btn btn-neutral" title="5. Practice: Segmentation of MRI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Preferred Networks &amp; キカガク
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
