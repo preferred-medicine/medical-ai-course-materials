@@ -923,7 +923,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span>import numpy as np
 </pre></div>
 </div>
 </div>
@@ -933,7 +933,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span></span>t = np.array([1, 5, 6, 8])
 </pre></div>
 </div>
 </div>
@@ -943,7 +943,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span></span>print(t)
 </pre></div>
 </div>
 </div>
@@ -961,12 +961,12 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
-<span class="p">])</span>
+<span></span>X = np.array([
+    [1, 2, 3],
+    [1, 2, 5],
+    [1, 3, 4],
+    [1, 5, 9]
+])
 </pre></div>
 </div>
 </div>
@@ -975,7 +975,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span></span>print(X)
 </pre></div>
 </div>
 </div>
@@ -997,7 +997,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span></span>print(X.T)
 </pre></div>
 </div>
 </div>
@@ -1018,7 +1018,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">XX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span></span>XX = np.dot(X.T, X)
 </pre></div>
 </div>
 </div>
@@ -1027,7 +1027,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">XX</span><span class="p">)</span>
+<span></span>print(XX)
 </pre></div>
 </div>
 </div>
@@ -1047,7 +1047,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">XX_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">XX</span><span class="p">)</span>
+<span></span>XX_inv = np.linalg.inv(XX)
 </pre></div>
 </div>
 </div>
@@ -1056,7 +1056,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">XX_inv</span><span class="p">)</span>
+<span></span>print(XX_inv)
 </pre></div>
 </div>
 </div>
@@ -1077,7 +1077,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">Xt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span></span>Xt = np.dot(X.T, t)
 </pre></div>
 </div>
 </div>
@@ -1086,7 +1086,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+<span></span>print(Xt)
 </pre></div>
 </div>
 </div>
@@ -1103,7 +1103,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">XX_inv</span><span class="p">,</span> <span class="n">Xt</span><span class="p">)</span>
+<span></span>w = np.dot(XX_inv, Xt)
 </pre></div>
 </div>
 </div>
@@ -1112,7 +1112,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span></span>print(w)
 </pre></div>
 </div>
 </div>
@@ -1151,7 +1151,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sklearn</span>
+<span></span>import sklearn
 </pre></div>
 </div>
 </div>
@@ -1161,7 +1161,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
+<span></span>from sklearn.linear_model import LinearRegression
 </pre></div>
 </div>
 </div>
@@ -1172,7 +1172,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span></span>model = LinearRegression()
 </pre></div>
 </div>
 </div>
@@ -1182,15 +1182,15 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
-<span class="p">])</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span></span>X = np.array([
+    [2, 3],
+    [2, 5],
+    [3, 4],
+    [5, 9]
+])
+t = np.array([1, 5, 6, 8])
 
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+model.fit(X, t)
 </pre></div>
 </div>
 </div>
@@ -1208,7 +1208,7 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span></span>model.score(X, t)
 </pre></div>
 </div>
 </div>
@@ -1230,8 +1230,8 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># パラメータw</span>
-<span class="n">model</span><span class="o">.</span><span class="n">coef_</span>
+<span></span># パラメータw
+model.coef_
 </pre></div>
 </div>
 </div>
@@ -1248,8 +1248,8 @@ w_{1} + 2w_{2} \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># バイアスb</span>
-<span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
+<span></span># バイアスb
+model.intercept_
 </pre></div>
 </div>
 </div>
@@ -1291,7 +1291,7 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">load_boston</span>
+<span></span>from sklearn.datasets import load_boston
 </pre></div>
 </div>
 </div>
@@ -1300,7 +1300,7 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+<span></span>boston = load_boston()
 </pre></div>
 </div>
 </div>
@@ -1310,8 +1310,8 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span></span>X = boston[&#39;data&#39;]
+t = boston[&#39;target&#39;]
 </pre></div>
 </div>
 </div>
@@ -1320,7 +1320,7 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span></span>print(X)
 </pre></div>
 </div>
 </div>
@@ -1343,7 +1343,7 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span></span>print(t)
 </pre></div>
 </div>
 </div>
@@ -1397,7 +1397,7 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+<span></span>X.shape
 </pre></div>
 </div>
 </div>
@@ -1414,7 +1414,7 @@ build a model that predicts the average property price, which is an output varia
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">t</span><span class="o">.</span><span class="n">shape</span>
+<span></span>t.shape
 </pre></div>
 </div>
 </div>
@@ -1438,7 +1438,7 @@ learning data. This separation and verification is called <strong>holdout method
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span></span>from sklearn.model_selection import train_test_split
 </pre></div>
 </div>
 </div>
@@ -1447,7 +1447,7 @@ learning data. This separation and verification is called <strong>holdout method
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">t_train</span><span class="p">,</span> <span class="n">t_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span></span>X_train, X_test, t_train, t_test = train_test_split(X, t, test_size=0.3, random_state=0)
 </pre></div>
 </div>
 </div>
@@ -1456,7 +1456,7 @@ learning data. This separation and verification is called <strong>holdout method
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span>
+<span></span>X_train.shape
 </pre></div>
 </div>
 </div>
@@ -1473,7 +1473,7 @@ learning data. This separation and verification is called <strong>holdout method
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
+<span></span>X_test.shape
 </pre></div>
 </div>
 </div>
@@ -1493,7 +1493,7 @@ for testing.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span></span>model = LinearRegression()
 </pre></div>
 </div>
 </div>
@@ -1502,7 +1502,7 @@ for testing.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">t_train</span><span class="p">)</span>
+<span></span>model.fit(X_train, t_train)
 </pre></div>
 </div>
 </div>
@@ -1520,8 +1520,8 @@ for testing.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># 訓練データ</span>
-<span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">t_train</span><span class="p">)</span>
+<span></span># 訓練データ
+model.score(X_train, t_train)
 </pre></div>
 </div>
 </div>
@@ -1538,8 +1538,8 @@ for testing.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># テストデータ</span>
-<span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">t_test</span><span class="p">)</span>
+<span></span># テストデータ
+model.score(X_test, t_test)
 </pre></div>
 </div>
 </div>
@@ -1560,7 +1560,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">StandardScaler</span>
+<span></span>from sklearn.preprocessing import StandardScaler
 </pre></div>
 </div>
 </div>
@@ -1569,8 +1569,8 @@ are captured to some extent by the algorithm, so we will take measures to preven
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># インスタンス化</span>
-<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span></span># インスタンス化
+scaler = StandardScaler()
 </pre></div>
 </div>
 </div>
@@ -1580,8 +1580,8 @@ are captured to some extent by the algorithm, so we will take measures to preven
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># 平均と分散を計算</span>
-<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span></span># 平均と分散を計算
+scaler.fit(X_train)
 </pre></div>
 </div>
 </div>
@@ -1599,9 +1599,9 @@ are captured to some extent by the algorithm, so we will take measures to preven
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># 変換</span>
-<span class="n">X_train_s</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">X_test_s</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span></span># 変換
+X_train_s = scaler.transform(X_train)
+X_test_s  = scaler.transform(X_test)
 </pre></div>
 </div>
 </div>
@@ -1612,7 +1612,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train_s</span><span class="p">)</span>
+<span></span>print(X_train_s)
 </pre></div>
 </div>
 </div>
@@ -1641,7 +1641,7 @@ are captured to some extent by the algorithm, so we will take measures to preven
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_test_s</span><span class="p">)</span>
+<span></span>print(X_test_s)
 </pre></div>
 </div>
 </div>
