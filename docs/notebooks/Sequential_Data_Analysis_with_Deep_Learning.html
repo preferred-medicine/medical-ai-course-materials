@@ -1572,6 +1572,8 @@ strategies to learn the model focusing on the detection of a few classes.</p>
 </ol>
 <p>We define the class to do the sampling .<code class="docutils literal notranslate"><span class="pre">SampledECGDataset</span></code></p>
 <p>Also, prepare a <code class="docutils literal notranslate"><span class="pre">create_sampled_train_datset()</span></code> function to read the class and create a data set object.</p>
+<p>Note: The following note is specific for Colab! The following section about imblearn right until Changing the loss function needs to be run on Python2 in Colab. Colab does not seem to support sklearn mkdirs function for Python 3 on which imblearn is dependent. However, you should have no problem running it as it is if its on Jupyter (ipython notebook) or your local machine/any other virtual machine). Please create a new notebook in Colab in Python 2 and copy the contents over from this notebook
+and run it.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1691,7 +1693,7 @@ Wall time: 18 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_86_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_86_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_87_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_87_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1857,7 +1859,7 @@ Wall time: 17.9 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_99_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_99_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_100_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_100_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -2089,7 +2091,7 @@ Wall time: 17.9 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_114_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_114_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_115_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_115_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -2302,7 +2304,7 @@ plt.show()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_126_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_126_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_127_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_127_0.png" />
 </div>
 </div>
 <p>The left figure shows the waveform before filtering and the right figure shows the waveform after filtering. I think that it can be confirmed that fine vibration has been removed.</p>
@@ -2395,7 +2397,7 @@ Wall time: 18 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_132_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_132_0.png" />
+<img alt="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_133_0.png" src="../_images/notebooks_Sequential_Data_Analysis_with_Deep_Learning_133_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
